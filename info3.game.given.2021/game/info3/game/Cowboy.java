@@ -135,7 +135,7 @@ public class Cowboy extends DynamicEntity{
 			break;
 		}
 	}*/
-
+/*
 	public static BufferedImage[] loadSprite(String filename, int nrows, int ncols) throws IOException {
 		File imageFile = new File(filename);
 		if (imageFile.exists()) {
@@ -154,7 +154,7 @@ public class Cowboy extends DynamicEntity{
 			return images;
 		}
 		return null;
-	}
+	}*/
 
 	@Override
 	public void pop() {

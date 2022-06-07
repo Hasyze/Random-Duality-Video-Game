@@ -25,6 +25,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Random;
 
@@ -38,6 +39,7 @@ public class Game {
 
 	static Game game;
 	Image bg = info3.game.graphics.GameCanvas.loadImage("resources/images_test/among-us.png");
+	
 
 	public static void main(String args[]) throws Exception {
 		
@@ -53,21 +55,28 @@ public class Game {
 			th.printStackTrace(System.err);
 		}
 	}
-
+	
 	JFrame m_frame;
 	JLabel m_text;
 	GameCanvas m_canvas;
 	CanvasListener m_listener;
 	Cowboy m_cowboy, m_cowboy2;
-	Rocher m_rocher;
+	Rocher[] m_rocher=info3.game.Rocher.init_rocher();
+	
+	
+	
+	
 	Sound m_music;
+	
 
 	Game() throws Exception {
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
 		m_cowboy = new Cowboy();
 		//m_cowboy2 = new Cowboy();
-		m_rocher= new Rocher();
+		//m_rocher= new Rocher();
+		
+		
 		// creating a listener for all the events
 		// from the game canvas, that would be
 		// the controller in the MVC pattern
@@ -203,8 +212,8 @@ public class Game {
 																			// la position du joueur à l'écran
 		int screenY = m_canvas.getY() - m_cowboy.y + m_cowboy.y;	//Idem
 
-		int screenX_rocher=m_canvas.getX()-m_rocher.x;
-		int screenY_rocher=m_canvas.getX()-m_rocher.y;
+	//	int screenX_rocher=m_canvas.getX()-m_rocher.x;
+	//	int screenY_rocher=m_canvas.getX()-m_rocher.y;
 		//AFFICHAGE IMAGE BACKGROUND
 		
 		try {
@@ -220,7 +229,10 @@ public class Game {
 		
 		// paint
 		m_cowboy.paint(g, width, height);
-		m_rocher.paint(g, width, height);
+		for(int i=0; i<m_rocher.length;i++) {
+			m_rocher[i].paint(g, width, height);
+		}
+		
 		//m_cowboy2.paint(g, width, height);
 	}
 

@@ -197,9 +197,9 @@ public class Game {
 		
 		int width = m_canvas.getWidth();
 		int height = m_canvas.getHeight();
-		int screenX = m_canvas.getX() - m_cowboy.worldX + m_cowboy.screenX; // on récupère la position de base du canvas (map) puis on la décale selon
+		int screenX = m_canvas.getX() - m_cowboy.worldX + m_cowboy.x; // on récupère la position de base du canvas (map) puis on la décale selon
 																			// la position du joueur à l'écran
-		int screenY = m_canvas.getY() - m_cowboy.worldY + m_cowboy.screenY;	//Idem
+		int screenY = m_canvas.getY() - m_cowboy.worldY + m_cowboy.y;	//Idem
 
 		
 		//AFFICHAGE IMAGE BACKGROUND

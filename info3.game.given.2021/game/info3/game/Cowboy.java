@@ -34,27 +34,27 @@ import javax.imageio.ImageIO;
  *
  */
 public class Cowboy extends DynamicEntity{
-	BufferedImage[] m_images;
-	int m_imageIndex;
+	//BufferedImage[] m_images;
+	//int m_imageIndex;
 	long m_imageElapsed;
 	long m_moveElapsed;
 	public int worldX = 500, worldY = 350; //position du personnage sur la carte 
 	int m_width;
-	int x_speed;
+	/*int x_speed;
 	int y_speed;
 	int x_nspeed;
-	int y_nspeed;
+	int y_nspeed;*/
 	
 	//STATS
 	int speed = 4;
 	
-	public final int screenX;
-	public final int screenY;
+	//public final int screenX;
+	//public final int screenY;
 
 	Cowboy() throws IOException {
 		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
-		screenX = 500;
-		screenY = 350;
+		x = 500;
+		y = 350;
 		
 	}
 
@@ -80,10 +80,10 @@ public class Cowboy extends DynamicEntity{
 		m_width = width;
 		BufferedImage img = m_images[m_imageIndex];
 		int scale = 2;
-		g.drawImage(img, screenX, screenY, scale * img.getWidth(), scale * img.getHeight(), null);
+		g.drawImage(img, x, y, scale * img.getWidth(), scale * img.getHeight(), null);
 	}
 
-	public void set_orientation() {
+/*	public void set_orientation() {
 		// Version un peu moche, verifier le format des sprites, cherche une nouvelle
 		// solution
 		// Ajouter un chant orientation pour les projectiles ?
@@ -110,9 +110,9 @@ public class Cowboy extends DynamicEntity{
 			m_imageIndex = 13;//GOOD
 			
 		}
-	}
+	}*/
 
-	public void set_speed(int code, int speed) {
+/*	public void set_speed(int code, int speed) {
 		System.out.println("déplacement");
 		switch (code) {
 		case 37:
@@ -132,7 +132,7 @@ public class Cowboy extends DynamicEntity{
 			y_speed = speed;
 			break;
 		}
-	}
+	}*/
 
 	public static BufferedImage[] loadSprite(String filename, int nrows, int ncols) throws IOException {
 		File imageFile = new File(filename);
@@ -180,8 +180,8 @@ public class Cowboy extends DynamicEntity{
 		
 	}
 
-	@Override
-	public void move(int code) {
+	//@Override
+	/*public void move(int code) {
 		switch (code) {
 		case 37:
 		case 81:
@@ -201,10 +201,10 @@ public class Cowboy extends DynamicEntity{
 			break;
 		}
 		
-	}
+	}*/
 
-	@Override
-	public void stop(int code) {
+//	@Override
+/*	public void stop(int code) {
 		switch (code) {
 		case 37:
 		case 81:
@@ -224,6 +224,6 @@ public class Cowboy extends DynamicEntity{
 			break;
 		}
 		
-	}
+	}*/
 
 }

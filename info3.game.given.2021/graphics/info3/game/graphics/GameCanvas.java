@@ -89,10 +89,10 @@ public class GameCanvas extends Canvas {
      * background before the update/repaint methods are called, causing an annoying
      * flickering.
      */
-    System.setProperty("sun.awt.noerasebackground", "true");
+    System.setProperty("sun.awt.noerasebackground", "True");
 
     m_listener = l;
-    setBackground(Color.red);
+    setBackground(Color.black);
     addKeyListener(l);
     addMouseListener(l);
     addMouseMotionListener(l);

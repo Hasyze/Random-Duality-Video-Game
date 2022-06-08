@@ -98,8 +98,8 @@ public class CanvasListener implements GameCanvasListener {
 			m_game.m_cowboy2.move(e.getKeyCode());
 			break;
 		case 77:
-			System.out.println("m_x" + m_game.m_cowboy.worldX );
-			System.out.println("m_y" + m_game.m_cowboy.worldY );
+			System.out.println("m_x" + m_game.m_cowboy.x );
+			System.out.println("m_y" + m_game.m_cowboy.y );
 
 		}
 		

@@ -8,6 +8,8 @@ public class StaticEntity {
 	int y;
 	BufferedImage[] m_images;
 	
+	int m_imageIndex;
+	
 	public StaticEntity(){
 		this.x=0;
 		this.y=0;

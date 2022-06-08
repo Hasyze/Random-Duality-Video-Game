@@ -59,6 +59,7 @@ public class Game {
 	GameCanvas m_canvas;
 	CanvasListener m_listener;
 	Cowboy m_cowboy, m_cowboy2;
+	Rocher m_rocher;
 	Sound m_music;
 
 	Game() throws Exception {
@@ -66,6 +67,7 @@ public class Game {
 		// in an Model-View-Controller pattern (MVC)
 		m_cowboy = new Cowboy();
 		//m_cowboy2 = new Cowboy();
+		m_rocher= new Rocher();
 		// creating a listener for all the events
 		// from the game canvas, that would be
 		// the controller in the MVC pattern
@@ -201,7 +203,8 @@ public class Game {
 																			// la position du joueur à l'écran
 		int screenY = m_canvas.getY() - m_cowboy.y + m_cowboy.y;	//Idem
 
-		
+		int screenX_rocher=m_canvas.getX()-m_rocher.x;
+		int screenY_rocher=m_canvas.getX()-m_rocher.y;
 		//AFFICHAGE IMAGE BACKGROUND
 		
 		try {
@@ -217,6 +220,7 @@ public class Game {
 		
 		// paint
 		m_cowboy.paint(g, width, height);
+		m_rocher.paint(g, width, height);
 		//m_cowboy2.paint(g, width, height);
 	}
 

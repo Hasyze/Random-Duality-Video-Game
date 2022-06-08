@@ -77,6 +77,7 @@ public class Cowboy extends DynamicEntity{
 		}
 	}
 
+	//A remonter dans dynamic 
 	public void paint(Graphics g, int width, int height) {
 		m_width = width;
 		BufferedImage img = m_images[m_imageIndex];

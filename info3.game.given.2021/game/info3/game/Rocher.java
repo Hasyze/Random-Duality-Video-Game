@@ -1,21 +1,50 @@
 package info3.game;
 
 import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 import java.awt.Graphics;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
 
-public class Rocher {
+public class Rocher extends StaticEntity{
+	
+	int m_width;
 	
 	Rocher() throws IOException {
 		super();
+		this.m_images=loadSprite("resources/images_test/rocher.png", 2, 5);
+		this.x = 512;
+		this.y = 300;
 		
-		
-		
-		this.m= loadSprite("resources/winchester-4x6.png", 4, 6);
-		this.x = 500;
-		this.y = 350;
-		
+	}
+	
+	public static BufferedImage[] loadSprite(String filename, int nrows, int ncols) throws IOException {
+		File imageFile = new File(filename);
+		if (imageFile.exists()) {
+			BufferedImage image = ImageIO.read(imageFile);
+			int width = image.getWidth(null) / ncols;
+			int height = image.getHeight(null) / nrows;
+
+			BufferedImage[] images = new BufferedImage[nrows * ncols];
+			for (int i = 0; i < nrows; i++) {
+				for (int j = 0; j < ncols; j++) {
+					int x = j * width;
+					int y = i * height;
+					images[(i * ncols) + j] = image.getSubimage(x, y, width, height);
+				}
+			}
+			return images;
+		}
+		return null;
+	}
+	
+	public void paint(Graphics g, int width, int height) {
+		m_width = width;
+		BufferedImage img = m_images[0];
+		int scale = 2;
+		g.drawImage(img, this.x, this.y, scale * img.getWidth(), scale * img.getHeight(), null);
 	}
 }

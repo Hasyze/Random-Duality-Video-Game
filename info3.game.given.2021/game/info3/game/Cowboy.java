@@ -24,7 +24,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
+//test commit Florian
 import javax.imageio.ImageIO;
 
 /**

@@ -24,6 +24,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.io.RandomAccessFile;
 
 import javax.swing.JFrame;
@@ -35,6 +36,7 @@ import info3.game.sound.RandomFileInputStream;
 public class Game {
 
 	static Game game;
+	Image bg = info3.game.graphics.GameCanvas.loadImage("resources/images_test/room.jpg");
 
 	public static void main(String args[]) throws Exception {
 		try {
@@ -123,7 +125,7 @@ public class Game {
 	}
 
 	private int m_musicIndex = 0;
-	private String[] m_musicNames = new String[] { "Runaway-Food-Truck" };
+	private String[] m_musicNames = new String[] { "Marble-Machine" };
 
 	private long m_textElapsed;
 
@@ -156,16 +158,26 @@ public class Game {
 	 * This request is to paint the Game Canvas, using the given graphics. This is
 	 * called from the GameCanvasListener, called from the GameCanvas.
 	 */
+	
 	void paint(Graphics g) {
 
 		// get the size of the canvas
 		int width = m_canvas.getWidth();
 		int height = m_canvas.getHeight();
-
+		
+		//AFFICHAGE IMAGE BACKGROUND
+		
+		try {
+			g.setColor(Color.black);
+			g.fillRect(0, 0, width, height);
+			g.drawImage(bg, 0, 0, bg.getWidth(null), bg.getHeight(null), 0, 0, 1024, 565, Color.gray, null);
+			
+		} catch (Throwable th) {
+			th.printStackTrace(System.err);
+		}
 		// erase background
-		g.setColor(Color.red);
-		g.fillRect(0, 0, width, height);
-
+		
+		
 		// paint
 		m_cowboy.paint(g, width, height);
 		m_cowboy2.paint(g, width, height);

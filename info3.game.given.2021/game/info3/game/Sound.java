@@ -16,7 +16,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  *  Created on: March, 2020
- *      Author: Pr. Olivier Gruber
+ *      Author: Pr. Olivier Gruber	
  */
 package info3.game;
 
@@ -25,8 +25,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import info3.game.graphics.GameCanvas;
-import info3.game.sound.AudioPlayer;
-import info3.game.sound.AudioPlayerListener;
 
 public class Sound {
   GameCanvas m_canvas;

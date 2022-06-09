@@ -22,19 +22,19 @@ public class Etage {
 	}
 	
 	
-	public void initialisation_etage() {
+	public void initialisation_etage() {	//Créer l'entrée
 		Random r = new Random();
 		int j = r.nextInt(3) +1;
 		salles[0] = new Salle(j, "Entrée ");
 	}
 	
-	public void creer_map(int niveau) {
+	public void creer_map(int niveau) {	//Initialise l'étage, créer les salles, avec leurs portes, fait le lien entre les portes, insèere la salle du boss
 		
 		salles = new Salle[niveau+3];
 		
 		initialisation_etage();
 		
-		for (int i = 1; i < niveau+2; i++ ) {
+		for (int i = 1; i < niveau+2; i++ ) {	//
 			int chiffre_valide = 0;
 			int j = 0;
 			int x = nbr_de_portes_dispo(i);

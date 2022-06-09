@@ -42,7 +42,7 @@ public class Cowboy {
 	int y_speed;
 
 	Cowboy() throws IOException {
-		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
+		m_images = loadSprite("resources/walking_pilot4_resize.png", 4, 12);
 	}
 
 	/*

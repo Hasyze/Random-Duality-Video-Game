@@ -1,9 +1,10 @@
 package info3.game;
 
-public interface Entity { 
-		public void pop();
-		public void wizz();
-		public Entity egg();
-		public void transfert(Entity e);
+public abstract class Entity extends Object{ 
+		
+		public void pop() {}
+		public void wizz() {}
+		public Entity egg() {return this;}
+		public void transfert(Entity e){}
 				
 }

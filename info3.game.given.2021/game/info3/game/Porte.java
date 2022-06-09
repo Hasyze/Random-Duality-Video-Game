@@ -9,6 +9,14 @@ public class Porte {
 		salle_origine = origine;
 		salle_destination = null;
 	}
+	Porte(Salle origine, Salle destination) {
+		salle_origine = origine;
+		salle_destination = destination;
+	}
+	
+	void destination(Salle s){
+		salle_destination = s;
+	}
 	
 	
 }

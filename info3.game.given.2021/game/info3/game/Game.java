@@ -37,17 +37,17 @@ public class Game {
 	static Game game;
 
 	public static void main(String args[]) throws Exception {
-		Etage Map = new Etage(4);
+		//Etage Map = new Etage(4);
 		
-		Map.test_etage();
-		/**
+		//Map.test_etage();
+		
 		try {
 			System.out.println("Game starting...");
 			game = new Game();
 			System.out.println("Game started.");
 		} catch (Throwable th) {
 			th.printStackTrace(System.err);
-		}**/
+		}
 	}
 
 	JFrame m_frame;

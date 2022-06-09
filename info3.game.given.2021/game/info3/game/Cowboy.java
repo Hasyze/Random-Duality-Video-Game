@@ -36,7 +36,7 @@ public class Cowboy implements DynamicEntity{
 	int m_imageIndex;
 	long m_imageElapsed;
 	long m_moveElapsed;
-	int m_x = 10, m_y = 10;
+	int m_x = 500, m_y = 200;
 	int m_width;
 	int x_speed;
 	int y_speed;

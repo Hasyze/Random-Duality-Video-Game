@@ -31,7 +31,7 @@ import javax.imageio.ImageIO;
  * A simple class that holds the images of a sprite for an animated cowbow.
  *
  */
-public class Cowboy implements DynamicEntity{
+public class Cowboy {
 	BufferedImage[] m_images;
 	int m_imageIndex;
 	long m_imageElapsed;
@@ -40,11 +40,6 @@ public class Cowboy implements DynamicEntity{
 	int m_width;
 	int x_speed;
 	int y_speed;
-	int x_nspeed;
-	int y_nspeed;
-	
-	//STATS
-	int speed = 4;
 
 	Cowboy() throws IOException {
 		m_images = loadSprite("resources/walking_pilot4_resize.png", 4, 12);
@@ -57,13 +52,14 @@ public class Cowboy implements DynamicEntity{
 		m_imageElapsed += elapsed;
 		if (m_imageElapsed > 200) {
 			m_imageElapsed = 0;
-			// m_imageIndex = (m_imageIndex + 1) % m_images.length;
+			
 		}
 		m_moveElapsed += elapsed;
 		if (m_moveElapsed > 24 & m_width != 0) {
 			m_moveElapsed = 0;
-			m_x = (m_x + x_speed - x_nspeed) % m_width;
-			m_y = (m_y + y_speed - y_nspeed) % m_width;
+			m_x = (m_x + x_speed) % m_width;
+			m_y = (m_y + y_speed) % m_width;
+		
 			set_orientation();
 		}
 	}
@@ -81,15 +77,15 @@ public class Cowboy implements DynamicEntity{
 		if (x_speed > 0) {
 			if (y_speed > 0) {
 				m_imageIndex = 23;//GOOD
-			} else if (y_nspeed > 0) {
+			} else if (y_speed < 0) {
 				m_imageIndex = 16;//GOOD
 			}else {
 				m_imageIndex = 20; //GOOD
 				}
-		} else if (x_nspeed > 0) {
+		} else if (x_speed < 0) {
 			if (y_speed > 0) {
 				m_imageIndex = 4;//GOOD
-			} else if (y_nspeed > 0) {
+			} else if (y_speed < 0) {
 				m_imageIndex = 10;//GOOD
 			}else {
 				m_imageIndex = 7;//GOOD
@@ -97,7 +93,7 @@ public class Cowboy implements DynamicEntity{
 		}else if (y_speed > 0) {
 			m_imageIndex = 1;//GOOD
 			
-		}else if (y_nspeed > 0) {
+		}else if (y_speed < 0) {
 			m_imageIndex = 13;//GOOD
 			
 		}
@@ -108,7 +104,7 @@ public class Cowboy implements DynamicEntity{
 		switch (code) {
 		case 37:
 		case 81:
-			x_nspeed = speed;
+			x_speed = -speed;
 			break;
 		case 39:
 		case 68:
@@ -116,7 +112,7 @@ public class Cowboy implements DynamicEntity{
 			break;
 		case 38:
 		case 90:
-			y_nspeed = speed;
+			y_speed = -speed;
 			break;
 		case 40:
 		case 83:
@@ -143,76 +139,6 @@ public class Cowboy implements DynamicEntity{
 			return images;
 		}
 		return null;
-	}
-
-	@Override
-	public void pop() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void wizz() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Entity egg() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void transfert(Entity e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void move(int code) {
-		switch (code) {
-		case 37:
-		case 81:
-			x_nspeed = speed;
-			break;
-		case 39:
-		case 68:
-			x_speed = speed;
-			break;
-		case 38:
-		case 90:
-			y_nspeed = speed;
-			break;
-		case 40:
-		case 83:
-			y_speed = speed;
-			break;
-		}
-		
-	}
-
-	@Override
-	public void stop(int code) {
-		switch (code) {
-		case 37:
-		case 81:
-			x_nspeed = 0;
-			break;
-		case 39:
-		case 68:
-			x_speed = 0;
-			break;
-		case 38:
-		case 90:
-			y_nspeed = 0;
-			break;
-		case 40:
-		case 83:
-			y_speed = 0;
-			break;
-		}
-		
 	}
 
 }

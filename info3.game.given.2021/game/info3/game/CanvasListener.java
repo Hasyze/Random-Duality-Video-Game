@@ -92,10 +92,10 @@ public class CanvasListener implements GameCanvasListener {
 		System.out.println("Key pressed: " + e.getKeyChar() + " code=" + e.getKeyCode());
 		switch (e.getKeyCode()) {
 		case 37:case 38:case 39:case 40:
-			m_game.m_cowboy.set_speed(e.getKeyCode(),4);
+			m_game.m_cowboy.move(e.getKeyCode());
 			break;
 		case 81: case 83: case 90: case 68:
-			m_game.m_cowboy2.set_speed(e.getKeyCode(),4);
+			m_game.m_cowboy2.move(e.getKeyCode());
 			break;
 		}
 		;
@@ -106,10 +106,10 @@ public class CanvasListener implements GameCanvasListener {
 		System.out.println("Key released: " + e.getKeyChar() + " code=" + e.getKeyCode());
 		switch (e.getKeyCode()) {
 		case 37:case 38:case 39:case 40:
-			m_game.m_cowboy.set_speed(e.getKeyCode(),0);
+			m_game.m_cowboy.stop(e.getKeyCode());
 			break;
 		case 81: case 83: case 90: case 68:
-			m_game.m_cowboy2.set_speed(e.getKeyCode(),0);
+			m_game.m_cowboy2.stop(e.getKeyCode());
 			break;
 		}
 	}

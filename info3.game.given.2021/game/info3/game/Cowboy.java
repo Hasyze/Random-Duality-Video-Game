@@ -42,6 +42,8 @@ public class Cowboy implements DynamicEntity{
 	int y_speed;
 	int x_nspeed;
 	int y_nspeed;
+	int dist;
+	Hitbox h;
 	
 	//STATS
 	int speed = 4;
@@ -65,6 +67,7 @@ public class Cowboy implements DynamicEntity{
 			m_x = (m_x + x_speed - x_nspeed) % m_width;
 			m_y = (m_y + y_speed - y_nspeed) % m_width;
 			set_orientation();
+			this.h = new Hitbox(m_x,m_y,dist);
 		}
 	}
 
@@ -73,6 +76,7 @@ public class Cowboy implements DynamicEntity{
 		BufferedImage img = m_images[m_imageIndex];
 		int scale = 2;
 		g.drawImage(img, m_x, m_y, scale * img.getWidth(), scale * img.getHeight(), null);
+		this.dist= img.getWidth();
 	}
 
 	public void set_orientation() {

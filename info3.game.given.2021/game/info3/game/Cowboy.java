@@ -49,6 +49,7 @@ public class Cowboy implements DynamicEntity{
 
 	Cowboy() throws IOException {
 		m_images = loadSprite("resources/walking_pilot4_resize.png", 4, 12);
+		
 	}
 
 	/*
@@ -151,7 +152,9 @@ public class Cowboy implements DynamicEntity{
 		// TODO Auto-generated method stub
 		
 	}
-
+	public void detruire() {
+		//TODO entity method sub
+	}
 	@Override
 	public void wizz() {
 		// TODO Auto-generated method stub

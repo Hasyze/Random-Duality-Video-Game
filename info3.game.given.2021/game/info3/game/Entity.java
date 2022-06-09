@@ -5,5 +5,5 @@ public interface Entity {
 		public void wizz();
 		public Entity egg();
 		public void transfert(Entity e);
-				
+		public void detruire();		
 }

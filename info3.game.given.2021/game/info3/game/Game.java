@@ -25,6 +25,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.io.RandomAccessFile;
+import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -37,7 +38,21 @@ public class Game {
 	static Game game;
 
 	public static void main(String args[]) throws Exception {
-		Etage Map = new Etage(4);
+		/**int un = 0;
+		int deux = 0;
+		int trois = 0;
+		for (int i = 0; i < 10; i++) {
+			Random r = new Random();
+			int j = r.nextInt(3) +1;
+			if (j == 1) {un++;}
+			if (j == 2) {deux++;}
+			if (j == 3) {trois++;}
+		}
+		System.out.println(un);
+		System.out.println(deux);
+		System.out.println(trois);**/
+		
+		Etage Map = new Etage(15);
 		
 		Map.test_etage();
 		/**

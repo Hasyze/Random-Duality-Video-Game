@@ -30,7 +30,7 @@ public class Entity_Manager {
 			}
 		 entities[offset]= null;
 		 offset--;
-		 obj.detruire();
+		//obj.detruire();
 	 }
 	 
 	 int EM_find(Entity obj) {

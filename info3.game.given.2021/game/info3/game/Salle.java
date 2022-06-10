@@ -9,11 +9,23 @@ class Salle {
 	Porte est;
 	Porte ouest;
 	
+	
 	int nbr_portes;
 	
 	int[][] composition;
-	int taillex;
-	int tailley;
+	/*Pour la composition, tableau en 2D
+	 * -1 Mur
+	 * -2 Porte
+	 * -3 Rocher ?
+	 * -4 Ennemis ?
+	 * -
+	 * -9 Zone "chemin" ? Faire differents layers
+	 * */
+	
+	
+	int largeur = 32;
+	int hauteur = 18;
+	int nb_ennemis = 0;
 	
 	String Type;
 	
@@ -22,30 +34,39 @@ class Salle {
 	Salle() {
 		nbr_portes = 0;
 		Type = null;
-		composition = new int[32][18];
-		for(int i = 0; i<18; i++) {
-			for(int j = 0; j<32; j++) {
+		composition = new int[largeur][hauteur];
+		for(int i = 0; i<hauteur; i++) {
+			for(int j = 0; j<largeur; j++) {
 				composition[j][i] = 0;
 			}
 		}
-		for(int i = 0; i<32; i++) {
+		for(int i = 0; i<largeur; i++) {
 			composition[i][0] = 1;
-			composition[i][17] = 1;
+			composition[i][hauteur - 1] = 1;
 		}
-		for(int i = 0; i<18; i++) {
+		for(int i = 0; i<hauteur; i++) {
 			composition[0][i] = 1;
-			composition[31][i] = 1;
+			composition[largeur - 1][i] = 1;
 		}
+		Random r = new Random();
+		nb_ennemis = r.nextInt(6);
+	}
+	
+	void placer_ennemis() {
+		Random r = new Random();
+		
+		
 	}
 	
 	void print_salle() {
-		for(int i = 0; i<18; i++) {
-			for(int j = 0; j<32; j++) {
+		for(int i = 0; i<hauteur; i++) {
+			for(int j = 0; j<largeur; j++) {
 				System.out.print(composition[j][i]);
 			}
 			System.out.print("\n");
 		}
 	}
+	
 	
 	
 	

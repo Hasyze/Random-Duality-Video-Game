@@ -70,8 +70,8 @@ public class Cowboy implements DynamicEntity{
 		m_moveElapsed += elapsed;
 		if (m_moveElapsed > 24 & m_width != 0) {
 			m_moveElapsed = 0;
-			m_x = (m_x + x_speed - x_nspeed) % m_width;
-			m_y = (m_y + y_speed - y_nspeed) % m_width;
+			worldX = (worldX + x_speed - x_nspeed) % m_width;
+			worldY = (worldY + y_speed - y_nspeed) % m_width;
 			set_orientation();
 		}
 	}

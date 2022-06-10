@@ -49,14 +49,14 @@ class Salle {
 		composition = new int[1000][1000];
 	}
 	
-	void Ajouter_portes(int nbr_de_portes) {
+	void Ajouter_portes(int nbr_de_portes) {	//Ajoute pls portes
 		for (int i = 0; i < nbr_de_portes; i++) {
 			boolean v = Ajouter_une_porte();
 			if (v) {nbr_portes++;}
 		}
 	}
 	
-	boolean Ajouter_une_porte() {	//Ajoute une porte sur un des côtés, renvoie false si aucune porte n'a pu être ajoutée
+	boolean Ajouter_une_porte() {	//Ajoute une porte sur un des côtés (Aléatoire), renvoie false si aucune porte n'a pu être ajoutée
 		Random r = new Random();
 		int j = r.nextInt(4);
 		switch (j) {
@@ -193,7 +193,7 @@ class Salle {
 	}
 	
 	
-	boolean Lier_deux_Salles(Salle salle) {
+	boolean Lier_deux_Salles(Salle salle) {		//renvois true si on lie deux salles en recherchant des portes disponible, false sinon
 		Porte P1 = this.Trouver_porte_disponible();
 		Porte P2 = salle.Trouver_porte_disponible();
 		if ((P1 == null) || (P2 == null)) {
@@ -207,7 +207,7 @@ class Salle {
 		
 	}
 	
-	void Lier_deux_Salles(Salle salle, Porte origine, Porte destination) {
+	void Lier_deux_Salles(Salle salle, Porte origine, Porte destination) {	//On lie deux salles en choisissant les portes qui font le lien
 		origine.salle_destination = salle;
 		destination.salle_destination = this;
 	}

@@ -36,7 +36,7 @@ import info3.game.sound.RandomFileInputStream;
 public class Game {
 
 	static Game game;
-	Image bg = info3.game.graphics.GameCanvas.loadImage("resources/images_test/room.jpg");
+	Image bg = info3.game.graphics.GameCanvas.loadImage("resources/images_test/among-us.png");
 
 	public static void main(String args[]) throws Exception {
 		try {
@@ -59,7 +59,7 @@ public class Game {
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
 		m_cowboy = new Cowboy();
-		m_cowboy2 = new Cowboy();
+		//m_cowboy2 = new Cowboy();
 		// creating a listener for all the events
 		// from the game canvas, that would be
 		// the controller in the MVC pattern
@@ -71,7 +71,6 @@ public class Game {
 		System.out.println("  - creating frame...");
 		Dimension d = new Dimension(1024, 768);
 		m_frame = m_canvas.createFrame(d);
-
 		System.out.println("  - setting up the frame...");
 		setupFrame();
 	}
@@ -136,7 +135,7 @@ public class Game {
 	void tick(long elapsed) {
 
 		m_cowboy.tick(elapsed);
-		m_cowboy2.tick(elapsed);
+		//m_cowboy2.tick(elapsed);
 
 		// Update every second
 		// the text on top of the frame: tick and fps
@@ -151,7 +150,7 @@ public class Game {
 				txt += " ";
 			txt = txt + fps + " fps   ";
 			m_text.setText(txt);
-		}
+		}		
 	}
 
 	/*
@@ -162,16 +161,48 @@ public class Game {
 	void paint(Graphics g) {
 
 		// get the size of the canvas
+		//En gros ici on différencie la position du joueur de la position de la carte :
+		/*
+		 * 
+		 *  _________________________________________________
+		 * |                                                 |  <-- MAP
+		 * |                                                 |
+		 * |       _________                                 |
+		 * |      |         | <-CAMERA                       |
+		 * |      |    x    |                                |
+		 * |      |_________|                                |
+		 * |                                                 |
+		 * |                                                 |
+		 * |                                                 |
+		 * |                                                 |
+		 * |                                                 |
+		 * |                                                 |
+		 * |                                                 |
+		 * |_________________________________________________|
+		 * 
+		 * 
+		 * rappel : m_cowboy.screenX et m_cowboy.screenY sont les coordonnées du joueur à l'ecran (immobile)
+		 * 			m_cowboy.worldX et m_cowboy.worldY sont les coordonnées du joueur dans la map
+		 * 
+		 * la partie compliquée est d'afficher la map au bon endroit par rapport au joueur (si le joueur est au coordonnées (30,50) alors
+		 * il faudra afficher le bon endroit de la map sous ses pieds.
+		 * 
+		 */
+		
 		int width = m_canvas.getWidth();
 		int height = m_canvas.getHeight();
+		int screenX = m_canvas.getX() - m_cowboy.worldX + m_cowboy.screenX; // on récupère la position de base du canvas (map) puis on la décale selon
+																			// la position du joueur à l'écran
+		int screenY = m_canvas.getY() - m_cowboy.worldY + m_cowboy.screenY;	//Idem
+
 		
 		//AFFICHAGE IMAGE BACKGROUND
 		
 		try {
 			g.setColor(Color.black);
 			g.fillRect(0, 0, width, height);
-			g.drawImage(bg, 0, 0, bg.getWidth(null), bg.getHeight(null), 0, 0, 1024, 565, Color.gray, null);
-			
+			g.drawImage(bg, screenX, screenY, bg.getWidth(null), bg.getHeight(null), null);	// on affiche le background aux coordonnées scrennX, screenY, 
+																							// en lui donnant la largeur, hauteure l'image)
 		} catch (Throwable th) {
 			th.printStackTrace(System.err);
 		}
@@ -180,7 +211,7 @@ public class Game {
 		
 		// paint
 		m_cowboy.paint(g, width, height);
-		m_cowboy2.paint(g, width, height);
+		//m_cowboy2.paint(g, width, height);
 	}
 
 }

@@ -84,7 +84,7 @@ public class GameCanvas extends Canvas {
    */
   static final double FPS = 30.0;
   static final int REPAINT_DELAY = (int) (1000.0 / FPS);
-
+  
   public GameCanvas(GameCanvasListener l) {
 
     /*

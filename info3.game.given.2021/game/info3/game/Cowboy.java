@@ -24,6 +24,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+
 //test commit Florian
 import javax.imageio.ImageIO;
 
@@ -36,13 +37,19 @@ public class Cowboy {
 	int m_imageIndex;
 	long m_imageElapsed;
 	long m_moveElapsed;
-	int m_x = 10, m_y = 10;
+	public int worldX = 500, worldY = 350; //position du personnage sur la carte 
 	int m_width;
 	int x_speed;
 	int y_speed;
+	
+	public final int screenX;
+	public final int screenY;
 
 	Cowboy() throws IOException {
 		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
+		screenX = 500;
+		screenY = 350;
+		
 	}
 
 	/*
@@ -57,8 +64,8 @@ public class Cowboy {
 		m_moveElapsed += elapsed;
 		if (m_moveElapsed > 24 & m_width != 0) {
 			m_moveElapsed = 0;
-			m_x = (m_x + x_speed) % m_width;
-			m_y = (m_y + y_speed) % m_width;
+			worldX = (worldX + x_speed) % m_width;
+			worldY = (worldY + y_speed) % m_width;
 			set_orientation();
 		}
 	}
@@ -67,34 +74,35 @@ public class Cowboy {
 		m_width = width;
 		BufferedImage img = m_images[m_imageIndex];
 		int scale = 2;
-		g.drawImage(img, m_x, m_y, scale * img.getWidth(), scale * img.getHeight(), null);
+		g.drawImage(img, screenX, screenY, scale * img.getWidth(), scale * img.getHeight(), null);
 	}
 
 	public void set_orientation() {
-		//Version un peu moche, verifier le format des sprites, cherche une nouvelle solution
-		//Ajouter un chant orientation pour les projectiles ?
+		// Version un peu moche, verifier le format des sprites, cherche une nouvelle
+		// solution
+		// Ajouter un chant orientation pour les projectiles ?
 		if (x_speed > 0) {
 			if (y_speed > 0) {
-				m_imageIndex = 23;//GOOD
+				m_imageIndex = 23;// GOOD
 			} else if (y_speed < 0) {
-				m_imageIndex = 16;//GOOD
-			}else {
-				m_imageIndex = 20; //GOOD
-				}
+				m_imageIndex = 16;// GOOD
+			} else {
+				m_imageIndex = 20; // GOOD
+			}
 		} else if (x_speed < 0) {
 			if (y_speed > 0) {
-				m_imageIndex = 4;//GOOD
+				m_imageIndex = 4;// GOOD
 			} else if (y_speed < 0) {
-				m_imageIndex = 10;//GOOD
-			}else {
-				m_imageIndex = 7;//GOOD
+				m_imageIndex = 10;// GOOD
+			} else {
+				m_imageIndex = 7;// GOOD
 			}
-		}else if (y_speed > 0) {
-			m_imageIndex = 1;//GOOD
-			
-		}else if (y_speed < 0) {
-			m_imageIndex = 13;//GOOD
-			
+		} else if (y_speed > 0) {
+			m_imageIndex = 1;// GOOD
+
+		} else if (y_speed < 0) {
+			m_imageIndex = 13;// GOOD
+
 		}
 	}
 

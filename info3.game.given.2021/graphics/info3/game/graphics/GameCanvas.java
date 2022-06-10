@@ -47,8 +47,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
@@ -81,7 +84,7 @@ public class GameCanvas extends Canvas {
    */
   static final double FPS = 30.0;
   static final int REPAINT_DELAY = (int) (1000.0 / FPS);
-
+  
   public GameCanvas(GameCanvasListener l) {
 
     /*
@@ -89,8 +92,7 @@ public class GameCanvas extends Canvas {
      * background before the update/repaint methods are called, causing an annoying
      * flickering.
      */
-    System.setProperty("sun.awt.noerasebackground", "True");
-
+    System.setProperty("sun.awt.noerasebackground", "true");
     m_listener = l;
     setBackground(Color.black);
     addKeyListener(l);
@@ -98,9 +100,21 @@ public class GameCanvas extends Canvas {
     addMouseMotionListener(l);
     setFocusable(true);
     requestFocusInWindow();
-
   }
-
+  
+  //Fonction de chargement d'image 
+  
+  public static Image loadImage(String filename) throws IOException {
+		File imageFile = new File(filename);
+		if (imageFile.exists()) {
+			Image image = ImageIO.read(imageFile);
+			return image;
+		}
+		return null;
+	}
+  //FIN MODIFS 
+  
+  
   /**
    * Gives the current width of the canvas, in pixels. The horizontal X-axis grows
    * from left to right.

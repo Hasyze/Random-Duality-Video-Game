@@ -97,7 +97,12 @@ public class CanvasListener implements GameCanvasListener {
 		case 81: case 83: case 90: case 68:
 			m_game.m_cowboy2.move(e.getKeyCode());
 			break;
+		case 77:
+			System.out.println("m_x" + m_game.m_cowboy.worldX );
+			System.out.println("m_y" + m_game.m_cowboy.worldY );
+
 		}
+		
 		;
 	}
 

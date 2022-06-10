@@ -26,6 +26,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+//test commit Florian
 import javax.imageio.ImageIO;
 
 /**
@@ -37,7 +38,7 @@ public class Cowboy implements DynamicEntity{
 	int m_imageIndex;
 	long m_imageElapsed;
 	long m_moveElapsed;
-	int m_x = 500, m_y = 200;
+	public int worldX = 500, worldY = 350; //position du personnage sur la carte 
 	int m_width;
 	int x_speed;
 	int y_speed;
@@ -46,9 +47,15 @@ public class Cowboy implements DynamicEntity{
 	
 	//STATS
 	int speed = 4;
+	
+	public final int screenX;
+	public final int screenY;
 
 	Cowboy() throws IOException {
-		m_images = loadSprite("resources/walking_pilot4_resize.png", 4, 12);
+		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
+		screenX = 500;
+		screenY = 350;
+		
 	}
 
 	/*
@@ -73,12 +80,13 @@ public class Cowboy implements DynamicEntity{
 		m_width = width;
 		BufferedImage img = m_images[m_imageIndex];
 		int scale = 2;
-		g.drawImage(img, m_x, m_y, scale * img.getWidth(), scale * img.getHeight(), null);
+		g.drawImage(img, screenX, screenY, scale * img.getWidth(), scale * img.getHeight(), null);
 	}
 
 	public void set_orientation() {
-		//Version un peu moche, verifier le format des sprites, cherche une nouvelle solution
-		//Ajouter un chant orientation pour les projectiles ?
+		// Version un peu moche, verifier le format des sprites, cherche une nouvelle
+		// solution
+		// Ajouter un chant orientation pour les projectiles ?
 		if (x_speed > 0) {
 			if (y_speed > 0) {
 				m_imageIndex = 23;//GOOD

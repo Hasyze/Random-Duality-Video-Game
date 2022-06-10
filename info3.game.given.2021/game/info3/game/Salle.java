@@ -2,28 +2,73 @@ package info3.game;
 
 import java.util.Random;
 
-class Salle {
+class Salle {	
 	
 	Porte nord;
 	Porte sud;
 	Porte est;
 	Porte ouest;
 	
+	
 	int nbr_portes;
 	
 	int[][] composition;
+	/*Pour la composition, tableau en 2D
+	 * -1 Mur
+	 * -2 Porte
+	 * -3 Rocher ?
+	 * -4 Ennemis ?
+	 * -
+	 * -9 Zone "chemin" ? Faire differents layers
+	 * */
+	
+	
+	int largeur = 32;
+	int hauteur = 18;
+	int nb_ennemis = 0;
 	
 	String Type;
 	
+	
+	
 	Salle() {
-		nord = null;
-		sud = null;
-		est = null;
-		ouest = null;
 		nbr_portes = 0;
 		Type = null;
-		composition = new int[1000][1000];
+		composition = new int[largeur][hauteur];
+		for(int i = 0; i<hauteur; i++) {
+			for(int j = 0; j<largeur; j++) {
+				composition[j][i] = 0;
+			}
+		}
+		for(int i = 0; i<largeur; i++) {
+			composition[i][0] = 1;
+			composition[i][hauteur - 1] = 1;
+		}
+		for(int i = 0; i<hauteur; i++) {
+			composition[0][i] = 1;
+			composition[largeur - 1][i] = 1;
+		}
+		Random r = new Random();
+		nb_ennemis = r.nextInt(6);
 	}
+	
+	void placer_ennemis() {
+		Random r = new Random();
+		
+		
+	}
+	
+	void print_salle() {
+		for(int i = 0; i<hauteur; i++) {
+			for(int j = 0; j<largeur; j++) {
+				System.out.print(composition[j][i]);
+			}
+			System.out.print("\n");
+		}
+	}
+	
+	
+	
 	
 	Salle(int nbr_de_portes) {
 		nbr_portes = 0;

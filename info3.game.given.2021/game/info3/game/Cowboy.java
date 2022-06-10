@@ -33,7 +33,7 @@ import javax.imageio.ImageIO;
  * A simple class that holds the images of a sprite for an animated cowbow.
  *
  */
-public class Cowboy implements DynamicEntity{
+public class Cowboy extends DynamicEntity{
 	BufferedImage[] m_images;
 	int m_imageIndex;
 	long m_imageElapsed;

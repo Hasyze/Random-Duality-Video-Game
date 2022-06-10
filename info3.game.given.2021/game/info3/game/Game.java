@@ -40,31 +40,18 @@ public class Game {
 	Image bg = info3.game.graphics.GameCanvas.loadImage("resources/images_test/among-us.png");
 
 	public static void main(String args[]) throws Exception {
-		/**int un = 0;
-		int deux = 0;
-		int trois = 0;
-		for (int i = 0; i < 10; i++) {
-			Random r = new Random();
-			int j = r.nextInt(3) +1;
-			if (j == 1) {un++;}
-			if (j == 2) {deux++;}
-			if (j == 3) {trois++;}
-		}
-		System.out.println(un);
-		System.out.println(deux);
-		System.out.println(trois);**/
 		
-		Etage Map = new Etage(15);
+		//Etage Map = new Etage(15);
 		
-		Map.test_etage();
-		/**
+		//Map.test_etage();
+		
 		try {
 			System.out.println("Game starting...");
 			game = new Game();
 			System.out.println("Game started.");
 		} catch (Throwable th) {
 			th.printStackTrace(System.err);
-		}**/
+		}
 	}
 
 	JFrame m_frame;

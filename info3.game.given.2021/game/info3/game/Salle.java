@@ -15,6 +15,7 @@ class Salle {
 	
 	String Type;
 	
+	
 	Salle() {
 		nord = null;
 		sud = null;

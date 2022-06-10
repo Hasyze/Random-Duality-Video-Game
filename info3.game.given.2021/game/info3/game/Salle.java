@@ -30,7 +30,6 @@ class Salle {
 	String Type;
 	
 	
-	
 	Salle() {
 		nbr_portes = 0;
 		Type = null;

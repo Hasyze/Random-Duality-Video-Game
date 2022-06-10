@@ -159,7 +159,9 @@ public class Cowboy extends DynamicEntity{
 		// TODO Auto-generated method stub
 		
 	}
-
+	public void detruire() {
+		//TODO entity method sub
+	}
 	@Override
 	public void wizz() {
 		// TODO Auto-generated method stub

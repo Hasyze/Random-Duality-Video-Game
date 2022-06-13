@@ -83,9 +83,22 @@ public class Entity_Manager {
  		Entity_Manager L2 = new Entity_Manager();
  		
  		for(int i=0; i < offset_dynamic; i++) {
- 			for (int j=0; j< offset_dynamic; j++) {
+ 			for (int j=i; j< offset_dynamic; j++) {
  				if (collision_test(this.Entities_Dynamic[i],this.Entities_Dynamic[j])) {
- 					//
+ 					//ici on appelle l'automate de comportement en cas de collision 
+ 					// ex collision entre balle et mur : automate correspondant, 
+ 					//ça nous permet de créer n'importe quoi sur les détéctions de collisions
+ 					// ex : si on se fait toucher, c'est l'ennemi qui prend un dps, etc..
+ 					
+ 			for(int k = 0; k<offset_static; k ++ ) {
+ 				if (collision_test(this.Entities_Static[i],this.Entities_Static[k])) {
+ 					
+ 				}
+ 			}
+ 					
+ 					
+ 					
+ 					
  				}
  			}
  		}

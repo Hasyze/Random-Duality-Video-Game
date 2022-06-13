@@ -82,9 +82,9 @@ public class Entity_Manager {
  		return Obj1.hitbox.collision(Obj2);
  	}	
  		
-	/*boolean collision_test(DynamicEntity Obj1, StaticEntity Obj2) { 
+	boolean collision_test(DynamicEntity Obj1, StaticEntity Obj2) { 
 		return Obj1.hitbox.collision(Obj2);
-	}*/
+	}
 	
 	boolean collision_test(DynamicEntity Obj1) {
  	

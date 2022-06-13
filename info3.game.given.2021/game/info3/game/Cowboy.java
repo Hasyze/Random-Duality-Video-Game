@@ -58,7 +58,13 @@ public class Cowboy extends DynamicEntity{
 		this.y = 350;
 		
 	}
-
+	Cowboy(int m_x,int m_y) throws IOException {
+		super();
+		this.m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
+		this.x = m_x;
+		this.y = m_y;
+		
+	}
 	/*
 	 * Simple animation here, the cowbow
 	 */

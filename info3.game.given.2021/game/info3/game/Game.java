@@ -66,9 +66,9 @@ public class Game {
 	Game() throws Exception {
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
-		m_cowboy = new Cowboy();
-		m_cowboy2 = new Cowboy();
-		m_cowboy2.x-=200;
+		m_cowboy = new Cowboy(300,200);
+		m_cowboy2 = new Cowboy(300,400);
+		//m_cowboy2.x-=200;
 		EM= new Entity_Manager(); //Aziz
 		EM.EM_add(m_cowboy); //Aziz
 		EM.EM_add(m_cowboy2); //Aziz

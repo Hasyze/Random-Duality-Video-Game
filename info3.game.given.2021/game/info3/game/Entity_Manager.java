@@ -6,7 +6,7 @@ public class Entity_Manager {
 	 DynamicEntity[] Entities_Dynamic;
 	 StaticEntity[] Entities_Static;
 	 int offset_dynamic;
-	 int offset_dead;
+	 int offset_static;
 
 	 
 	 
@@ -14,7 +14,7 @@ public class Entity_Manager {
 		 Entities_Dynamic = new DynamicEntity[1000];
 		// Entities_Static= new StaticEntity[1000];
 		 offset_dynamic = 0;
-		 offset_dead = 0;
+		 offset_static = 0;
 	 }
 	 
 	 void EM_add(Entity obj) {
@@ -75,7 +75,7 @@ public class Entity_Manager {
         return -1;         
      }*/
  	boolean collision_test(DynamicEntity Obj1, DynamicEntity Obj2) {
- 		//TODO Aziz c'est ici les test de collision, tu renvoies true si oui il y a collision, false sinon
+ 		// Aziz c'est ici les test de collision, tu renvoies true si oui il y a collision, false sinon
  		if (Obj1.getClass().equals(Obj2.getClass())) {
  			return false;
  		}
@@ -119,18 +119,19 @@ public class Entity_Manager {
  		
  		for(int i=0; i < offset_dynamic; i++) {
  			for (int j=i; j< offset_dynamic; j++) {
- 				if (collision_test(this.Entities_Dynamic[i],this.Entities_Dynamic[j])) {
+ 				if (collision_test(this.Entities_Dynamic[i],this.Entities_Dynamic[j])) { //comparaisons dyn dyn
  					//ici on appelle l'automate de comportement en cas de collision 
  					// ex collision entre balle et mur : automate correspondant, 
  					//ça nous permet de créer n'importe quoi sur les détéctions de collisions
  					// ex : si on se fait toucher, c'est l'ennemi qui prend un dps, etc..
  					
- 			for(int k = 0; k<offset_dead; k ++ ) {
- 				if (collision_test(this.Entities_Dynamic[i],this.Entities_Static[k])) {
+ 			for(int k = 0; k< offset_static; k ++ ) {
+ 				if (collision_test(this.Entities_Dynamic[i],this.Entities_Static[k])) { // comparaisons dyn stat
+ 			
  					// ici on appelle l'automate 
  				}
  			}
- 					
+ 			//après tout les calculs, on réorganise ici la liste et on en fait la liste d'netity manager.		
  					
  					
  					

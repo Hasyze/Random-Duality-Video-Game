@@ -11,6 +11,7 @@ public abstract class DynamicEntity extends Entity{
 	Hitbox hitbox;
 	
 	
+	
 	int x_speed;
 	int y_speed;
 	int x_nspeed;
@@ -22,9 +23,7 @@ public abstract class DynamicEntity extends Entity{
 	int m_width;
 	
 	public DynamicEntity(){
-		this.vie=0;
-		/*this.x=0;
-		this.y=0;*/
+		this.vie=1;
 		hitbox= new Hitbox (25,x,y); //Aziz
 	}
 	
@@ -58,6 +57,9 @@ public abstract class DynamicEntity extends Entity{
 			
 		}
 	}
+	
+	 
+	
 	
 	public void set_speed(int code, int speed) {
 		System.out.println("déplacement");

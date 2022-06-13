@@ -82,8 +82,33 @@ public class Entity_Manager {
  		return Obj1.hitbox.collision(Obj2);
  	}	
  		
-	boolean collision_test(DynamicEntity Obj1, StaticEntity Obj2) { 
+	/*boolean collision_test(DynamicEntity Obj1, StaticEntity Obj2) { 
 		return Obj1.hitbox.collision(Obj2);
+	}*/
+	
+	boolean collision_test(DynamicEntity Obj1) {
+ 	
+		for (int i=0;i<offset_dynamic;i++) {
+			if (Obj1!=Entities_Dynamic[i])
+				return Entities_Dynamic[i].hitbox.verif(Obj1);
+		}
+ 		return false;
+ 	}
+	
+	public void tick(DynamicEntity Obj1,long elapsed) {
+		Obj1.m_imageElapsed += elapsed;
+		if (Obj1.m_imageElapsed > 200) {
+			Obj1.m_imageElapsed = 0;
+			// m_imageIndex = (m_imageIndex + 1) % m_images.length;
+		}
+		Obj1.m_moveElapsed += elapsed;
+		Obj1.hitbox= new Hitbox (25,Obj1.x,Obj1.y);
+		if (Obj1.m_moveElapsed > 24 & Obj1.m_width != 0 && !collision_test(Obj1) ) {
+			Obj1.m_moveElapsed = 0;
+			Obj1.x= (Obj1.x + Obj1.x_speed - Obj1.x_nspeed) % Obj1.m_width;
+			Obj1.y = (Obj1.y + Obj1.y_speed - Obj1.y_nspeed) % Obj1.m_width;
+			Obj1.set_orientation();
+		}
 	}
 	
 	
@@ -100,8 +125,13 @@ public class Entity_Manager {
  					//ça nous permet de créer n'importe quoi sur les détéctions de collisions
  					// ex : si on se fait toucher, c'est l'ennemi qui prend un dps, etc..
  					
+<<<<<<< HEAD
  			for(int k = 0; k< offset_static; k ++ ) {
  				if (collision_test(this.Entities_Dynamic[i],this.Entities_Static[k])) { // comparaisons dyn stat
+=======
+ 			for(int k = 0; k<offset_dead; k ++ ) {
+ 				if (collision_test(this.Entities_Dynamic[i],this.Entities_Static[k])) {
+>>>>>>> 07c5e98063bed3099692086d09c7244035ce48eb
  					// ici on appelle l'automate 
  				}
  			}

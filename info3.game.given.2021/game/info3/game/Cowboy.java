@@ -39,8 +39,8 @@ public class Cowboy extends DynamicEntity{
 	long m_imageElapsed;
 	long m_moveElapsed;
 //	public int worldX = 500, worldY = 350; //position du personnage sur la carte 
-	int m_width;
-	/*int x_speed;
+	/*int m_width;
+	int x_speed;
 	int y_speed;
 	int x_nspeed;
 	int y_nspeed;*/

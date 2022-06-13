@@ -2,7 +2,7 @@ package info3.game;
 
 import java.awt.image.BufferedImage;
 
-public class StaticEntity {
+public class StaticEntity extends Entity{
 	
 	int x;
 	int y;

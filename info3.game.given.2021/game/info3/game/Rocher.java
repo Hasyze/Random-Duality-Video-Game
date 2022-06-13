@@ -81,6 +81,8 @@ public class Rocher extends StaticEntity{
 		m_width = width;
 		BufferedImage img = m_images[0];
 		int scale = 2;
-		g.drawImage(img, this.x, this.y, scale * img.getWidth(), scale * img.getHeight(), null);
+		//g.drawImage(img, this.x, this.y, scale * img.getWidth(), scale * img.getHeight(), null);
+		g.drawImage(img, this.x + width, this.y + height, scale * img.getWidth(), scale * img.getHeight(), null);
+
 	}
 }

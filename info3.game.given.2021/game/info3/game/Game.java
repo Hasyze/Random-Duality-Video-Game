@@ -21,14 +21,10 @@
 package info3.game;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.Random;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -60,8 +56,11 @@ public class Game {
 	JLabel m_text;
 	GameCanvas m_canvas;
 	CanvasListener m_listener;
-	Cowboy m_cowboy, m_cowboy2;
-	Rocher[] m_rocher=info3.game.Rocher.init_rocher();
+	Cowboy m_cowboy;
+	Cowboy m_cowboy2;
+	Rocher[] m_rocher=Rocher.init_rocher();
+	int coinscamX = 0;
+	int coinscamY = 0;
 	
 	
 	
@@ -73,7 +72,7 @@ public class Game {
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
 		m_cowboy = new Cowboy();
-		//m_cowboy2 = new Cowboy();
+		m_cowboy2 = new Cowboy();
 		//m_rocher= new Rocher();
 		
 		
@@ -152,7 +151,7 @@ public class Game {
 	void tick(long elapsed) {
 
 		m_cowboy.tick(elapsed);
-		//m_cowboy2.tick(elapsed);
+		m_cowboy2.tick(elapsed);
 
 		// Update every second
 		// the text on top of the frame: tick and fps
@@ -208,18 +207,34 @@ public class Game {
 		
 		int width = m_canvas.getWidth();
 		int height = m_canvas.getHeight();
-		int screenX = m_canvas.getX() - m_cowboy.x + m_cowboy.x; // on récupère la position de base du canvas (map) puis on la décale selon
-																			// la position du joueur à l'écran
-		int screenY = m_canvas.getY() - m_cowboy.y + m_cowboy.y;	//Idem
+		coinscamX = (m_cowboy2.x+m_cowboy.x)/2 - width/2;
+		coinscamY = (m_cowboy2.y+m_cowboy.y)/2 - height/2;
 
-	//	int screenX_rocher=m_canvas.getX()-m_rocher.x;
-	//	int screenY_rocher=m_canvas.getX()-m_rocher.y;
-		//AFFICHAGE IMAGE BACKGROUND
+		//A terme ça faut que ce soit les bordures de la map ou de la salle
+		int xmin = 0;
+		int ymin = 0;
+		int xmax = 2000;
+		int ymax = 1000;
 		
 		try {
-			g.setColor(Color.black);
 			g.fillRect(0, 0, width, height);
-			g.drawImage(bg, screenX, screenY, bg.getWidth(null), bg.getHeight(null), null);	// on affiche le background aux coordonnées scrennX, screenY, 
+
+			if(coinscamX < xmin) {
+				coinscamX = xmin;
+			}
+			if(coinscamY < ymin) {
+				coinscamY = ymin;
+			}
+			if(coinscamX + width > xmax) {
+				coinscamX = xmax - width;
+			}
+			if(coinscamY + height > ymax) {
+				coinscamY = ymax - height;
+			}
+			
+			g.drawImage(bg, -coinscamX, -coinscamY, bg.getWidth(null), bg.getHeight(null), null);	// on affiche le background aux coordonnées scrennX, screenY, 
+			g.drawOval(width/2, height/2, 10, 10);
+			g.drawLine(m_cowboy.x - coinscamX, m_cowboy.y - coinscamY, m_cowboy2.x - coinscamX, m_cowboy2.y - coinscamY);
 																							// en lui donnant la largeur, hauteure l'image)
 		} catch (Throwable th) {
 			th.printStackTrace(System.err);
@@ -228,12 +243,14 @@ public class Game {
 		
 		
 		// paint
-		m_cowboy.paint(g, width, height);
-		for(int i=0; i<m_rocher.length;i++) {
-			m_rocher[i].paint(g, width, height);
-		}
 		
-		//m_cowboy2.paint(g, width, height);
+		for(int i=0; i<m_rocher.length;i++) {
+			m_rocher[i].paint(g, -coinscamX, -coinscamY);
+		}
+		m_cowboy.paint(g, -coinscamX, -coinscamY);
+		m_cowboy2.paint(g, -coinscamX, -coinscamY);
+		
+		
 	}
 
 }

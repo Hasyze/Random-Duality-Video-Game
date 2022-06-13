@@ -59,28 +59,6 @@ public abstract class DynamicEntity extends Entity{
 		}
 	}
 	
-	public void set_speed(int code, int speed) {
-		System.out.println("déplacement");
-		switch (code) {
-		case 37:
-		case 81:
-			x_nspeed = speed;
-			break;
-		case 39:
-		case 68:
-			x_speed = speed;
-			break;
-		case 38:
-		case 90:
-			y_nspeed = speed;
-			break;
-		case 40:
-		case 83:
-			y_speed = speed;
-			break;
-		}
-	}
-	
 	public void move(int code) {
 			switch (code) {
 			case 37:

@@ -74,11 +74,65 @@ public class Entity_Manager {
              }
         return -1;         
      }*/
- 	Boolean collision_test(DynamicEntity Obj1, DynamicEntity Obj2) {
+ 	boolean collision_test(DynamicEntity Obj1, DynamicEntity Obj2) {
  		//TODO Aziz c'est ici les test de collision, tu renvoies true si oui il y a collision, false sinon
- 		return false;
- 	}
- 
+ 		if (Obj1.getClass().equals(Obj2.getClass()) ) {
+ 			return false;
+ 		}
+ 		if (Obj1 instanceof Hero) {
+ 			/*if (Obj2 instanceof Hero) {
+ 				return false;
+ 			}
+ 			else*/ if(Obj2 instanceof Enemy) {
+ 				return Obj1.hitbox.collision(Obj2);
+ 			}
+ 			else if(Obj2 instanceof ProjectileE){
+ 				return Obj1.hitbox.collision(Obj2);
+ 			}else {
+ 				return Obj1.hitbox.collision(Obj2);
+ 			}
+ 		}
+ 		else if(Obj1 instanceof Enemy) {
+ 			if (Obj2 instanceof Hero) {
+ 				return Obj1.hitbox.collision(Obj2);
+ 			}
+ 			/*else if(Obj2 instanceof Enemy) {
+ 				return false;
+ 			}*/
+ 			else if(Obj2 instanceof ProjectileE){
+ 				return Obj1.hitbox.collision(Obj2);
+ 			}else {
+ 				
+ 			}
+ 		}else if (Obj1 instanceof ProjectileE){ //Projectile Enemy
+ 			if (Obj2 instanceof Hero) {
+ 				return Obj1.hitbox.collision(Obj2);
+ 			}
+ 			else if(Obj2 instanceof Enemy) {
+ 				return Obj1.hitbox.collision(Obj2);
+ 			}
+ 			/*else if(Obj2 instanceof ProjectileE){
+ 				return false;*/
+ 			}else {
+ 				
+ 			}
+ 		}else { //Projectile Hero
+ 			if (Obj2 instanceof Hero) {
+ 				return Obj1.hitbox.collision(Obj2);
+ 			}
+ 			else if(Obj2 instanceof Enemy) {
+ 				return Obj1.hitbox.collision(Obj2);
+ 			}
+ 			else if(Obj2 instanceof ProjectileE){
+ 				return Obj1.hitbox.collision(Obj2);
+ 			}/*else {
+ 				return false;
+ 			}*/
+ 		}
+ 		
+	boolean collision_test(DynamicEntity Obj1, StaticEntity Obj2) { 
+		return Obj1.hitbox.collision(Obj2);
+	}
  	void eval() {
  		Entity_Manager L2 = new Entity_Manager();
  		
@@ -104,15 +158,5 @@ public class Entity_Manager {
  		}
  		
  	}
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
  
 }

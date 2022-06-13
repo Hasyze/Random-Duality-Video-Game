@@ -27,20 +27,16 @@ public class Hitbox {
 	double distance (int a_x,int a_y, int b_x, int b_y) {
 		return Math.sqrt((a_x-b_x)*(a_x-b_x)+(a_y-b_y)*(a_y-b_y));
 	}
-<<<<<<< HEAD
-	
-	boolean collision(StaticEntity a) {
-		return distance (this.x,this.y,a.x,a.y)<this.rayon+a.hitbox.rayon;
-	}
-	boolean collision(DynamicEntity a) {
-		return distance (this.x,this.y,a.x,a.y)<this.rayon+a.hitbox.rayon;
 
-=======
+	
+
 	boolean verif(DynamicEntity a) {
 		return distance (this.x,this.y,a.x+a.x_speed-a.x_nspeed,a.y-a.y_nspeed+a.y_speed)<this.rayon+a.hitbox.rayon;
 	}
 	boolean collision(DynamicEntity a) {
 		return distance (this.x,this.y,a.x,a.y)<this.rayon+a.hitbox.rayon;
->>>>>>> 07c5e98063bed3099692086d09c7244035ce48eb
+	}
+	boolean collision(StaticEntity a) {
+		return distance(x,y,a.x,a.y)<rayon+a.hitbox.rayon;
 	}
 }

@@ -10,7 +10,7 @@ public abstract class DynamicEntity extends Entity{
 	BufferedImage[] m_images;
 	Hitbox hitbox;
 	
-	Hitbox hitbox;
+	
 	
 	int x_speed;
 	int y_speed;
@@ -23,9 +23,7 @@ public abstract class DynamicEntity extends Entity{
 	int m_width;
 	
 	public DynamicEntity(){
-		this.vie=0;
-		/*this.x=0;
-		this.y=0;*/
+		this.vie=1;
 		hitbox= new Hitbox (25,x,y); //Aziz
 	}
 	

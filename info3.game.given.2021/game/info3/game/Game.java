@@ -53,7 +53,9 @@ public class Game {
 			th.printStackTrace(System.err);
 		}
 	}
-
+	Entity_Manager EM;
+	
+	
 	JFrame m_frame;
 	JLabel m_text;
 	GameCanvas m_canvas;
@@ -61,17 +63,17 @@ public class Game {
 	Cowboy m_cowboy, m_cowboy2;
 	Rocher m_rocher;
 	Sound m_music;
-	Entity_Manager EM; //Aziz
+
 
 	Game() throws Exception {
+		EM= new Entity_Manager();
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
-		m_cowboy = new Cowboy();
-		m_cowboy2 = new Cowboy();
-		m_cowboy2.x-=200;
-		EM= new Entity_Manager(); //Aziz
-		EM.EM_add(m_cowboy); //Aziz
-		EM.EM_add(m_cowboy2); //Aziz
+		m_cowboy = new Cowboy( 300, 200);
+		m_cowboy2 = new Cowboy(300, 400);
+		
+		
+		
 		
 		m_rocher= new Rocher();
 		// creating a listener for all the events
@@ -227,7 +229,7 @@ public class Game {
 		// paint
 		m_cowboy.paint(g, width, height);
 		m_cowboy2.paint(g, width, height);
-		//m_rocher.paint(g, width, height);
+		m_rocher.paint(g, width, height);
 		//m_cowboy2.paint(g, width, height);
 	}
 

@@ -82,9 +82,9 @@ public class Entity_Manager {
  		return Obj1.hitbox.collision(Obj2);
  	}	
  		
-	/*boolean collision_test(DynamicEntity Obj1, StaticEntity Obj2) { 
+	boolean collision_test(DynamicEntity Obj1, StaticEntity Obj2) { 
 		return Obj1.hitbox.collision(Obj2);
-	}*/
+	}
 	
 	boolean collision_test(DynamicEntity Obj1) {
  	
@@ -125,13 +125,9 @@ public class Entity_Manager {
  					//ça nous permet de créer n'importe quoi sur les détéctions de collisions
  					// ex : si on se fait toucher, c'est l'ennemi qui prend un dps, etc..
  					
-<<<<<<< HEAD
  			for(int k = 0; k< offset_static; k ++ ) {
  				if (collision_test(this.Entities_Dynamic[i],this.Entities_Static[k])) { // comparaisons dyn stat
-=======
- 			for(int k = 0; k<offset_dead; k ++ ) {
- 				if (collision_test(this.Entities_Dynamic[i],this.Entities_Static[k])) {
->>>>>>> 07c5e98063bed3099692086d09c7244035ce48eb
+ 			
  					// ici on appelle l'automate 
  				}
  			}

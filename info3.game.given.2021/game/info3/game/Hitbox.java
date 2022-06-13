@@ -28,7 +28,11 @@ public class Hitbox {
 		return Math.sqrt((a_x-b_x)*(a_x-b_x)+(a_y-b_y)*(a_y-b_y));
 	}
 	
-	boolean collision(Entity a) {
-		return distance (this.x,this.y,a.m_x,a.m_y)<this.rayon+a.hitbox.rayon;
+	boolean collision(StaticEntity a) {
+		return distance (this.x,this.y,a.x,a.y)<this.rayon+a.hitbox.rayon;
+	}
+	boolean collision(DynamicEntity a) {
+		return distance (this.x,this.y,a.x,a.y)<this.rayon+a.hitbox.rayon;
+
 	}
 }

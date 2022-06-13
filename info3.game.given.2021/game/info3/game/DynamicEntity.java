@@ -9,6 +9,7 @@ public abstract class DynamicEntity extends Entity{
 	int y;
 	BufferedImage[] m_images;
 	
+	Hitbox hitbox;
 	
 	int x_speed;
 	int y_speed;
@@ -53,6 +54,9 @@ public abstract class DynamicEntity extends Entity{
 			
 		}
 	}
+	
+	 
+	
 	
 	public void set_speed(int code, int speed) {
 		System.out.println("déplacement");

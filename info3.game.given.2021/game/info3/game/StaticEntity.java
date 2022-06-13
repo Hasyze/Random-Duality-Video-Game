@@ -8,6 +8,8 @@ public class StaticEntity {
 	int y;
 	BufferedImage[] m_images;
 	
+	
+	Hitbox hitbox;
 	int m_imageIndex;
 	
 	public StaticEntity(){

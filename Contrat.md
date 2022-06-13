@@ -1,4 +1,4 @@
-﻿
+
 
 **Contrat**
 
@@ -10,19 +10,14 @@ et combattent des monstres, leur but étant d’aller le plus loin possible.
 
 **Le monde :**
 
-Le “monde” du jeu se décompose en étages qui sont tous composés de salles. Chaque
+Le “monde” du jeu se décompose en étages qui sont tous composés de salles. 
 
-étage possède une disposition de salles aléatoire, et une salle de boss qui permet de
+`[DEMO]` Chaque étage possède une disposition de salles aléatoire, et une salle de boss qui permet de changer d’étage. 
 
-changer d’étage. Les salles seront générées semi-aléatoirement, elles prendront pour base
+[PAS CLAIR, vous n'expliquez pas ce qui est aléatoire.]
+Les salles seront générées semi-aléatoirement, elles prendront pour base une disposition prédéfinie dans laquelle on placera des ennemis piochés aléatoirement dans le bestiaire du jeu. Nous choisissons de partir de bases prédéfinies ce qui évite de devoir implémenter des algorithmes avancés (comme celui de A\*, basé sur l’algorithme de Dijkstra) et d’éviter potentiellement de trop longues générations de salles.
 
-une disposition prédéfinie dans laquelle on placera des ennemis piochés aléatoirement dans
-
-le bestiaire du jeu. Nous choisissons de partir de bases prédéfinies ce qui évite de devoir
-
-implémenter des algorithmes avancés (comme celui de A\*, basé sur l’algorithme de Dijkstra)
-
-et d’éviter potentiellement de trop longues générations de salles.
+[Les salles sont prédéfinies, la disposition des salles est aléatoire. On devra le voir dans la DEMO]
 
 Le nombre d'étages est donc infini, et chaque étage sera plus difficile que son précédent.
 
@@ -34,7 +29,7 @@ Pour la partie gameplay, les deux joueurs contrôlent un héros, l’un sera le 
 
 personnage très résistant mais qui ne peut attaquer qu’au corps à corps. L’autre sera le
 
-“Tireur”, un personnage plus fragile mais pouvant attaquer à distance. A intervalle de temps
+“Tireur”, un personnage plus fragile mais pouvant attaquer à distance. `[DEMO]` [TRANSFERT] A intervalle de temps
 
 régulier, les deux joueurs se verront échanger leurs rôles. L’un deviendra le tireur à la place
 
@@ -48,19 +43,21 @@ La condition de défaite est la mort des deux joueurs. Nous avons donc décidé 
 
 deux joueurs meurt, il pourra se transformer en fantôme et remplir une mission afin de
 
-revenir à la vie. Cela rentre dans la contrainte de la doublure.
+revenir à la vie. Cela rentre dans la contrainte de la doublure. `[DEMO]` [DOUBLURE = si les déplacements du fantome sont très différents]
 
 **Entités**
 
-Pour l’entité qui pullule, nous avons plusieurs idées, celle que nous implémenterons est celle
+[MULTIPLICATION par action EGG] Pour l’entité qui pullule, nous avons plusieurs idées, celle que nous implémenterons est celle
 
 du nid de monstres, un entité qui fait apparaître des monstres régulièrement tant que ce
 
-dernier n’est pas détruit.
+dernier n’est pas détruit. `[DEMO]`
 
 (Optionnel) Faire un ennemis de type “Slime” qui commence à une certaine taille et qui, à sa
 
 mort, se divise en deux jusqu'à qu'il atteigne une taille donnée ce qui le tuera définitivement.
+
+[+ menu d'attribution des automates au début du jeu]
 
 **Planning**
 
@@ -70,7 +67,7 @@ mort, se divise en deux jusqu'à qu'il atteigne une taille donnée ce qui le tue
 
 \-
 
-Faire automates des entités mortes et vivantes (Jeudi 16)
+Faire automates des entités mortes et vivantes [??] (Jeudi 16)
 
 Finir génération aléatoire des salles + intégrer les visuels, textures (Mercredi 15)
 

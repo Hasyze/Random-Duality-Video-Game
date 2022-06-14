@@ -38,10 +38,17 @@ public class Game {
 	
 
 	public static void main(String args[]) throws Exception {
+		/**
+		Etage Map = new Etage(15);
+		Map.test_etage();
+		**/
+		/**
+		Salle salle = new Salle(2);
+		String file = new String("resources/plan_salle.txt");
 		
-		//Etage Map = new Etage(15);
-		
-		//Map.test_etage();
+		salle.set_compo(file);
+		salle.print_salle();
+		**/
 		
 		try {
 			System.out.println("Game starting...");
@@ -50,6 +57,7 @@ public class Game {
 		} catch (Throwable th) {
 			th.printStackTrace(System.err);
 		}
+		
 	}
 	Entity_Manager EM;
 	
@@ -76,13 +84,21 @@ public class Game {
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
 
-		m_cowboy = new Cowboy( 300, 200);
+
+
+		//NOAH C4EST ICI QU4IL FAUT DECOMMENTER
+
+		/*m_cowboy = new Cowboy( 300, 200);
 		m_cowboy2 = new Cowboy(300, 400);
 		m_rocher= new Rocher(512,300);
 		EM.EM_add(m_cowboy);
 		EM.EM_add(m_cowboy2);	
-		EM.EM_add(m_rocher);
+		EM.EM_add(m_rocher);*/
 		
+		m_cowboy = new Cowboy();
+		m_cowboy2 = new Cowboy();
+
+
 		// creating a listener for all the events
 		// from the game canvas, that would be
 		// the controller in the MVC pattern
@@ -157,10 +173,11 @@ public class Game {
 	 */
 	void tick(long elapsed) {
 
-		//m_cowboy.tick(elapsed);
-		//m_cowboy2.tick(elapsed);
-		EM.tick(m_cowboy,elapsed);
-		EM.tick(m_cowboy2,elapsed);
+		//NOAH
+		//EM.tick(m_cowboy,elapsed);
+		//EM.tick(m_cowboy2,elapsed);
+		m_cowboy.tick(elapsed);
+		m_cowboy2.tick(elapsed);
 
 		// Update every second
 		// the text on top of the frame: tick and fps

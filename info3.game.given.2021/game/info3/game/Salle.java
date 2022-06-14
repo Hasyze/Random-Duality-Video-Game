@@ -1,5 +1,8 @@
 package info3.game;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.Random;
 
 class Salle {	
@@ -23,39 +26,11 @@ class Salle {
 	 * */
 	
 	
-	int largeur = 32;
-	int hauteur = 18;
+	int largeur = 50;
+	int hauteur = 50;
 	int nb_ennemis = 0;
 	
 	String Type;
-	
-	
-	Salle() {
-		nbr_portes = 0;
-		Type = null;
-		composition = new int[largeur][hauteur];
-		for(int i = 0; i<hauteur; i++) {
-			for(int j = 0; j<largeur; j++) {
-				composition[j][i] = 0;
-			}
-		}
-		for(int i = 0; i<largeur; i++) {
-			composition[i][0] = 1;
-			composition[i][hauteur - 1] = 1;
-		}
-		for(int i = 0; i<hauteur; i++) {
-			composition[0][i] = 1;
-			composition[largeur - 1][i] = 1;
-		}
-		Random r = new Random();
-		nb_ennemis = r.nextInt(6);
-	}
-	
-	void placer_ennemis() {
-		Random r = new Random();
-		
-		
-	}
 	
 	void print_salle() {
 		for(int i = 0; i<hauteur; i++) {
@@ -73,7 +48,7 @@ class Salle {
 		nbr_portes = 0;
 		Ajouter_portes(nbr_de_portes);
 		Type = "Normale";
-		composition = new int[1000][1000];
+		composition = new int[50][50];
 	}
 	
 	Salle(String type) {
@@ -83,24 +58,24 @@ class Salle {
 		ouest = null;
 		nbr_portes = 0;
 		Type = type;
-		composition = new int[1000][1000];
+		composition = new int[50][50];
 	}
 		
 	Salle(int nbr_de_portes, String type) {
 		nbr_portes = 0;
 		Ajouter_portes(nbr_de_portes);
 		Type = type;
-		composition = new int[1000][1000];
+		composition = new int[50][50];
 	}
 	
-	void Ajouter_portes(int nbr_de_portes) {
+	void Ajouter_portes(int nbr_de_portes) {	//Ajoute pls portes
 		for (int i = 0; i < nbr_de_portes; i++) {
 			boolean v = Ajouter_une_porte();
 			if (v) {nbr_portes++;}
 		}
 	}
 	
-	boolean Ajouter_une_porte() {	//Ajoute une porte sur un des côtés, renvoie false si aucune porte n'a pu être ajoutée
+	boolean Ajouter_une_porte() {	//Ajoute une porte sur un des côtés (Aléatoire), renvoie false si aucune porte n'a pu être ajoutée
 		Random r = new Random();
 		int j = r.nextInt(4);
 		switch (j) {
@@ -237,7 +212,7 @@ class Salle {
 	}
 	
 	
-	boolean Lier_deux_Salles(Salle salle) {
+	boolean Lier_deux_Salles(Salle salle) {		//renvois true si on lie deux salles en recherchant des portes disponible, false sinon
 		Porte P1 = this.Trouver_porte_disponible();
 		Porte P2 = salle.Trouver_porte_disponible();
 		if ((P1 == null) || (P2 == null)) {
@@ -251,7 +226,7 @@ class Salle {
 		
 	}
 	
-	void Lier_deux_Salles(Salle salle, Porte origine, Porte destination) {
+	void Lier_deux_Salles(Salle salle, Porte origine, Porte destination) {	//On lie deux salles en choisissant les portes qui font le lien
 		origine.salle_destination = salle;
 		destination.salle_destination = this;
 	}
@@ -344,6 +319,34 @@ class Salle {
 					return null;
 				}
 		} 
+	}
+	
+	void set_compo(String plan) {
+		try
+        {
+            File fil = new File(plan);
+            BufferedReader br = new BufferedReader(new FileReader(fil));
+            System.out.println("file content: ");
+            int c = 0, l = 0;
+            int r=0;
+            while((r=br.read())!=-1)
+            {
+            	if ((r == 48) || (r == 49) || (r == 50) || (r == 51) || (r == 52)) {
+	            	this.composition[l][c] = r;
+	                c++;
+	                if (c >= 50) {
+	                	c = 0;
+	                	l++;
+	                }
+            	}
+                System.out.print((char)r);
+            }
+            br.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
 	}
 
 }

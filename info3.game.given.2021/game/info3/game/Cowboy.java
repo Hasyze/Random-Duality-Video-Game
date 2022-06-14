@@ -38,10 +38,8 @@ public class Cowboy extends DynamicEntity{
 	//int m_imageIndex;
 	long m_imageElapsed;
 	long m_moveElapsed;
-	
-	
-//	public int worldX = 500, worldY = 350; //position du personnage sur la carte 
-	/*int m_width;
+	public int worldX, worldY; //position du personnage sur la carte 
+	int m_width;
 	int x_speed;
 	int y_speed;
 	int x_nspeed;
@@ -69,6 +67,11 @@ public class Cowboy extends DynamicEntity{
 		this.x = m_x;
 		this.y = m_y;
 		
+	
+	
+	void give_position(int X, int Y) throws IOException {
+		this.x = X;
+		this.y = Y;
 	}
 
 	/*

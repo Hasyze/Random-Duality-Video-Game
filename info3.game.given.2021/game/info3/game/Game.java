@@ -38,11 +38,17 @@ public class Game {
 	
 
 	public static void main(String args[]) throws Exception {
+		/**
+		Etage Map = new Etage(15);
+		Map.test_etage();
+		**/
+		Salle salle = new Salle(2);
+		String file = new String("/home/axel/Documents/Cours/Projet de fin d'année/jeu/info3.game.given.2021/resources/plan_salle.txt");
 		
-		//Etage Map = new Etage(15);
+		salle.set_compo(file);
+		salle.print_salle();
 		
-		//Map.test_etage();
-		
+		/**
 		try {
 			System.out.println("Game starting...");
 			game = new Game();
@@ -50,6 +56,7 @@ public class Game {
 		} catch (Throwable th) {
 			th.printStackTrace(System.err);
 		}
+		**/
 	}
 	
 	JFrame m_frame;
@@ -73,9 +80,6 @@ public class Game {
 		// in an Model-View-Controller pattern (MVC)
 		m_cowboy = new Cowboy();
 		m_cowboy2 = new Cowboy();
-		//m_rocher= new Rocher();
-		
-		
 		// creating a listener for all the events
 		// from the game canvas, that would be
 		// the controller in the MVC pattern

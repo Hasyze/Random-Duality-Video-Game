@@ -38,24 +38,26 @@ public class Cowboy extends DynamicEntity{
 	//int m_imageIndex;
 	long m_imageElapsed;
 	long m_moveElapsed;
-//	public int worldX = 500, worldY = 350; //position du personnage sur la carte 
-	/*int x_speed;
+	public int worldX, worldY; //position du personnage sur la carte 
+	int m_width;
+	int x_speed;
 	int y_speed;
 	int x_nspeed;
-	int y_nspeed;*/
+	int y_nspeed;
 	
 	//STATS
 	int speed = 4;
-
-//	public final int screenX;
-	//public final int screenY;
+	
 
 	Cowboy() throws IOException {
-		super();
-		this.m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
-		this.x = 500;
-		this.y = 350;
-		
+		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
+		worldX = 450;
+		worldY = 300;
+	}
+	
+	void give_position(int X, int Y) throws IOException {
+		worldX = X;
+		worldY = Y;
 	}
 
 	/*
@@ -80,7 +82,7 @@ public class Cowboy extends DynamicEntity{
 	public void paint(Graphics g, int width, int height) {
 		BufferedImage img = m_images[m_imageIndex];
 		int scale = 2;
-		g.drawImage(img, this.x + width, this.y + height, scale * img.getWidth(), scale * img.getHeight(), null);
+		g.drawImage(img, worldX, worldY, scale * img.getWidth(), scale * img.getHeight(), null);
 	}
 
 /*	public void set_orientation() {

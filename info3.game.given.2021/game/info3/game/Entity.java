@@ -32,5 +32,7 @@ public abstract class Entity extends Object{
 			}
 			return null;
 		}
+		public void destruct() {};
+		
 				
 }

@@ -59,6 +59,8 @@ public class Game {
 		}
 		
 	}
+	Entity_Manager EM;
+	
 	
 	JFrame m_frame;
 	JLabel m_text;
@@ -76,13 +78,23 @@ public class Game {
 	Sound m_music;
 	
 
+
 	Game() throws Exception {
+		EM= new Entity_Manager();
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
 		m_cowboy = new Cowboy();
 		m_cowboy2 = new Cowboy();
 		//m_rocher= new Rocher();
 		
+
+		/* ENTITY MANAGER CASSé
+		m_cowboy = new Cowboy( 300, 200);
+		m_cowboy2 = new Cowboy(300, 400);
+		m_rocher= new Rocher(512,300);
+		EM.EM_add(m_cowboy);
+		EM.EM_add(m_cowboy2);	
+		EM.EM_add(m_rocher);*/
 		
 		// creating a listener for all the events
 		// from the game canvas, that would be
@@ -160,6 +172,8 @@ public class Game {
 
 		m_cowboy.tick(elapsed);
 		m_cowboy2.tick(elapsed);
+		//EM.tick(m_cowboy,elapsed);
+		//EM.tick(m_cowboy2,elapsed);
 
 		// Update every second
 		// the text on top of the frame: tick and fps

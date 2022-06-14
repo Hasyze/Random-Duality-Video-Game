@@ -24,7 +24,8 @@ public abstract class DynamicEntity extends Entity{
 	
 	public DynamicEntity(){
 		this.vie=1;
-		hitbox= new Hitbox (25,x,y); //Aziz
+		hitbox= new Hitbox (25,x,y); 
+
 	}
 	
 	int speed = 4;

@@ -72,8 +72,11 @@ public class Game {
 
 		m_cowboy = new Cowboy( 300, 200);
 		m_cowboy2 = new Cowboy(300, 400);
-				
-		m_rocher= new Rocher();
+		m_rocher= new Rocher(512,300);
+		EM.EM_add(m_cowboy);
+		EM.EM_add(m_cowboy2);	
+		EM.EM_add(m_rocher);
+		
 		// creating a listener for all the events
 		// from the game canvas, that would be
 		// the controller in the MVC pattern

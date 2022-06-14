@@ -13,13 +13,17 @@ public class Rocher extends StaticEntity{
 	
 	int m_width;
 	
-	Rocher() throws IOException {
-		super();
-		this.m_images=loadSprite("resources/images_test/rocher.png", 2, 5);
-		this.x = 512;
-		this.y = 300;
+	
+	
 		
+	Rocher(int m_x, int m_y) throws IOException{
+		super(m_x,m_y);
+		this.m_images=loadSprite("resources/images_test/rocher.png", 2, 5);
+		x=m_x;
+		y=m_y;
 	}
+	
+	
 	
 	public static BufferedImage[] loadSprite(String filename, int nrows, int ncols) throws IOException {
 		File imageFile = new File(filename);

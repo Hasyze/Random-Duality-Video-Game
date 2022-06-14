@@ -38,6 +38,8 @@ public class Cowboy extends DynamicEntity{
 	//int m_imageIndex;
 	long m_imageElapsed;
 	long m_moveElapsed;
+	
+	
 //	public int worldX = 500, worldY = 350; //position du personnage sur la carte 
 	/*int m_width;
 	int x_speed;
@@ -56,7 +58,8 @@ public class Cowboy extends DynamicEntity{
 		this.m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
 		this.x = 0;
 		this.y = 0;
-	  
+		
+		
 		
 	}
 

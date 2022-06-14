@@ -12,23 +12,24 @@ public class Entity_Manager {
 	 
 	 Entity_Manager(){
 		 Entities_Dynamic = new DynamicEntity[1000];
-		// Entities_Static= new StaticEntity[1000];
+		 Entities_Static= new StaticEntity[1000];
 		 offset_dynamic = 0;
 		 offset_static = 0;
 	 }
-	 
-	 void EM_add(Entity obj) {
-         if( obj instanceof DynamicEntity) {
-             Entities_Dynamic[offset_dynamic]=(DynamicEntity) obj;
+////////////////////////////////// ADD	 
+	 void EM_add(DynamicEntity obj) {     
+             Entities_Dynamic[offset_dynamic]= obj;
              offset_dynamic++;
-         }
-         /*else if ( obj instanceof StaticEntity){
-             entities_static[offset]=(StaticEntity) obj;
-             offset_static++;
-             }*/
-         
+             System.out.print("Dynamic Object Created : "+ obj+"\n");
      }
-	 
+	 void EM_add(StaticEntity obj) {
+		 Entities_Static[offset_static] = obj;
+		 offset_static++;
+         System.out.print("Static Object Created : "+ obj);
+
+	 }
+//////////////////////////////////
+/////////////////////////////////Remove
 	 void EM_remove(DynamicEntity obj){		 
 		int i = EM_find(obj);
 		if (i== -1) {
@@ -42,7 +43,7 @@ public class Entity_Manager {
 		 offset_dynamic--;
 		//obj.detruire();
 	 }
-	/* void EM_remove(StaticEntity obj) {
+	 void EM_remove(StaticEntity obj) {
 		 int i = EM_find(obj);
 			if (i== -1) {
 				System.out.print("ERREUR : cannot find entitiy in entity_manager ! ");
@@ -54,11 +55,10 @@ public class Entity_Manager {
 			 Entities_Dynamic[offset_dynamic]= null;
 			 offset_dynamic--;
 			//obj.detruire();
-	 }*/
-	 
-	
-	
- int EM_find(DynamicEntity obj) {
+	 }
+///////////////////////////////// 
+///////////////////////////////// FIND	
+	 int EM_find(DynamicEntity obj) {
          for(int i =0; i< offset_dynamic; i++) {
             if (Entities_Dynamic[i]== obj) { 
                 return i;
@@ -66,34 +66,46 @@ public class Entity_Manager {
              }
         return -1;         
      }
-     /*int EM_find(StaticEntity obj) {
+     int EM_find(StaticEntity obj) {
          for(int i =0; i< offset_static; i++) {
-            if (entities_static[i]== obj) { 
+            if (Entities_Static[i]== obj) { 
                 return i;
                 }
              }
         return -1;         
-     }*/
+     }
+//////////////////////////////////     
+     
+     
+     
+     
  	boolean collision_test(DynamicEntity Obj1, DynamicEntity Obj2) {
  		// Aziz c'est ici les test de collision, tu renvoies true si oui il y a collision, false sinon
  		if (Obj1.getClass().equals(Obj2.getClass())) {
  			return false;
  		}
- 		return Obj1.hitbox.collision(Obj2);
+ 		return Obj1.hitbox.verif(Obj2);
  	}	
  		
 	boolean collision_test(DynamicEntity Obj1, StaticEntity Obj2) { 
-		return Obj1.hitbox.collision(Obj2);
+		return Obj1.hitbox.collision(Obj2) ;
 	}
 	
 	boolean collision_test(DynamicEntity Obj1) {
- 	
 		for (int i=0;i<offset_dynamic;i++) {
 			if (Obj1!=Entities_Dynamic[i])
-				return Entities_Dynamic[i].hitbox.verif(Obj1);
+				if(Entities_Dynamic[i].hitbox.verif(Obj1)) {
+					return true;
+				}
 		}
- 		return false;
+		for (int j=0; j<offset_static; j++) {
+			if(Entities_Static[j].hitbox.verif(Obj1)) {
+				return true;
+			}
+		}	
+		return false;
  	}
+		
 	
 	public void tick(DynamicEntity Obj1,long elapsed) {
 		Obj1.m_imageElapsed += elapsed;
@@ -101,8 +113,14 @@ public class Entity_Manager {
 			Obj1.m_imageElapsed = 0;
 			// m_imageIndex = (m_imageIndex + 1) % m_images.length;
 		}
+		validate_move(Obj1, elapsed);
+	}
+	
+	void validate_move(DynamicEntity Obj1, long elapsed) {
 		Obj1.m_moveElapsed += elapsed;
-		Obj1.hitbox= new Hitbox (25,Obj1.x,Obj1.y);
+		Obj1.hitbox.x= Obj1.x;
+		Obj1.hitbox.y= Obj1.y;
+		
 		if (Obj1.m_moveElapsed > 24 & Obj1.m_width != 0 && !collision_test(Obj1) ) {
 			Obj1.m_moveElapsed = 0;
 			Obj1.x= (Obj1.x + Obj1.x_speed - Obj1.x_nspeed) % Obj1.m_width;
@@ -112,10 +130,7 @@ public class Entity_Manager {
 	}
 	
 	
-	
-	
- 	void eval() {
- 		Entity_Manager L2 = new Entity_Manager();
+ /*	Entity_Manager L2 = new Entity_Manager();
  		
  		for(int i=0; i < offset_dynamic; i++) {
  			for (int j=i; j< offset_dynamic; j++) {
@@ -139,6 +154,6 @@ public class Entity_Manager {
  			}
  		}
  		
- 	}
+ 	}*/
  
 }

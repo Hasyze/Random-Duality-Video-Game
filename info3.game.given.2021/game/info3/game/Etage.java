@@ -86,32 +86,6 @@ public class Etage {
 		}
 		return sum_portes;
 	}
-	
-	public void afficher_etage() {
-		String porte_horiz_double = " <---> ";
-		String porte_horiz_O = " <---- ";
-		String porte_horiz_E = " ----> ";
-		String porte_verti_double = "   I   ";
-		String porte_verti_N = "   T   ";
-		String porte_verti_S = "   L   ";
-		
-		/**
-		for (int x = 0; x<salles.length; x++) {
-			String ligne = new String();
-			ligne = "Salle indice ";			
-			for (int y = 0; y<1; y++) {
-				for (int i = 0; i<6; i++) {
-					if ((Salles[i].x == x) && (Salles[i].y == y)) {
-						ligne = ligne.concat(Salles[i].Type);
-					}
-					else {
-						ligne = ligne.concat("       ");
-					}
-				}
-			}
-			System.out.println(ligne);
-		}**/
-	}
 
 }
 

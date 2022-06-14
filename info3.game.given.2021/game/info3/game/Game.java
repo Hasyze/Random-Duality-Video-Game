@@ -40,11 +40,17 @@ public class Game {
 	Image bg = info3.game.graphics.GameCanvas.loadImage("resources/images_test/among-us.png");
 
 	public static void main(String args[]) throws Exception {
+		/**
+		Etage Map = new Etage(15);
+		Map.test_etage();
+		**/
+		Salle salle = new Salle(2);
+		String file = new String("/home/axel/Documents/Cours/Projet de fin d'année/jeu/info3.game.given.2021/resources/plan_salle.txt");
 		
-		//Etage Map = new Etage(15);
+		salle.set_compo(file);
+		salle.print_salle();
 		
-		//Map.test_etage();
-		
+		/**
 		try {
 			System.out.println("Game starting...");
 			game = new Game();
@@ -52,6 +58,7 @@ public class Game {
 		} catch (Throwable th) {
 			th.printStackTrace(System.err);
 		}
+		**/
 	}
 
 	JFrame m_frame;
@@ -65,7 +72,7 @@ public class Game {
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
 		m_cowboy = new Cowboy();
-		//m_cowboy2 = new Cowboy();
+		m_cowboy2 = new Cowboy();
 		// creating a listener for all the events
 		// from the game canvas, that would be
 		// the controller in the MVC pattern
@@ -141,7 +148,7 @@ public class Game {
 	void tick(long elapsed) {
 
 		m_cowboy.tick(elapsed);
-		//m_cowboy2.tick(elapsed);
+		m_cowboy2.tick(elapsed);
 
 		// Update every second
 		// the text on top of the frame: tick and fps
@@ -195,11 +202,17 @@ public class Game {
 		 * 
 		 */
 		
-		int width = m_canvas.getWidth();
-		int height = m_canvas.getHeight();
-		int screenX = m_canvas.getX() - m_cowboy.worldX + m_cowboy.screenX; // on récupère la position de base du canvas (map) puis on la décale selon
-																			// la position du joueur à l'écran
-		int screenY = m_canvas.getY() - m_cowboy.worldY + m_cowboy.screenY;	//Idem
+		int width = m_canvas.getWidth();	//récupère la largeur de la fenetre
+		int height = m_canvas.getHeight();	//récupère la hauteur de la fenetre
+		
+		int World_X = (m_cowboy.worldX + m_cowboy2.worldX)/2;
+		int World_Y = (m_cowboy.worldY + m_cowboy2.worldY)/2;
+		
+		int screenX = World_X - (width/2);	//On calcul les coo du centre de la fenêtre
+		int screenY = World_Y - (height/2);
+				
+		
+		
 
 		
 		//AFFICHAGE IMAGE BACKGROUND
@@ -217,7 +230,7 @@ public class Game {
 		
 		// paint
 		m_cowboy.paint(g, width, height);
-		//m_cowboy2.paint(g, width, height);
+		m_cowboy2.paint(g, width, height);
 	}
 
 }

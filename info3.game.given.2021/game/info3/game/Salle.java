@@ -1,6 +1,9 @@
 package info3.game;
 
 import java.util.Random;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 
 class Salle {	
 	
@@ -23,13 +26,13 @@ class Salle {
 	 * */
 	
 	
-	int largeur = 32;
-	int hauteur = 18;
+	int largeur = 50;
+	int hauteur = 50;
 	int nb_ennemis = 0;
 	
 	String Type;
 	
-	
+	/**
 	Salle() {
 		nbr_portes = 0;
 		Type = null;
@@ -53,9 +56,8 @@ class Salle {
 	
 	void placer_ennemis() {
 		Random r = new Random();
-		
-		
 	}
+	**/
 	
 	void print_salle() {
 		for(int i = 0; i<hauteur; i++) {
@@ -73,7 +75,7 @@ class Salle {
 		nbr_portes = 0;
 		Ajouter_portes(nbr_de_portes);
 		Type = "Normale";
-		composition = new int[1000][1000];
+		composition = new int[50][50];
 	}
 	
 	Salle(String type) {
@@ -83,14 +85,14 @@ class Salle {
 		ouest = null;
 		nbr_portes = 0;
 		Type = type;
-		composition = new int[1000][1000];
+		composition = new int[50][50];
 	}
 		
 	Salle(int nbr_de_portes, String type) {
 		nbr_portes = 0;
 		Ajouter_portes(nbr_de_portes);
 		Type = type;
-		composition = new int[1000][1000];
+		composition = new int[50][50];
 	}
 	
 	void Ajouter_portes(int nbr_de_portes) {	//Ajoute pls portes
@@ -344,6 +346,34 @@ class Salle {
 					return null;
 				}
 		} 
+	}
+	
+	void set_compo(String plan) {
+		try
+        {
+            File fil = new File(plan);
+            BufferedReader br = new BufferedReader(new FileReader(fil));
+            System.out.println("file content: ");
+            int c = 0, l = 0;
+            int r=0;
+            while((r=br.read())!=-1)
+            {
+            	if ((r == 48) || (r == 49) || (r == 50) || (r == 51) || (r == 52)) {
+	            	this.composition[l][c] = r;
+	                c++;
+	                if (c >= 50) {
+	                	c = 0;
+	                	l++;
+	                }
+            	}
+                System.out.print((char)r);
+            }
+            br.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
 	}
 
 }

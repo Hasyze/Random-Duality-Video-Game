@@ -38,10 +38,17 @@ public class Game {
 	
 
 	public static void main(String args[]) throws Exception {
+		/**
+		Etage Map = new Etage(15);
+		Map.test_etage();
+		**/
+		/**
+		Salle salle = new Salle(2);
+		String file = new String("resources/plan_salle.txt");
 		
-		//Etage Map = new Etage(15);
-		
-		//Map.test_etage();
+		salle.set_compo(file);
+		salle.print_salle();
+		**/
 		
 		try {
 			System.out.println("Game starting...");
@@ -50,6 +57,7 @@ public class Game {
 		} catch (Throwable th) {
 			th.printStackTrace(System.err);
 		}
+		
 	}
 	
 	JFrame m_frame;

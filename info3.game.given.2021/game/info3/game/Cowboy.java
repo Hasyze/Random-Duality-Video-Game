@@ -47,9 +47,6 @@ public class Cowboy extends DynamicEntity{
 	//STATS
 	int speed = 4;
 
-//	public final int screenX;
-	//public final int screenY;
-
 	Cowboy() throws IOException {
 		super();
 		this.m_images = loadSprite("resources/winchester-4x6.png", 4, 6);

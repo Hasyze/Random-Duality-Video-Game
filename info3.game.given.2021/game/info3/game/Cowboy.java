@@ -56,7 +56,7 @@ public class Cowboy extends DynamicEntity{
 		this.m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
 		this.x = 0;
 		this.y = 0;
-	  
+		
 		
 	}
 

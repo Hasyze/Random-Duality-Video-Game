@@ -14,7 +14,7 @@ public class Rocher extends StaticEntity{
 	int m_width;
 	
 	Rocher() throws IOException {
-		super();
+		super(512,300);
 		this.m_images=loadSprite("resources/images_test/rocher.png", 2, 5);
 		this.x = 512;
 		this.y = 300;

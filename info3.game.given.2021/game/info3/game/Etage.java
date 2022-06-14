@@ -34,7 +34,7 @@ public class Etage {
 		
 		initialisation_etage();
 		
-		for (int i = 1; i < niveau+2; i++ ) {	//
+		for (int i = 1; i < niveau+2; i++ ) {	// Création des salles entre l'entrée et le boss
 			int chiffre_valide = 0;
 			int j = 0;
 			int x = nbr_de_portes_dispo(i);
@@ -70,16 +70,16 @@ public class Etage {
 		
 		salles[niveau +2] = new Salle("Boss   ");	//On créer la salle du boss et on la relie avec la salle précédente
 		if (salles[niveau+1].Porte_non_liees() == false) {	//Si pas assez de porte dans la salle précédent le boss
-			salles[niveau+1].Ajouter_portes(1);
+			salles[niveau+1].Ajouter_portes(1);				//On en rajoute une
 		}
-		while (salles[niveau+1].Porte_non_liees() == true) { //On relit les portes de la dernière salle au boss.
+		while (salles[niveau+1].Porte_non_liees() == true) { //On relies les portes de la dernière salle au boss.
 			salles[niveau+2].Ajouter_portes(1);
 			salles[niveau+1].Lier_deux_Salles(salles[niveau+2]);
 		}
 		
 	}
 	
-	int nbr_de_portes_dispo(int indice) { //Renvoie le nombre de portes des i premières salles du tableau
+	int nbr_de_portes_dispo(int indice) { //Renvoie le nombre de portes des i premières salles du tableau salles[]
 		int sum_portes = 0;
 		for (int i = 0; i < indice; i++) {
 			sum_portes = Math.abs(salles[i].nbr_portes - sum_portes);

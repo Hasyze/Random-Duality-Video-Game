@@ -10,7 +10,10 @@ public class StaticEntity extends Entity{
 	Hitbox hitbox;
 	int m_imageIndex;
 	
-	
+	public StaticEntity () {
+		
+		hitbox = new Hitbox(35,x,y);
+	}
 	public StaticEntity (int s_x, int s_y) {
 		x= s_x;
 		y=s_y;

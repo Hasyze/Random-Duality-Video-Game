@@ -20,6 +20,7 @@ public class Rocher extends StaticEntity{
 		this.m_images=loadSprite("resources/images_test/rocher.png", 2, 5);
 		this.x = position_rocher_x();
 		this.y = position_rocher_y();
+	}
 		
 	Rocher(int m_x, int m_y) throws IOException{
 		super(m_x,m_y);

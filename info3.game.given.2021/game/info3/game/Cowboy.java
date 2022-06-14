@@ -70,7 +70,7 @@ public class Cowboy extends DynamicEntity{
 	/*
 	 * Simple animation here, the cowbow
 	 */
-	/*public void tick(long elapsed) {
+	public void tick(long elapsed) {
 		m_imageElapsed += elapsed;
 		if (m_imageElapsed > 200) {
 			m_imageElapsed = 0;
@@ -83,7 +83,7 @@ public class Cowboy extends DynamicEntity{
 			this.y = (this.y + y_speed - y_nspeed);
 			set_orientation();
 		}
-	}*/
+	}
 
 	//A remonter dans dynamic 
 	public void paint(Graphics g, int width, int height) {

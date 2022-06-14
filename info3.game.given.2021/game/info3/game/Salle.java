@@ -1,9 +1,9 @@
 package info3.game;
 
-import java.util.Random;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.Random;
 
 class Salle {	
 	
@@ -31,33 +31,6 @@ class Salle {
 	int nb_ennemis = 0;
 	
 	String Type;
-	
-	/**
-	Salle() {
-		nbr_portes = 0;
-		Type = null;
-		composition = new int[largeur][hauteur];
-		for(int i = 0; i<hauteur; i++) {
-			for(int j = 0; j<largeur; j++) {
-				composition[j][i] = 0;
-			}
-		}
-		for(int i = 0; i<largeur; i++) {
-			composition[i][0] = 1;
-			composition[i][hauteur - 1] = 1;
-		}
-		for(int i = 0; i<hauteur; i++) {
-			composition[0][i] = 1;
-			composition[largeur - 1][i] = 1;
-		}
-		Random r = new Random();
-		nb_ennemis = r.nextInt(6);
-	}
-	
-	void placer_ennemis() {
-		Random r = new Random();
-	}
-	**/
 	
 	void print_salle() {
 		for(int i = 0; i<hauteur; i++) {

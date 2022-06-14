@@ -44,13 +44,14 @@ public class Game {
 		Etage Map = new Etage(15);
 		Map.test_etage();
 		**/
+		/**
 		Salle salle = new Salle(2);
-		String file = new String("/home/axel/Documents/Cours/Projet de fin d'année/jeu/info3.game.given.2021/resources/plan_salle.txt");
+		String file = new String("resources/plan_salle.txt");
 		
 		salle.set_compo(file);
 		salle.print_salle();
+		**/
 		
-		/**
 		try {
 			System.out.println("Game starting...");
 			game = new Game();
@@ -58,7 +59,7 @@ public class Game {
 		} catch (Throwable th) {
 			th.printStackTrace(System.err);
 		}
-		**/
+		
 	}
 
 	JFrame m_frame;

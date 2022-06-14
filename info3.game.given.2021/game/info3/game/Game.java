@@ -250,7 +250,6 @@ public class Game {
 		m_cowboy.paint(g, -coinscamX, -coinscamY);
 		m_cowboy2.paint(g, -coinscamX, -coinscamY);
 		
-		
 	}
 
 }

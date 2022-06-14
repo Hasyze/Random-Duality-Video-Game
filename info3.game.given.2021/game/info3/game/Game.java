@@ -43,12 +43,12 @@ public class Game {
 		Map.test_etage();
 		**/
 		Salle salle = new Salle(2);
-		String file = new String("/home/axel/Documents/Cours/Projet de fin d'année/jeu/info3.game.given.2021/resources/plan_salle.txt");
+		String file = new String("resources/maps/map1.txt");
 		
 		salle.set_compo(file);
 		salle.print_salle();
 		
-		/**
+		
 		try {
 			System.out.println("Game starting...");
 			game = new Game();
@@ -56,7 +56,7 @@ public class Game {
 		} catch (Throwable th) {
 			th.printStackTrace(System.err);
 		}
-		**/
+		
 	}
 	
 	JFrame m_frame;
@@ -131,7 +131,7 @@ public class Game {
 
 	void loadMusic() {
 		m_musicName = m_musicNames[m_musicIndex];
-		String filename = "resources/" + m_musicName + ".ogg";
+		String filename = "resources/sounds/" + m_musicName + ".ogg";
 		m_musicIndex = (m_musicIndex + 1) % m_musicNames.length;
 		try {
 			RandomAccessFile file = new RandomAccessFile(filename, "r");

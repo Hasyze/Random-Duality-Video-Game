@@ -50,7 +50,7 @@ public class Cowboy extends DynamicEntity{
 	
 
 	Cowboy() throws IOException {
-		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
+		m_images = loadSprite("resources/sprites/winchester-4x6.png", 4, 6);
 		worldX = 450;
 		worldY = 300;
 	}

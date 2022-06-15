@@ -32,7 +32,9 @@ public abstract class DynamicEntity extends Entity{
 		hitbox= new Hitbox (25,x,y); 
 
 	}
-	
+	public void step() {
+		//TODO parcourt l'automate.
+	}
 	int speed = 4;
 	
 	public void set_orientation() {

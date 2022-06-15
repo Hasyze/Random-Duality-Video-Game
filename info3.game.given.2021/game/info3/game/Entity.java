@@ -3,11 +3,14 @@ package info3.game;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
 public abstract class Entity extends Object{ 
-		
+		public int[] Aut;
+		public int Vie;
+		public void step(ArrayList<Entity> New_Dynamic,ArrayList<Entity> New_Satic) {};
 		public void pop() {}
 		public void wizz() {}
 		public Entity egg() {return this;}

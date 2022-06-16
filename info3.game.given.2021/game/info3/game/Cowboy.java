@@ -33,8 +33,8 @@ import javax.imageio.ImageIO;
  */
 public class Cowboy extends Entity{
 	
-	long m_imageElapsed;
-	long m_moveElapsed;
+	private long m_imageElapsed;
+	private long m_moveElapsed;
 	
 
 	Cowboy() throws IOException {
@@ -136,10 +136,6 @@ public class Cowboy extends Entity{
 		}
 	}
 	
-	public void pop() {}
-	
-	public void wizz() {}
-
 	public static BufferedImage[] loadSprite(String filename, int nrows, int ncols) throws IOException {
 		File imageFile = new File(filename);
 		if (imageFile.exists()) {
@@ -157,6 +153,15 @@ public class Cowboy extends Entity{
 			}
 			return images;
 		}
+		return null;
+	}
+	
+	public void move() {}
+	public void stop() {}
+	public void pop() {}
+	public void wizz() {}
+	public void paint() {}
+	public Entity egg() {
 		return null;
 	}
 

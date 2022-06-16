@@ -156,19 +156,51 @@ public class Game {
 	 * This request is to paint the Game Canvas, using the given graphics. This is
 	 * called from the GameCanvasListener, called from the GameCanvas.
 	 */
+	
+	//A terme ça faut que ce soit les bordures de la map ou de la salle
+			int xmin = 0;
+			int ymin = 0;
+			int xmax = 2000;
+			int ymax = 1000;
+	
+	
 	void paint(Graphics g) {
 
 		// get the size of the canvas
 		int width = m_canvas.getWidth();
 		int height = m_canvas.getHeight();
+		
+		//Définit les coordonnées dans le monde du coins supérieur droit de la caméra
+		int coinscamX = (m_cowboy2.x+m_cowboy.x)/2 - width/2;
+		int coinscamY = (m_cowboy2.y+m_cowboy.y)/2 - height/2;
 
 		// erase background
 		g.setColor(Color.gray);
 		g.fillRect(0, 0, width, height);
+		g.drawOval(width/2, height/2, 10, 10);
+		g.drawLine(m_cowboy.x - coinscamX, m_cowboy.y - coinscamY, m_cowboy2.x - coinscamX, m_cowboy2.y - coinscamY);
+		if(coinscamX < xmin) {
+			coinscamX = xmin;
+		}
+		if(coinscamY < ymin) {
+			coinscamY = ymin;
+		}
+		if(coinscamX + width > xmax) {
+			coinscamX = xmax - width;
+		}
+		if(coinscamY + height > ymax) {
+			coinscamY = ymax - height;
+		}
+
+
 
 		// paint
 		m_cowboy.paint(g, width, height);
 		m_cowboy2.paint(g, width, height);
+		
+		///////
+		
+		
 	}
 
 }

@@ -1,23 +1,25 @@
 package info3.game;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public abstract class Entity extends Object{
 	
-	BufferedImage[] m_images;
-	int m_imageIndex;
+	protected BufferedImage[] m_images;
+	protected int m_imageIndex;
 	
-	int x = 10,y = 10;
-	int x_speed;
-	int y_speed;
-	int x_nspeed;
-	int y_nspeed;
+	protected int x = 10,y = 10;
+	protected int x_speed;
+	protected int y_speed;
+	protected int x_nspeed;
+	protected int y_nspeed;
 	
 	//Stats
-	int speed;
-	int vie;
+	protected int speed;
+	protected int vie;
 	
 	public Entity() {
+		m_images = null;
 		m_imageIndex = 0;
 		x_speed = 0;
 		y_speed = 0;
@@ -31,6 +33,26 @@ public abstract class Entity extends Object{
 	public void stop() {}
 	public void pop() {}
 	public void wizz() {}
+	public void paint() {}
+	public Entity egg() {
+		return null;
+	}
+	public void transfert(Entity e) {}
+	
+	public static BufferedImage[] loadSprite(String filename, int nrows, int ncols) throws IOException{
+		return null;
+	}
+	
+	
+	public int getx(){
+		return x;
+	}
+	public int gety(){
+		return y;
+	}
+	public int getvie(){
+		return vie;
+	}
 	
 	
 }

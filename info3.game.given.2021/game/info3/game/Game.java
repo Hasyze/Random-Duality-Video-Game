@@ -29,7 +29,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import info3.game.graphics.GameCanvas;
-import info3.game.sound.RandomFileInputStream;
 
 public class Game {
 
@@ -60,6 +59,8 @@ public class Game {
 		
 	}
 	Entity_Manager EM;
+	
+	Modele modele;
 	
 	
 	JFrame m_frame;
@@ -95,7 +96,7 @@ public class Game {
 		EM.EM_add(m_cowboy);
 		EM.EM_add(m_cowboy2);	
 		EM.EM_add(m_rocher);*/
-		
+		modele= new Modele (EM,null);
 		// creating a listener for all the events
 		// from the game canvas, that would be
 		// the controller in the MVC pattern

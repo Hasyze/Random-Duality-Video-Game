@@ -7,6 +7,20 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public abstract class Entity extends Object{ 
+		int x;
+		int y;
+		Hitbox hitbox;
+		int x_speed;
+		int y_speed;
+		int x_nspeed;
+		int y_nspeed;
+		BufferedImage[] m_images;
+		int vie;
+		
+		int m_imageIndex;
+		long m_imageElapsed;
+		long m_moveElapsed;
+		int m_width;
 		
 		public void pop() {}
 		public void wizz() {}

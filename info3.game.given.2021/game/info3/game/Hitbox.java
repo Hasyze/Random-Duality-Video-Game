@@ -15,7 +15,7 @@ public class Hitbox {
 	}
 
 
-	boolean verif(DynamicEntity a) {
+	boolean verif_collision(Entity a) {
 		return distance (this.x,this.y,a.x+a.x_speed-a.x_nspeed,a.y-a.y_nspeed+a.y_speed)<this.rayon+a.hitbox.rayon;
 	}
 	boolean collision(DynamicEntity a) {

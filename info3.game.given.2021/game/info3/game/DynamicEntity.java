@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 
 public abstract class DynamicEntity extends Entity{
 	
-	int vie;
+	/*int vie;
 	int x;
 	int y;
 	BufferedImage[] m_images;
@@ -25,7 +25,7 @@ public abstract class DynamicEntity extends Entity{
 	int m_imageIndex;
 	long m_imageElapsed;
 	long m_moveElapsed;
-	int m_width;
+	int m_width;*/
 	
 	public DynamicEntity(){
 		this.vie=1;

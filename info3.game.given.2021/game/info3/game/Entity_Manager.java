@@ -8,16 +8,14 @@ import java.util.List;
 public class Entity_Manager {
 	 protected ArrayList<Entity> Dynamic;
 	 protected ArrayList<Entity> Static;
-	 int nb_dynamic;
-	 int nb_static;
+	 
 
 	 
 	 
 	 Entity_Manager(){
 		 Dynamic = new ArrayList<Entity>();;
 		 Static = new ArrayList<Entity>();
-	   	 nb_dynamic = 0;
-		 nb_static = 0;
+	  
 	 }
 	 
 	 
@@ -55,7 +53,7 @@ public class Entity_Manager {
 		 }
 	 }*/ // OLD VERSION DE REMOVE, arraylist fait ça très bien tout seul.
 	 
-	public void organize() { // regard toutes les entitées dynamiques, si leur flag vie = 0, alors elles dégagent car elles sont mortes.
+	protected void organize() { // regard toutes les entitées dynamiques, si leur flag vie = 0, alors elles dégagent car elles sont mortes.
 							 // les static ne peuvent pas mourir car leur automate est nul => pas de concept de vie 
 		for(int i=0; i<Dynamic.size(); i++) {
 			if(Dynamic.get(i).Vie ==0){ //mort : ça dégage
@@ -87,6 +85,7 @@ public class Entity_Manager {
 		
 		this.Dynamic = New_Dynamic;
 		this.Static = New_Static;
+		sort();
 	}
 	 
 		

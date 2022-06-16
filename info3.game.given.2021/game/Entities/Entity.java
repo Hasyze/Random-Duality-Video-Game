@@ -31,8 +31,8 @@ public abstract class Entity extends Object{
 	
 	public void move() {}
 	public void stop() {}
-	public void pop() {}
-	public void wizz() {}
+	//public void pop() {}	Implémenter ces fonctions dans chacune des sous-classes
+	//public void wizz() {}
 	public void paint() {}
 	public Entity egg() {
 		return null;

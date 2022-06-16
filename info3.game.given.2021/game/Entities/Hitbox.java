@@ -1,4 +1,4 @@
-package info3.game;
+package Entities;
 
 public class Hitbox {
 

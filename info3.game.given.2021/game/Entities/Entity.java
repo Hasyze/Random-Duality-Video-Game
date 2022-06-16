@@ -6,10 +6,8 @@ import java.util.ArrayList;
 
 public abstract class Entity extends Object{
 	
-	public int[] Aut = null;
-	
-	
-	
+	public Automate Aut;
+		
 	protected BufferedImage[] m_images;
 	protected int m_imageIndex;
 	

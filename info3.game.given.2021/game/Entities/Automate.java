@@ -1,8 +1,9 @@
-package info3.game;
+package Entities;
 
 public class Automate {
-
+	int[] test = null;
 	public Automate() {	
+		
 	}
 	
 	public void step() {

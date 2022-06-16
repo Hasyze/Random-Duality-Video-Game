@@ -66,9 +66,23 @@ public class EntityManager {
 		return New_List;
 		
 		}
-	 
-	 
-	public void tick(/*Entity Obj1,*/long elapsed) {
+	
+	//stocks a list of entities into a list of dyn and static appart.
+	public void list_to_EM(ArrayList<Entity> List) {
+		for (int i =0; i< List.size(); i++) {
+			if (List.get(i).Aut == null) {
+	        	 // alors il est static;
+	        	 Static.add(List.get(i));     	 
+	         }
+	         else if(List.get(i).Aut != null) {
+	        	 //alors il est dynamic;
+	        	 Dynamic.add(List.get(i));
+	        }
+		}
+	}
+	public void tick(/*Entity Obj1,
+					ArrayList<Entity> List, // si jamais on utilise une list*/
+	 				long elapsed) {
 		ArrayList<Entity> New_Dynamic = new ArrayList<Entity>();
 		ArrayList<Entity> New_Static = new ArrayList<Entity>();
 		

@@ -29,6 +29,7 @@ import java.io.RandomAccessFile;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import Entities.Cowboy;
 import info3.game.graphics.GameCanvas;
 import info3.game.sound.RandomFileInputStream;
 
@@ -171,14 +172,14 @@ public class Game {
 		int height = m_canvas.getHeight();
 		
 		//Définit les coordonnées dans le monde du coins supérieur droit de la caméra
-		int coinscamX = (m_cowboy2.x+m_cowboy.x)/2 - width/2;
-		int coinscamY = (m_cowboy2.y+m_cowboy.y)/2 - height/2;
+		int coinscamX = (m_cowboy2.getx()+m_cowboy.getx())/2 - width/2;
+		int coinscamY = (m_cowboy2.gety()+m_cowboy.gety())/2 - height/2;
 
 		// erase background
 		g.setColor(Color.gray);
 		g.fillRect(0, 0, width, height);
 		g.drawOval(width/2, height/2, 10, 10);
-		g.drawLine(m_cowboy.x - coinscamX, m_cowboy.y - coinscamY, m_cowboy2.x - coinscamX, m_cowboy2.y - coinscamY);
+		g.drawLine(m_cowboy.getx() - coinscamX, m_cowboy.gety() - coinscamY, m_cowboy2.getx() - coinscamX, m_cowboy2.gety() - coinscamY);
 		if(coinscamX < xmin) {
 			coinscamX = xmin;
 		}

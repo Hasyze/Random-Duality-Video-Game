@@ -1,4 +1,4 @@
-package info3.game;
+package Entities;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;

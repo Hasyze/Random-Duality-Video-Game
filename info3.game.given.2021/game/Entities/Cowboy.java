@@ -18,7 +18,7 @@
  *  Created on: March, 2020
  *      Author: Pr. Olivier Gruber
  */
-package info3.game;
+package Entities;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -37,7 +37,7 @@ public class Cowboy extends Entity{
 	private long m_moveElapsed;
 	
 
-	Cowboy() throws IOException {
+	public Cowboy() throws IOException {
 		super();
 		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
 	}

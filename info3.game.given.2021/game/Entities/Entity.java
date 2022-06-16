@@ -2,8 +2,13 @@ package Entities;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public abstract class Entity extends Object{
+	
+	public int[] Aut = null;
+	
+	
 	
 	protected BufferedImage[] m_images;
 	protected int m_imageIndex;
@@ -53,6 +58,8 @@ public abstract class Entity extends Object{
 	public int getvie(){
 		return vie;
 	}
-	
+	public void step(ArrayList<Entity> New_Dynamic, ArrayList<Entity> New_Static) {
+		// TODO : step automates pour l'aut de chaque entity.
+	}
 	
 }

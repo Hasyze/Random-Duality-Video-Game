@@ -31,17 +31,14 @@ import javax.imageio.ImageIO;
  * A simple class that holds the images of a sprite for an animated cowbow.
  *
  */
-public class Cowboy {
-	BufferedImage[] m_images;
-	int m_imageIndex;
+public class Cowboy extends Entity{
+	
 	long m_imageElapsed;
 	long m_moveElapsed;
-	int m_x = 10, m_y = 10;
-	int m_width;
-	int x_speed;
-	int y_speed;
+	
 
 	Cowboy() throws IOException {
+		super();
 		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
 	}
 
@@ -55,19 +52,18 @@ public class Cowboy {
 			// m_imageIndex = (m_imageIndex + 1) % m_images.length;
 		}
 		m_moveElapsed += elapsed;
-		if (m_moveElapsed > 24 & m_width != 0) {
+		if (m_moveElapsed > 24) {
 			m_moveElapsed = 0;
-			m_x = (m_x + x_speed) % m_width;
-			m_y = (m_y + y_speed) % m_width;
+			x = (x + x_speed - x_nspeed);
+			y = (y + y_speed - y_nspeed);
 			set_orientation();
 		}
 	}
 
 	public void paint(Graphics g, int width, int height) {
-		m_width = width;
 		BufferedImage img = m_images[m_imageIndex];
 		int scale = 2;
-		g.drawImage(img, m_x, m_y, scale * img.getWidth(), scale * img.getHeight(), null);
+		g.drawImage(img, x, y, scale * img.getWidth(), scale * img.getHeight(), null);
 	}
 
 	public void set_orientation() {
@@ -98,12 +94,11 @@ public class Cowboy {
 		}
 	}
 
-	public void set_speed(int code, int speed) {
-		System.out.println("déplacement");
+	public void move(int code) {
 		switch (code) {
 		case 37:
 		case 81:
-			x_speed = -speed;
+			x_nspeed = speed;
 			break;
 		case 39:
 		case 68:
@@ -111,7 +106,7 @@ public class Cowboy {
 			break;
 		case 38:
 		case 90:
-			y_speed = -speed;
+			y_nspeed = speed;
 			break;
 		case 40:
 		case 83:
@@ -119,6 +114,31 @@ public class Cowboy {
 			break;
 		}
 	}
+	
+	public void stop(int code) {
+		switch (code) {
+		case 37:
+		case 81:
+			x_nspeed = 0;
+			break;
+		case 39:
+		case 68:
+			x_speed = 0;
+			break;
+		case 38:
+		case 90:
+			y_nspeed = 0;
+			break;
+		case 40:
+		case 83:
+			y_speed = 0;
+			break;
+		}
+	}
+	
+	public void pop() {}
+	
+	public void wizz() {}
 
 	public static BufferedImage[] loadSprite(String filename, int nrows, int ncols) throws IOException {
 		File imageFile = new File(filename);

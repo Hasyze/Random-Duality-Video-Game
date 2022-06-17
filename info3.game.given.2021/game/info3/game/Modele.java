@@ -54,23 +54,23 @@ public class Modele {
 										// y a
 										// ex : fantome : il ne collisionne pas, sauf avec les portes et les murs.
 			case 0: // Joueur
-				if ((type == 1 || type == 2 || type == 5 || type == 6 || type == 7))
+				if (collision && (type == 1 || type == 2 || type == 5 || type == 6 || type == 7))
 					col.add(elem);
 				break;
 			case 1: // Ennemi
-				if ((type == 0 || type == 3 || type == 5 || type == 6 || type == 7))
+				if (collision && (type == 0 || type == 3 || type == 5 || type == 6 || type == 7))
 					col.add(elem);
 				break;
 			case 2: // Missile Ennemi
-				if ((type == 0 || type == 3 || type == 5 || type == 6 || type == 7))
+				if (collision && (type == 0 || type == 3 || type == 5 || type == 6 || type == 7))
 					col.add(elem);
 				break;
 			case 3: // Missile Joueur
-				if ((type == 1 || type == 2 || type == 5 || type == 6 || type == 7))
+				if (collision && (type == 1 || type == 2 || type == 5 || type == 6 || type == 7))
 					col.add(elem);
 				break;
 			case 4: // Fantome
-				if ((type == 6 || type == 7))
+				if (collision && (type == 6 || type == 7))
 					col.add(elem);
 				break;
 			}

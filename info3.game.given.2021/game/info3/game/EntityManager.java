@@ -43,9 +43,12 @@ public class EntityManager {
 
 	protected void organize() { // regarde toutes les entitées dynamiques, si leur flag vie = 0, alors elles dégagent car elles sont mortes.
 							    // les static ne peuvent pas mourir car leur automate est nul => pas de concept de vie 
+		System.out.print("Dynamic : size "+Dynamic.size()+"\n");
 		for(int i=0; i<Dynamic.size(); i++) {
+			System.out.print("Vie de "+Dynamic.get(i).Name+" : "+ Dynamic.get(i).getvie()+"\n");
 			if(Dynamic.get(i).getvie()==0){ //mort : ça dégage
 				Dynamic.remove(i);
+				i--;
 			}
 		}
 	}

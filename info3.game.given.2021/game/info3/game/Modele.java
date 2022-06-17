@@ -12,10 +12,10 @@ public class Modele {
 
 	//
 
-	EntityManager EM;
 
-	public Modele(EntityManager EM) {
-		this.EM = EM;
+
+	public Modele() {
+	
 	}
 
 	public double distance(int a_x, int a_y, int b_x, int b_y) {
@@ -38,13 +38,27 @@ public class Modele {
 	}
 
 	public ArrayList<Entity> collision(Entity Obj, ArrayList<Entity> list) {
-		ArrayList<Entity> col = null;
+		ArrayList<Entity> col = new ArrayList<Entity>();
 		boolean collision = false;
+		
 		for (int i = 0; i < list.size(); i++) {
-			Entity elem = list.get(i);
-			collision = collision(Obj, elem);
-			int type = elem.getType();
-			switch (Obj.getType()) {
+			Entity elem = list.get(i); // on récupére un a un les elements de la liste
+			collision = collision(Obj, elem); // calcul de la collision entre l'objet et l'élément de la liste.
+			int type = elem.getType();  // retourne le type de l'élément dans la liste : 
+			
+			/** Type
+			 * 0: Joueur
+			 * 1: Ennemi
+			 * 2: Missile Ennemi
+			 * 3: Missile Joeur
+			 * 4: Fnatome
+			 * 5: Rocher
+			 * 6: Mur
+			 * 7: Porte
+			 **/
+			
+			switch (Obj.getType()) { // en fonction du type de l'obj, on fais le cas différent des collisions si il y a 
+									 // ex : fantome : il ne collisionne pas, sauf avec les portes et les murs.
 			case 0: // Joueur
 				if (collision && (type == 1 || type == 2 || type == 5 || type == 6 || type == 7))
 					col.add(elem);
@@ -67,69 +81,6 @@ public class Modele {
 		}
 		return col;
 	}
-
-	public void eval() {
-		ArrayList<Entity> Static = EM.getStatic();
-		ArrayList<Entity> Dynamic = EM.getDynamic();
-		for (int i = 0; i < Dynamic.size(); i++) {
-			Entity Obj1 = Dynamic.get(i);
-			for (int j = 0; j < Dynamic.size(); j++) {
-				if (!collision(Obj1, Dynamic.get(j)))
-					Obj1.move();
-				else if (!Dynamic.get(j).getClass().equals(Obj1.getClass())) { // On ne vérifie pas la collision d'un
-																				// objet avec lui-même
-					String classObj = Obj1.getClass().getName();
-					String classD = Dynamic.get(j).getClass().getName();
-					switch (classObj) {
-					case "Cowboy":
-						if (classD == "Ennemi") {
-							Obj1.degatVie(1);
-							Obj1.stop();
-						} else if (classD = "Missile" && ((Missile) Dynamic.get(j)).type == 1) {
-							Obj1.degatVie(1);
-							Dynamic.get(j).dispear();
-						} else
-							Obj1.move();
-						break;
-					case "Ennemi":
-						if (classD == "Cowboy") {
-							Dynamic.get(j).gedatVie(1);
-							Dynamic.get(j).stop();
-						} else if (classD == "Missile" && ((Missile) Dynamic.get(j)).type == 0) {
-							Obj1.degatVie(1);
-							Dynamic.get(j).dispear();
-						} else
-							Obj1.move();
-						break;
-					case "Missile":
-						if (classD == "Cowboy" && ((Missile) Obj1).type == 1) {
-							Dynamic.get(j).gedatVie(1);
-							Obj1.disapear();
-						} else if (classD == "Ennemi" && ((Missile) Obj1).type == 0) {
-							Dynamic.get(j).gedatVie(1);
-							Obj1.disapear();
-						} else if (classD == "Missile" && ((Missile) Obj1).type != ((Missile) Dynamic.get(j)).type) {
-							Obj1.disapear();
-							Dynamic.get(j).dispear();
-						}
-						break;
-
-					}
-				}
-			}
-			for (int k = 0; k < Satic.size(); k++) {
-				if (Static.get(k) instanceof Porte && Obj1 instanceof Cowboy) {
-					if (Dynamic.size() == 2) { // il reste que 2 joueur sur la map
-						if (collision(Obj1, Static.get(k)))
-							Obj1.teleportation();
-					}
-				}
-				if (!collision(Obj1, Static.get(k)))
-					Obj1.move();
-				else
-					Obj1.stop();
-			}
-		}
-	}
+	
 
 }

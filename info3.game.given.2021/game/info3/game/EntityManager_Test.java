@@ -1,6 +1,5 @@
 package info3.game;
 
-import java.io.IOException;
 
 import Entities.Cowboy;
 
@@ -33,6 +32,9 @@ public class EntityManager_Test {
 		EM.tick();
 		
 		EM.afficher_EM();
+		
+		
+
 		 /*
 		 while(true) {;
 		 i =(int)Math.random()*(3-1+1)+1;
@@ -42,7 +44,7 @@ public class EntityManager_Test {
 		 } */
 	}
 	
-		void EntityManager_test() throws Exception{}
+		
 	
 	 
 		 

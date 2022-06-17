@@ -24,8 +24,13 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.io.RandomAccessFile;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -36,6 +41,17 @@ import info3.game.sound.RandomFileInputStream;
 public class Game {
 
 	static Game game;
+	
+	public static Image loadImage(String filename) throws IOException {
+		File imageFile = new File(filename);
+		if (imageFile.exists()) {
+			Image image = ImageIO.read(imageFile);
+			return image;
+		}
+		return null;
+	}
+	Image bg = loadImage("resources/images_test/among-us.png");
+
 
 	public static void main(String args[]) throws Exception {
 		try {
@@ -176,11 +192,7 @@ public class Game {
 		int coinscamY = (m_cowboy2.gety()+m_cowboy.gety())/2 - height/2;
 
 		// erase background
-		g.setColor(Color.white);
-		g.fillRect(0, 0, width, height);
-		g.drawImage();
-		g.drawOval(width/2, height/2, 10, 10);
-		g.drawLine(m_cowboy.getx() - coinscamX, m_cowboy.gety() - coinscamY, m_cowboy2.getx() - coinscamX, m_cowboy2.gety() - coinscamY);
+		
 		if(coinscamX < xmin) {
 			coinscamX = xmin;
 		}
@@ -193,12 +205,20 @@ public class Game {
 		if(coinscamY + height > ymax) {
 			coinscamY = ymax - height;
 		}
+		
+		g.setColor(Color.white);
+		g.fillRect(0, 0, width, height);
+		g.drawImage(bg, -coinscamX, -coinscamY, bg.getWidth(null), bg.getHeight(null), null);
+		g.drawOval(width/2, height/2, 10, 10);
+		g.drawLine(m_cowboy.getx() - coinscamX, m_cowboy.gety() - coinscamY, m_cowboy2.getx() - coinscamX, m_cowboy2.gety() - coinscamY);
+		
+		
 
 
 
 		// paint
-		m_cowboy.paint(g, width, height);
-		m_cowboy2.paint(g, width, height);
+		m_cowboy.paint(g, coinscamX, coinscamY);
+		m_cowboy2.paint(g, coinscamX, coinscamY);
 		
 		///////
 		

@@ -17,7 +17,7 @@ public class Transition {
 		this.actions = new Action(new LinkedList<FunCall>());
 	LinkedList<Parameter> p = new LinkedList<Parameter>();
 	p.add(null);
-	FunCall move = new FunCall(move, 37);
+	//FunCall move = new FunCall(move, 37);
 	}
 	
 	

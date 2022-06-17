@@ -60,10 +60,10 @@ public class Cowboy extends Entity{
 		}
 	}
 
-	public void paint(Graphics g, int width, int height) {
+	public void paint(Graphics g, int originex, int originey) {
 		BufferedImage img = m_images[m_imageIndex];
 		int scale = 2;
-		g.drawImage(img, x, y, scale * img.getWidth(), scale * img.getHeight(), null);
+		g.drawImage(img, x-originex, y-originey, scale * img.getWidth(), scale * img.getHeight(), null);
 	}
 
 	public void set_orientation() {
@@ -72,15 +72,15 @@ public class Cowboy extends Entity{
 		if (x_speed > 0) {
 			if (y_speed > 0) {
 				m_imageIndex = 23;//GOOD
-			} else if (y_speed < 0) {
+			} else if (y_nspeed > 0) {
 				m_imageIndex = 16;//GOOD
 			}else {
 				m_imageIndex = 20; //GOOD
 				}
-		} else if (x_speed < 0) {
+		} else if (x_nspeed > 0) {
 			if (y_speed > 0) {
 				m_imageIndex = 4;//GOOD
-			} else if (y_speed < 0) {
+			} else if (y_nspeed > 0) {
 				m_imageIndex = 10;//GOOD
 			}else {
 				m_imageIndex = 7;//GOOD
@@ -88,7 +88,7 @@ public class Cowboy extends Entity{
 		}else if (y_speed > 0) {
 			m_imageIndex = 1;//GOOD
 			
-		}else if (y_speed < 0) {
+		}else if (y_nspeed > 0) {
 			m_imageIndex = 13;//GOOD
 			
 		}

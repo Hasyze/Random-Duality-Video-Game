@@ -113,7 +113,6 @@ public class Salle {
 			System.out.print("\n");
 		}
 		System.out.print("\n");
-		
 	}
 
 	void Ajouter_portes(int nbr_de_portes) { // Ajoute plusieurs portes
@@ -221,5 +220,4 @@ public class Salle {
 		}
 
 	}
-
 }

@@ -47,9 +47,9 @@ public class Cowboy extends Entity{
 	 */
 	public void tick(long elapsed) {
 		m_imageElapsed += elapsed;
-		if (m_imageElapsed > 200) {
+		if (m_imageElapsed > 500) {
 			m_imageElapsed = 0;
-			// m_imageIndex = (m_imageIndex + 1) % m_images.length;
+			System.out.println("X :"+this.x+"Y :"+this.y);
 		}
 		m_moveElapsed += elapsed;
 		if (m_moveElapsed > 24) {
@@ -93,7 +93,6 @@ public class Cowboy extends Entity{
 			
 		}
 	}
-
 	public void move(int code) {
 		switch (code) {
 		case 37:
@@ -113,6 +112,9 @@ public class Cowboy extends Entity{
 			y_speed = speed;
 			break;
 		}
+		//System.out.println("OUIIIIIIII");
+		//.out.println(this.x + this.y);
+
 	}
 	
 	public void stop(int code) {

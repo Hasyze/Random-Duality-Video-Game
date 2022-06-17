@@ -176,8 +176,9 @@ public class Game {
 		int coinscamY = (m_cowboy2.gety()+m_cowboy.gety())/2 - height/2;
 
 		// erase background
-		g.setColor(Color.gray);
+		g.setColor(Color.white);
 		g.fillRect(0, 0, width, height);
+		g.drawImage();
 		g.drawOval(width/2, height/2, 10, 10);
 		g.drawLine(m_cowboy.getx() - coinscamX, m_cowboy.gety() - coinscamY, m_cowboy2.getx() - coinscamX, m_cowboy2.gety() - coinscamY);
 		if(coinscamX < xmin) {

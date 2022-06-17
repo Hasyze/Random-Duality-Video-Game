@@ -26,7 +26,7 @@ public abstract class Entity extends Object{
 		x_nspeed = 0;
 		y_nspeed = 0;
 		vie = 0;
-		speed = 0;
+		speed = 4;
 	}
 	
 	public void move() {}

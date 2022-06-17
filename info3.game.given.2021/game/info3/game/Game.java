@@ -117,8 +117,8 @@ public class Game {
 	}
 
 	/*
-	 * ================================================================ All the
-	 * methods below are invoked from the GameCanvas listener, once the window is
+	 * ================================================================ 
+	 * All the methods below are invoked from the GameCanvas listener, once the window is
 	 * visible on the screen.
 	 * ==============================================================
 	 */
@@ -190,7 +190,7 @@ public class Game {
 		int width = m_canvas.getWidth();
 		int height = m_canvas.getHeight();
 		
-		//Définit les coordonnées dans le monde du coins supérieur droit de la caméra
+		//Définit les coordonnées dans le monde du coin supérieur droit de la caméra
 		int coinscamX = (m_cowboy2.getx()+m_cowboy.getx())/2 - width/2;
 		int coinscamY = (m_cowboy2.gety()+m_cowboy.gety())/2 - height/2;
 

@@ -27,6 +27,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+
+
 /**
  * A simple class that holds the images of a sprite for an animated cowbow.
  *
@@ -41,7 +43,25 @@ public class Cowboy extends Entity{
 		super();
 		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
 	}
+	public Cowboy(String name) throws IOException{
+		super();
+		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
+		this.Name = name;
+	}
 
+	
+	public Cowboy(int m_x, int m_y,String name, int r) throws IOException {
+		super();
+		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
+		this.Name = name;
+		x= m_x;
+		y=m_y;
+		int heigt_hb = (m_images[0].getHeight())/2;
+		int width_hb = (m_images[0].getWidth())/2;
+		hitbox = new Hitbox(r,x+width_hb,y+heigt_hb,0);
+		type = 0;
+	}
+	
 	/*
 	 * Simple animation here, the cowbow
 	 */
@@ -138,25 +158,7 @@ public class Cowboy extends Entity{
 		}
 	}
 	
-	public static BufferedImage[] loadSprite(String filename, int nrows, int ncols) throws IOException {
-		File imageFile = new File(filename);
-		if (imageFile.exists()) {
-			BufferedImage image = ImageIO.read(imageFile);
-			int width = image.getWidth(null) / ncols;
-			int height = image.getHeight(null) / nrows;
-
-			BufferedImage[] images = new BufferedImage[nrows * ncols];
-			for (int i = 0; i < nrows; i++) {
-				for (int j = 0; j < ncols; j++) {
-					int x = j * width;
-					int y = i * height;
-					images[(i * ncols) + j] = image.getSubimage(x, y, width, height);
-				}
-			}
-			return images;
-		}
-		return null;
-	}
+	
 	
 	public void move() {}
 	public void stop() {}

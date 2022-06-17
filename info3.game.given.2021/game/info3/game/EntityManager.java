@@ -39,19 +39,18 @@ public class EntityManager {
        }
          
      }
-	 
-	 
 
 
 	protected void organize() { // regarde toutes les entitées dynamiques, si leur flag vie = 0, alors elles dégagent car elles sont mortes.
-							 // les static ne peuvent pas mourir car leur automate est nul => pas de concept de vie 
+							    // les static ne peuvent pas mourir car leur automate est nul => pas de concept de vie 
 		for(int i=0; i<Dynamic.size(); i++) {
 			if(Dynamic.get(i).getvie()==0){ //mort : ça dégage
 				Dynamic.remove(i);
 			}
 		}
 	}
-	 
+
+
 	public ArrayList<Entity> sort_affichage() {
 		ArrayList<Entity> New_List = new ArrayList<Entity>();
 		New_List.addAll(Dynamic);
@@ -64,8 +63,7 @@ public class EntityManager {
 				return Integer.compare(o1.gety(), o2.gety());	
 			}
 		});		
-		return New_List;
-		
+		return New_List;		
 		}
 	
 	//stocks a list of entities into a list of dyn and static appart.

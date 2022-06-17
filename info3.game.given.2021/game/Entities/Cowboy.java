@@ -41,7 +41,16 @@ public class Cowboy extends Entity{
 		super();
 		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
 	}
-
+	public Cowboy(String name) throws IOException{
+		super();
+		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
+		this.Name = name;
+	}
+		
+	
+	
+	
+	
 	/*
 	 * Simple animation here, the cowbow
 	 */

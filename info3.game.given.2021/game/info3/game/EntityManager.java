@@ -1,9 +1,12 @@
 package info3.game;
 
 
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+
+
 
 import Entities.Entity;
 
@@ -12,14 +15,12 @@ public class EntityManager {
 	 protected ArrayList<Entity> Dynamic;
 	 protected ArrayList<Entity> Static;
 	  
-	 
+	
 	 EntityManager(){
-		 Dynamic = new ArrayList<Entity>();;
+		 Dynamic = new ArrayList<Entity>();
 		 Static = new ArrayList<Entity>();
 	  
-	 }
-	 
-	 
+	 } 
 ////////////////////////////////// ADD	
 	 //return 1 si réussi, 0 sinon
 	 int EM_add(Entity obj) {     
@@ -80,9 +81,29 @@ public class EntityManager {
 	        }
 		}
 	}
+	void afficher_EM(){
+		System.out.print(" ENTITY MANAGER AFFICHAGE : \n");
+		System.out.print(" DYNAMIC LIST : \n");
+		for(int i=0; i < Dynamic.size(); i++) {
+			System.out.print(Dynamic.get(i).Name + "\n");
+		}
+		System.out.print("\n");
+		System.out.print(" Static LIST : \n");
+		for(int j=0; j < Static.size(); j++) {
+			System.out.print(Static.get(j).Name + "\n");
+		}
+		System.out.print("\n");
+		System.out.print("\n");
+		
+		
+	}
+	
+	
+	
 	public void tick(/*Entity Obj1,
-					ArrayList<Entity> List, // si jamais on utilise une list*/
-	 				long elapsed) {
+					ArrayList<Entity> List,
+					long elapsed // si jamais on utilise une list*/
+	 				) {
 		ArrayList<Entity> New_Dynamic = new ArrayList<Entity>();
 		ArrayList<Entity> New_Static = new ArrayList<Entity>();
 		

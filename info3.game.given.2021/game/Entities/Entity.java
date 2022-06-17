@@ -6,8 +6,12 @@ import java.util.ArrayList;
 
 public abstract class Entity extends Object{
 	
-	public Automate Aut;
-		
+	public Automate Aut_;
+	public int[] Aut;
+	
+	// a enlever  : 	
+	public 	String Name;
+	//
 	protected BufferedImage[] m_images;
 	protected int m_imageIndex;
 	
@@ -28,7 +32,7 @@ public abstract class Entity extends Object{
 		y_speed = 0;
 		x_nspeed = 0;
 		y_nspeed = 0;
-		vie = 0;
+		vie = 1;
 		speed = 0;
 	}
 	
@@ -55,6 +59,9 @@ public abstract class Entity extends Object{
 	}
 	public int getvie(){
 		return vie;
+	}
+	public void setVie(int i) {
+		vie+=i;
 	}
 	public void step(ArrayList<Entity> New_Dynamic, ArrayList<Entity> New_Static) {
 		// TODO : step automates pour l'aut de chaque entity.

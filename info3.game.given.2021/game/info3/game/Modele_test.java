@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import Entities.Cowboy;
 import Entities.Entity;
 import Entities.Fantome;
+import Entities.Mur;
 import Entities.Rocher;
 
 public class Modele_test {
@@ -60,15 +61,37 @@ public class Modele_test {
 		 
 		 
 		 ArrayList<Entity> List_res2 = md.collision(m_cowboy2, List);
-		 System.out.print("AFFICHAGE LIST2 : Collision entre rocher et cowboy\n");
+		 System.out.print("AFFICHAGE LIST2 : Collision entre cwboy2 et le reste (rocher)\n");
 		 System.out.print("Taille liste res2 :\n"+List_res2.size()+ "\n");
 		 for(int j=0; j<List_res2.size(); j++) {
-			 System.out.print(List_res2.get(j));
+			 System.out.print(List_res2.get(j).Name+"\n");
 		 }
 		 System.out.print("Fin affichage\n");
 		 
+		List_res2 = md.collision(m_fantome2, List);
+		 System.out.print("AFFICHAGE LIST2 : Collision entre fantome2 et le reste\n");
+		 System.out.print("Taille liste res2 :\n"+List_res2.size()+ "\n");
+		 for(int j=0; j<List_res2.size(); j++) {
+			 System.out.print(List_res2.get(j).Name+"\n");
+		 }
+		 System.out.print("Fin affichage\n");
+		 
+		 Mur m_Mur = new Mur(400,400,"mur1",100);
 		 
 		 
+		 EM.EM_add(m_Mur);
+		 EM.afficher_EM();
+		 
+		 List = EM.sort_affichage(); // valide jusqu'ICI
+		 
+		List_res2 = md.collision(m_fantome2, List);
+		System.out.print("AFFICHAGE LIST2 : Collision entre fantome2 et le mur\n");
+		System.out.print("Taille liste res2 :\n"+List_res2.size()+ "\n");
+		for(int j=0; j<List_res2.size(); j++) {
+			System.out.print(List_res2.get(j).Name+"\n");
+		}
+		System.out.print("Fin affichage\n");
+			 
 		 
 		 
 	}

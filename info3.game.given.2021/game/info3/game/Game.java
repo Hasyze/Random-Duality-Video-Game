@@ -21,6 +21,7 @@
 package info3.game;
 
 import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -35,6 +36,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import Entities.Cowboy;
+import Map.Etage;
 import info3.game.graphics.GameCanvas;
 import info3.game.sound.RandomFileInputStream;
 
@@ -54,6 +56,7 @@ public class Game {
 
 
 	public static void main(String args[]) throws Exception {
+		Etage etage = new Etage(1);
 		try {
 			System.out.println("Game starting...");
 			game = new Game();

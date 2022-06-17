@@ -1,16 +1,20 @@
 package Map;
 
-import Entities.Porte;
-import info3.game.EntityManager;
-
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.util.Random;
-import javax.imageio.ImageIO;
 import java.io.IOException;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
+import java.util.Random;
+
+import javax.imageio.ImageIO;
+
+import Entities.Porte;
+import Entities.Mur;
+import Entities.Rocher;
+import Entities.Ennemis;
+import info3.game.EntityManager;
 
 public class Salle {
 
@@ -116,7 +120,6 @@ public class Salle {
 			System.out.print("\n");
 		}
 		System.out.print("\n");
-		
 	}
 	
 	//** CREATION ETAGE **//

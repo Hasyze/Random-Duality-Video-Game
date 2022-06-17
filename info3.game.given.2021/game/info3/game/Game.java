@@ -41,7 +41,6 @@ public class Game {
 
 	public static void main(String args[]) throws Exception {
 		Etage etage = new Etage(1);
-		/**
 		try {
 			System.out.println("Game starting...");
 			game = new Game();
@@ -49,7 +48,6 @@ public class Game {
 		} catch (Throwable th) {
 			th.printStackTrace(System.err);
 		}
-		**/
 	}
 
 	JFrame m_frame;

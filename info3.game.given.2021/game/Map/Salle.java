@@ -1,6 +1,7 @@
 package Map;
 
 import Entities.Porte;
+import info3.game.EntityManager;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -36,6 +37,8 @@ public class Salle {
 
 	Image background; // Fond d'ecran de la salle
 
+	//** INITIALISATION SALLE **//
+	
 	Salle(int nbr_de_portes, String type) throws IOException {
 
 		this.portes = new Porte[4];
@@ -115,6 +118,8 @@ public class Salle {
 		System.out.print("\n");
 		
 	}
+	
+	//** CREATION ETAGE **//
 
 	void Ajouter_portes(int nbr_de_portes) { // Ajoute plusieurs portes
 		for (int i = 0; i < nbr_de_portes; i++) {
@@ -221,5 +226,43 @@ public class Salle {
 		}
 
 	}
+	
+	
+	//** EN JEU **//
+	
+	void charger_entites_salle() {
+		for (int i = 0; i<50; i++) {
+			for (int j = 0; j<50; j++) {
+				int x = compo[i][j];
+				switch (x) {
+				case 1 :
+					EntityManager.EM_add(Mur(i*20, j*20));
+				case 2 :
+					if ( (i == 0) && (portes[0] != null) ) {
+						EntityManager.EM_add(portes[0]);
+					}
+					if ( (j == 0) && (portes[3] != null) ) {
+						EntityManager.EM_add(portes[3]);
+					}
+					if ( (i == 49) && (portes[2] != null) ) {
+						EntityManager.EM_add(portes[2]);
+					}
+					if ( (j == 49) && (portes[1] != null) ) {
+						EntityManager.EM_add(portes[1]);
+					}
+					else {
+						EntityManager.EM_add(Mur(i*20, j*20));
+					}
+				case 3 :
+					EntityManager.EM_add(Rocher(i*20, j*20));
+				case 4 :
+					EntityManager.EM_add(Ennemis(i*20, j*20));
+				}
+				
+				
+			}
+		}
+	}
+	
 
 }

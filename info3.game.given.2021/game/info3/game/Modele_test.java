@@ -38,29 +38,34 @@ public class Modele_test {
 		 }
 		 System.out.print("Fin affichage\n");
 		m_cowboy.setVie(-1); 
-		m_rocher.setVie(-1);
+		m_rocher.setVie(-1); // est censé ne rien changé car la vie de rocher change rien. ( marche)
 		m_fantome.setVie(-1);
-		
-
-		
 		EM.tick();
 		EM.afficher_EM();
 		
 		
 		
 		
-		Cowboy m_cowboy2 = new Cowboy(0,0,"Cowboy1",25);
-		Rocher m_rocher2 = new Rocher(400,400,"Rocher1", 50);
-		Fantome m_fantome2 = new Fantome(250,250,"Fantome1",25);
-		int[] Listint2 = {1,2,3}; // un faux automate, surtout non nul quoi;
+		Cowboy m_cowboy2 = new Cowboy(400,400,"Cowboy2",25);	
+		Fantome m_fantome2 = new Fantome(400,400,"Fantome2",25); // les deux entitées vont dans le rocher, c'est bloqué normalement.
 		
-		 m_cowboy.Aut = Listint;
-		 m_fantome.Aut = Listint;
-		
-		 EM.EM_add(m_fantome);
-		 EM.EM_add(m_cowboy);
-		 EM.EM_add(m_rocher);
+		 m_cowboy2.Aut = Listint;
+		 m_fantome2.Aut = Listint;
 		 
+		 EM.EM_add(m_fantome2);
+		 EM.EM_add(m_cowboy2);
+		
+		 EM.afficher_EM();	 
+		 List = EM.sort_affichage(); // valide jusqu'ICI
+		 
+		 
+		 ArrayList<Entity> List_res2 = md.collision(m_cowboy2, List);
+		 System.out.print("AFFICHAGE LIST2 : Collision entre rocher et cowboy\n");
+		 System.out.print("Taille liste res2 :\n"+List_res2.size()+ "\n");
+		 for(int j=0; j<List_res2.size(); j++) {
+			 System.out.print(List_res2.get(j));
+		 }
+		 System.out.print("Fin affichage\n");
 		 
 		 
 		 

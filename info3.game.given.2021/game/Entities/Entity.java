@@ -13,6 +13,18 @@ public abstract class Entity extends Object{
 	protected int y_speed;
 	protected int x_nspeed;
 	protected int y_nspeed;
+	protected Hitbox hitbox;
+	protected int type;
+	/** Type
+	 * 0: Joueur
+	 * 1: Ennemi
+	 * 2: Missile Ennemi
+	 * 3: Missile Joeur
+	 * 4: Fnatome
+	 * 5: Rocher
+	 * 6: Mur
+	 * 7: Porte
+	 **/
 	
 	//Stats
 	protected int speed;
@@ -43,6 +55,9 @@ public abstract class Entity extends Object{
 		return null;
 	}
 	
+	public void degatVie(int degat) {
+		vie-=degat;
+	}
 	
 	public int getx(){
 		return x;
@@ -52,6 +67,30 @@ public abstract class Entity extends Object{
 	}
 	public int getvie(){
 		return vie;
+	}
+	
+	public Hitbox getHitbox() {
+		return hitbox;
+	}
+	
+	public int getType() {
+		return type;
+	}
+	
+	public int getx_speed() {
+		return x_speed;
+	}
+	
+	public int gety_speed() {
+		return y_speed;
+	}
+	
+	public int getx_nspeed() {
+		return x_nspeed;
+	}
+	
+	public int gety_nspeed() {
+		return y_nspeed;
 	}
 	
 	

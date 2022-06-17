@@ -5,7 +5,26 @@ import Entities.Porte;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+
 import java.util.Random;
+
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+
+import java.io.IOException;
+
+
+	Image background;
+	
+	
+	public Salle() {
+		
+	}
+	
+	
+	
+}
 
 public class Salle {
 	
@@ -37,6 +56,7 @@ public class Salle {
 	
 	String type;	//Type de la salle (Normale, Boss, Entrée, etc...)
 	
+	Image background;	//Fond d'écran de la salle
 	
 	Salle(int nbr_de_portes, String type) {
 		
@@ -86,6 +106,25 @@ public class Salle {
         {
             e.printStackTrace();
         }
+	}
+
+	public void init_background() throws IOException{
+		Image[] background = new Image[2];
+		background[0] = loadImage("resources/images_test/sprite_mur.png") ;
+		background[1] = loadImage("resources/images_test/sprite_mur2.png") ;
+		Random rand = new Random();
+		int r = rand.nextInt(2);
+		this.background = background[r];
+	}
+	
+	//Fonction pour récupérer une image
+	public static Image loadImage(String filename) throws IOException {
+		File imageFile = new File(filename);
+		if (imageFile.exists()) {
+			BufferedImage image = ImageIO.read(imageFile);
+			return image;
+		}
+		return null;
 	}
 	
 	void print_salle() {
@@ -198,4 +237,3 @@ public class Salle {
 		
 	}	
 	
-}

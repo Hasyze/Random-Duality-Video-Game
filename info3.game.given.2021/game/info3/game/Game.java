@@ -280,10 +280,10 @@ public class Game {
 		g.setColor(Color.white);
 		g.fillRect(0, 0, width, height);
 		g.drawImage(bg, -coinscamX, -coinscamY, bg.getWidth(null), bg.getHeight(null), null);
-		g.drawOval(width / 2, height / 2, 10, 10);
-		g.drawLine(m_cowboy.getx() - coinscamX + m_cowboy.getWidth(),
-				m_cowboy.gety() - coinscamY + m_cowboy.getHeight(), m_cowboy2.getx() - coinscamX + m_cowboy2.getWidth(),
-				m_cowboy2.gety() - coinscamY + m_cowboy2.getHeight());
+		g.drawOval(width / 2 - 5, height / 2 - 5, 10, 10);
+		g.drawLine(m_cowboy.getx() - coinscamX,
+				m_cowboy.gety() - coinscamY, m_cowboy2.getx() - coinscamX,
+				m_cowboy2.gety() - coinscamY);
 
 		// paint
 		// EM.afficher_EM();

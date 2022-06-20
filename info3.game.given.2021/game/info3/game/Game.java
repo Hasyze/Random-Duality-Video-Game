@@ -21,12 +21,10 @@
 package info3.game;
 
 import java.awt.BorderLayout;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -38,10 +36,10 @@ import javax.swing.JLabel;
 
 import Entities.Cowboy;
 import Entities.Entity;
-import Entities.Hitbox;
 import Entities.Mur;
 import Entities.Rocher;
 import Map.Etage;
+import Map.Salle;
 import info3.game.graphics.GameCanvas;
 import info3.game.sound.RandomFileInputStream;
 
@@ -83,14 +81,26 @@ public class Game {
 
 	Cowboy m_cowboy, m_cowboy2;
 	Rocher rocher;
-
-	void charger_entites_salle() throws IOException {
+	
+	void print_salle(Salle salle) {
+		System.out.print("\n");
+		for (int i = 0; i < salle.hauteur; i++) {
+			for (int j = 0; j < salle.largeur; j++) {
+				System.out.print(salle.compo[j][i]);
+			}
+			System.out.print("\n");
+		}
+		System.out.print("\n");
+	}
+	/*
+	void charger_entites_salle(Graphics g) throws IOException {
 		for (int i = 0; i < 50; i++) {
 			for (int j = 0; j < 50; j++) {
 				int x = etage.salles[1].compo[i][j];
 				switch (x) {
 				case 1:
-					EM.EM_add(new Mur(EM, i * 20, j * 20));
+					Mur mur = new Mur(EM, modele,i * 20, j * 20, "test_caillou", 30);
+					mur.paint(g, i*20, j*20);
 					break;
 				case 2:
 					/*
@@ -99,9 +109,10 @@ public class Game {
 					 * (portes[2] != null) ) { EM.EM_add(portes[2]); } if ( (j == 49) && (portes[1]
 					 * != null) ) { EM.EM_add(portes[1]); } else { EM.EM_add(new Mur(i*20, j*20)); }
 					 */
-					break;
+	/*				break;
 				case 3:
-					EM.EM_add(new Rocher(EM, modele, i * 20, j * 20));
+					Rocher rocher = new Rocher(EM, modele,i * 20, j * 20, "test_rocher",30);
+					rocher.paint(g, i*20, j*20);
 					break;
 				case 4:
 					break;
@@ -111,7 +122,7 @@ public class Game {
 			}
 		}
 	}
-
+*/
 	Game() throws Exception {
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
@@ -239,6 +250,7 @@ public class Game {
 			txt = txt + fps + " fps   ";
 			m_text.setText(txt);
 		}
+		print_salle (etage.salles[0]);
 	}
 
 	/*
@@ -287,6 +299,14 @@ public class Game {
 
 		// paint
 		// EM.afficher_EM();
+		/*
+		try {
+			charger_entites_salle(g);
+		} catch (IOException e) {
+			e.printStackTrace(System.err);
+			System.exit(-1);
+		}
+		*/
 		m_cowboy.paint(g, coinscamX, coinscamY);
 		m_cowboy2.paint(g, coinscamX, coinscamY);
 		rocher.paint(g, coinscamX, coinscamY);

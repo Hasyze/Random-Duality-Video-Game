@@ -32,8 +32,8 @@ public class Salle {
 	 * Ennemis ? - -9 Zone "chemin" ? Faire differents layers
 	 */
 
-	int largeur = 50; // Nombre de bloc sur le coté de la salle.
-	int hauteur = 50;
+	public int largeur = 50; // Nombre de bloc sur le coté de la salle.
+	public int hauteur = 50;
 
 	boolean salle_vide; // =false tant que le joueur n'a pas tué tout les ennemis.
 
@@ -111,7 +111,7 @@ public class Salle {
 		return null;
 	}
 
-	void print_salle() {
+	public void print_salle() {
 		System.out.print("\n");
 		for (int i = 0; i < hauteur; i++) {
 			for (int j = 0; j < largeur; j++) {
@@ -232,15 +232,15 @@ public class Salle {
 	
 	
 	//** EN JEU **//
-	
+	/*
 	void charger_entites_salle() {
 		for (int i = 0; i<50; i++) {
 			for (int j = 0; j<50; j++) {
 				int x = compo[i][j];
 				switch (x) {
-				case 1 :
-					EntityManager.EM_add(Mur(i*20, j*20));
-				case 2 :
+				case 1 : //MUR
+					
+				case 2 : //PORTE
 					if ( (i == 0) && (portes[0] != null) ) {
 						EntityManager.EM_add(portes[0]);
 					}
@@ -253,12 +253,12 @@ public class Salle {
 					if ( (j == 49) && (portes[1] != null) ) {
 						EntityManager.EM_add(portes[1]);
 					}
-					else {
+					else { //MUR PAR DEFAUT
 						EntityManager.EM_add(Mur(i*20, j*20));
 					}
-				case 3 :
+				case 3 : //ROCHER
 					EntityManager.EM_add(Rocher(i*20, j*20));
-				case 4 :
+				case 4 : //ENNEMIS
 					EntityManager.EM_add(Ennemis(i*20, j*20));
 				}
 				
@@ -266,6 +266,6 @@ public class Salle {
 			}
 		}
 	}
-	
+	*/
 
 }

@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class Etage {
 
-	Salle[] salles; // Tableau des salle. salles[0] est l'entrée, et la dernière est la salle du
+	public Salle[] salles; // Tableau des salle. salles[0] est l'entrée, et la dernière est la salle du
 					// boss
 
 	int niveau;

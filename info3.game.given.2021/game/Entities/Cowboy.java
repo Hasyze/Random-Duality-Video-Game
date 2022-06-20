@@ -21,98 +21,90 @@
 package Entities;
 
 import java.awt.Graphics;
+
+import info3.game.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-
-
 /**
  * A simple class that holds the images of a sprite for an animated cowbow.
  *
  */
-public class Cowboy extends Entity{
-	
+public class Cowboy extends Entity {
+
 	private long m_imageElapsed;
 	private long m_moveElapsed;
-	
 
-	public Cowboy() throws IOException {
-		super();
+	public Cowboy(EntityManager EM, Modele modele) throws IOException {
+		super(EM, modele);
 		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
 	}
-	public Cowboy(String name) throws IOException{
-		super();
+
+	public Cowboy(EntityManager EM, Modele modele, String name) throws IOException {
+		super(EM, modele);
 		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
 		this.Name = name;
 	}
 
-	
-	public Cowboy(int m_x, int m_y,String name, int r) throws IOException {
-		super();
+	public Cowboy(EntityManager EM, Modele modele, int m_x, int m_y, String name, int r) throws IOException {
+		super(EM, modele);
 		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
 		this.Name = name;
-		x= m_x;
-		y=m_y;
-		int heigt_hb = (m_images[0].getHeight())/2;
-		int width_hb = (m_images[0].getWidth())/2;
-		hitbox = new Hitbox(r,x+width_hb,y+heigt_hb,0);
+		x = m_x;
+		y = m_y;
+		int heigt_hb = (m_images[0].getHeight()) / 2;
+		int width_hb = (m_images[0].getWidth()) / 2;
+		hitbox = new Hitbox(r, x + width_hb, y + heigt_hb, 0);
 		type = 0;
 	}
-	
+
 	/*
 	 * Simple animation here, the cowbow
 	 */
 	public void tick(long elapsed) {
+		super.tick(elapsed);
 		m_imageElapsed += elapsed;
-		if (m_imageElapsed > 500) {
+		if (m_imageElapsed > 1500) {
 			m_imageElapsed = 0;
-			System.out.println("X :"+this.x+"Y :"+this.y);
+
 		}
-		m_moveElapsed += elapsed;
-		if (m_moveElapsed > 24) {
-			m_moveElapsed = 0;
-			x = (x + x_speed - x_nspeed);
-			y = (y + y_speed - y_nspeed);
-			set_orientation();
-		}
+		set_orientation();
 	}
 
-	public void paint(Graphics g, int originex, int originey) {
-		BufferedImage img = m_images[m_imageIndex];
-		int scale = 2;
-		g.drawImage(img, x-originex, y-originey, scale * img.getWidth(), scale * img.getHeight(), null);
-	}
+	
 
 	public void set_orientation() {
-		//Version un peu moche, verifier le format des sprites, cherche une nouvelle solution
-		//Ajouter un chant orientation pour les projectiles ?
+		// Version un peu moche, verifier le format des sprites, cherche une nouvelle
+		// solution
+		// Ajouter un chant orientation pour les projectiles ?img.getWidth()
 		if (x_speed > 0) {
 			if (y_speed > 0) {
-				m_imageIndex = 23;//GOOD
+				m_imageIndex = 23;// GOOD
 			} else if (y_nspeed > 0) {
-				m_imageIndex = 16;//GOOD
-			}else {
-				m_imageIndex = 20; //GOOD
-				}
+				m_imageIndex = 16;// GOOD
+			} else {
+				m_imageIndex = 20; // GOOD
+			}
 		} else if (x_nspeed > 0) {
 			if (y_speed > 0) {
-				m_imageIndex = 4;//GOOD
+				m_imageIndex = 4;// GOOD
 			} else if (y_nspeed > 0) {
-				m_imageIndex = 10;//GOOD
-			}else {
-				m_imageIndex = 7;//GOOD
+				m_imageIndex = 10;// GOOD
+			} else {
+				m_imageIndex = 7;// GOOD
 			}
-		}else if (y_speed > 0) {
-			m_imageIndex = 1;//GOOD
-			
-		}else if (y_nspeed > 0) {
-			m_imageIndex = 13;//GOOD
-			
+		} else if (y_speed > 0) {
+			m_imageIndex = 1;// GOOD
+
+		} else if (y_nspeed > 0) {
+			m_imageIndex = 13;// GOOD
+
 		}
 	}
+
 	public void move(int code) {
 		switch (code) {
 		case 37:
@@ -132,11 +124,11 @@ public class Cowboy extends Entity{
 			y_speed = speed;
 			break;
 		}
-		//System.out.println("OUIIIIIIII");
-		//.out.println(this.x + this.y);
+		// System.out.println("OUIIIIIIII");
+		// .out.println(this.x + this.y);
 
 	}
-	
+
 	public void stop(int code) {
 		switch (code) {
 		case 37:
@@ -157,14 +149,22 @@ public class Cowboy extends Entity{
 			break;
 		}
 	}
-	
-	
-	
-	public void move() {}
-	public void stop() {}
-	public void pop() {}
-	public void wizz() {}
-	public void paint() {}
+
+	public void move() {
+	}
+
+	public void stop() {
+	}
+
+	public void pop() {
+	}
+
+	public void wizz() {
+	}
+
+	public void paint() {
+	}
+
 	public Entity egg() {
 		return null;
 	}

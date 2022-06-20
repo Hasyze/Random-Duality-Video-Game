@@ -1,6 +1,7 @@
 package Entities;
 
 import Map.Salle;
+import info3.game.*;
 
 public class Porte extends Entity {
 	
@@ -18,7 +19,8 @@ public class Porte extends Entity {
 	 * 3 = Ouest
 	 */
 	
-	public Porte(Salle salle, int orientation) {	//Créer une porte dans une salle sans la lié à une autre salle
+	public Porte(EntityManager EM, Modele modele, Salle salle, int orientation) {	//Créer une porte dans une salle sans la lié à une autre salle
+		super(EM, modele);
 		salle_origine = salle;
 		orientation_salle_origine = orientation;
 		salle_destination = null;

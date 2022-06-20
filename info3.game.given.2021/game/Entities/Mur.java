@@ -3,17 +3,17 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import info3.game.*;
 
 import javax.imageio.ImageIO;
 
 public class Mur extends Entity {
 	int taille;
-	Image texture; // A modifier
 
 	
-	public Mur(int pos_x, int pos_y) throws IOException {
-		super();
-		this.texture = loadImage("resources/image_test/noir.png");
+	public Mur(EntityManager EM, Modele modele, int pos_x, int pos_y) throws IOException {
+		super(EM, modele);
+		this.m_images = loadSprite("resources/image_test/noir.png",1,1);
 		this.taille = 20;
 		this.x = pos_x;
 		this.y = pos_y;
@@ -28,8 +28,8 @@ public class Mur extends Entity {
 		return null;
 	}
 
-	public Mur (int m_x, int m_y, String name, int r) throws IOException{
-		super();
+	public Mur (EntityManager EM, Modele modele, int m_x, int m_y, String name, int r) throws IOException{
+		super(EM, modele);
 		m_images = loadSprite("resources/rocher.png", 2,5);
 		this.Name = name;
 		x = m_x;

@@ -26,7 +26,7 @@ public class Salle {
 
 	int nbr_portes; // NOmbre de porte que possède la salle
 
-	int[][] compo;
+	public int[][] compo;
 	/*
 	 * Pour la composition, tableau en 2D -0 Vide -1 Mur -2 Porte -3 Rocher ? -4
 	 * Ennemis ? - -9 Zone "chemin" ? Faire differents layers
@@ -156,7 +156,7 @@ public class Salle {
 			Random r = new Random();
 			int j = r.nextInt(4);
 			if (portes[j] == null) {
-				portes[j] = new Porte(this, j);
+				//portes[j] = new Porte(EM, this, j);
 				return true;
 			}
 		}

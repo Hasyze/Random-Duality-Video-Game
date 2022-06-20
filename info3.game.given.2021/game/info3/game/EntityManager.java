@@ -15,16 +15,25 @@ public class EntityManager {
 	 protected ArrayList<Entity> Dynamic;
 	 protected ArrayList<Entity> Static;
 	  
+	 
 	
 	 EntityManager(){
 		 Dynamic = new ArrayList<Entity>();
 		 Static = new ArrayList<Entity>();
 	  
 	 } 
+	 
+	 public ArrayList<Entity> getDynamic(){
+		 return Dynamic;
+	 }
+	 public ArrayList<Entity> getStatic(){
+		 return Static;
+	 }
+	 
 ////////////////////////////////// ADD	
 	 //return 1 si réussi, 0 sinon
-	 int EM_add(Entity obj) {     
-         if (obj.Aut == null) {
+	 public int EM_add(Entity obj) {     
+        /* if (obj.Aut == null) {
         	 // alors il est static;
         	 Static.add(obj);
         	 return 1;
@@ -36,16 +45,22 @@ public class EntityManager {
        }else {
     	   System.out.print("ERREUR ADD, ni static ni dynamic : "+ obj);
     	   return 0;
-       }
+       }*/
+		 
+		 Dynamic.add(obj);
+		 return 1;
          
      }
+	 
+	 
+	 
 
 
 	protected void organize() { // regarde toutes les entitées dynamiques, si leur flag vie = 0, alors elles dégagent car elles sont mortes.
 							    // les static ne peuvent pas mourir car leur automate est nul => pas de concept de vie 
-		System.out.print("Dynamic : size "+Dynamic.size()+"\n");
+		//System.out.print("Dynamic : size "+Dynamic.size()+"\n");
 		for(int i=0; i<Dynamic.size(); i++) {
-			System.out.print("Vie de "+Dynamic.get(i).Name+" : "+ Dynamic.get(i).getvie()+"\n");
+			//System.out.print("Vie de "+Dynamic.get(i).Name+" : "+ Dynamic.get(i).getvie()+"\n");
 			if(Dynamic.get(i).getvie()==0){ //mort : ça dégage
 				Dynamic.remove(i);
 				i--;
@@ -82,7 +97,7 @@ public class EntityManager {
 	        }
 		}
 	}
-	void afficher_EM(){
+	public void afficher_EM(){
 		System.out.print(" ENTITY MANAGER AFFICHAGE : \n");
 		System.out.print(" DYNAMIC LIST : \n");
 		for(int i=0; i < Dynamic.size(); i++) {
@@ -101,7 +116,7 @@ public class EntityManager {
 	
 	
 	
-	public void tick(/*Entity Obj1,
+	public void tick(long elapsed/*Entity Obj1,
 					ArrayList<Entity> List,
 					long elapsed // si jamais on utilise une list*/
 	 				) {
@@ -115,7 +130,9 @@ public class EntityManager {
 		}*/// a metre ailleurs mais je sais pas ou.
 	
 		for(int i =0; i< Dynamic.size(); i++) { // seulement les dynamic font un step;
-			Dynamic.get(i).step(New_Dynamic, New_Static); // on ajoute pour les créations qui se font dans les nouvelles listes.
+			Entity e = Dynamic.get(i);
+			e.step(New_Dynamic, New_Static); // on ajoute pour les créations qui se font dans les nouvelles listes.
+			e.tick(elapsed);
 		}
 		organize(); // vire les morts
 		

@@ -11,7 +11,7 @@ public class Modele {
 	// Fait les collisions entre toutes les entités (dynamique/static)
 
 	//
-
+		
 	public Modele() {
 
 	}
@@ -23,11 +23,11 @@ public class Modele {
 	boolean collision(Entity Obj1, Entity Obj2) {
 		if (Obj1.getType() == Obj2.getType())
 			return false;
-		int X1 = Obj1.getHitbox().getAbscisse() + Obj1.getx_speed() - Obj1.getx_nspeed();
-		int Y1 = Obj1.getHitbox().getOrdonnee() + Obj1.gety_speed() - Obj1.gety_nspeed();
+		int X1 = Obj1.getx() + Obj1.getx_speed() - Obj1.getx_nspeed();
+		int Y1 = Obj1.gety() + Obj1.gety_speed() - Obj1.gety_nspeed();
 
-		int X2 = Obj2.getHitbox().getAbscisse() + Obj2.getx_speed() - Obj2.getx_nspeed();
-		int Y2 = Obj2.getHitbox().getOrdonnee() + Obj2.gety_speed() - Obj2.gety_nspeed();
+		int X2 = Obj2.getx() + Obj2.getx_speed() - Obj2.getx_nspeed();
+		int Y2 = Obj2.gety() + Obj2.gety_speed() - Obj2.gety_nspeed();
 
 		int R1 = Obj1.getHitbox().getRayon();
 		int R2 = Obj2.getHitbox().getRayon();
@@ -78,4 +78,12 @@ public class Modele {
 		return col;
 	}
 
+	public boolean collisions(Entity Obj, ArrayList<Entity> list) {
+		for (int i = 0; i < list.size(); i++) {
+			Entity elem = list.get(i); // on récupére un a un les elements de la liste
+			if (collision(Obj, elem))
+				return true;
+		}
+		return false;
+	}
 }

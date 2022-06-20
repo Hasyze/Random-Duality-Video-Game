@@ -35,7 +35,7 @@ public class Automate {
 		Automate a = new Automate();
 		Etat current = a.current();
 		Etat etat2 = new Etat("Etat 2");
-		Transition t = new Transition(etat2);
+		Transition t = new Transition(etat2,current);
 		current.addTransition(t);
 		System.out.println("L'etat initial se nomme" + a.current().name);
 		a.step();

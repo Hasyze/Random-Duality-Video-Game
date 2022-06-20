@@ -8,11 +8,13 @@ import info3.game.automata.parser.* ;
 
 public class Transition {
 	Boolean condition;
+	Etat source;
 	Etat target;
 	Action actions;
 	
-	public Transition(Etat target) {
+	public Transition(Etat target, Etat source) {
 		this.condition = true;
+		this.source=source;
 		this.target = target;
 		this.actions = new Action(new LinkedList<FunCall>());
 	LinkedList<Parameter> p = new LinkedList<Parameter>();
@@ -24,5 +26,12 @@ public class Transition {
 	
 	public void addAction(FunCall a) {
 		actions.calls.add(a);
+	}
+	
+	public void evalCondition(Boolean contion, Action actions) {
+		if (condition==true) {
+			
+			
+		}
 	}
 }

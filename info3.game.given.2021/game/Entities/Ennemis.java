@@ -19,7 +19,7 @@ public class Ennemis extends Entity {
 	
 	
 	public void tick(long elapsed, EntityManager EM) {
-		super.tick(EM);
+		super.tick(EM, elapsed);
 		m_imageElapsed += elapsed;
 		if (m_imageElapsed > 1500) {
 			m_imageElapsed = 0;

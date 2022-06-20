@@ -82,17 +82,6 @@ public class Game {
 	Cowboy m_cowboy, m_cowboy2;
 	Rocher rocher;
 	
-	void print_salle(Salle salle) {
-		System.out.print("\n");
-		for (int i = 0; i < salle.hauteur; i++) {
-			for (int j = 0; j < salle.largeur; j++) {
-				System.out.print(salle.compo[j][i]);
-			}
-			System.out.print("\n");
-		}
-		System.out.print("\n");
-	}
-	/*
 	void charger_entites_salle(Graphics g) throws IOException {
 		for (int i = 0; i < 50; i++) {
 			for (int j = 0; j < 50; j++) {
@@ -109,7 +98,7 @@ public class Game {
 					 * (portes[2] != null) ) { EM.EM_add(portes[2]); } if ( (j == 49) && (portes[1]
 					 * != null) ) { EM.EM_add(portes[1]); } else { EM.EM_add(new Mur(i*20, j*20)); }
 					 */
-	/*				break;
+					break;
 				case 3:
 					Rocher rocher = new Rocher(EM, modele,i * 20, j * 20, "test_rocher",30);
 					rocher.paint(g, i*20, j*20);
@@ -122,7 +111,7 @@ public class Game {
 			}
 		}
 	}
-*/
+
 	Game() throws Exception {
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
@@ -250,7 +239,6 @@ public class Game {
 			txt = txt + fps + " fps   ";
 			m_text.setText(txt);
 		}
-		print_salle (etage.salles[0]);
 	}
 
 	/*

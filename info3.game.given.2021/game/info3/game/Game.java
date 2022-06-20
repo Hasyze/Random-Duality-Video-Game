@@ -84,43 +84,22 @@ public class Game {
 	Cowboy m_cowboy, m_cowboy2;
 	Rocher rocher;
 
-	void charger_entites_salle() throws IOException {
-		for (int i = 0; i < 50; i++) {
-			for (int j = 0; j < 50; j++) {
-				int x = etage.salles[1].compo[i][j];
-				switch (x) {
-				case 1:
-					EM.EM_add(new Mur(EM, i * 20, j * 20));
-					break;
-				case 2:
-					/*
-					 * if ( (i == 0) && (portes[0] != null) ) { EM.EM_add(portes[0]); } if ( (j ==
-					 * 0) && (portes[3] != null) ) { EM.EM_add(portes[3]); } if ( (i == 49) &&
-					 * (portes[2] != null) ) { EM.EM_add(portes[2]); } if ( (j == 49) && (portes[1]
-					 * != null) ) { EM.EM_add(portes[1]); } else { EM.EM_add(new Mur(i*20, j*20)); }
-					 */
-					break;
-				case 3:
-					EM.EM_add(new Rocher(EM, modele, i * 20, j * 20));
-					break;
-				case 4:
-					break;
-				// EM.EM_add(new Ennemis(i*20, j*20));
-				}
-
-			}
-		}
-	}
-
+	
 	Game() throws Exception {
+		int[] ListInt = {1,2,3}; // émulation d'un automate
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
 		EM = new EntityManager();
 		modele = new Modele();
 
-		m_cowboy = new Cowboy(EM, modele, 0, 200, "fabrice", 75);
-		m_cowboy2 = new Cowboy(EM, modele, 0, 0, "roger", 75);
+		m_cowboy = new Cowboy(modele, 0, 200, "Cowboy1", 75);
+		m_cowboy2 = new Cowboy( modele, 0, 0, "Cowboy2", 75);
+		m_cowboy.Aut = ListInt;
+		m_cowboy2.Aut = ListInt;
+		EM.EM_add(m_cowboy);
+		EM.EM_add(m_cowboy2);
 
+		
 		// creating a listener for all the events
 		// from the game canvas, that would be
 		// the controller in the MVC pattern
@@ -133,8 +112,11 @@ public class Game {
 
 		// charger_entites_salle();
 
-		rocher = new Rocher(EM, modele, 400, 400, "cailluo", 30);
-
+		rocher = new Rocher( modele, 400, 400, "Rocher1", 30);
+		EM.EM_add(rocher);
+		
+		
+		
 		System.out.println("  - creating frame...");
 		Dimension d = new Dimension(1024, 768);
 		m_frame = m_canvas.createFrame(d);
@@ -218,12 +200,9 @@ public class Game {
 		ArrayList<Entity> Dynamic = EM.getDynamic();
 		ArrayList<Entity> Static = EM.getStatic();
 		// modele.collision(); Calcul des interactions
-		for (int i = 0; i < Dynamic.size(); i++) {
-
-		}
-
-		m_cowboy.tick(elapsed);
-		m_cowboy2.tick(elapsed);
+	
+		m_cowboy.tick(EM, elapsed);
+		m_cowboy2.tick(EM, elapsed);
 
 		// Update every second
 		// the text on top of the frame: tick and fps

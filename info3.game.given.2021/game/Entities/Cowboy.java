@@ -38,19 +38,18 @@ public class Cowboy extends Entity {
 	private long m_imageElapsed;
 	private long m_moveElapsed;
 
-	public Cowboy(EntityManager EM, Modele modele) throws IOException {
-		super(EM, modele);
+	public Cowboy(Modele modele) throws IOException {
+		super(modele);
 		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
 	}
-
-	public Cowboy(EntityManager EM, Modele modele, String name) throws IOException {
-		super(EM, modele);
-		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
+	public Cowboy(Modele model, String name) throws IOException{
+		super(model);
 		this.Name = name;
+		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
 	}
 
-	public Cowboy(EntityManager EM, Modele modele, int m_x, int m_y, String name, int r) throws IOException {
-		super(EM, modele);
+	public Cowboy(Modele modele, int m_x, int m_y, String name, int r) throws IOException {
+		super(modele);		
 		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
 		this.Name = name;
 		x = m_x;
@@ -60,12 +59,15 @@ public class Cowboy extends Entity {
 		hitbox = new Hitbox(r, x + width_hb, y + heigt_hb, 0);
 		type = 0;
 	}
+	
+	
+	
 
 	/*
 	 * Simple animation here, the cowbow
 	 */
-	public void tick(long elapsed) {
-		super.tick(elapsed);
+	public void tick(long elapsed, EntityManager EM) {
+		super.tick(EM, elapsed);
 		m_imageElapsed += elapsed;
 		if (m_imageElapsed > 1500) {
 			m_imageElapsed = 0;
@@ -150,23 +152,5 @@ public class Cowboy extends Entity {
 		}
 	}
 
-	public void move() {
-	}
-
-	public void stop() {
-	}
-
-	public void pop() {
-	}
-
-	public void wizz() {
-	}
-
-	public void paint() {
-	}
-
-	public Entity egg() {
-		return null;
-	}
 
 }

@@ -28,7 +28,6 @@ public abstract class Entity extends Object {
 	protected int y_nspeed;
 	protected Hitbox hitbox;
 	protected int type;
-	protected EntityManager EM;
 	protected Modele modele;
 	/**
 	 * Type 0: Joueur 1: Ennemi 2: Missile Ennemi 3: Missile Joeur 4: Fnatome 5:
@@ -39,9 +38,23 @@ public abstract class Entity extends Object {
 	protected int speed;
 	protected int vie;
 
-	public Entity(EntityManager em, Modele modele) {
-		this.EM = em;
-		EM.EM_add(this); //A MODIFIER LIST JAVA
+	public Entity(Modele modele) {
+		
+		this.modele = modele;
+		
+		m_images = null;
+		m_imageIndex = 0;
+		x_speed = 0;
+		y_speed = 0;
+		x_nspeed = 0;
+		y_nspeed = 0;
+		vie = 1;
+		speed = 4;
+	}
+	public Entity(Modele modele, String Name) {
+		System.out.print(Name);
+		//this.EM = em;
+		this.Name = Name;
 		
 		this.modele = modele;
 		
@@ -94,27 +107,24 @@ public abstract class Entity extends Object {
 		return vie;
 	}
 	
-	public EntityManager getEM() {
-		return EM;
-	}
 
 	public void setVie(int i) {
 		vie += i;
 	}
 
-	public void step(ArrayList<Entity> New_Dynamic, ArrayList<Entity> New_Static) {
+	public void step() {
 		// TODO : step automates pour l'aut de chaque entity.
 	}
 
 	
 	int m_moveElapsed = 0;
-	public void tick(long elapsed) {
+	public void tick(EntityManager em,long elapsed) {
 		m_moveElapsed += elapsed;
 		if (m_moveElapsed > 24) {
 			m_moveElapsed = 0;
 			if(x_speed>0 || y_speed>0 || x_nspeed>0 || y_nspeed>0) {
-				ArrayList<Entity> Dynamic = EM.getDynamic();
-				if(!(modele.collisions(this, Dynamic))) {
+				ArrayList<Entity> Static = em.getStatic();
+				if(!(modele.collisions(this, Static))) {
 					
 					x = (x + x_speed - x_nspeed);
 					y = (y + y_speed - y_nspeed);

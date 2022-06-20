@@ -233,7 +233,7 @@ public class Salle {
 	
 	//** EN JEU **//
 	
-	void charger_entites_salle() {
+	/*void charger_entites_salle() {
 		for (int i = 0; i<50; i++) {
 			for (int j = 0; j<50; j++) {
 				int x = compo[i][j];
@@ -265,7 +265,7 @@ public class Salle {
 				
 			}
 		}
-	}
+	}*/
 	
 
 }

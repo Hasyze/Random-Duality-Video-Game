@@ -41,14 +41,17 @@ import Entities.Entity;
 import Entities.Hitbox;
 import Entities.Mur;
 import Entities.Rocher;
+import Entities.Porte;
 import Map.Etage;
+import Map.Salle;
 import info3.game.graphics.GameCanvas;
 import info3.game.sound.RandomFileInputStream;
 
 public class Game {
 
 	static Game game;
-
+	
+	
 	public static Image loadImage(String filename) throws IOException {
 		File imageFile = new File(filename);
 		if (imageFile.exists()) {
@@ -58,7 +61,7 @@ public class Game {
 		return null;
 	}
 
-	Image bg = loadImage("resources/images_test/among-us.png");
+	Image bg; //= loadImage("resources/images_test/among-us.png");
 
 	public static void main(String args[]) throws Exception {
 
@@ -71,34 +74,32 @@ public class Game {
 			th.printStackTrace(System.err);
 		}
 	}
+	
 
 	JFrame m_frame;
 	JLabel m_text;
 	GameCanvas m_canvas;
 	CanvasListener m_listener;
 	Sound m_music;
+	
+	
 	EntityManager EM;
-	Etage etage;
 	Modele modele;
+
+	Etage etage;
+	Salle salle_courante;
 
 	Cowboy m_cowboy, m_cowboy2;
 	Rocher rocher;
 
 	
 	Game() throws Exception {
-		int[] ListInt = {1,2,3}; // émulation d'un automate
-		// creating a cowboy, that would be a model
-		// in an Model-View-Controller pattern (MVC)
+		
+		int niveau = 1;
 		EM = new EntityManager();
 		modele = new Modele();
-
-		m_cowboy = new Cowboy(modele, 0, 200, "Cowboy1", 75);
-		m_cowboy2 = new Cowboy( modele, 0, 0, "Cowboy2", 75);
-		m_cowboy.Aut = ListInt;
-		m_cowboy2.Aut = ListInt;
-		EM.EM_add(m_cowboy);
-		EM.EM_add(m_cowboy2);
-
+		
+		Init_niveau(niveau);
 		
 		// creating a listener for all the events
 		// from the game canvas, that would be
@@ -108,12 +109,7 @@ public class Game {
 		// that would be a part of the view in the MVC pattern
 		m_canvas = new GameCanvas(m_listener);
 
-		etage = new Etage(1);
-
-		// charger_entites_salle();
-
-		rocher = new Rocher( modele, 400, 400, "Rocher1", 30);
-		EM.EM_add(rocher);
+		
 		
 		
 		
@@ -123,6 +119,38 @@ public class Game {
 
 		System.out.println("  - setting up the frame...");
 		setupFrame();
+	}
+	
+	private void Init_niveau(int niv) throws IOException {
+		m_cowboy = new Cowboy(modele, 0, 200, "Cowboy1", 75);
+		m_cowboy2 = new Cowboy( modele, 0, 0, "Cowboy2", 75);
+		int[] ListInt = {1,2,3}; // émulation d'un automate
+		// creating a cowboy, that would be a model
+		// in an Model-View-Controller pattern (MVC)
+		m_cowboy.Aut = ListInt;
+		m_cowboy2.Aut = ListInt;
+		EM.EM_add(m_cowboy);
+		EM.EM_add(m_cowboy2);
+		
+		etage = new Etage(niv);
+		
+		salle_courante = etage.salles[0];
+		
+		salle_courante.charger_salle(EM, modele);
+		bg = salle_courante.background;
+		
+		// charger_entites_salle();
+
+		//rocher = new Rocher( modele, 400, 400, "Rocher1", 30);
+		//EM.EM_add(rocher);
+	}
+	
+	private void Chgmt_salle(Porte porte) throws IOException {
+		//EM.vider_salle_courante(); // --> vide l'entity manager sauf les deux cowboy
+		salle_courante = porte.salle_destination;
+		bg = salle_courante.background;
+		salle_courante.charger_salle(EM, modele);
+		bg = salle_courante.background;
 	}
 
 	/*
@@ -265,10 +293,12 @@ public class Game {
 				m_cowboy2.gety() - coinscamY);
 
 		// paint
-		// EM.afficher_EM();
+		//EM.afficher_EM();
+		
 		m_cowboy.paint(g, coinscamX, coinscamY);
 		m_cowboy2.paint(g, coinscamX, coinscamY);
-		rocher.paint(g, coinscamX, coinscamY);
+		//rocher.paint(g, coinscamX, coinscamY);
+		
 
 		///////
 

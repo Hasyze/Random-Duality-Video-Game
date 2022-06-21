@@ -12,12 +12,13 @@ import info3.game.*;
 
 public abstract class Entity extends Object {
 
-	public Automate Aut_;
-	public int[] Aut;
+	public Automate Aut_;	//Automate de l'entité -> définit son fonctionnement
+	public int[] Aut;	//Simule un automate pour les tests
 
 	// a enlever :
 	public String Name;
 	//
+	
 	protected BufferedImage[] m_images;
 	protected int m_imageIndex;
 
@@ -26,13 +27,23 @@ public abstract class Entity extends Object {
 	protected int y_speed;
 	protected int x_nspeed;
 	protected int y_nspeed;
+	
 	protected Hitbox hitbox;
 	protected int type;
-	protected Modele modele;
 	/**
-	 * Type 0: Joueur 1: Ennemi 2: Missile Ennemi 3: Missile Joeur 4: Fnatome 5:
-	 * Rocher 6: Mur 7: Porte
+	 * Type
+	 * 0: Joueur
+	 * 1: Ennemi
+	 * 2: Missile Ennemi
+	 * 3: Missile Joeur
+	 * 4: Fantome
+	 * 5: Rocher
+	 * 6: Mur
+	 * 7: Porte
 	 **/
+	
+	protected Modele modele;	// Pourquoi ????
+	
 
 	// Stats
 	protected int speed;

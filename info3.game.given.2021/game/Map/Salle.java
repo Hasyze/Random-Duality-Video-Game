@@ -15,6 +15,7 @@ import Entities.Mur;
 import Entities.Rocher;
 import Entities.Ennemis;
 import info3.game.EntityManager;
+import info3.game.Modele;
 
 public class Salle {
 
@@ -39,7 +40,7 @@ public class Salle {
 
 	String type; // Type de la salle (Normale, Boss, Entrée, etc...)
 
-	Image background; // Fond d'ecran de la salle
+	public Image background; // Fond d'ecran de la salle
 
 	//** INITIALISATION SALLE **//
 	
@@ -231,41 +232,45 @@ public class Salle {
 	}
 	
 	
-	//** EN JEU **//
 	
-	/*void charger_entites_salle() {
+	
+	public void charger_salle(EntityManager EM, Modele modele) throws IOException {
 		for (int i = 0; i<50; i++) {
 			for (int j = 0; j<50; j++) {
 				int x = compo[i][j];
+				System.out.print(x);
 				switch (x) {
-				case 1 :
-					EntityManager.EM_add(Mur(i*20, j*20));
-				case 2 :
+				case 49 :
+					EM.EM_add(new Mur(modele, i*20, j*20, "Mur", 30));
+					break;
+				case 50 :
 					if ( (i == 0) && (portes[0] != null) ) {
-						EntityManager.EM_add(portes[0]);
+						EM.EM_add(portes[0]);
 					}
 					if ( (j == 0) && (portes[3] != null) ) {
-						EntityManager.EM_add(portes[3]);
+						EM.EM_add(portes[3]);
 					}
 					if ( (i == 49) && (portes[2] != null) ) {
-						EntityManager.EM_add(portes[2]);
+						EM.EM_add(portes[2]);
 					}
 					if ( (j == 49) && (portes[1] != null) ) {
-						EntityManager.EM_add(portes[1]);
+						EM.EM_add(portes[1]);
 					}
 					else {
-						EntityManager.EM_add(Mur(i*20, j*20));
+						EM.EM_add(new Mur(modele, i*20, j*20, "Mur", 30));
 					}
-				case 3 :
-					EntityManager.EM_add(Rocher(i*20, j*20));
-				case 4 :
-					EntityManager.EM_add(Ennemis(i*20, j*20));
+					break;
+				case 51 :
+					EM.EM_add(new Rocher(modele, i*20, j*20, "Rocher", 30));
+					break;
+				case 52 :
+					EM.EM_add(new Mur(modele, i*20, j*20, "Ennemis", 30));
+					break;
 				}
-				
 				
 			}
 		}
-	}*/
+	}
 	
 
 }

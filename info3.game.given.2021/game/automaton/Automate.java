@@ -10,10 +10,16 @@ import info3.game.automata.parser.* ;
 public class Automate {
 	public String name;
 	public Etat current_state;
+	public List<Etat> etats;
 	
 	public Automate() {
 		name = "test";
 		current_state = new Etat("Init");	
+	}
+	public Automate(String Name) {
+		name = Name;
+		current_state = new Etat("Init");	
+
 	}
 	
 	public Etat current() {
@@ -30,6 +36,9 @@ public class Automate {
 			}
 		}
 	}
+	public boolean autStatic() {
+        return (etats.size() == 1);
+    }
 	
 	public static void main(String args[]) throws Exception {
 		Automate a = new Automate();

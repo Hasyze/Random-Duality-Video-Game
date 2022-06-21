@@ -8,16 +8,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+
+import automaton.Automate;
 import info3.game.*;
 
 public abstract class Entity extends Object {
 
-	public Automate Aut_;
-	public int[] Aut;
+	public Automate Aut;
 
-	// a enlever :
+	
 	public String Name;
-	//
+	
 	protected BufferedImage[] m_images;
 	protected int m_imageIndex;
 
@@ -30,8 +31,15 @@ public abstract class Entity extends Object {
 	protected int type;
 	protected Modele modele;
 	/**
-	 * Type 0: Joueur 1: Ennemi 2: Missile Ennemi 3: Missile Joeur 4: Fnatome 5:
-	 * Rocher 6: Mur 7: Porte
+	 * Type 
+	 * 0: Joueur 
+	 * 1: Ennemi 
+	 * 2: Missile Ennemi 
+	 * 3: Missile Joeur 
+	 * 4: Fnatome 5:
+	 * Rocher 
+	 * 6: Mur 
+	 * 7: Porte
 	 **/
 
 	// Stats

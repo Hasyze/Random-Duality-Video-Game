@@ -26,7 +26,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
+//import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -37,11 +37,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import Entities.Cowboy;
-import Entities.Entity;
-import Entities.Hitbox;
-import Entities.Mur;
+//import Entities.Entity;
+//import Entities.Hitbox;
+//import Entities.Mur;
 import Entities.Rocher;
 import Map.Etage;
+import automaton.Automate;
 import info3.game.graphics.GameCanvas;
 import info3.game.sound.RandomFileInputStream;
 
@@ -60,18 +61,6 @@ public class Game {
 
 	Image bg = loadImage("resources/images_test/among-us.png");
 
-	public static void main(String args[]) throws Exception {
-
-		try {
-			System.out.println("Game starting...");
-			game = new Game();
-
-			System.out.println("Game started.");
-		} catch (Throwable th) {
-			th.printStackTrace(System.err);
-		}
-	}
-
 	JFrame m_frame;
 	JLabel m_text;
 	GameCanvas m_canvas;
@@ -85,8 +74,12 @@ public class Game {
 	Rocher rocher;
 
 	
-	Game() throws Exception {
-		int[] ListInt = {1,2,3}; // émulation d'un automate
+	public Game() throws Exception {
+		ArrayList<Automate> ListAut = new ArrayList<Automate>();
+		Automate m_automate1 = new Automate("Automate1");
+		Automate m_automate2 = new Automate("Automate2");
+		ListAut.add(m_automate1);
+		ListAut.add(m_automate2);
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
 		EM = new EntityManager();
@@ -94,8 +87,8 @@ public class Game {
 
 		m_cowboy = new Cowboy(modele, 0, 200, "Cowboy1", 75);
 		m_cowboy2 = new Cowboy( modele, 0, 0, "Cowboy2", 75);
-		m_cowboy.Aut = ListInt;
-		m_cowboy2.Aut = ListInt;
+		m_cowboy.Aut = ListAut.get(0);
+		m_cowboy2.Aut = ListAut.get(1);
 		EM.EM_add(m_cowboy);
 		EM.EM_add(m_cowboy2);
 
@@ -196,10 +189,7 @@ public class Game {
 
 		// EM TICK STEPS
 		EM.tick(elapsed);
-		// EM COLLSIONS
-		ArrayList<Entity> Dynamic = EM.getDynamic();
-		ArrayList<Entity> Static = EM.getStatic();
-		// modele.collision(); Calcul des interactions
+	
 	
 		m_cowboy.tick(EM, elapsed);
 		m_cowboy2.tick(EM, elapsed);

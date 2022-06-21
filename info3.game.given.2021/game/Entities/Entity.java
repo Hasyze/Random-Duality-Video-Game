@@ -1,6 +1,8 @@
 package Entities;
 
 import java.awt.Graphics;
+
+import automaton.*;
 import java.awt.image.BufferedImage;
 
 import java.io.File;
@@ -10,7 +12,7 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import info3.game.*;
 
-public abstract class Entity extends Object {
+public abstract class Entity extends Object implements IAction{
 
 	public Automate Aut_;
 	public int[] Aut;
@@ -41,10 +43,10 @@ public abstract class Entity extends Object {
 
 	public Entity(EntityManager em, Modele modele) {
 		this.EM = em;
-		EM.EM_add(this); //A MODIFIER LIST JAVA
-		
+		EM.EM_add(this); // A MODIFIER LIST JAVA
+
 		this.modele = modele;
-		
+
 		m_images = null;
 		m_imageIndex = 0;
 		x_speed = 0;
@@ -60,23 +62,35 @@ public abstract class Entity extends Object {
 
 	public void stop() {
 	}
-
-	// public void pop() {} Implémenter ces fonctions dans chacune des sous-classes
-	// public void wizz() {}
+	
+	public void transfert(Entity e) {
+	}
+	
+	public Entity egg() {
+		return null;
+	}
+	
+	public void pop() {
+		
+	}
+	
+	public void wizz() {
+		
+	}
+	
+	
 	public void paint(Graphics g, int originex, int originey) {
 		BufferedImage img = m_images[m_imageIndex];
 		int scale = 2;
 		g.drawImage(img, x - originex - getWidth(), y - originey - getHeight(), scale * img.getWidth(),
 				scale * img.getHeight(), null);
-		g.drawOval(x-originex-hitbox.getRayon(), y-originey-hitbox.getRayon(), hitbox.getRayon()*2, hitbox.getRayon()*2);
+		g.drawOval(x - originex - hitbox.getRayon(), y - originey - hitbox.getRayon(), hitbox.getRayon() * 2,
+				hitbox.getRayon() * 2);
 	}
 
-	public Entity egg() {
-		return null;
-	}
+	
 
-	public void transfert(Entity e) {
-	}
+	
 
 	public void degatVie(int degat) {
 		vie -= degat;
@@ -93,7 +107,7 @@ public abstract class Entity extends Object {
 	public int getvie() {
 		return vie;
 	}
-	
+
 	public EntityManager getEM() {
 		return EM;
 	}
@@ -106,16 +120,14 @@ public abstract class Entity extends Object {
 		// TODO : step automates pour l'aut de chaque entity.
 	}
 
-	
 	int m_moveElapsed = 0;
 	public void tick(long elapsed) {
 		m_moveElapsed += elapsed;
 		if (m_moveElapsed > 24) {
 			m_moveElapsed = 0;
-			if(x_speed>0 || y_speed>0 || x_nspeed>0 || y_nspeed>0) {
+			if (x_speed > 0 || y_speed > 0 || x_nspeed > 0 || y_nspeed > 0) {
 				ArrayList<Entity> Dynamic = EM.getDynamic();
-				if(!(modele.collisions(this, Dynamic))) {
-					
+				if (!(modele.collisions(this, Dynamic))) {
 					x = (x + x_speed - x_nspeed);
 					y = (y + y_speed - y_nspeed);
 				}
@@ -146,11 +158,11 @@ public abstract class Entity extends Object {
 	public int gety_nspeed() {
 		return y_nspeed;
 	}
-	
+
 	public int getWidth() {
 		return m_images[m_imageIndex].getWidth();
 	}
-	
+
 	public int getHeight() {
 		return m_images[m_imageIndex].getHeight();
 	}

@@ -69,7 +69,6 @@ public class Cowboy extends Entity {
 		m_imageElapsed += elapsed;
 		if (m_imageElapsed > 1500) {
 			m_imageElapsed = 0;
-
 		}
 		set_orientation();
 	}

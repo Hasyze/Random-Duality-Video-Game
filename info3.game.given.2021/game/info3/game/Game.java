@@ -118,8 +118,8 @@ public class Game {
 		EM = new EntityManager();
 		modele = new Modele();
 
-		m_cowboy = new Cowboy(EM, modele, 0, 200, "fabrice", 75);
-		m_cowboy2 = new Cowboy(EM, modele, 0, 0, "roger", 75);
+		m_cowboy = new Cowboy(EM, modele, 0, 200, "fabrice", 25);
+		m_cowboy2 = new Cowboy(EM, modele, 0, 0, "roger", 25);
 
 		// creating a listener for all the events
 		// from the game canvas, that would be
@@ -218,9 +218,6 @@ public class Game {
 		ArrayList<Entity> Dynamic = EM.getDynamic();
 		ArrayList<Entity> Static = EM.getStatic();
 		// modele.collision(); Calcul des interactions
-		for (int i = 0; i < Dynamic.size(); i++) {
-
-		}
 
 		m_cowboy.tick(elapsed);
 		m_cowboy2.tick(elapsed);
@@ -249,7 +246,7 @@ public class Game {
 	// A terme ça faut que ce soit les bordures de la map ou de la salle
 	int xmin = 0;
 	int ymin = 0;
-	int xmax = 20000;
+	int xmax = 10000;
 	int ymax = 10000;
 
 	void paint(Graphics g) {
@@ -286,13 +283,13 @@ public class Game {
 				m_cowboy2.gety() - coinscamY);
 
 		// paint
-		// EM.afficher_EM();
-		m_cowboy.paint(g, coinscamX, coinscamY);
+		ArrayList<Entity> Affichage = EM.sort_affichage();
+		for(int i = 0; i<Affichage.size(); i++) {
+			Affichage.get(i).paint(g, coinscamX, coinscamY);
+		}
+		/*m_cowboy.paint(g, coinscamX, coinscamY);
 		m_cowboy2.paint(g, coinscamX, coinscamY);
-		rocher.paint(g, coinscamX, coinscamY);
-
-		///////
-
+		rocher.paint(g, coinscamX, coinscamY);*/
 	}
 
 }

@@ -1,28 +1,22 @@
 package automaton;
 
-import java.util.LinkedList;
-
-import info3.game.automata.ast.* ;
-import info3.game.automata.util.* ;
-import info3.game.automata.parser.* ;
-
 public class Transition {
-	Boolean condition;
+	IFunction condition;
+	Etat source;
 	Etat target;
-	Action actions;
-	
-	public Transition(Etat target) {
-		this.condition = true;
+	IFunction action;
+
+	public Transition(IFunction condition, Etat source, Etat target, IFunction action) {
+		this.condition = condition;
+		this.source = source;
 		this.target = target;
-		this.actions = new Action(new LinkedList<FunCall>());
-	LinkedList<Parameter> p = new LinkedList<Parameter>();
-	p.add(null);
-	//FunCall move = new FunCall(move, 37);
+		this.action = action;
 	}
-	
-	
-	
-	public void addAction(FunCall a) {
-		actions.calls.add(a);
+
+	public Etat transition(IAction act) {
+		if (condition.eval(act)) {
+			return target;
+		}
+		return null;
 	}
 }

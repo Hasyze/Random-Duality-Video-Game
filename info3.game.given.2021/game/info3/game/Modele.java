@@ -35,6 +35,10 @@ public class Modele {
 		return distance(X1, Y1, X2, Y2) < R1 + R2;
 	}
 
+	
+	
+	
+	
 	public ArrayList<Entity> collision(Entity Obj, ArrayList<Entity> list) {
 		ArrayList<Entity> col = new ArrayList<Entity>();
 		boolean collision = false;

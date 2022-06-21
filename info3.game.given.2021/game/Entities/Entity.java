@@ -12,10 +12,9 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import info3.game.*;
 
-public abstract class Entity extends Object implements IAction{
+public abstract class Entity extends Object{
 
-	public Automate Aut_;
-	public int[] Aut;
+	public Automate Aut;
 
 	// a enlever :
 	public String Name;
@@ -37,6 +36,8 @@ public abstract class Entity extends Object implements IAction{
 	 * Rocher 6: Mur 7: Porte
 	 **/
 
+	public Direction direction = Direction.E; 
+	
 	// Stats
 	protected int speed;
 	protected int vie;
@@ -58,6 +59,30 @@ public abstract class Entity extends Object implements IAction{
 	}
 
 	public void move() {
+	}
+	
+	public void move(Direction dir) {
+		switch (dir) {
+		
+		case W:
+			x_nspeed = speed;
+			break;
+		
+		case E:
+			x_speed = speed;
+			break;
+		
+		case N:
+			y_nspeed = speed;
+			break;
+		
+		case S:
+			y_speed = speed;
+			break;
+		default:
+			break;
+		}
+		
 	}
 
 	public void stop() {
@@ -121,7 +146,7 @@ public abstract class Entity extends Object implements IAction{
 	}
 
 	int m_moveElapsed = 0;
-	public void tick(long elapsed) {
+	public void tick(long elapsed) throws Exception {
 		m_moveElapsed += elapsed;
 		if (m_moveElapsed > 24) {
 			m_moveElapsed = 0;

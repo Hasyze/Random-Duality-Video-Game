@@ -92,10 +92,10 @@ public class CanvasListener implements GameCanvasListener {
 		System.out.println("Key pressed: " + e.getKeyChar() + " code=" + e.getKeyCode());
 		switch (e.getKeyCode()) {
 		case 37:case 38:case 39:case 40:
-			m_game.m_cowboy.move(e.getKeyCode());
+			m_game.m_cowboy.movet(e.getKeyCode());
 			break;
 		case 81: case 83: case 90: case 68:
-			m_game.m_cowboy2.move(e.getKeyCode());
+			m_game.m_cowboy2.movet(e.getKeyCode());
 			break;
 		}
 		;
@@ -115,7 +115,7 @@ public class CanvasListener implements GameCanvasListener {
 	}
 
 	@Override
-	public void tick(long elapsed) {
+	public void tick(long elapsed) throws Exception {
 		m_game.tick(elapsed);
 	}
 

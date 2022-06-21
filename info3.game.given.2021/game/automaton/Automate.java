@@ -1,17 +1,16 @@
 package automaton;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import info3.game.automata.ast.* ;
-import info3.game.automata.util.* ;
-import info3.game.automata.parser.* ;
+import Entities.Entity;
+
 
 public class Automate {
 	public String name;
 	public Etat current;
 	public List<Etat> etats;
+	public Type type;
 	
 	public Automate() {
 		name = "test";
@@ -20,10 +19,11 @@ public class Automate {
 		etats.add(current);
 	}
 	
-	public Automate(String name, Etat initial, List<Etat> etats) {
+	public Automate(String name, Etat initial, List<Etat> etats, Type type) {
 		this.name = name;
 		this.current = initial;
 		this.etats = etats;
+		this.type = type;
 	}
 	
 	public Etat current() {
@@ -35,18 +35,17 @@ public class Automate {
 	}
 	
 	public void addTransition(Transition t) {
-		Etat e = null;
-		for(int i = 0; i<etats.size(); i++) {
-			e = etats.get(i);
-			if(e.name == t.getSource().name) {
-				e.addTransition(t);
-				return;
-			}
-		}
+		
 	}
 	
-	public void step() {
-		Etat e = current.transitions(null);
+	public void step(Entity e) throws Exception {
+		Etat etat = null;
+
+		etat = current.testTransitions(e);
+		if(etat != null) {
+			current = etat;
+		}
+
 				
 	}
 	
@@ -55,16 +54,7 @@ public class Automate {
 	}
 	
 	public static void main(String args[]) throws Exception {
-		Automate a = new Automate();
-		Etat current = a.current();
-		Etat etat2 = new Etat("Etat 2");
-		Transition t = new Transition(current,etat2);
 		
-		a.addEtat(etat2);
-		a.addTransition(t);
-		System.out.println("L'etat initial se nomme" + a.current().name);
-		a.step();
-		System.out.println("L'etat après le step se nomme" + a.current().name);		
 		
 	}
 }

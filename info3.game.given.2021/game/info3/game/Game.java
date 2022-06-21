@@ -31,6 +31,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -42,6 +43,8 @@ import Entities.Hitbox;
 import Entities.Mur;
 import Entities.Rocher;
 import Map.Etage;
+import automaton.*;
+import automaton.Transition;
 import info3.game.graphics.GameCanvas;
 import info3.game.sound.RandomFileInputStream;
 
@@ -118,8 +121,30 @@ public class Game {
 		EM = new EntityManager();
 		modele = new Modele();
 
-		m_cowboy = new Cowboy(EM, modele, 0, 200, "fabrice", 25);
-		m_cowboy2 = new Cowboy(EM, modele, 0, 0, "roger", 25);
+		LinkedList<Transition> tranzis = new LinkedList<Transition>();
+		LinkedList<Transition> tranzis2 = new LinkedList<Transition>();
+		
+		
+
+		
+		LinkedList<Etat> etats = new LinkedList<Etat>();
+		Etat init = new Etat("Init", tranzis);
+		Etat move = new Etat("Move", tranzis2);
+		Transition une = new Transition(new True(), init, move, new Move());
+		Transition deux = new Transition(new True(), move, init, new Move());
+		
+		tranzis.add(une);
+		tranzis2.add(deux);
+		etats.add(init);
+		etats.add(move);
+		
+		
+		
+		Automate joueur = new Automate("joueur", init,etats,Type.NIMPORTE);
+		
+		
+		m_cowboy = new Cowboy(EM, modele, 0, 200, "fabrice", 25, joueur);
+		m_cowboy2 = new Cowboy(EM, modele, 0, 0, "roger", 25, joueur);
 
 		// creating a listener for all the events
 		// from the game canvas, that would be
@@ -133,7 +158,7 @@ public class Game {
 
 		// charger_entites_salle();
 
-		rocher = new Rocher(EM, modele, 400, 400, "cailluo", 30);
+		rocher = new Rocher(EM, modele, 400, 20, "cailluo", 70);
 
 		System.out.println("  - creating frame...");
 		Dimension d = new Dimension(1024, 768);
@@ -203,7 +228,7 @@ public class Game {
 
 	long test = 0;
 
-	void tick(long elapsed) {
+	void tick(long elapsed) throws Exception {
 		test += elapsed;
 		if (test > 2500) {
 			test = 0;
@@ -213,7 +238,7 @@ public class Game {
 		}
 
 		// EM TICK STEPS
-		EM.tick(elapsed);
+		//EM.tick(elapsed);
 		// EM COLLSIONS
 		ArrayList<Entity> Dynamic = EM.getDynamic();
 		ArrayList<Entity> Static = EM.getStatic();

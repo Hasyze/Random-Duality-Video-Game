@@ -75,7 +75,7 @@ public class Cowboy extends Entity {
 		if (m_imageElapsed > 1500) {
 			m_imageElapsed = 0;
 		}
-		if (m_moveElapsed > 24) {
+		if (m_moveElapsed > 2000) {
 			m_moveElapsed = 0;
 
 			Aut.step(this);

@@ -123,6 +123,8 @@ public class Game {
 
 		LinkedList<Transition> tranzis = new LinkedList<Transition>();
 		LinkedList<Transition> tranzis2 = new LinkedList<Transition>();
+		LinkedList<Transition> tranzis3 = new LinkedList<Transition>();
+		
 		
 		
 
@@ -130,13 +132,16 @@ public class Game {
 		LinkedList<Etat> etats = new LinkedList<Etat>();
 		Etat init = new Etat("Init", tranzis);
 		Etat move = new Etat("Move", tranzis2);
+		Etat puit = new Etat("Puit", tranzis3);
 		Transition une = new Transition(new True(), init, move, new Move());
-		Transition deux = new Transition(new True(), move, init, new Move());
+		Transition deux = new Transition(new True(), move, puit, new Stop());
+		
 		
 		tranzis.add(une);
 		tranzis2.add(deux);
 		etats.add(init);
 		etats.add(move);
+		etats.add(puit);
 		
 		
 		
@@ -232,9 +237,9 @@ public class Game {
 		test += elapsed;
 		if (test > 2500) {
 			test = 0;
-			EM.afficher_EM();
-			System.out.println("C1 :" + m_cowboy.getx() + "-" + m_cowboy.gety() + "C2 :" + m_cowboy2.getx() + "-"
-					+ m_cowboy2.gety() + "ROC :" + rocher.getx() + "-" + rocher.gety());
+			//EM.afficher_EM();
+			//System.out.println("C1 :" + m_cowboy.getx() + "-" + m_cowboy.gety() + "C2 :" + m_cowboy2.getx() + "-"
+			//		+ m_cowboy2.gety() + "ROC :" + rocher.getx() + "-" + rocher.gety());
 		}
 
 		// EM TICK STEPS

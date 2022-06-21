@@ -55,7 +55,7 @@ public abstract class Entity extends Object{
 		x_nspeed = 0;
 		y_nspeed = 0;
 		vie = 1;
-		speed = 4;
+		speed = 100;
 	}
 
 	public void move() {
@@ -85,7 +85,29 @@ public abstract class Entity extends Object{
 		
 	}
 
-	public void stop() {
+	public void stop(Direction dir) {
+		switch (dir) {
+		
+		case W:
+			x_nspeed = 0;
+			break;
+		
+		case E:
+			System.out.println("JE PASSE BIEN PAR ICI");
+			x_speed = 0;
+			break;
+		
+		case N:
+			y_nspeed = 0;
+			break;
+		
+		case S:
+			y_speed = 0;
+			break;
+		default:
+			break;
+		}
+		
 	}
 	
 	public void transfert(Entity e) {

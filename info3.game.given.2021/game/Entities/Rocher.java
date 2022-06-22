@@ -35,7 +35,7 @@ public class Rocher extends Entity {
 	
 	public Rocher (Modele modele, int m_x, int m_y, String name, int r) throws IOException{
 		super(modele);
-		m_images = loadSprite("resources/rocher.png", 2,5);
+		m_images = loadSprite("resources/images_test/marron_20x20.jpg",1,1);
 		this.Name = name;
 		x = m_x;
 		y = m_y;

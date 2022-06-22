@@ -20,7 +20,7 @@ public class Modele {
 		return Math.sqrt((a_x - b_x) * (a_x - b_x) + (a_y - b_y) * (a_y - b_y));
 	}
 
-	boolean collision(Entity Obj1, Entity Obj2) {
+	public boolean collision(Entity Obj1, Entity Obj2) {
 		if (Obj1.getType() == Obj2.getType())
 			return false;
 		int X1 = Obj1.getx() + Obj1.getx_speed() - Obj1.getx_nspeed();

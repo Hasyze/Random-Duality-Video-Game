@@ -7,6 +7,8 @@ public class Porte extends Entity {
 	
 	boolean etat; // =false si porte fermé, =true si porte ouverte
 	
+	String Name = "Porte";
+	
 	public Salle salle_origine;
 	public Salle salle_destination;
 	

@@ -106,12 +106,12 @@ public class EntityManager {
 		System.out.print(" ENTITY MANAGER AFFICHAGE : \n");
 		System.out.print(" DYNAMIC LIST : \n");
 		for(int i=0; i < Dynamic.size(); i++) {
-			System.out.print(Dynamic.get(i).Name + "\n");
+			System.out.print("Name : "+Dynamic.get(i).Name +" Automaton : "+Dynamic.get(i).Aut.name+ "\n");
 		}
 		System.out.print("\n");
 		System.out.print(" Static LIST : \n");
 		for(int j=0; j < Static.size(); j++) {
-			System.out.print(Static.get(j).Name + "\n");
+			System.out.print(" Name : "+Static.get(j).Name +" Automaton : null\n");
 		}
 		System.out.print("\n");
 		System.out.print("\n");

@@ -28,14 +28,15 @@ public class Menu {
 		ListAut.add(m_automate_test3);
 		ListAut.add(m_automate_test4);
 		
-	   AutomatonAssociator(ListAut);
-	   GameLauncher();
+	   Ressource Res = AutomatonAssociator(ListAut);
+	   GameLauncher(Res);
 	   }
-	public static void AutomatonAssociator(ArrayList<Automate> ListAut) {
-		Ressource Res = new Ressource();
+	public static Ressource AutomatonAssociator(ArrayList<Automate> ListAut) {
+		Ressource Res = new Ressource(ListAut);
 		int ChoosenAutInt;
-		String[] optionsToChoose = {"Automaton0","Automaton1", "Automaton2", "Automaton3", "Automaton4", "None of the listed"}; // a remplacer si + d'auts
+		String[] optionsToChoose = {"Automaton0","Automaton1", "Automaton2", "Automaton3", "Automaton4", "None"}; // a remplacer si + d'auts
 	     
+		//cas spécial, 2 automates dans un type : les joueurs
 		    for(int j=1; j<=2;j++) {
 		    	String playerAut = (String) JOptionPane.showInputDialog(
 		        		null,
@@ -46,18 +47,19 @@ public class Menu {
 			            optionsToChoose,
 			            optionsToChoose[3]);
 		        System.out.println("Your chosen automaton for the entity type 0, p"+j+" : " + playerAut);
-		        if(playerAut == null) {
-		        	ChoosenAutInt = 0;
-		        }
+		        if(playerAut == null || playerAut == "None") {
+		        	ChoosenAutInt = -1;// automate -1 est celui qui est défini comme vide ( aut == null), correspond au "none";
+		        }else {
 		        char nb = playerAut.charAt(playerAut.length()-1);
 		        ChoosenAutInt = Character.getNumericValue(nb);
+		        }
 		        Res.setup(0,ChoosenAutInt, j);
+		        Res.afficher_res();
 		        // entity type x load dans txt (ressources)
-		        
+		       
 		    	
 
-		        //ressource.stocker.couple 2 joueurs
-		        //entity.player.load.aut
+		        
 		    }	    
 		    for(int i =1; i<8;i++) {
 		    
@@ -70,20 +72,23 @@ public class Menu {
 		            optionsToChoose,
 		            optionsToChoose[0]);
 	        System.out.println("Your chosen automaton for the entity type "+i+" : " + ChoosenAut);
-	        if(ChoosenAut == null) {
-	        	ChoosenAutInt = i;
-	        }
+	        if(ChoosenAut == null || ChoosenAut =="None") {
+	        	ChoosenAutInt = -1;	        	
+	        }else {
 	        char nb = ChoosenAut.charAt(ChoosenAut.length()-1);
 	        ChoosenAutInt = Character.getNumericValue(nb);
+	        }
 	        Res.setup(i,ChoosenAutInt, 0);
+	        Res.afficher_res();
 	        // entity type x load dans txt (ressources)
-		    }    
+		    }  
+		    return Res;
 	}
-	public static void GameLauncher() {
+	public static void GameLauncher(Ressource Res) {
 		
 		try {
 			System.out.println("Game starting...");
-			game = new Game();
+			game = new Game(Res);
 
 			System.out.println("Game started.");
 		} catch (Throwable th) {

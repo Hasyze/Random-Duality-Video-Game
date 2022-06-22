@@ -42,9 +42,11 @@ import Entities.Cowboy;
 //import Entities.Mur;
 import Entities.Rocher;
 import Map.Etage;
+import Menu.Ressource;
 import automaton.Automate;
 import info3.game.graphics.GameCanvas;
 import info3.game.sound.RandomFileInputStream;
+
 
 public class Game {
 
@@ -74,21 +76,24 @@ public class Game {
 	Rocher rocher;
 
 	
-	public Game() throws Exception {
-		ArrayList<Automate> ListAut = new ArrayList<Automate>();
-		Automate m_automate1 = new Automate("Automate1");
-		Automate m_automate2 = new Automate("Automate2");
-		ListAut.add(m_automate1);
-		ListAut.add(m_automate2);
+	public Game(Ressource Res2) throws Exception {
+		
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
 		EM = new EntityManager();
 		modele = new Modele();
-
-		m_cowboy = new Cowboy(modele, 0, 200, "Cowboy1", 75);
-		m_cowboy2 = new Cowboy( modele, 0, 0, "Cowboy2", 75);
-		m_cowboy.Aut = ListAut.get(0);
-		m_cowboy2.Aut = ListAut.get(1);
+		
+		m_cowboy = new Cowboy(modele, 0, 200, "Player1", 75);
+		m_cowboy2 = new Cowboy( modele, 0, 0, "Player2", 75);
+		
+		Res2.set_couple(m_cowboy);
+		Res2.set_couple(m_cowboy2);
+		System.out.print("Test menu : cowboy 1 attribution automate : ");
+		System.out.print(m_cowboy.Name +" "+ m_cowboy.Aut.name+"\n");
+		
+		System.out.print("Test menu : cowboy 2 attribution automate : ");
+		System.out.print(m_cowboy2.Name + " "+m_cowboy2.Aut.name+"\n");
+		
 		EM.EM_add(m_cowboy);
 		EM.EM_add(m_cowboy2);
 
@@ -191,8 +196,8 @@ public class Game {
 		EM.tick(elapsed);
 	
 	
-		m_cowboy.tick(EM, elapsed);
-		m_cowboy2.tick(EM, elapsed);
+		//m_cowboy.tick(EM, elapsed);
+		//m_cowboy2.tick(EM, elapsed);
 
 		// Update every second
 		// the text on top of the frame: tick and fps

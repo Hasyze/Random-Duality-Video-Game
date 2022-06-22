@@ -92,6 +92,7 @@ public class Menu {
 
 			System.out.println("Game started.");
 		} catch (Throwable th) {
+			
 			th.printStackTrace(System.err);
 		}
 	}

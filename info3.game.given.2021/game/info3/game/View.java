@@ -23,7 +23,7 @@ public class View extends Game {
 		Liste_affichage = null;
 	}
 	
-	
+	/*
 	public void coordonnee_cam() {
 		
 		// get the size of the canvas
@@ -48,6 +48,8 @@ public class View extends Game {
 		if (coinscamY + height > ymax) {
 			coinscamY = ymax - height;
 		}
+		
+		*/
 		/*
 		game.paint()
 		//Afficher background

@@ -79,8 +79,8 @@ public class Game {
 	Sound m_music;
 	
 	
-	EntityManager EM;
-	Modele modele;
+	public EntityManager EM;
+	public Modele modele;
 
 	Etage etage;
 	Salle salle_courante;
@@ -118,8 +118,8 @@ public class Game {
 	}
 	
 	private void Init_niveau(int niv) throws IOException {
-		m_cowboy = new Cowboy(modele, 500, 150, "Cowboy1", 50);
-		m_cowboy2 = new Cowboy( modele, 500, 150, "Cowboy2", 50);
+		m_cowboy = new Cowboy(modele, 500, 150, "Cowboy1", 25);
+		m_cowboy2 = new Cowboy( modele, 500, 150, "Cowboy2", 25);
 		int[] ListInt = {1,2,3}; // émulation d'un automate
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
@@ -128,7 +128,7 @@ public class Game {
 		EM.EM_add(m_cowboy);
 		EM.EM_add(m_cowboy2);
 		
-		etage = new Etage(niv);
+		etage = new Etage(modele, niv);
 		
 		salle_courante = etage.salles[1];
 		
@@ -144,14 +144,16 @@ public class Game {
 	//On affiche tous les élements statiques, on affiche ensuite les dynamiques a chaque ticks
 	
 	private void dessine_salle_static (Graphics g, int coinscamX, int coinscamY) {
+		
 		ArrayList<Entity> Static = EM.getStatic();
 		Entity e;
 		for (int i=0; i<Static.size(); i++) {
-			System.out.print("Nom : " + Static.get(i).Name + " x : " + Static.get(i).getx() + " y :" + Static.get(i).gety() + "\n");
+			//System.out.print("Nom : " + Static.get(i).Name + " x : " + Static.get(i).getx() + " y :" + Static.get(i).gety() + "\n");
 			e = Static.get(i);
 			e.paint(g, coinscamX, coinscamY);
 		}
 		System.out.print("Affichage DONE");
+		
 	}
 	
 	private void Chgmt_salle(Porte porte) throws IOException {
@@ -159,6 +161,7 @@ public class Game {
 		salle_courante = porte.salle_destination;
 		salle_courante.charger_salle(EM, modele);
 		bg = salle_courante.background;
+		
 	}
 
 	/*
@@ -263,8 +266,8 @@ public class Game {
 	// A terme ça faut que ce soit les bordures de la map ou de la salle
 	int xmin = 0;
 	int ymin = 0;
-	int xmax = 20000;
-	int ymax = 10000;
+	int xmax = 1920;
+	int ymax = 1920;
 
 	void paint(Graphics g) {
 

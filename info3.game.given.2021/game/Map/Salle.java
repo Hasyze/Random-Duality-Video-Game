@@ -15,6 +15,7 @@ import Entities.Mur;
 import Entities.Rocher;
 import Entities.Ennemis;
 import info3.game.EntityManager;
+import info3.game.Game;
 import info3.game.Modele;
 
 public class Salle {
@@ -33,22 +34,25 @@ public class Salle {
 	 * Ennemis ? - -9 Zone "chemin" ? Faire differents layers
 	 */
 
-	int largeur = 50; // Nombre de bloc sur le coté de la salle.
-	int hauteur = 50;
+	int largeur = 49; // Nombre de bloc sur le coté de la salle.
+	int hauteur = 49;
 
 	boolean salle_vide; // =false tant que le joueur n'a pas tué tout les ennemis.
 
 	String type; // Type de la salle (Normale, Boss, Entrée, etc...)
 
 	public Image background; // Fond d'ecran de la salle
+	
+	Modele modele; //On en a besoin pour les constructeurs
 
 	//** INITIALISATION SALLE **//
 	
-	Salle(int nbr_de_portes, String type) throws IOException {
+	Salle(Modele modele, int nbr_de_portes, String type) throws IOException {
+		this.modele = modele;
 
 		this.portes = new Porte[4];
 		this.nbr_portes = 0;
-		this.compo = new int[50][50];
+		this.compo = new int[49][49];
 		this.type = type;
 		this.background = this.init_background();
 
@@ -69,19 +73,19 @@ public class Salle {
 										// sautant plus ou moins de ligne
 				Random x = new Random();
 				int j = x.nextInt(2);
-				for (int i = 0; i < 2550 * j; i++) { // On saute 2550 caractères (nombre de caractère pour faire un
+				for (int i = 0; i < 2450 * j; i++) { // On saute 2550 caractères (nombre de caractère pour faire un
 														// pattern)si j=1
 					r = br.read();
 				}
 			}
 
 			// On lit le pattern et on l'écrit dans compo[][]
-			while (((r = br.read()) != -1) && (l < 50)) {
+			while (((r = br.read()) != -1) && (l < 49)) {
 				System.out.print((char) r);
 				if ((r == 48) || (r == 49) || (r == 50) || (r == 51) || (r == 52)) {
 					this.compo[l][c] = r;
 					c++;
-					if (c >= 50) {
+					if (c >= 49) {
 						c = 0;
 						l++;
 					}
@@ -126,7 +130,7 @@ public class Salle {
 	
 	//** CREATION ETAGE **//
 
-	void Ajouter_portes(int nbr_de_portes) { // Ajoute plusieurs portes
+	void Ajouter_portes(int nbr_de_portes) throws IOException { // Ajoute plusieurs portes
 		for (int i = 0; i < nbr_de_portes; i++) {
 			boolean v = Ajouter_une_porte();
 			if (v) {
@@ -135,7 +139,7 @@ public class Salle {
 		}
 	}
 
-	boolean Ajouter_une_porte() { // Ajoute une porte sur un des côtés (Aléatoire), renvoie false si aucune porte
+	boolean Ajouter_une_porte() throws IOException { // Ajoute une porte sur un des côtés (Aléatoire), renvoie false si aucune porte
 									// n'a pu être ajoutée
 		// Une optimisation peut peut-être être possible
 
@@ -158,7 +162,7 @@ public class Salle {
 			Random r = new Random();
 			int j = r.nextInt(4);
 			if (portes[j] == null) {
-				//portes[j] = new Porte(EM, this, j);
+				portes[j] = new Porte(modele, this, j);
 				return true;
 			}
 		}
@@ -236,36 +240,37 @@ public class Salle {
 	
 	
 	public void charger_salle(EntityManager EM, Modele modele) throws IOException {
-		for (int i = 0; i<50; i++) {
-			for (int j = 0; j<50; j++) {
+		for (int i = 0; i<49; i++) {
+			for (int j = 0; j<49; j++) {
 				int x = compo[i][j];
-				System.out.print(x);
+				//System.out.print(x);
 				switch (x) {
 				case 49 :
-					EM.EM_add(new Mur(modele, i*20, j*20, "Mur", 10));
+					EM.EM_add(new Mur(modele, i*40, j*40, "Mur", 20));
 					break;
 				case 50 :
-					if ( (i == 0) && (portes[0] != null) ) {
+					if ( (j == 0) && (portes[0] != null) ) {
 						EM.EM_add(portes[0]);
 					}
-					if ( (j == 0) && (portes[3] != null) ) {
-						EM.EM_add(portes[3]);
-					}
-					if ( (i == 49) && (portes[2] != null) ) {
-						EM.EM_add(portes[2]);
-					}
-					if ( (j == 49) && (portes[1] != null) ) {
+					else if ( (i == 48) && (portes[1] != null) ) {
 						EM.EM_add(portes[1]);
 					}
+					else if ( (j == 48) && (portes[2] != null) ) {
+						EM.EM_add(portes[2]);
+					}
+					else if ( (i == 0) && (portes[3] != null) ) {
+						EM.EM_add(portes[3]);
+					}
+					
 					else {
-						EM.EM_add(new Mur(modele, i*20, j*20, "Mur_Porte", 10));
+						EM.EM_add(new Mur(modele, i*40, j*40, "Mur_Porte", 20));
 					}
 					break;
 				case 51 :
-					EM.EM_add(new Rocher(modele, i*20, j*20, "Rocher", 10));
+					EM.EM_add(new Rocher(modele, i*40, j*40, "Rocher", 20));
 					break;
 				case 52 :
-					EM.EM_add(new Mur(modele, i*20, j*20, "Ennemis", 10));
+					EM.EM_add(new Mur(modele, i*40, j*40, "Ennemis", 20));
 					break;
 				}
 				

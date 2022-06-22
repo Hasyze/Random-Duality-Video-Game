@@ -94,12 +94,13 @@ public class Salle {
 	}
 
 	public Image init_background() throws IOException {
-		Image[] background = new Image[2];
+		Image[] background = new Image[3];
 		background[0] = loadImage("resources/images_test/sprite_mur.png");
 		background[1] = loadImage("resources/images_test/sprite_mur2.png");
+		background[2] = loadImage("resources/images_test/grey_background.jpg");
 		Random rand = new Random();
 		int r = rand.nextInt(2);
-		return background[r];
+		return background[2];
 	}
 
 	// Fonction pour récupérer une image
@@ -241,7 +242,7 @@ public class Salle {
 				System.out.print(x);
 				switch (x) {
 				case 49 :
-					EM.EM_add(new Mur(modele, i*20, j*20, "Mur", 30));
+					EM.EM_add(new Mur(modele, i*20, j*20, "Mur", 10));
 					break;
 				case 50 :
 					if ( (i == 0) && (portes[0] != null) ) {
@@ -257,14 +258,14 @@ public class Salle {
 						EM.EM_add(portes[1]);
 					}
 					else {
-						EM.EM_add(new Mur(modele, i*20, j*20, "Mur", 30));
+						EM.EM_add(new Mur(modele, i*20, j*20, "Mur_Porte", 10));
 					}
 					break;
 				case 51 :
-					EM.EM_add(new Rocher(modele, i*20, j*20, "Rocher", 30));
+					EM.EM_add(new Rocher(modele, i*20, j*20, "Rocher", 10));
 					break;
 				case 52 :
-					EM.EM_add(new Mur(modele, i*20, j*20, "Ennemis", 30));
+					EM.EM_add(new Mur(modele, i*20, j*20, "Ennemis", 10));
 					break;
 				}
 				

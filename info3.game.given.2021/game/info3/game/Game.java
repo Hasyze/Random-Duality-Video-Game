@@ -21,12 +21,10 @@
 package info3.game;
 
 import java.awt.BorderLayout;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -38,10 +36,8 @@ import javax.swing.JLabel;
 
 import Entities.Cowboy;
 import Entities.Entity;
-import Entities.Hitbox;
-import Entities.Mur;
-import Entities.Rocher;
 import Entities.Porte;
+import Entities.Rocher;
 import Map.Etage;
 import Map.Salle;
 import info3.game.graphics.GameCanvas;
@@ -122,8 +118,8 @@ public class Game {
 	}
 	
 	private void Init_niveau(int niv) throws IOException {
-		m_cowboy = new Cowboy(modele, 0, 200, "Cowboy1", 75);
-		m_cowboy2 = new Cowboy( modele, 0, 0, "Cowboy2", 75);
+		m_cowboy = new Cowboy(modele, 500, 150, "Cowboy1", 50);
+		m_cowboy2 = new Cowboy( modele, 500, 150, "Cowboy2", 50);
 		int[] ListInt = {1,2,3}; // émulation d'un automate
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
@@ -134,7 +130,7 @@ public class Game {
 		
 		etage = new Etage(niv);
 		
-		salle_courante = etage.salles[0];
+		salle_courante = etage.salles[1];
 		
 		salle_courante.charger_salle(EM, modele);
 		bg = salle_courante.background;
@@ -145,10 +141,22 @@ public class Game {
 		//EM.EM_add(rocher);
 	}
 	
+	//On affiche tous les élements statiques, on affiche ensuite les dynamiques a chaque ticks
+	
+	private void dessine_salle_static (Graphics g, int coinscamX, int coinscamY) {
+		ArrayList<Entity> Static = EM.getStatic();
+		Entity e;
+		for (int i=0; i<Static.size(); i++) {
+			System.out.print("Nom : " + Static.get(i).Name + " x : " + Static.get(i).getx() + " y :" + Static.get(i).gety() + "\n");
+			e = Static.get(i);
+			e.paint(g, coinscamX, coinscamY);
+		}
+		System.out.print("Affichage DONE");
+	}
+	
 	private void Chgmt_salle(Porte porte) throws IOException {
 		//EM.vider_salle_courante(); // --> vide l'entity manager sauf les deux cowboy
 		salle_courante = porte.salle_destination;
-		bg = salle_courante.background;
 		salle_courante.charger_salle(EM, modele);
 		bg = salle_courante.background;
 	}
@@ -218,8 +226,7 @@ public class Game {
 		if (test > 2500) {
 			test = 0;
 			EM.afficher_EM();
-			System.out.println("C1 :" + m_cowboy.getx() + "-" + m_cowboy.gety() + "C2 :" + m_cowboy2.getx() + "-"
-					+ m_cowboy2.gety() + "ROC :" + rocher.getx() + "-" + rocher.gety());
+			//System.out.println("C1 :" + m_cowboy.getx() + "-" + m_cowboy.gety() + "C2 :" + m_cowboy2.getx() + "-" + m_cowboy2.gety() + "ROC :" + rocher.getx() + "-" + rocher.gety());
 		}
 
 		// EM TICK STEPS
@@ -294,9 +301,10 @@ public class Game {
 
 		// paint
 		//EM.afficher_EM();
-		
+		dessine_salle_static(g, coinscamX, coinscamY);
 		m_cowboy.paint(g, coinscamX, coinscamY);
 		m_cowboy2.paint(g, coinscamX, coinscamY);
+		
 		//rocher.paint(g, coinscamX, coinscamY);
 		
 

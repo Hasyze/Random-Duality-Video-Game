@@ -23,7 +23,7 @@ public class Mur extends Entity {
 
 	public Mur (Modele modele, int m_x, int m_y, String name, int r) throws IOException{
 		super(modele);
-		m_images = loadSprite("resources/rocher.png", 2,5);
+		m_images = loadSprite("resources/images_test/noir_20x20.png", 1,1);
 		this.Name = name;
 		x = m_x;
 		y = m_y;

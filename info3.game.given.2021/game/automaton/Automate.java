@@ -33,30 +33,16 @@ public class Automate {
 	public void addEtat(Etat e) {
 		etats.add(e);
 	}
-	
-	public void addTransition(Transition t) {
 		
-	}
-	
 	public void step(Entity e) throws Exception {
 		Etat etat = null;
-		System.out.println("Etat passe de " + current.name);
-
-		etat = current.testTransitions(e);
+		etat = current.doTransition(e);
 		if(etat != null) {
 			current = etat;
-		}
-		System.out.println("a " + current.name);
-
-				
+		}				
 	}
 	
 	public boolean autStatic() {
 		return (etats.size() == 1);
-	}
-	
-	public static void main(String args[]) throws Exception {
-		
-		
 	}
 }

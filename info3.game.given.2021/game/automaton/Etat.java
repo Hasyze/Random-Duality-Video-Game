@@ -22,14 +22,12 @@ public class Etat {
 		transitions.add(t);
 	}
 	
-	public Etat testTransitions(Entity e) throws Exception {
-		Etat etat = null;
+	public Etat doTransition(Entity e) throws Exception {
 		for(int i = 0; i<transitions.size();i++) {
-			etat = transitions.get(i).testTransition(e);
-			if(etat != null)
-				return etat;
+			if(transitions.get(i).testTransition(e)) {
+				return transitions.get(i).applyTransition(e);
+			}
 		}
 		return null;
-	}
-	
+	}	
 }

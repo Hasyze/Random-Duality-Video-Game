@@ -84,8 +84,10 @@ public class Cowboy extends Entity {
 				if (!(modele.collisions(this, Dynamic))) {
 					x = (x + x_speed - x_nspeed);
 					y = (y + y_speed - y_nspeed);
+					
 				}
 			}
+			System.out.println("Speed x:"+x_speed);
 		}
 		set_orientation();
 	}

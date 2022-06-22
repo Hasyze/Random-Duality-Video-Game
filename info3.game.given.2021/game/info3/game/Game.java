@@ -125,31 +125,26 @@ public class Game {
 		LinkedList<Transition> tranzis2 = new LinkedList<Transition>();
 		LinkedList<Transition> tranzis3 = new LinkedList<Transition>();
 		
-		
-		
-
-		
 		LinkedList<Etat> etats = new LinkedList<Etat>();
 		Etat init = new Etat("Init", tranzis);
 		Etat move = new Etat("Move", tranzis2);
 		Etat puit = new Etat("Puit", tranzis3);
+		
 		Transition une = new Transition(new True(), init, move, new Move());
 		Transition deux = new Transition(new True(), move, puit, new Stop());
-		
 		
 		tranzis.add(une);
 		tranzis2.add(deux);
 		etats.add(init);
 		etats.add(move);
-		etats.add(puit);
-		
-		
+		etats.add(puit);		
 		
 		Automate joueur = new Automate("joueur", init,etats,Type.NIMPORTE);
+		Automate joueur2 = new Automate("joueur", init,etats,Type.NIMPORTE);
 		
 		
 		m_cowboy = new Cowboy(EM, modele, 0, 200, "fabrice", 25, joueur);
-		m_cowboy2 = new Cowboy(EM, modele, 0, 0, "roger", 25, joueur);
+		m_cowboy2 = new Cowboy(EM, modele, 0, 0, "roger", 25, joueur2);
 
 		// creating a listener for all the events
 		// from the game canvas, that would be

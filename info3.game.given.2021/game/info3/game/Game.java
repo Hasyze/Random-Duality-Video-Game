@@ -36,6 +36,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import Entities.Cowboy;
+import Entities.Entity;
 import Entities.Porte;
 //import Entities.Entity;
 //import Entities.Hitbox;
@@ -68,6 +69,7 @@ public class Game {
 	GameCanvas m_canvas;
 	CanvasListener m_listener;
 	Sound m_music;
+	
 	EntityManager EM;
 	Modele modele;
 
@@ -79,13 +81,28 @@ public class Game {
 
 	
 	public Game(Ressource Res2) throws Exception {
-		
 		int niveau = 1;
+		Init_niveau(niveau, Res2);
+		// creating a listener for all the events
+		// from the game canvas, that would be
+		// the controller in the MVC pattern
+		m_listener = new CanvasListener(this);
+		// creating the game canvas to render the game,
+		// that would be a part of the view in the MVC pattern
+		m_canvas = new GameCanvas(m_listener);
+		System.out.println("  - creating frame...");
+		Dimension d = new Dimension(1024, 768);
+		m_frame = m_canvas.createFrame(d);
+		System.out.println("  - setting up the frame...");
+		setupFrame();
+	}
+	
+	private void Init_niveau(int niv, Ressource Res2) throws IOException {
 		EM = new EntityManager();
 		modele = new Modele();
 		
-		m_cowboy = new Cowboy(modele, 0, 200, "Player1", 75);
-		m_cowboy2 = new Cowboy( modele, 0, 0, "Player2", 75);
+		m_cowboy = new Cowboy(modele, 500, 150, "Player1", 25);
+		m_cowboy2 = new Cowboy( modele, 500, 150, "Player2", 25);
 		
 		Res2.set_couple(m_cowboy);
 		Res2.set_couple(m_cowboy2);
@@ -95,39 +112,6 @@ public class Game {
 		System.out.print("Test menu : cowboy 2 attribution automate : ");
 		System.out.print(m_cowboy2.Name + " "+m_cowboy2.Aut.name+"\n");
 		
-		EM.EM_add(m_cowboy);
-		EM.EM_add(m_cowboy2);
-		Init_niveau(niveau);
-
-		
-		// creating a listener for all the events
-		// from the game canvas, that would be
-		// the controller in the MVC pattern
-		m_listener = new CanvasListener(this);
-		// creating the game canvas to render the game,
-		// that would be a part of the view in the MVC pattern
-		m_canvas = new GameCanvas(m_listener);
-
-		
-		
-		
-		
-		System.out.println("  - creating frame...");
-		Dimension d = new Dimension(1024, 768);
-		m_frame = m_canvas.createFrame(d);
-
-		System.out.println("  - setting up the frame...");
-		setupFrame();
-	}
-	
-	private void Init_niveau(int niv) throws IOException {
-		m_cowboy = new Cowboy(modele, 500, 150, "Cowboy1", 50);
-		m_cowboy2 = new Cowboy( modele, 500, 150, "Cowboy2", 50);
-		int[] ListInt = {1,2,3}; // émulation d'un automate
-		// creating a cowboy, that would be a model
-		// in an Model-View-Controller pattern (MVC)
-		m_cowboy.Aut = ListInt;
-		m_cowboy2.Aut = ListInt;
 		EM.EM_add(m_cowboy);
 		EM.EM_add(m_cowboy2);
 		
@@ -150,13 +134,13 @@ public class Game {
 		ArrayList<Entity> Static = EM.getStatic();
 		Entity e;
 		for (int i=0; i<Static.size(); i++) {
-			System.out.print("Nom : " + Static.get(i).Name + " x : " + Static.get(i).getx() + " y :" + Static.get(i).gety() + "\n");
+			//System.out.print("Nom : " + Static.get(i).Name + " x : " + Static.get(i).getx() + " y :" + Static.get(i).gety() + "\n");
 			e = Static.get(i);
 			e.paint(g, coinscamX, coinscamY);
 		}
-		System.out.print("Affichage DONE");
+		//System.out.print("Affichage DONE");
 	}
-	
+	// Demander a axel si on garde
 	private void Chgmt_salle(Porte porte) throws IOException {
 		//EM.vider_salle_courante(); // --> vide l'entity manager sauf les deux cowboy
 		salle_courante = porte.salle_destination;
@@ -228,9 +212,9 @@ public class Game {
 		test += elapsed;
 		if (test > 2500) {
 			test = 0;
-			EM.afficher_EM();
-			System.out.println("C1 :" + m_cowboy.getx() + "-" + m_cowboy.gety() + "C2 :" + m_cowboy2.getx() + "-"
-					+ m_cowboy2.gety() + "ROC :" + rocher.getx() + "-" + rocher.gety());
+			//EM.afficher_EM();
+			//System.out.println("C1 :" + m_cowboy.getx() + "-" + m_cowboy.gety() + "C2 :" + m_cowboy2.getx() + "-"
+					//+ m_cowboy2.gety() + "ROC :" + rocher.getx() + "-" + rocher.gety());
 		}
 
 		// EM TICK STEPS

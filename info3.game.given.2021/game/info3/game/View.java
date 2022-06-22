@@ -19,7 +19,7 @@ public class View extends Game {
 	ArrayList<Entity> Liste_affichage;
 	
 	public View() throws Exception {
-		super();
+		//super();
 		Liste_affichage = null;
 	}
 	

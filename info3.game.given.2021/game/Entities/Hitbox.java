@@ -7,15 +7,29 @@ public class Hitbox {
 	private int rayon;
 	private int x, y;
 
+
 	private Rectangle rect = new Rectangle();
 
 	public Hitbox(int rayon, int m_x, int m_y) {
 		this.rayon = rayon;
 		this.x = m_x;
 		this.y = m_y;
+
+	}	
+	
+	private int xr, yr, width, height;
+	
+	
+	
+	public Hitbox (int x, int y, int width, int height) {
+		this.xr=x;
+		this.yr=y;
+		this.height=height;
+		this.width=width;
+
 	}
 
-	public Hitbox(int x, int y, int width, int height) {
+	public Hitbox(int x, int y, int width, int height,int type) {
 		rect = new Rectangle(x,y,width,height);
 	}
 
@@ -36,8 +50,32 @@ public class Hitbox {
 		return y;
 	}
 	
+
 	public Rectangle getRect() {
 		return rect;
+	}
+	public int getAbscisseRect() {
+		return xr;
+	}
+	
+	public int getOrdonneeRect() {
+		return yr;
+	}
+	
+	public int getHeight() {
+		return height;
+	}
+	
+	public int getWidth() {
+		return width;
+	}
+	
+	
+	
+	
+	/*double distance (int a_x,int a_y, int b_x, int b_y) {
+		return Math.sqrt((a_x-b_x)*(a_x-b_x)+(a_y-b_y)*(a_y-b_y));
+
 	}
 
 	/*

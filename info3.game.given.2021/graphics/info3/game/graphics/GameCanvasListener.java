@@ -42,7 +42,7 @@ public interface GameCanvasListener extends MouseListener, MouseMotionListener, 
   /*
    * Called at the period specified in GameCanvas.TICK_PERIOD
    */
-  public void tick(long elapsed);
+  public void tick(long elapsed) throws Exception;
 
   /*
    * Usually called 30 times per second,

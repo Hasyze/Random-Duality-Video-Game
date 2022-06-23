@@ -1,6 +1,8 @@
 package Entities;
 
 import java.awt.Graphics;
+
+import automaton.*;
 import java.awt.image.BufferedImage;
 
 import java.io.File;
@@ -10,10 +12,9 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import info3.game.*;
 
-public abstract class Entity extends Object {
+public abstract class Entity extends Object{
 
-	public Automate Aut_;
-	public int[] Aut;
+	public Automate Aut;
 
 	// a enlever :
 	public String Name;
@@ -27,63 +28,207 @@ public abstract class Entity extends Object {
 	protected int x_nspeed;
 	protected int y_nspeed;
 	protected Hitbox hitbox;
+	protected Hitbox hitboxvoisinE;
+	protected Hitbox hitboxvoisinW;
+	protected Hitbox hitboxvoisinS;
+	protected Hitbox hitboxvoisinN;
 	protected int type;
 	protected EntityManager EM;
 	protected Modele modele;
+	protected ArrayList<Entity>close;
 	/**
 	 * Type 0: Joueur 1: Ennemi 2: Missile Ennemi 3: Missile Joeur 4: Fnatome 5:
 	 * Rocher 6: Mur 7: Porte
 	 **/
 
+	public Direction direction = Direction.N; 
+	
 	// Stats
 	protected int speed;
 	protected int vie;
 
 	public Entity(EntityManager em, Modele modele) {
 		this.EM = em;
-		EM.EM_add(this); //A MODIFIER LIST JAVA
-		
+		EM.EM_add(this); // A MODIFIER LIST JAVA
+
 		this.modele = modele;
-		
+		close = new ArrayList();
+		for(int i=0; i<4;i++) {
+			close.add(i, null);
+		}
 		m_images = null;
 		m_imageIndex = 0;
 		x_speed = 0;
 		y_speed = 0;
 		x_nspeed = 0;
 		y_nspeed = 0;
+
 		vie = 10;
 		speed = 4;
+
 	}
 
 	public void move() {
 	}
-
-	public void stop() {
+	
+	public void move(Direction dir) {
+		switch (dir) {
+		
+		case W:
+			x_nspeed = speed;
+			break;
+		
+		case E:
+			x_speed = speed;
+			break;
+		
+		case N:
+			y_nspeed = speed;
+			break;
+		
+		case S:
+			y_speed = speed;
+			break;
+		default:
+			break;
+		}
+		
 	}
 
-	// public void pop() {} Implémenter ces fonctions dans chacune des sous-classes
-	// public void wizz() {}
+	public void stop(Direction dir) {
+		switch (dir) {
+		
+		case W:
+			x_nspeed = 0;
+			break;
+		
+		case E:
+			System.out.println("JE PASSE BIEN PAR ICI");
+			x_speed = 0;
+			break;
+		
+		case N:
+			y_nspeed = 0;
+			break;
+		
+		case S:
+			y_speed = 0;
+			break;
+		default:
+			break;
+		}
+		
+	}
+	
+	public void transfert(Entity e) {
+	}
+	
+	public Entity egg() {
+		return null;
+	}
+	
+	public void pop() {
+		
+	}
+	
+	public void wizz() {
+		
+	}
+	
+	
+	
+	
 	public void paint(Graphics g, int originex, int originey) {
 		BufferedImage img = m_images[m_imageIndex];
 		int scale = 2;
 		g.drawImage(img, x - originex - getWidth(), y - originey - getHeight(), scale * img.getWidth(),
 				scale * img.getHeight(), null);
+
 		//g.drawOval(x-originex-hitbox.getRayon(), y-originey-hitbox.getRayon(), hitbox.getRayon()*2, hitbox.getRayon()*2);
 		g.drawRect(hitbox.getRect().x - originex - getWidth()/2 , hitbox.getRect().y- originey - getHeight()/2  ,
 getWidth(), getHeight());
+	
+		}
 		
-		//g.drawOval(hitbox.getRect().x - originex , hitbox.getRect().y- originey , getWidth(), getWidth());
-		/*g.drawOval(hitbox.getRect().x - originex - getWidth(), y- originey , getWidth(), getWidth());
-		g.drawOval(hitbox.getRect().x - originex, y- originey - getHeight(),getWidth(), getWidth());
-		g.drawOval(hitbox.getRect().x - originex , y- originey ,getWidth(), getWidth());*/
-	}
+		public void add_close(Rocher rocher) {
+			switch(direction) {
+				case N : 
+					System.out.println("Nord");
+					if(info3.game.Modele.plus_proche(hitboxvoisinN,rocher)) {
+						if(close.get(0)==null) {
+							close.add(0, rocher);
+						}
+						else {
+							if(info3.game.Modele.distance(this.x,this.y,rocher.x,rocher.y)<info3.game.Modele.distance(this.x,this.y,close.get(0).x,close.get(0).y)){
+								close.remove(0);
+								close.add(0,rocher);
+							}
+						}
+						
+					}
+					break;
+				case S : 
+					System.out.println("Sud");
+					if(info3.game.Modele.plus_proche(hitboxvoisinN,rocher)) {
+						if(close.get(1)==null) {
+							close.add(1, rocher);
+						}
+						else {
+							if(info3.game.Modele.distance(this.x,this.y,rocher.x,rocher.y)<info3.game.Modele.distance(this.x,this.y,close.get(1).x,close.get(1).y)){
+								close.remove(1);
+								close.add(1,rocher);
+							}
+						}
+						
+					}
+					break;
+				case E : 
+					System.out.println("E");
+					if(info3.game.Modele.plus_proche(hitboxvoisinN,rocher)) {
+						if(close.get(2)==null) {
+							close.add(2, rocher);
+						}
+						else {
+							if(info3.game.Modele.distance(this.x,this.y,rocher.x,rocher.y)<info3.game.Modele.distance(this.x,this.y,close.get(2).x,close.get(2).y)){
+								close.remove(2);
+								close.add(2,rocher);
+							}
+						}
+						
+					}
+					break;
+				case W : 
+					System.out.println("West");
+					if(info3.game.Modele.plus_proche(hitboxvoisinN,rocher)) {
+						if(close.get(3)==null) {
+							close.add(3, rocher);
+						}
+						else {
+							if(info3.game.Modele.distance(this.x,this.y,rocher.x,rocher.y)<info3.game.Modele.distance(this.x,this.y,close.get(3).x,close.get(3).y)){
+								close.remove(3);
+								close.add(3,rocher);
+							}
+						}
+						
+					}
+					break;
+			}
+			System.out.println("N :" );
+			System.out.println(close.get(0));
+			System.out.println("S :" );
+			System.out.println(close.get(1));
+			System.out.println("E :" );
+			System.out.println(close.get(2));
+			System.out.println("W :" );
+			System.out.println(close.get(3));
+			
+			
+		}
+	
 
-	public Entity egg() {
-		return null;
-	}
+	
 
-	public void transfert(Entity e) {
-	}
+	
 
 	public void degatVie(int degat) {
 		vie -= degat;
@@ -100,7 +245,7 @@ getWidth(), getHeight());
 	public int getvie() {
 		return vie;
 	}
-	
+
 	public EntityManager getEM() {
 		return EM;
 	}
@@ -113,18 +258,18 @@ getWidth(), getHeight());
 		// TODO : step automates pour l'aut de chaque entity.
 	}
 
-	
 	int m_moveElapsed = 0;
-	public void tick(long elapsed) {
+	public void tick(long elapsed) throws Exception {
 		m_moveElapsed += elapsed;
 		hitbox.relocate(x, y);
 		if (m_moveElapsed > 24) {
 			m_moveElapsed = 0;
-			if(x_speed>0 || y_speed>0 || x_nspeed>0 || y_nspeed>0) {
+			if (x_speed > 0 || y_speed > 0 || x_nspeed > 0 || y_nspeed > 0) {
 				ArrayList<Entity> Dynamic = EM.getDynamic();
 				ArrayList<Entity> col = modele.collision(this, Dynamic);
 				if(col.isEmpty()) {
 					
+
 					x = (x + x_speed - x_nspeed);
 					y = (y + y_speed - y_nspeed);
 					
@@ -138,6 +283,10 @@ getWidth(), getHeight());
 	public Hitbox getHitbox() {
 		return hitbox;
 	}
+	
+	public Hitbox getHitboxVoisin() {
+		return hitbox;
+}
 
 	public int getType() {
 		return type;
@@ -158,11 +307,11 @@ getWidth(), getHeight());
 	public int gety_nspeed() {
 		return y_nspeed;
 	}
-	
+
 	public int getWidth() {
 		return m_images[m_imageIndex].getWidth();
 	}
-	
+
 	public int getHeight() {
 		return m_images[m_imageIndex].getHeight();
 	}

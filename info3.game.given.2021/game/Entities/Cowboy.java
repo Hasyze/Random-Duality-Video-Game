@@ -26,8 +26,11 @@ import info3.game.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+
+import automaton.Automate;
 
 /**
  * A simple class that holds the images of a sprite for an animated cowbow.
@@ -49,30 +52,56 @@ public class Cowboy extends Entity {
 		this.Name = name;
 	}
 
-	public Cowboy(EntityManager EM, Modele modele, int m_x, int m_y, String name, int r) throws IOException {
+	public Cowboy(EntityManager EM, Modele modele, int m_x, int m_y, String name, int r, Automate aut) throws IOException {
 		super(EM, modele);
+		this.Aut = aut;
 		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
 		this.Name = name;
 		x = m_x;
 		y = m_y;
-		/*int heigt_hb = (m_images[0].getHeight()) / 2;
+		int heigt_hb = (m_images[0].getHeight()) / 2;
 		int width_hb = (m_images[0].getWidth()) / 2;
-		hitbox = new Hitbox(r, x + width_hb, y + heigt_hb, 0);*/
-		int heigt_hb = (m_images[0].getHeight()) ;
-		int width_hb = (m_images[0].getWidth()) ;
-		hitbox = new Hitbox(x,y,width_hb,heigt_hb);
+		//hitbox = new Hitbox(r, x + width_hb, y + heigt_hb, 0);
+		int heigt_hb1 = (m_images[0].getHeight()) ;
+		int width_hb1 = (m_images[0].getWidth()) ;
+		hitbox = new Hitbox(x,y,width_hb1,heigt_hb1,0);
+
+		//hitbox = new Hitbox(r, x + width_hb, y + heigt_hb);
+	//	switch(direction) {
+		//	case E : 
+				hitboxvoisinE=new Hitbox(x,y- width_hb,1024 + x,hitbox.getRayon()*2);
+		//	case S : 
+				hitboxvoisinS=new Hitbox(x-width_hb,y+width_hb, hitbox.getRayon()*2, 1024 + y);
+		//	case W : 
+				hitboxvoisinW=new Hitbox(0-width_hb,y-width_hb, x,hitbox.getRayon()*2);
+		//	case N : 
+				hitboxvoisinN=new Hitbox(x-width_hb,0,hitbox.getRayon()*2,y-width_hb);
+		//}
 		type = 0;
 	}
 
 	/*
 	 * Simple animation here, the cowbow
 	 */
-	public void tick(long elapsed) {
-		super.tick(elapsed);
+	public void tick(long elapsed) throws Exception {
+		//super.tick(elapsed);
+		hitbox.relocate(x, y);
 		m_imageElapsed += elapsed;
+		m_moveElapsed += elapsed;
 		if (m_imageElapsed > 1500) {
 			m_imageElapsed = 0;
+		}
+		if (m_moveElapsed > 2000) {
+			m_moveElapsed = 0;
 
+			Aut.step(this);
+			if (x_speed > 0 || y_speed > 0 || x_nspeed > 0 || y_nspeed > 0) {
+				ArrayList<Entity> Dynamic = EM.getDynamic();
+				if (!(modele.collisions(this, Dynamic))) {
+					x = (x + x_speed - x_nspeed);
+					y = (y + y_speed - y_nspeed);
+				}
+			}
 		}
 		set_orientation();
 	}
@@ -108,29 +137,55 @@ public class Cowboy extends Entity {
 		}
 	}
 
-	public void move(int code) {
+	public void movet(int code) {
 		switch (code) {
 		case 37:
 		case 81:
-			x_nspeed = speed;
+			this.direction = Direction.W;
 			break;
 		case 39:
 		case 68:
-			x_speed = speed;
+			this.direction = Direction.E;
 			break;
 		case 38:
 		case 90:
-			y_nspeed = speed;
+			this.direction = Direction.N;
 			break;
 		case 40:
 		case 83:
-			y_speed = speed;
+			this.direction = Direction.S;
 			break;
 		}
 		// System.out.println("OUIIIIIIII");
 		// .out.println(this.x + this.y);
 
 	}
+	
+	public void move(Direction dir) {
+		switch (dir) {
+		
+		case W:
+			x_nspeed = speed;
+			break;
+		
+		case E:
+			x_speed = speed;
+			break;
+		
+		case N:
+			y_nspeed = speed;
+			break;
+		
+		case S:
+			y_speed = speed;
+			break;
+		default:
+			break;
+		}
+		
+	}
+	
+	
 
 	public void stop(int code) {
 		switch (code) {

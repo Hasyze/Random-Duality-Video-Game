@@ -119,7 +119,7 @@ public class EntityManager {
 	public void tick(long elapsed/*Entity Obj1,
 					ArrayList<Entity> List,
 					long elapsed // si jamais on utilise une list*/
-	 				) {
+	 				) throws Exception {
 		ArrayList<Entity> New_Dynamic = new ArrayList<Entity>();
 		ArrayList<Entity> New_Static = new ArrayList<Entity>();
 		

@@ -31,6 +31,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -43,6 +44,8 @@ import Entities.Hitbox;
 import Entities.Mur;
 import Entities.Rocher;
 import Map.Etage;
+import automaton.*;
+import automaton.Transition;
 import info3.game.graphics.GameCanvas;
 import info3.game.sound.RandomFileInputStream;
 
@@ -82,9 +85,13 @@ public class Game {
 	Etage etage;
 	Modele modele;
 
+/*<<<<<<< HEAD
 	Cowboy m_cowboy;// m_cowboy2;
 	Ennemis m_cowboy2;
 	Rocher rocher;
+=======*/
+	Cowboy m_cowboy, m_cowboy2;
+	Rocher rocher1, rocher2;
 
 	void charger_entites_salle() throws IOException {
 		for (int i = 0; i < 50; i++) {
@@ -120,8 +127,38 @@ public class Game {
 		EM = new EntityManager();
 		modele = new Modele();
 
-		m_cowboy = new Cowboy(EM, modele, 0, 200, "fabrice", 25);
-		m_cowboy2 = new Ennemis(EM, modele, 0, 0, "roger", 25);
+		/*m_cowboy = new Cowboy(EM, modele, 0, 200, "fabrice", 25);
+		m_cowboy2 = new Ennemis(EM, modele, 0, 0, "roger", 25);*/
+
+		LinkedList<Transition> tranzis = new LinkedList<Transition>();
+		LinkedList<Transition> tranzis2 = new LinkedList<Transition>();
+		LinkedList<Transition> tranzis3 = new LinkedList<Transition>();
+		
+		
+		
+
+		
+		LinkedList<Etat> etats = new LinkedList<Etat>();
+		Etat init = new Etat("Init", tranzis);
+		Etat move = new Etat("Move", tranzis2);
+		Etat puit = new Etat("Puit", tranzis3);
+		Transition une = new Transition(new True(), init, move, new Move());
+		Transition deux = new Transition(new True(), move, puit, new Stop());
+		
+		
+		tranzis.add(une);
+		tranzis2.add(deux);
+		etats.add(init);
+		etats.add(move);
+		etats.add(puit);
+		
+		
+		
+		Automate joueur = new Automate("joueur", init,etats,Type.NIMPORTE);
+		
+		
+		m_cowboy = new Cowboy(EM, modele, 900, 600, "fabrice", 25, joueur);
+		m_cowboy2 = new Cowboy(EM, modele, 0, 0, "roger", 25, joueur);
 
 		// creating a listener for all the events
 		// from the game canvas, that would be
@@ -135,7 +172,11 @@ public class Game {
 
 		// charger_entites_salle();
 
-		rocher = new Rocher(EM, modele, 400, 400, "cailluo", 50);
+
+		rocher1 = new Rocher(EM, modele, 900, 20, "cailluo", 70);
+		m_cowboy.add_close(rocher1);
+		rocher2 = new Rocher(EM, modele, 900, 200, "cailluo", 70);
+		m_cowboy.add_close(rocher2);
 
 		System.out.println("  - creating frame...");
 		Dimension d = new Dimension(1024, 768);
@@ -204,28 +245,28 @@ public class Game {
 	 */
 
 	long test = 0;
-	
-	void tick(long elapsed) {
+
+
+	void tick(long elapsed) throws Exception {
 		test += elapsed;
 		if (test > 2500) {
 			test = 0;
-			EM.afficher_EM();
-			System.out.println("C1 :" + m_cowboy.getx() + "-" + m_cowboy.gety() + "C2 :" + m_cowboy2.getx() + "-"
-					+ m_cowboy2.gety() + "ROC :" + rocher.getx() + "-" + rocher.gety());
+			//EM.afficher_EM();
+			//System.out.println("C1 :" + m_cowboy.getx() + "-" + m_cowboy.gety() + "C2 :" + m_cowboy2.getx() + "-"
+			//		+ m_cowboy2.gety() + "ROC :" + rocher.getx() + "-" + rocher.gety());
 		}
 		
 		// EM TICK STEPS
-		EM.tick(elapsed);
+		//EM.tick(elapsed);
 		// EM COLLSIONS
 		ArrayList<Entity> Dynamic = EM.getDynamic();
 		ArrayList<Entity> Static = EM.getStatic();
 		// modele.collision(); Calcul des interactions
-		for (int i = 0; i < Dynamic.size(); i++) {
 
-		}
-		
-		/*m_cowboy.tick(elapsed);
-		m_cowboy2.tick(elapsed);*/
+
+		m_cowboy.tick(elapsed);
+		m_cowboy2.tick(elapsed);
+
 
 		// Update every second
 		// the text on top of the frame: tick and fps
@@ -251,7 +292,7 @@ public class Game {
 	// A terme ça faut que ce soit les bordures de la map ou de la salle
 	int xmin = 0;
 	int ymin = 0;
-	int xmax = 20000;
+	int xmax = 10000;
 	int ymax = 10000;
 
 	void paint(Graphics g) {
@@ -289,14 +330,18 @@ public class Game {
 
 		// paint
 		// EM.afficher_EM();
-		rocher.paint(g, coinscamX, coinscamY);
-		if (m_cowboy.getvie()>0)
-			m_cowboy.paint(g, coinscamX, coinscamY);
-		if (m_cowboy2.getvie()>0)
-			m_cowboy2.paint(g, coinscamX, coinscamY);
-		
+	
 
 		///////
+
+		ArrayList<Entity> Affichage = EM.sort_affichage();
+		for(int i = 0; i<Affichage.size(); i++) {
+			Affichage.get(i).paint(g, coinscamX, coinscamY);
+		}
+		
+		/*m_cowboy.paint(g, coinscamX, coinscamY);
+		m_cowboy2.paint(g, coinscamX, coinscamY);
+		rocher.paint(g, coinscamX, coinscamY);*/
 
 	}
 

@@ -242,7 +242,7 @@ public class Salle {
 	public void charger_salle(EntityManager EM, Modele modele) throws IOException {
 		for (int i = 0; i<49; i++) {
 			for (int j = 0; j<49; j++) {
-				int x = compo[i][j];
+				int x = compo[j][i];
 				//System.out.print(x);
 				switch (x) {
 				case 49 :

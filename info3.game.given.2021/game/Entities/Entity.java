@@ -28,15 +28,20 @@ public abstract class Entity extends Object{
 	protected int x_nspeed;
 	protected int y_nspeed;
 	protected Hitbox hitbox;
+	protected Hitbox hitboxvoisinE;
+	protected Hitbox hitboxvoisinW;
+	protected Hitbox hitboxvoisinS;
+	protected Hitbox hitboxvoisinN;
 	protected int type;
 	protected EntityManager EM;
 	protected Modele modele;
+	protected ArrayList<Entity>close;
 	/**
 	 * Type 0: Joueur 1: Ennemi 2: Missile Ennemi 3: Missile Joeur 4: Fnatome 5:
 	 * Rocher 6: Mur 7: Porte
 	 **/
 
-	public Direction direction = Direction.E; 
+	public Direction direction = Direction.N; 
 	
 	// Stats
 	protected int speed;
@@ -47,7 +52,10 @@ public abstract class Entity extends Object{
 		EM.EM_add(this); // A MODIFIER LIST JAVA
 
 		this.modele = modele;
-
+		close = new ArrayList();
+		for(int i=0; i<4;i++) {
+			close.add(i, null);
+		}
 		m_images = null;
 		m_imageIndex = 0;
 		x_speed = 0;
@@ -126,6 +134,8 @@ public abstract class Entity extends Object{
 	}
 	
 	
+	
+	
 	public void paint(Graphics g, int originex, int originey) {
 		BufferedImage img = m_images[m_imageIndex];
 		int scale = 2;
@@ -133,7 +143,96 @@ public abstract class Entity extends Object{
 				scale * img.getHeight(), null);
 		g.drawOval(x - originex - hitbox.getRayon(), y - originey - hitbox.getRayon(), hitbox.getRayon() * 2,
 				hitbox.getRayon() * 2);
-	}
+		System.out.println();
+		//g.drawRect(hitboxvoisin.getAbscisseRect(),hitboxvoisin.getOrdonneeRect()-hitbox.getRayon(),hitboxvoisin.getWidth(), hitboxvoisin.getHeight());
+	//	switch(direction) {
+			//case E : 
+				
+				g.drawRect(x,y- hitbox.getRayon(),1024 + x,hitbox.getRayon()*2);
+			//case S : 
+				//System.out.println("Je passe");
+				g.drawRect(x-hitbox.getRayon(),y+hitbox.getRayon(),hitbox.getRayon()*2, 1024 + y);
+		//	case W : 
+				g.drawRect(0-hitbox.getRayon(),y-hitbox.getRayon(), x,hitbox.getRayon()*2);
+		//	case N : 
+				g.drawRect(x-hitbox.getRayon(),0, hitbox.getRayon()*2, y-hitbox.getRayon());
+		}
+		
+		public void add_close(Rocher rocher) {
+			switch(direction) {
+				case N : 
+					System.out.println("Nord");
+					if(info3.game.Modele.plus_proche(hitboxvoisinN,rocher)) {
+						if(close.get(0)==null) {
+							close.add(0, rocher);
+						}
+						else {
+							if(info3.game.Modele.distance(this.x,this.y,rocher.x,rocher.y)<info3.game.Modele.distance(this.x,this.y,close.get(0).x,close.get(0).y)){
+								close.remove(0);
+								close.add(0,rocher);
+							}
+						}
+						
+					}
+					break;
+				case S : 
+					System.out.println("Sud");
+					if(info3.game.Modele.plus_proche(hitboxvoisinN,rocher)) {
+						if(close.get(1)==null) {
+							close.add(1, rocher);
+						}
+						else {
+							if(info3.game.Modele.distance(this.x,this.y,rocher.x,rocher.y)<info3.game.Modele.distance(this.x,this.y,close.get(1).x,close.get(1).y)){
+								close.remove(1);
+								close.add(1,rocher);
+							}
+						}
+						
+					}
+					break;
+				case E : 
+					System.out.println("E");
+					if(info3.game.Modele.plus_proche(hitboxvoisinN,rocher)) {
+						if(close.get(2)==null) {
+							close.add(2, rocher);
+						}
+						else {
+							if(info3.game.Modele.distance(this.x,this.y,rocher.x,rocher.y)<info3.game.Modele.distance(this.x,this.y,close.get(2).x,close.get(2).y)){
+								close.remove(2);
+								close.add(2,rocher);
+							}
+						}
+						
+					}
+					break;
+				case W : 
+					System.out.println("West");
+					if(info3.game.Modele.plus_proche(hitboxvoisinN,rocher)) {
+						if(close.get(3)==null) {
+							close.add(3, rocher);
+						}
+						else {
+							if(info3.game.Modele.distance(this.x,this.y,rocher.x,rocher.y)<info3.game.Modele.distance(this.x,this.y,close.get(3).x,close.get(3).y)){
+								close.remove(3);
+								close.add(3,rocher);
+							}
+						}
+						
+					}
+					break;
+			}
+			System.out.println("N :" );
+			System.out.println(close.get(0));
+			System.out.println("S :" );
+			System.out.println(close.get(1));
+			System.out.println("E :" );
+			System.out.println(close.get(2));
+			System.out.println("W :" );
+			System.out.println(close.get(3));
+			
+			
+		}
+	
 
 	
 
@@ -185,6 +284,10 @@ public abstract class Entity extends Object{
 	public Hitbox getHitbox() {
 		return hitbox;
 	}
+	
+	public Hitbox getHitboxVoisin() {
+		return hitbox;
+}
 
 	public int getType() {
 		return type;

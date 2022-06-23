@@ -61,7 +61,18 @@ public class Cowboy extends Entity {
 		y = m_y;
 		int heigt_hb = (m_images[0].getHeight()) / 2;
 		int width_hb = (m_images[0].getWidth()) / 2;
-		hitbox = new Hitbox(r, x + width_hb, y + heigt_hb, 0);
+		hitbox = new Hitbox(r, x + width_hb, y + heigt_hb);
+	//	switch(direction) {
+		//	case E : 
+				hitboxvoisinE=new Hitbox(x,y- width_hb,1024 + x,hitbox.getRayon()*2);
+		//	case S : 
+				hitboxvoisinS=new Hitbox(x-width_hb,y+width_hb, hitbox.getRayon()*2, 1024 + y);
+		//	case W : 
+				hitboxvoisinW=new Hitbox(0-width_hb,y-width_hb, x,hitbox.getRayon()*2);
+		//	case N : 
+				hitboxvoisinN=new Hitbox(x-width_hb,0,hitbox.getRayon()*2,y-width_hb);
+		//}
+		
 		type = 0;
 	}
 

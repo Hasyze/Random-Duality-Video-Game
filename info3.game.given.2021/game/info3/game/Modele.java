@@ -16,7 +16,7 @@ public class Modele {
 
 	}
 
-	public double distance(int a_x, int a_y, int b_x, int b_y) {
+	public static double distance(int a_x, int a_y, int b_x, int b_y) {
 		return Math.sqrt((a_x - b_x) * (a_x - b_x) + (a_y - b_y) * (a_y - b_y));
 	}
 
@@ -90,4 +90,10 @@ public class Modele {
 		}
 		return false;
 	}
+	
+	public static boolean plus_proche(Hitbox box, Entity obj) {
+		return true;
+		
+	}
+	
 }

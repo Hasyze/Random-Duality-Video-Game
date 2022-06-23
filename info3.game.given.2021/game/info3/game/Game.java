@@ -85,7 +85,7 @@ public class Game {
 	Modele modele;
 
 	Cowboy m_cowboy, m_cowboy2;
-	Rocher rocher;
+	Rocher rocher1, rocher2;
 
 	void charger_entites_salle() throws IOException {
 		for (int i = 0; i < 50; i++) {
@@ -148,7 +148,7 @@ public class Game {
 		Automate joueur = new Automate("joueur", init,etats,Type.NIMPORTE);
 		
 		
-		m_cowboy = new Cowboy(EM, modele, 0, 200, "fabrice", 25, joueur);
+		m_cowboy = new Cowboy(EM, modele, 900, 600, "fabrice", 25, joueur);
 		m_cowboy2 = new Cowboy(EM, modele, 0, 0, "roger", 25, joueur);
 
 		// creating a listener for all the events
@@ -163,7 +163,10 @@ public class Game {
 
 		// charger_entites_salle();
 
-		rocher = new Rocher(EM, modele, 400, 20, "cailluo", 70);
+		rocher1 = new Rocher(EM, modele, 900, 20, "cailluo", 70);
+		m_cowboy.add_close(rocher1);
+		rocher2 = new Rocher(EM, modele, 900, 200, "cailluo", 70);
+		m_cowboy.add_close(rocher2);
 
 		System.out.println("  - creating frame...");
 		Dimension d = new Dimension(1024, 768);
@@ -317,6 +320,7 @@ public class Game {
 		for(int i = 0; i<Affichage.size(); i++) {
 			Affichage.get(i).paint(g, coinscamX, coinscamY);
 		}
+		
 		/*m_cowboy.paint(g, coinscamX, coinscamY);
 		m_cowboy2.paint(g, coinscamX, coinscamY);
 		rocher.paint(g, coinscamX, coinscamY);*/

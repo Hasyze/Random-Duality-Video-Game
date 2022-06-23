@@ -4,13 +4,23 @@ public class Hitbox {
 
 	private int rayon;
 	private int x, y;
-	private int type;
 	
-	public Hitbox (int rayon, int m_x, int m_y, int type) {
+	
+	private int xr, yr, width, height;
+	
+	public Hitbox (int rayon, int m_x, int m_y) {
 		this.rayon = rayon;
 		this.x = m_x;
 		this.y = m_y;
-		this.type= type;
+	
+	}
+	
+	public Hitbox (int x, int y, int width, int height) {
+		this.xr=x;
+		this.yr=y;
+		this.height=height;
+		this.width=width;
+		
 	}
 	
 	public void relocate (int m_x, int m_y) {
@@ -30,9 +40,23 @@ public class Hitbox {
 		return y;
 	}
 	
-	int getType() {
-		return type;
+	public int getAbscisseRect() {
+		return xr;
 	}
+	
+	public int getOrdonneeRect() {
+		return yr;
+	}
+	
+	public int getHeight() {
+		return height;
+	}
+	
+	public int getWidth() {
+		return width;
+	}
+	
+	
 	
 	
 	/*double distance (int a_x,int a_y, int b_x, int b_y) {

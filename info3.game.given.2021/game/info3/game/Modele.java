@@ -56,7 +56,7 @@ public class Modele {
 										// y a
 										// ex : fantome : il ne collisionne pas, sauf avec les portes et les murs.
 			case 0: // Joueur
-				if (collision && (type == 1 || type == 2 || type == 5 || type == 6 || type == 7))
+				if (collision && (type == 1 || type == 2 || type == 5 || type == 6 || type == 7)) {
 					System.out.print("collision \n");
 					if ( (type == 7) && (((Porte)elem).etat == true) ){
 						System.out.print("collision avec porte ouverte");
@@ -65,6 +65,7 @@ public class Modele {
 						
 					}
 					col.add(elem);
+				}
 				break;
 			case 1: // Ennemi
 				if (collision && (type == 0 || type == 3 || type == 5 || type == 6 || type == 7))

@@ -112,6 +112,8 @@ public class Game {
 		EM.EM_add(m_cowboy2);
 		
 		etage = new Etage(modele, niv);
+
+		
 		salle_courante = etage.salles[0];
 		bg = salle_courante.background;
 		
@@ -133,11 +135,33 @@ public class Game {
 		//System.out.print("Affichage DONE");
 	}
 	
+	
+	
+	
 	private void Chgmt_salle(Porte porte) throws IOException {
-		//EM.vider_salle_courante(); // --> vide l'entity manager sauf les deux cowboy
+		EM.vider_entity_manager(); // --> vide l'entity manager sauf les deux cowboy
 		salle_courante = porte.salle_destination;
 		salle_courante.charger_salle(EM, modele);
 		bg = salle_courante.background;
+		
+		switch (porte.orientation_salle_destination) {
+		case 0 :
+			m_cowboy.Teleporte_joueur(23*40, 2*40);
+			m_cowboy2.Teleporte_joueur(25*40,  2*40);
+			break;
+		case 1 :
+			m_cowboy.Teleporte_joueur(46*40, 23*40);
+			m_cowboy2.Teleporte_joueur(46*40, 25*40);
+			break;
+		case 2 :
+			m_cowboy.Teleporte_joueur(23*40, 46*40);
+			m_cowboy2.Teleporte_joueur(25*40, 46*40);
+			break;
+		default :
+			m_cowboy.Teleporte_joueur(2*40, 23*40);
+			m_cowboy2.Teleporte_joueur(2*40, 25*40);
+			break;
+		}
 		changement_de_salle = null;
 		
 	}

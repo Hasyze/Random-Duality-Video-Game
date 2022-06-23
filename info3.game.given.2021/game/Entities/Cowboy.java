@@ -61,6 +61,10 @@ public class Cowboy extends Entity {
 	}
 	
 	
+	public void Teleporte_joueur(int m_x, int m_y) {
+		x = m_x;
+		y = m_y;
+	}
 	
 
 	/*

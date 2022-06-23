@@ -54,7 +54,33 @@ public class EntityManager {
          
      }
 	 
-	 
+//////////////////////////////////REMOVE
+//return 1 si réussi, 0 sinon
+	public int EM_remove(Entity obj) {
+		if (obj.Aut == null) {// alors il est static;
+			Static.remove(obj);
+//System.out.print("Obj : "+ obj.Name +" added to New_Static\n");
+			return 1;
+		} else if (obj.Aut != null) {// alors il est dynamic;
+			Dynamic.remove(obj);// System.out.print("Obj : "+obj.Name +" added to New_Dynamic\n");
+			return 1;
+		} else {
+//System.out.print("ERREUR ADD, ni static ni dynamic : "+ obj);
+			return 0;
+		}
+
+	}
+
+	public void vider_entity_manager() {
+		ArrayList<Entity> List = new ArrayList<Entity>();
+		List = sort_affichage();
+		for (int i = 0; i < List.size(); i++) {
+			if (List.get(i).getType() != 0) {
+				EM_remove(List.get(i));
+			}
+		}
+	}
+
 	 
 
 

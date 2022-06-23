@@ -237,7 +237,7 @@ public class Salle {
 	public void charger_salle(EntityManager EM, Modele modele) throws IOException {
 		for (int i = 0; i<49; i++) {
 			for (int j = 0; j<49; j++) {
-				int x = compo[i][j];
+				int x = compo[j][i];
 				//System.out.print(x);
 				switch (x) {
 				case 49 :
@@ -265,6 +265,7 @@ public class Salle {
 					EM.EM_add(new Rocher(modele, i*40, j*40, "Rocher", 20));
 					break;
 				case 52 :
+					
 					EM.EM_add(new Mur(modele, i*40, j*40, "Ennemis", 20));
 					break;
 				}

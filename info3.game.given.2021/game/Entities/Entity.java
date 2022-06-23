@@ -133,10 +133,8 @@ public abstract class Entity extends Object {
 		if (m_moveElapsed > 24) {
 			m_moveElapsed = 0;
 			if(x_speed>0 || y_speed>0 || x_nspeed>0 || y_nspeed>0) {
-				ArrayList<Entity> Dynamic = em.getDynamic();
 				ArrayList<Entity> Static = em.getStatic();
-				Dynamic.addAll(Static);
-				ArrayList<Entity> col = modele.collision(this, Dynamic);
+				ArrayList<Entity> col = modele.collision(this, Static);
 				if(col.isEmpty()) {
 					
 					x = (x + x_speed - x_nspeed);

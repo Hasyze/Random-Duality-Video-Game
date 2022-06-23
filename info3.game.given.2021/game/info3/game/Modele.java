@@ -11,16 +11,18 @@ public class Modele {
 	// Fait les collisions entre toutes les entités (dynamique/static)
 
 	//
+	
+	Game game; //Pour set le changement de salle si le joueur rentre en collision avec une porte
 		
-	public Modele() {
-
+	public Modele(Game game) {
+		this.game = game;
 	}
 
 	public double distance(int a_x, int a_y, int b_x, int b_y) {
 		return Math.sqrt((a_x - b_x) * (a_x - b_x) + (a_y - b_y) * (a_y - b_y));
 	}
 
-	boolean collision(Entity Obj1, Entity Obj2) {
+	public boolean collision(Entity Obj1, Entity Obj2) {
 		if (Obj1.getType() == Obj2.getType())
 			return false;
 		int X1 = Obj1.getx() + Obj1.getx_speed() - Obj1.getx_nspeed();
@@ -58,8 +60,16 @@ public class Modele {
 										// y a
 										// ex : fantome : il ne collisionne pas, sauf avec les portes et les murs.
 			case 0: // Joueur
-				if (collision && (type == 1 || type == 2 || type == 5 || type == 6 || type == 7))
+				if (collision && (type == 1 || type == 2 || type == 5 || type == 6 || type == 7)) {
+					System.out.print("collision \n");
+					if ( (type == 7) && (((Porte)elem).etat == true) ){
+						System.out.print("collision avec porte ouverte");
+						game.changement_de_salle = (Porte)elem;
+						
+						
+					}
 					col.add(elem);
+				}
 				break;
 			case 1: // Ennemi
 				if (collision && (type == 0 || type == 3 || type == 5 || type == 6 || type == 7))

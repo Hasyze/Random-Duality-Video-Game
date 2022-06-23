@@ -14,13 +14,16 @@ import Entities.Entity;
 public class EntityManager {
 	 protected ArrayList<Entity> Dynamic;
 	 protected ArrayList<Entity> Static;
-	  
+	 
+	 protected ArrayList<Entity> New_Dynamic;
+	 protected ArrayList<Entity> New_Static;
 	 
 	
 	 EntityManager(){
 		 Dynamic = new ArrayList<Entity>();
 		 Static = new ArrayList<Entity>();
-	  
+		 New_Dynamic = new ArrayList<Entity>();
+		 New_Static = new ArrayList<Entity>();
 	 } 
 	 
 	 public ArrayList<Entity> getDynamic(){
@@ -33,26 +36,51 @@ public class EntityManager {
 ////////////////////////////////// ADD	
 	 //return 1 si réussi, 0 sinon
 	 public int EM_add(Entity obj) {     
-        /* if (obj.Aut == null) {
+         if (obj.Aut == null) {
         	 // alors il est static;
-        	 Static.add(obj);
+        	 New_Static.add(obj);
+        	 //System.out.print("Obj : "+ obj.Name +" added to New_Static\n");
         	 return 1;
          }
          else if(obj.Aut != null) {
         	 //alors il est dynamic;
-        	 Dynamic.add(obj);
+        	 New_Dynamic.add(obj);
+        	 //System.out.print("Obj : "+obj.Name +" added to New_Dynamic\n");
         	 return 1;
        }else {
-    	   System.out.print("ERREUR ADD, ni static ni dynamic : "+ obj);
+    	   //System.out.print("ERREUR ADD, ni static ni dynamic : "+ obj);
     	   return 0;
-       }*/
-		 
-		 Dynamic.add(obj);
-		 return 1;
+       }
          
      }
 	 
-	 
+//////////////////////////////////REMOVE
+//return 1 si réussi, 0 sinon
+	public int EM_remove(Entity obj) {
+		if (obj.Aut == null) {// alors il est static;
+			Static.remove(obj);
+//System.out.print("Obj : "+ obj.Name +" added to New_Static\n");
+			return 1;
+		} else if (obj.Aut != null) {// alors il est dynamic;
+			Dynamic.remove(obj);// System.out.print("Obj : "+obj.Name +" added to New_Dynamic\n");
+			return 1;
+		} else {
+//System.out.print("ERREUR ADD, ni static ni dynamic : "+ obj);
+			return 0;
+		}
+
+	}
+
+	public void vider_entity_manager() {
+		ArrayList<Entity> List = new ArrayList<Entity>();
+		List = sort_affichage();
+		for (int i = 0; i < List.size(); i++) {
+			if (List.get(i).getType() != 0) {
+				EM_remove(List.get(i));
+			}
+		}
+	}
+
 	 
 
 
@@ -97,16 +125,20 @@ public class EntityManager {
 	        }
 		}
 	}
+	
+	
+	
 	public void afficher_EM(){
 		System.out.print(" ENTITY MANAGER AFFICHAGE : \n");
+		
 		System.out.print(" DYNAMIC LIST : \n");
 		for(int i=0; i < Dynamic.size(); i++) {
-			System.out.print(Dynamic.get(i).Name + "\n");
+			System.out.print("Name : "+Dynamic.get(i).Name +" Automaton : "+Dynamic.get(i).Aut.name+ "\n");
 		}
 		System.out.print("\n");
 		System.out.print(" Static LIST : \n");
 		for(int j=0; j < Static.size(); j++) {
-			System.out.print(Static.get(j).Name + "\n");
+			System.out.print(" Name : "+Static.get(j).Name +" Automaton : null\n");
 		}
 		System.out.print("\n");
 		System.out.print("\n");
@@ -116,12 +148,12 @@ public class EntityManager {
 	
 	
 	
-	public void tick(long elapsed/*Entity Obj1,
+	public void tick(long elapsed
+					/*Entity Obj1,
 					ArrayList<Entity> List,
 					long elapsed // si jamais on utilise une list*/
-	 				) throws Exception {
-		ArrayList<Entity> New_Dynamic = new ArrayList<Entity>();
-		ArrayList<Entity> New_Static = new ArrayList<Entity>();
+	 				) {
+		
 		
 		/*Obj1.m_imageElapsed += elapsed;
 		if (Obj1.m_imageElapsed > 200) {
@@ -131,16 +163,22 @@ public class EntityManager {
 	
 		for(int i =0; i< Dynamic.size(); i++) { // seulement les dynamic font un step;
 			Entity e = Dynamic.get(i);
-			e.step(New_Dynamic, New_Static); // on ajoute pour les créations qui se font dans les nouvelles listes.
-			e.tick(elapsed);
+			e.step(); // on ajoute pour les créations qui se font dans les nouvelles listes.
+			e.tick(this,elapsed );
 		}
 		organize(); // vire les morts
 		
-		New_Dynamic.addAll(Dynamic); // ya tout !
-		New_Static.addAll(Static);   // ya tout v2!
-		
+		/*New_Dynamic.addAll(Dynamic); // ya tout !
+		New_Static.addAll(Static);   // ya tout v2!		
 		this.Dynamic = New_Dynamic;
 		this.Static = New_Static;
+		Dynamic.clear();
+		Static.clear();*/
+		
+		Dynamic.addAll(New_Dynamic);
+		Static.addAll(New_Static);
+		New_Dynamic.clear();
+		New_Static.clear();
 		
 	}
 	 

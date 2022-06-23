@@ -10,15 +10,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+
+import automaton.Automate;
 import info3.game.*;
 
 public abstract class Entity extends Object{
 
 	public Automate Aut;
 
-	// a enlever :
+	
 	public String Name;
-	//
+	
 	protected BufferedImage[] m_images;
 	protected int m_imageIndex;
 
@@ -29,11 +31,17 @@ public abstract class Entity extends Object{
 	protected int y_nspeed;
 	protected Hitbox hitbox;
 	protected int type;
-	protected EntityManager EM;
-	protected Modele modele;
+	protected Modele modele; // ??
 	/**
-	 * Type 0: Joueur 1: Ennemi 2: Missile Ennemi 3: Missile Joeur 4: Fnatome 5:
-	 * Rocher 6: Mur 7: Porte
+	 * Type 
+	 * 0: Joueur 
+	 * 1: Ennemi 
+	 * 2: Missile Ennemi 
+	 * 3: Missile Joeur 
+	 * 4: Fantome
+	 *  5:Rocher 
+	 * 6: Mur 
+	 * 7: Porte
 	 **/
 
 	public Direction direction = Direction.E; 
@@ -42,10 +50,24 @@ public abstract class Entity extends Object{
 	protected int speed;
 	protected int vie;
 
-	public Entity(EntityManager em, Modele modele) {
-		this.EM = em;
-		EM.EM_add(this); // A MODIFIER LIST JAVA
-
+	public Entity(Modele modele) {
+		
+		this.modele = modele;
+		
+		m_images = null;
+		m_imageIndex = 0;
+		x_speed = 0;
+		y_speed = 0;
+		x_nspeed = 0;
+		y_nspeed = 0;
+		vie = 1;
+		speed = 10;
+	}
+	public Entity(Modele modele, String Name) {
+		System.out.print(Name);
+		//this.EM = em;
+		this.Name = Name;
+		
 		this.modele = modele;
 
 		m_images = null;
@@ -148,34 +170,34 @@ public abstract class Entity extends Object{
 	}
 
 	public int gety() {
+		
 		return y;
 	}
 
 	public int getvie() {
 		return vie;
 	}
-
-	public EntityManager getEM() {
-		return EM;
-	}
+	
 
 	public void setVie(int i) {
 		vie += i;
 	}
 
-	public void step(ArrayList<Entity> New_Dynamic, ArrayList<Entity> New_Static) {
+	public void step() {
 		// TODO : step automates pour l'aut de chaque entity.
 	}
 
 	int m_moveElapsed = 0;
-	public void tick(long elapsed) throws Exception {
-		if(this.Aut.current.)
+	public void tick(EntityManager em,long elapsed) {
 		m_moveElapsed += elapsed;
+		hitbox.relocate(x, y);
 		if (m_moveElapsed > 24) {
 			m_moveElapsed = 0;
-			if (x_speed > 0 || y_speed > 0 || x_nspeed > 0 || y_nspeed > 0) {
-				ArrayList<Entity> Dynamic = EM.getDynamic();
-				if (!(modele.collisions(this, Dynamic))) {
+			if(x_speed>0 || y_speed>0 || x_nspeed>0 || y_nspeed>0) {
+				ArrayList<Entity> Static = em.getStatic();
+				ArrayList<Entity> col = modele.collision(this, Static);
+				if(col.isEmpty()) {
+					
 					x = (x + x_speed - x_nspeed);
 					y = (y + y_speed - y_nspeed);
 				}

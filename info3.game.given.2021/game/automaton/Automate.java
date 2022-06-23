@@ -25,6 +25,11 @@ public class Automate {
 		this.etats = etats;
 		this.type = type;
 	}
+	public Automate(String Name) {
+		name = Name;
+		current_state = new Etat("Init");	
+
+	}
 	
 	public Etat current() {
 		return current;
@@ -43,6 +48,9 @@ public class Automate {
 		}
 		System.out.println("Etat suivant :"+this.current.name);
 	}
+	public boolean autStatic() {
+        return (etats.size() == 1);
+    }
 	
 	public boolean autStatic() {
 		return (etats.size() == 1);

@@ -3,14 +3,20 @@ package Map;
 import java.io.IOException;
 import java.util.Random;
 
+import info3.game.Modele;
+
 public class Etage {
 
+	Modele modele; //On en a besoin pour les constructeur d'entité dans les salles
+	
 	public Salle[] salles; // Tableau des salle. salles[0] est l'entrée, et la dernière est la salle du
 					// boss
 
 	int niveau;
 
-	public Etage(int niv) throws IOException {
+	public Etage(Modele modele, int niv) throws IOException {
+		this.modele = modele;
+		
 		salles = new Salle[niv + 3];
 		this.niveau = niv;
 		this.init_etage();
@@ -22,7 +28,7 @@ public class Etage {
 	void init_etage() throws IOException { // Créer l'entrée
 		Random r = new Random();
 		int j = r.nextInt(3) + 1;
-		salles[0] = new Salle(j, "entree");
+		salles[0] = new Salle(modele, j, "entree");
 	}
 
 	void creer_salles() throws IOException { // créé toutes les salles et leur portes entre l'entrée et le boss
@@ -41,7 +47,7 @@ public class Etage {
 			if (i == niveau + 1) {
 				j = nbr_a_eviter + 1;
 			}
-			salles[i] = new Salle(j, "normale");
+			salles[i] = new Salle(modele, j, "normale");
 		}
 
 	}
@@ -109,7 +115,7 @@ public class Etage {
 	}
 
 	void Ajout_salle_boss() throws IOException {
-		salles[niveau + 2] = new Salle(1, "boss"); // On créer la salle du boss
+		salles[niveau + 2] = new Salle(modele, 1, "boss"); // On créer la salle du boss
 
 		if (salles[niveau + 1].Porte_non_liees() == false) { // Si pas assez de porte dans la salle précédent le boss
 			salles[niveau + 1].Ajouter_portes(1); // On en rajoute une

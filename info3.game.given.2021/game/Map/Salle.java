@@ -22,8 +22,11 @@ public class Salle {
 
 	Porte[] portes;
 	/*
-	 * Stock les portes de la salle. Leur indice correspond à leur orientation : 0 =
-	 * Nord 1 = Est 2 = Sud 3 = Ouest
+	 * Stock les portes de la salle. Leur indice correspond à leur orientation :
+	 * 0 = Nord
+	 * 1 = Est
+	 * 2 = Sud
+	 * 3 = Ouest
 	 */
 
 	int nbr_portes; // NOmbre de porte que possède la salle
@@ -60,7 +63,7 @@ public class Salle {
 		this.set_compo(type);
 	}
 
-	void set_compo(String type) {
+	void set_compo(String type) {	//Rempli le tableau compo de salle à partir d'un fichier txt
 		String path;
 		path = "resources/".concat(type).concat(".txt"); // On choisi le fichier pattern en fonction du type de la salle
 		try {
@@ -116,7 +119,8 @@ public class Salle {
 		}
 		return null;
 	}
-
+	
+	//Affiche le contenu de compo (SEULEMENT POUR LES TESTS)
 	void print_salle() {
 		System.out.print("\n");
 		for (int i = 0; i < hauteur; i++) {
@@ -135,16 +139,13 @@ public class Salle {
 			boolean v = Ajouter_une_porte();
 			if (v) {
 				nbr_portes++;
-			} // SI l'ajout à réussi, on incrémente nbr_portes
+			} // Si l'ajout à réussi, on incrémente nbr_portes
 		}
 	}
 
-	boolean Ajouter_une_porte() throws IOException { // Ajoute une porte sur un des côtés (Aléatoire), renvoie false si aucune porte
-									// n'a pu être ajoutée
-		// Une optimisation peut peut-être être possible
+	boolean Ajouter_une_porte() throws IOException { // Ajoute une porte sur un des côtés (Aléatoire), renvoie false si aucune porte n'a pu être ajoutée
 
 		// Ici on vérifie qu'il reste au moins un emplacement de porte non utilisé
-
 		boolean emplacement_dispo = false;
 		for (int i = 0; i < 4; i++) {
 			if (portes[i] == null) {
@@ -155,9 +156,7 @@ public class Salle {
 			return false;
 		}
 
-		// Ensuite on prend un emplacement random et on essai d'y mettre une porte. On
-		// réessaye tant qu'on n'y arrive pas
-
+		// Ensuite on prend un emplacement random et on essai d'y mettre une porte. On réessaye tant qu'on n'y arrive pas
 		while (true) {
 			Random r = new Random();
 			int j = r.nextInt(4);
@@ -181,8 +180,7 @@ public class Salle {
 		return porte_dispo;
 	}
 
-	boolean Lier_deux_salles(Salle salle) { // renvois true si on lie deux salles en recherchant des portes disponible,
-											// false sinon
+	boolean Lier_deux_salles(Salle salle) { // renvois true si on lie deux salles en recherchant des portes disponible, false sinon
 		Porte P1 = this.Trouver_porte_disponible();
 		Porte P2 = salle.Trouver_porte_disponible();
 		if ((P1 == null) || (P2 == null)) {
@@ -194,8 +192,7 @@ public class Salle {
 
 	}
 
-	void Lier_deux_salles(Salle salle2, Porte P1, Porte P2) { // On lie les deux salles en choisissant les portes qui
-																// feront le lien
+	void Lier_deux_salles(Salle salle2, Porte P1, Porte P2) { // On lie les deux salles en choisissant les portes qui feront le lien
 
 		P1.salle_destination = salle2;
 		P1.orientation_salle_destination = P2.orientation_salle_origine;
@@ -216,15 +213,13 @@ public class Salle {
 
 	}
 
-	Porte Trouver_porte_disponible() { // On cherche une portes dispo aléatoirement, renvoie nul si aucune porte n'est
-										// dispo
+	Porte Trouver_porte_disponible() { // On cherche une portes dispo aléatoirement, renvoie nul si aucune porte n'est dispo
 
 		if (Porte_non_liees() == false) { // On renvoie null si aucune porte n'est dispo
 			return null;
 		}
 
-		while (true) { // On choisi un emplacement de porte random et on renvoie la porte si elle est
-						// dispo, on recommence sinon
+		while (true) { // On choisi un emplacement de porte random et on renvoie la porte si elle est dispo, on recommence sinon
 			Random r = new Random();
 			int j = r.nextInt(4);
 			if (portes[j] != null) {
@@ -238,7 +233,7 @@ public class Salle {
 	
 	
 	
-	
+	//Créer les entités en fonction de la compo de la salle
 	public void charger_salle(EntityManager EM, Modele modele) throws IOException {
 		for (int i = 0; i<49; i++) {
 			for (int j = 0; j<49; j++) {

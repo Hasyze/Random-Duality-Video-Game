@@ -53,16 +53,7 @@ public class Game {
 
 	static Game game;
 
-	public static Image loadImage(String filename) throws IOException {
-		File imageFile = new File(filename);
-		if (imageFile.exists()) {
-			Image image = ImageIO.read(imageFile);
-			return image;
-		}
-		return null;
-	}
-
-	Image bg = loadImage("resources/images_test/among-us.png");
+	Image bg;
 
 	JFrame m_frame;
 	JLabel m_text;
@@ -72,22 +63,22 @@ public class Game {
 	
 	EntityManager EM;
 	Modele modele;
-	
-	//Modifs AXEL
-	
-	//public EntityManager EM;
-	//public Modele modele;
 
 	Etage etage;
 	Salle salle_courante;
+	Porte changement_de_salle;	//Prend la valeur d'une porte avec laquelle le joueur rentre en contact pour faire le changement de salle
+	int niveau;
 
 	Cowboy m_cowboy, m_cowboy2;
-	Rocher rocher;
 
 	
 	public Game(Ressource Res2) throws Exception {
-		int niveau = 1;
+		niveau = 1;
+		changement_de_salle = null;
+		
 		Init_niveau(niveau, Res2);
+		
+		
 		// creating a listener for all the events
 		// from the game canvas, that would be
 		// the controller in the MVC pattern
@@ -104,7 +95,7 @@ public class Game {
 	
 	private void Init_niveau(int niv, Ressource Res2) throws IOException {
 		EM = new EntityManager();
-		modele = new Modele();
+		modele = new Modele(this);
 		
 		m_cowboy = new Cowboy(modele, 960, 1000, "Player1", 25);
 		m_cowboy2 = new Cowboy( modele, 960, 1000, "Player2", 25);
@@ -121,16 +112,12 @@ public class Game {
 		EM.EM_add(m_cowboy2);
 		
 		etage = new Etage(modele, niv);
-		
 		salle_courante = etage.salles[0];
-		
-		salle_courante.charger_salle(EM, modele);
 		bg = salle_courante.background;
 		
-		// charger_entites_salle();
-
-		//rocher = new Rocher( modele, 400, 400, "Rocher1", 30);
-		//EM.EM_add(rocher);
+		salle_courante.charger_salle(EM, modele);
+		
+		niveau += 1; //On prévoie le changement de niveau
 	}
 	
 	//On affiche tous les élements statiques, on affiche ensuite les dynamiques a chaque ticks
@@ -145,12 +132,13 @@ public class Game {
 		}
 		//System.out.print("Affichage DONE");
 	}
-	// Demander a axel si on garde
+	
 	private void Chgmt_salle(Porte porte) throws IOException {
 		//EM.vider_salle_courante(); // --> vide l'entity manager sauf les deux cowboy
 		salle_courante = porte.salle_destination;
 		salle_courante.charger_salle(EM, modele);
 		bg = salle_courante.background;
+		changement_de_salle = null;
 		
 	}
 
@@ -175,6 +163,16 @@ public class Game {
 		// make the vindow visible
 		m_frame.setVisible(true);
 	}
+	
+	public static Image loadImage(String filename) throws IOException {
+		File imageFile = new File(filename);
+		if (imageFile.exists()) {
+			Image image = ImageIO.read(imageFile);
+			return image;
+		}
+		return null;
+	}
+
 
 	/*
 	 * ================================================================ All the
@@ -226,7 +224,15 @@ public class Game {
 		// EM TICK STEPS
 		EM.tick(elapsed);
 		
-	
+		if (changement_de_salle != null) {	//à chaque tick on vérifie qu'il ne faut pas changer de salle
+			System.out.print("On doit changer de salle");
+			try {
+				Chgmt_salle(changement_de_salle);
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	
 	
 
@@ -285,18 +291,10 @@ public class Game {
 		g.fillRect(0, 0, width, height);
 		g.drawImage(bg, -coinscamX, -coinscamY, bg.getWidth(null), bg.getHeight(null), null);
 		g.drawOval(width / 2 - 5, height / 2 - 5, 10, 10);
-		g.drawLine(m_cowboy.getx() - coinscamX,
-				m_cowboy.gety() - coinscamY, m_cowboy2.getx() - coinscamX,
-				m_cowboy2.gety() - coinscamY);
-		
-		// paint
+		g.drawLine(m_cowboy.getx() - coinscamX, m_cowboy.gety() - coinscamY, m_cowboy2.getx() - coinscamX, m_cowboy2.gety() - coinscamY);
+
 		
 		dessine_salle(g, coinscamX, coinscamY);
-		//m_cowboy.paint(g, coinscamX, coinscamY);
-		//m_cowboy2.paint(g, coinscamX, coinscamY);
-		
-
-		///////
 
 	}
 

@@ -23,6 +23,7 @@ package info3.game;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 import info3.game.graphics.GameCanvasListener;
 

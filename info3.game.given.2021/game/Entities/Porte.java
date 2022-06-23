@@ -12,7 +12,7 @@ import info3.game.*;
 
 public class Porte extends Entity {
 	
-	boolean etat; // =false si porte fermé, =true si porte ouverte
+	public boolean etat; // =false si porte fermé, =true si porte ouverte
 	
 	String Name = "Porte";
 	
@@ -39,6 +39,7 @@ public class Porte extends Entity {
 		orientation_salle_destination = -1;
 		
 		this.Name = "Porte";
+		this.etat = true;
 		
 
 		switch (orientation) {
@@ -48,7 +49,7 @@ public class Porte extends Entity {
 			break;
 		case 1 :
 			x = 48*40;
-			y = 23*40;
+			y = 24*40;
 			break;
 		case 2 :
 			x = 24*40;
@@ -56,7 +57,7 @@ public class Porte extends Entity {
 			break;
 		default :
 			x = 0;
-			y = 23*40;
+			y = 24*40;
 			break;
 			
 		}
@@ -64,7 +65,7 @@ public class Porte extends Entity {
 		int heigt_hb = img.getHeight()/2;
 		int width_hb = img.getWidth()/2;
 		hitbox = new Hitbox(20,x+width_hb,y+heigt_hb,0);
-		type = 6;
+		type = 7;
 	}
 	
 	public static Image loadImage(String filename) throws IOException {

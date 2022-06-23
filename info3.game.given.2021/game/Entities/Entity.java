@@ -57,7 +57,7 @@ public abstract class Entity extends Object {
 		x_nspeed = 0;
 		y_nspeed = 0;
 		vie = 1;
-		speed = 4;
+		speed = 10;
 	}
 	public Entity(Modele modele, String Name) {
 		System.out.print(Name);
@@ -108,6 +108,7 @@ public abstract class Entity extends Object {
 	}
 
 	public int gety() {
+		
 		return y;
 	}
 
@@ -128,11 +129,15 @@ public abstract class Entity extends Object {
 	int m_moveElapsed = 0;
 	public void tick(EntityManager em,long elapsed) {
 		m_moveElapsed += elapsed;
+		hitbox.relocate(x, y);
 		if (m_moveElapsed > 24) {
 			m_moveElapsed = 0;
 			if(x_speed>0 || y_speed>0 || x_nspeed>0 || y_nspeed>0) {
+				ArrayList<Entity> Dynamic = em.getDynamic();
 				ArrayList<Entity> Static = em.getStatic();
-				if(!(modele.collisions(this, Static))) {
+				Dynamic.addAll(Static);
+				ArrayList<Entity> col = modele.collision(this, Dynamic);
+				if(col.isEmpty()) {
 					
 					x = (x + x_speed - x_nspeed);
 					y = (y + y_speed - y_nspeed);

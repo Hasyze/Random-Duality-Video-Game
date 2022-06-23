@@ -164,7 +164,7 @@ public class EntityManager {
 		for(int i =0; i< Dynamic.size(); i++) { // seulement les dynamic font un step;
 			Entity e = Dynamic.get(i);
 			e.step(); // on ajoute pour les créations qui se font dans les nouvelles listes.
-			e.tick(this,elapsed );
+			e.tick(this,elapsed);
 		}
 		organize(); // vire les morts
 		

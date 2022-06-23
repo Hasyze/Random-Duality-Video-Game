@@ -83,8 +83,8 @@ public class Cowboy extends Entity {
 		if (m_moveElapsed > 2000) {
 			m_moveElapsed = 0;
 
-			Aut.step(this);
-			if (x_speed > 0 || y_speed > 0 || x_nspeed > 0 || y_nspeed > 0) {
+			//Aut.step(this);
+			/*if (x_speed > 0 || y_speed > 0 || x_nspeed > 0 || y_nspeed > 0) {
 				ArrayList<Entity> Dynamic = EM.getDynamic();
 				if (!(modele.collisions(this, Dynamic))) {
 					x = (x + x_speed - x_nspeed);
@@ -93,8 +93,9 @@ public class Cowboy extends Entity {
 				}
 			}
 			System.out.println("Speed x:"+x_speed);
-		}
+		}*/
 		set_orientation();
+		}
 	}
 
 	
@@ -133,18 +134,25 @@ public class Cowboy extends Entity {
 		case 37:
 		case 81:
 			this.direction = Direction.W;
+			this.move(Direction.W);
 			break;
 		case 39:
 		case 68:
 			this.direction = Direction.E;
+			this.move(Direction.E);
+
 			break;
 		case 38:
 		case 90:
 			this.direction = Direction.N;
+			this.move(Direction.N);
+
 			break;
 		case 40:
 		case 83:
 			this.direction = Direction.S;
+			this.move(Direction.S);
+
 			break;
 		}
 		// System.out.println("OUIIIIIIII");

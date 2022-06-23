@@ -7,7 +7,7 @@ import Entities.Entity;
 
 
 public class Automate {
-	String name;
+	public String name;
 	Etat current;
 	List<Etat> etats;
 	Type type;
@@ -27,7 +27,7 @@ public class Automate {
 	}
 	public Automate(String Name) {
 		name = Name;
-		current_state = new Etat("Init");	
+		current = new Etat("Init");	
 
 	}
 	
@@ -51,8 +51,5 @@ public class Automate {
 	public boolean autStatic() {
         return (etats.size() == 1);
     }
-	
-	public boolean autStatic() {
-		return (etats.size() == 1);
-	}
+
 }

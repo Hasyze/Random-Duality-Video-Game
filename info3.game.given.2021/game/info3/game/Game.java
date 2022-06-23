@@ -296,10 +296,8 @@ public class Game {
 		int height = m_canvas.getHeight();
 
 		// Définit les coordonnées dans le monde du coin supérieur droit de la caméra
-		//int coinscamX = (m_cowboy2.getx() + m_cowboy.getx()) / 2 - width / 2;
-		//int coinscamY = (m_cowboy2.gety() + m_cowboy.gety()) / 2 - height / 2;
-		int coinscamX = (m_cowboy2.getx() / 2 - width / 2);
-		int coinscamY = (m_cowboy2.gety() / 2 - height / 2);
+		int coinscamX = (m_cowboy2.getx() + m_cowboy.getx()) / 2 - width / 2;
+		int coinscamY = (m_cowboy2.gety() + m_cowboy.gety()) / 2 - height / 2;
 
 		// erase background
 

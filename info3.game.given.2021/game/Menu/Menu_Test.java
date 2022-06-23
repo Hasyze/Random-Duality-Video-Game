@@ -40,7 +40,7 @@ public class Menu_Test {
 		Res.setup(5, 0, 2);
 		Res.afficher_res();
 		
-		Modele m_mod = new Modele();
+		Modele m_mod = new Modele(null);
 		Cowboy m_cowboy1 = new Cowboy(m_mod, "Player1");
 		Cowboy m_cowboy2 = new Cowboy(m_mod, "Player2");
 		

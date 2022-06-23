@@ -17,8 +17,6 @@ import info3.game.*;
 public abstract class Entity extends Object{
 
 	public Automate Aut;
-
-	
 	public String Name;
 	
 	protected BufferedImage[] m_images;
@@ -32,14 +30,15 @@ public abstract class Entity extends Object{
 	protected Hitbox hitbox;
 	protected int type;
 	protected Modele modele; // ??
+	
 	/**
 	 * Type 
 	 * 0: Joueur 
 	 * 1: Ennemi 
 	 * 2: Missile Ennemi 
-	 * 3: Missile Joeur 
+	 * 3: Missile Joueur 
 	 * 4: Fantome
-	 *  5:Rocher 
+	 * 5: Rocher 
 	 * 6: Mur 
 	 * 7: Porte
 	 **/
@@ -50,10 +49,8 @@ public abstract class Entity extends Object{
 	protected int speed;
 	protected int vie;
 
-	public Entity(Modele modele) {
-		
+	public Entity(Modele modele) {	
 		this.modele = modele;
-		
 		m_images = null;
 		m_imageIndex = 0;
 		x_speed = 0;
@@ -196,8 +193,7 @@ public abstract class Entity extends Object{
 			if(x_speed>0 || y_speed>0 || x_nspeed>0 || y_nspeed>0) {
 				ArrayList<Entity> Static = em.getStatic();
 				ArrayList<Entity> col = modele.collision(this, Static);
-				if(col.isEmpty()) {
-					
+				if(col.isEmpty()) {		
 					x = (x + x_speed - x_nspeed);
 					y = (y + y_speed - y_nspeed);
 				}
@@ -256,5 +252,6 @@ public abstract class Entity extends Object{
 		}
 		return null;
 	}
+	
 
 }

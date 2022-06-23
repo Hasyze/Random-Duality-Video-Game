@@ -21,7 +21,6 @@ package automaton;
 import info3.game.automata.ast.*;
 import info3.game.automata.ast.Transition;
 import info3.game.automata.parser.AutomataParser;
-import info3.game.automata.parser.AutomataParserConstants;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -48,7 +47,7 @@ public class BotBuilder implements IVisitor {
 	}
 
 	@Override
-	public Object visit(Key key) {
+	public Object visit(info3.game.automata.ast.Key key) {
 		return key.terminal.content;
 	}
 
@@ -64,7 +63,6 @@ public class BotBuilder implements IVisitor {
 
 	@Override
 	public void enter(FunCall funcall) {
-		// TODO Auto-generated method stub
 	}
 
 	@Override
@@ -72,11 +70,11 @@ public class BotBuilder implements IVisitor {
 		if (parameters.isEmpty())
 			return new AppelFonc(funcall.name, funcall.percent);
 		else {
-			AppelFonc af = new AppelFonc(funcall.name, funcall.percent);
+			List<String>arg = new LinkedList<String>();
 			for (Object temp : parameters) {
-				af.addArgument((String) temp);
+				arg.add((String)temp);
 			}
-			return af;
+			return new AppelFonc(funcall.name, funcall.percent, arg);
 		}
 	}
 
@@ -105,37 +103,20 @@ public class BotBuilder implements IVisitor {
 
 	@Override
 	public void enter(Mode mode) {
-		// TODO Auto-generated method stub
 
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
 	public Object exit(Mode mode, Object source_state, Object behaviour) {
-		/*
-		List<ATransition> transitions = (List<ATransition>) behaviour;
-		for (Object transition : transitions) {
-			((Etat) source_state).addTransition((ATransition) transition);
-		}
-		*/
-		/*Etat e = null;
-		for(Etat temp : current.etats) {
-			if(temp.name == ((Etat)source_state).name) {
-				e = temp;
-			}
-		}*/
 		for(Object transitions : (List<ATransition>)behaviour) {
 			((Etat)source_state).addTransition((ATransition) transitions);
 		}
-			
-			
-		
 		return behaviour;
 	}
 
 	@Override
-	public Object visit(Behaviour behaviour, List<Object> transitions) {
-		
+	public Object visit(Behaviour behaviour, List<Object> transitions) {	
 		return transitions;
 	}
 
@@ -177,67 +158,105 @@ public class BotBuilder implements IVisitor {
 	@Override
 	public Object exit(Automaton automaton, Object initial_state, List<Object> modes) {
 		current.current = current.etats.get(0);
-		
-		
-		//current.addEtat((Etat)initial_state);
-		/*current.current.addTransition(     ((List<ATransition>)(modes.get(0))).get(0)    );
-		for (int i = 1; i<modes.size(); i++) {
-			current.etats.get(i).addTransition(((List<ATransition>)(modes.get(i))).get(i));
-		}*/
-		
 		return current;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public Object visit(AST bot, List<Object> automata) {
-		/*automata = bot.accept(this);
-		for (Object temp : automata) {
-			automates.add((Automate) temp);
-		}*/
 		return automata;
 	}
 
-	/*public ICondition convertCondition(Condition c) {
-		switch (c.toString()) {
-		case "True":
-			return new True();
-		default:
-			System.out.println("Non ajouté dans le switch convertCondition dans BotBuilder :" + c.toString());
-			return null;
-		}
-	}
-
-	public IAction convertAction(FunCall f) {
-		switch (f.toString()) {
-		case "Move":
-			return new Move();
-		default:
-			System.out.println("Non ajouté dans le switch convertAction dans BotBuilder :" + f.toString());
-			return null;
-		}
-	}
-
-	public IAction convertAction2(FunCall f, List<Object> arguments) {
-		switch (f.toString()) {
-		case "Move":
-			return new Move();
-		default:
-			System.out.println("Non ajouté dans le switch convertAction2 dans BotBuilder :" + f.toString());
-			return null;
-		}
-	}*/
-
 	public Object convertAppelFonc(AppelFonc af) {
+		if(!(af.arguments.isEmpty()))
+			return convertAppelFonc2(af);
 		switch (af.name) {
+		
+		//ACTIONS
 		case "Move":
 			return new Move();
 		case "Pop":
 			return new Pop();
+		case "Wizz":
+			return new Wizz();
+		case "Wait":
+			return new Wait();
+		case "Jump":
+			return new Jump();
+		case "Turn":
+			return new Turn();
+		case "Hit":
+			return new Hit();
+		case "Protect":
+			return new Protect();
+		case "Pick":
+			return new Pick();
+		case "Throw":
+			return new Throw();
+		case "Store":
+			return new Get();
+		case "Power":
+			return new Power();
+		case "Explode":
+			return new Explode();
+		case "Egg":
+			return new Egg();
+			
+			
+			
+		//CONDITIONS
 		case "True":
 			return new True();
+		case "GotPower":
+			return new GotPower();
+		case "GotStuff":
+			return new GotStuff();
+
 		default:
-			System.out.println("Non ajouté dans le switch convertAction2 dans BotBuilder :" + af.name);
+			System.out.println("Non ajouté dans le switch convertAppelFonc dans BotBuilder :" + af.name);
+			return null;
+		}
+	}
+	
+	public Object convertAppelFonc2(AppelFonc af) {
+		switch (af.name) {
+		
+		//ACTIONS
+		case "Move":
+			return new Move(af.arguments.get(0));
+		case "Pop":
+			return new Pop(af.arguments.get(0));
+		case "Wizz":
+			return new Wizz(af.arguments.get(0));
+		case "Jump":
+			return new Jump(af.arguments.get(0));
+		case "Turn":
+			return new Turn(af.arguments.get(0));
+		case "Hit":
+			return new Hit(af.arguments.get(0));
+		case "Protect":
+			return new Protect(af.arguments.get(0));
+		case "Pick":
+			return new Pick(af.arguments.get(0));
+		case "Throw":
+			return new Throw(af.arguments.get(0));
+		case "Egg":
+			return new Egg(af.arguments.get(0));
+			
+			
+			
+		//CONDITIONS
+		case "Key":
+			return new Key(af.arguments.get(0));
+		case "MyDir":
+			return new MyDir(af.arguments.get(0));
+		case "Cell":
+			return new Cell(af.arguments.get(0), af.arguments.get(1));
+		case "Closest":
+			return new Closest(af.arguments.get(0), af.arguments.get(1));
+
+		default:
+			System.out.println("Non ajouté dans le switch AppelFonc2 dans BotBuilder :" + af.name);
 			return null;
 		}
 	}

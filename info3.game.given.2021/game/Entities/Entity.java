@@ -169,6 +169,7 @@ public abstract class Entity extends Object{
 
 	int m_moveElapsed = 0;
 	public void tick(long elapsed) throws Exception {
+		if(this.Aut.current.)
 		m_moveElapsed += elapsed;
 		if (m_moveElapsed > 24) {
 			m_moveElapsed = 0;

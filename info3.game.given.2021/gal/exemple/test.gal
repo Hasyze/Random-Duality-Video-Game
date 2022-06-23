@@ -6,6 +6,6 @@ Test(Init){
   *(Deux)
   | True ? Move :(Trois)
   *(Trois)
-  | True ? Pop :(Quatre)
-  *(Quatre)
+  | True ? Pop :()
+  *()
 }

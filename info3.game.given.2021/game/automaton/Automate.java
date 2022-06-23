@@ -7,10 +7,10 @@ import Entities.Entity;
 
 
 public class Automate {
-	public String name;
-	public Etat current;
-	public List<Etat> etats;
-	public Type type;
+	String name;
+	Etat current;
+	List<Etat> etats;
+	Type type;
 	
 	public Automate() {
 		name = "test";

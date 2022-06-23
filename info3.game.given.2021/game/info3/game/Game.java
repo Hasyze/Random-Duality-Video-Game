@@ -105,9 +105,8 @@ public class Game {
 	private void Init_niveau(int niv, Ressource Res2) throws IOException {
 		EM = new EntityManager();
 		modele = new Modele();
-		
-		m_cowboy = new Cowboy(modele, 960, 1000, "Player1", 25);
-		m_cowboy2 = new Cowboy( modele, 960, 1000, "Player2", 25);
+		m_cowboy = new Cowboy(modele, 960, 150, "Player1", 25);
+		m_cowboy2 = new Cowboy( modele, 960, 150, "Player2", 25);
 		
 		Res2.set_couple(m_cowboy);
 		Res2.set_couple(m_cowboy2);
@@ -122,7 +121,7 @@ public class Game {
 		
 		etage = new Etage(modele, niv);
 		
-		salle_courante = etage.salles[0];
+		salle_courante = etage.salles[1];
 		
 		salle_courante.charger_salle(EM, modele);
 		bg = salle_courante.background;

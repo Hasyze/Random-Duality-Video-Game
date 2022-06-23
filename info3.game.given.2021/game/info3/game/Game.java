@@ -37,6 +37,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import Entities.Cowboy;
+import Entities.Ennemis;
 import Entities.Entity;
 import Entities.Hitbox;
 import Entities.Mur;
@@ -81,7 +82,8 @@ public class Game {
 	Etage etage;
 	Modele modele;
 
-	Cowboy m_cowboy, m_cowboy2;
+	Cowboy m_cowboy;// m_cowboy2;
+	Ennemis m_cowboy2;
 	Rocher rocher;
 
 	void charger_entites_salle() throws IOException {
@@ -118,8 +120,8 @@ public class Game {
 		EM = new EntityManager();
 		modele = new Modele();
 
-		m_cowboy = new Cowboy(EM, modele, 0, 200, "fabrice", 75);
-		m_cowboy2 = new Cowboy(EM, modele, 0, 0, "roger", 75);
+		m_cowboy = new Cowboy(EM, modele, 0, 200, "fabrice", 25);
+		m_cowboy2 = new Ennemis(EM, modele, 0, 0, "roger", 25);
 
 		// creating a listener for all the events
 		// from the game canvas, that would be
@@ -133,7 +135,7 @@ public class Game {
 
 		// charger_entites_salle();
 
-		rocher = new Rocher(EM, modele, 400, 400, "cailluo", 30);
+		rocher = new Rocher(EM, modele, 400, 400, "cailluo", 50);
 
 		System.out.println("  - creating frame...");
 		Dimension d = new Dimension(1024, 768);
@@ -202,7 +204,7 @@ public class Game {
 	 */
 
 	long test = 0;
-
+	
 	void tick(long elapsed) {
 		test += elapsed;
 		if (test > 2500) {
@@ -211,7 +213,7 @@ public class Game {
 			System.out.println("C1 :" + m_cowboy.getx() + "-" + m_cowboy.gety() + "C2 :" + m_cowboy2.getx() + "-"
 					+ m_cowboy2.gety() + "ROC :" + rocher.getx() + "-" + rocher.gety());
 		}
-
+		
 		// EM TICK STEPS
 		EM.tick(elapsed);
 		// EM COLLSIONS
@@ -221,9 +223,9 @@ public class Game {
 		for (int i = 0; i < Dynamic.size(); i++) {
 
 		}
-
-		m_cowboy.tick(elapsed);
-		m_cowboy2.tick(elapsed);
+		
+		/*m_cowboy.tick(elapsed);
+		m_cowboy2.tick(elapsed);*/
 
 		// Update every second
 		// the text on top of the frame: tick and fps
@@ -287,9 +289,12 @@ public class Game {
 
 		// paint
 		// EM.afficher_EM();
-		m_cowboy.paint(g, coinscamX, coinscamY);
-		m_cowboy2.paint(g, coinscamX, coinscamY);
 		rocher.paint(g, coinscamX, coinscamY);
+		if (m_cowboy.getvie()>0)
+			m_cowboy.paint(g, coinscamX, coinscamY);
+		if (m_cowboy2.getvie()>0)
+			m_cowboy2.paint(g, coinscamX, coinscamY);
+		
 
 		///////
 

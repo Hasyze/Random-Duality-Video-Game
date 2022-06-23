@@ -55,9 +55,12 @@ public class Cowboy extends Entity {
 		this.Name = name;
 		x = m_x;
 		y = m_y;
-		int heigt_hb = (m_images[0].getHeight()) / 2;
+		/*int heigt_hb = (m_images[0].getHeight()) / 2;
 		int width_hb = (m_images[0].getWidth()) / 2;
-		hitbox = new Hitbox(r, x + width_hb, y + heigt_hb, 0);
+		hitbox = new Hitbox(r, x + width_hb, y + heigt_hb, 0);*/
+		int heigt_hb = (m_images[0].getHeight()) ;
+		int width_hb = (m_images[0].getWidth()) ;
+		hitbox = new Hitbox(x,y,width_hb,heigt_hb);
 		type = 0;
 	}
 

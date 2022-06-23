@@ -51,7 +51,7 @@ public abstract class Entity extends Object {
 		y_speed = 0;
 		x_nspeed = 0;
 		y_nspeed = 0;
-		vie = 1;
+		vie = 10;
 		speed = 4;
 	}
 
@@ -68,7 +68,14 @@ public abstract class Entity extends Object {
 		int scale = 2;
 		g.drawImage(img, x - originex - getWidth(), y - originey - getHeight(), scale * img.getWidth(),
 				scale * img.getHeight(), null);
-		g.drawOval(x-originex-hitbox.getRayon(), y-originey-hitbox.getRayon(), hitbox.getRayon()*2, hitbox.getRayon()*2);
+		//g.drawOval(x-originex-hitbox.getRayon(), y-originey-hitbox.getRayon(), hitbox.getRayon()*2, hitbox.getRayon()*2);
+		g.drawRect(hitbox.getRect().x - originex - getWidth()/2 , hitbox.getRect().y- originey - getHeight()/2  ,
+getWidth(), getHeight());
+		
+		//g.drawOval(hitbox.getRect().x - originex , hitbox.getRect().y- originey , getWidth(), getWidth());
+		/*g.drawOval(hitbox.getRect().x - originex - getWidth(), y- originey , getWidth(), getWidth());
+		g.drawOval(hitbox.getRect().x - originex, y- originey - getHeight(),getWidth(), getWidth());
+		g.drawOval(hitbox.getRect().x - originex , y- originey ,getWidth(), getWidth());*/
 	}
 
 	public Entity egg() {
@@ -110,14 +117,19 @@ public abstract class Entity extends Object {
 	int m_moveElapsed = 0;
 	public void tick(long elapsed) {
 		m_moveElapsed += elapsed;
+		hitbox.relocate(x, y);
 		if (m_moveElapsed > 24) {
 			m_moveElapsed = 0;
 			if(x_speed>0 || y_speed>0 || x_nspeed>0 || y_nspeed>0) {
 				ArrayList<Entity> Dynamic = EM.getDynamic();
-				if(!(modele.collisions(this, Dynamic))) {
+				ArrayList<Entity> col = modele.collision(this, Dynamic);
+				if(col.isEmpty()) {
 					
 					x = (x + x_speed - x_nspeed);
 					y = (y + y_speed - y_nspeed);
+					
+				}else {
+					modele.interaction(this, col);
 				}
 			}
 		}

@@ -236,13 +236,14 @@ public class Salle {
 	
 	
 	public void charger_salle(EntityManager EM, Modele modele) throws IOException {
+		int scale = 2;
 		for (int i = 0; i<50; i++) {
 			for (int j = 0; j<50; j++) {
 				int x = compo[i][j];
 				System.out.print(x);
 				switch (x) {
 				case 49 :
-					EM.EM_add(new Mur(modele, i*20, j*20, "Mur", 10));
+					EM.EM_add(new Mur(modele, i*20*scale, j*20*scale, "Mur", 20));
 					break;
 				case 50 :
 					if ( (i == 0) && (portes[0] != null) ) {
@@ -258,14 +259,14 @@ public class Salle {
 						EM.EM_add(portes[1]);
 					}
 					else {
-						EM.EM_add(new Mur(modele, i*20, j*20, "Mur_Porte", 10));
+						EM.EM_add(new Mur(modele, i*20*scale, j*20*scale, "Mur_Porte", 20));
 					}
 					break;
 				case 51 :
-					EM.EM_add(new Rocher(modele, i*20, j*20, "Rocher", 10));
+					EM.EM_add(new Rocher(modele, i*20*scale, j*20*scale, "Rocher", 20));
 					break;
 				case 52 :
-					EM.EM_add(new Mur(modele, i*20, j*20, "Ennemis", 10));
+					EM.EM_add(new Mur(modele, i*20*scale, j*20*scale, "Ennemis", 20));
 					break;
 				}
 				

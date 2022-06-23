@@ -130,8 +130,8 @@ public class Game {
 	
 	//On affiche tous les élements statiques, on affiche ensuite les dynamiques a chaque ticks
 	
-	private void dessine_salle_static (Graphics g, int coinscamX, int coinscamY) {
-		ArrayList<Entity> Static = EM.getStatic();
+	private void dessine_salle (Graphics g, int coinscamX, int coinscamY) {
+		ArrayList<Entity> Static = EM.sort_affichage();
 		Entity e;
 		for (int i=0; i<Static.size(); i++) {
 			//System.out.print("Nom : " + Static.get(i).Name + " x : " + Static.get(i).getx() + " y :" + Static.get(i).gety() + "\n");
@@ -275,7 +275,6 @@ public class Game {
 		if (coinscamY + height > ymax) {
 			coinscamY = ymax - height;
 		}
-
 		g.setColor(Color.white);
 		g.fillRect(0, 0, width, height);
 		g.drawImage(bg, -coinscamX, -coinscamY, bg.getWidth(null), bg.getHeight(null), null);
@@ -283,12 +282,12 @@ public class Game {
 		g.drawLine(m_cowboy.getx() - coinscamX,
 				m_cowboy.gety() - coinscamY, m_cowboy2.getx() - coinscamX,
 				m_cowboy2.gety() - coinscamY);
-
+		
 		// paint
 		
-		dessine_salle_static(g, coinscamX, coinscamY);
-		m_cowboy.paint(g, coinscamX, coinscamY);
-		m_cowboy2.paint(g, coinscamX, coinscamY);
+		dessine_salle(g, coinscamX, coinscamY);
+		//m_cowboy.paint(g, coinscamX, coinscamY);
+		//m_cowboy2.paint(g, coinscamX, coinscamY);
 		
 
 		///////

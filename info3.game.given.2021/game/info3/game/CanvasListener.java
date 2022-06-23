@@ -23,14 +23,19 @@ package info3.game;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.util.HashMap;
+import java.util.Map;
 
 import info3.game.graphics.GameCanvasListener;
 
 public class CanvasListener implements GameCanvasListener {
 	Game m_game;
+	Map<Character,Boolean> keyboard;
+	Boolean check = false;
 
 	CanvasListener(Game game) {
 		m_game = game;
+		keyboard = new HashMap<Character,Boolean>();
 	}
 
 	@Override
@@ -90,6 +95,13 @@ public class CanvasListener implements GameCanvasListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		System.out.println("Key pressed: " + e.getKeyChar() + " code=" + e.getKeyCode());
+		/*check = keyboard.putIfAbsent(e.getKeyChar(), true);
+		if(check == null)
+			return;
+		if(!check) {
+			keyboard.replace(e.getKeyChar(), true);
+		}*/
+		
 		switch (e.getKeyCode()) {
 		case 37:case 38:case 39:case 40:
 			m_game.m_cowboy.movet(e.getKeyCode());
@@ -104,6 +116,8 @@ public class CanvasListener implements GameCanvasListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		System.out.println("Key released: " + e.getKeyChar() + " code=" + e.getKeyCode());
+		//keyboard.replace(e.getKeyChar(), false);
+		
 		switch (e.getKeyCode()) {
 		case 37:case 38:case 39:case 40:
 			m_game.m_cowboy.stop(e.getKeyCode());

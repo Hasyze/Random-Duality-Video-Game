@@ -39,16 +39,16 @@ public class EntityManager {
          if (obj.Aut == null) {
         	 // alors il est static;
         	 New_Static.add(obj);
-        	 System.out.print("Obj : "+ obj.Name +" added to New_Static\n");
+        	 //System.out.print("Obj : "+ obj.Name +" added to New_Static\n");
         	 return 1;
          }
          else if(obj.Aut != null) {
         	 //alors il est dynamic;
         	 New_Dynamic.add(obj);
-        	 System.out.print("Obj : "+obj.Name +" added to New_Dynamic\n");
+        	 //System.out.print("Obj : "+obj.Name +" added to New_Dynamic\n");
         	 return 1;
        }else {
-    	   System.out.print("ERREUR ADD, ni static ni dynamic : "+ obj);
+    	   //System.out.print("ERREUR ADD, ni static ni dynamic : "+ obj);
     	   return 0;
        }
          
@@ -104,6 +104,7 @@ public class EntityManager {
 	
 	public void afficher_EM(){
 		System.out.print(" ENTITY MANAGER AFFICHAGE : \n");
+		
 		System.out.print(" DYNAMIC LIST : \n");
 		for(int i=0; i < Dynamic.size(); i++) {
 			System.out.print("Name : "+Dynamic.get(i).Name +" Automaton : "+Dynamic.get(i).Aut.name+ "\n");

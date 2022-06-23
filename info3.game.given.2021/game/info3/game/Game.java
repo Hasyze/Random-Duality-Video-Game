@@ -72,6 +72,11 @@ public class Game {
 	
 	EntityManager EM;
 	Modele modele;
+	
+	//Modifs AXEL
+	
+	//public EntityManager EM;
+	//public Modele modele;
 
 	Etage etage;
 	Salle salle_courante;
@@ -101,8 +106,8 @@ public class Game {
 		EM = new EntityManager();
 		modele = new Modele();
 		
-		m_cowboy = new Cowboy(modele, 500, 150, "Player1", 25);
-		m_cowboy2 = new Cowboy( modele, 500, 150, "Player2", 25);
+		m_cowboy = new Cowboy(modele, 960, 1000, "Player1", 25);
+		m_cowboy2 = new Cowboy( modele, 960, 1000, "Player2", 25);
 		
 		Res2.set_couple(m_cowboy);
 		Res2.set_couple(m_cowboy2);
@@ -115,9 +120,9 @@ public class Game {
 		EM.EM_add(m_cowboy);
 		EM.EM_add(m_cowboy2);
 		
-		etage = new Etage(niv);
+		etage = new Etage(modele, niv);
 		
-		salle_courante = etage.salles[1];
+		salle_courante = etage.salles[0];
 		
 		salle_courante.charger_salle(EM, modele);
 		bg = salle_courante.background;
@@ -146,6 +151,7 @@ public class Game {
 		salle_courante = porte.salle_destination;
 		salle_courante.charger_salle(EM, modele);
 		bg = salle_courante.background;
+		
 	}
 
 	/*
@@ -248,8 +254,8 @@ public class Game {
 	// A terme ça faut que ce soit les bordures de la map ou de la salle
 	int xmin = 0;
 	int ymin = 0;
-	int xmax = 20000;
-	int ymax = 10000;
+	int xmax = 1920;
+	int ymax = 1920;
 
 	void paint(Graphics g) {
 

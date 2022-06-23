@@ -7,23 +7,25 @@ import Entities.Entity;
 
 public class Etat {
 	String name;
-	List<Transition> transitions;
+	List<ATransition> transitions;
 	
 	
 	public Etat(String name) {
 		this.name = name;
-		transitions = new LinkedList<Transition>();	
+		transitions = new LinkedList<ATransition>();	
 	}
-	public Etat(String name, List<Transition> list) {
+	public Etat(String name, List<ATransition> list) {
 		this.name = name;
 		this.transitions = list;
 	}
-	public void addTransition(Transition t){		
+	public void addTransition(ATransition t){		
 		transitions.add(t);
 	}
 	
 	public Etat doTransition(Entity e) throws Exception {
 		for(int i = 0; i<transitions.size();i++) {
+			System.out.println("OKOKOK" + transitions.get(i).toString());
+
 			if(transitions.get(i).testTransition(e)) {
 				return transitions.get(i).applyTransition(e);
 			}

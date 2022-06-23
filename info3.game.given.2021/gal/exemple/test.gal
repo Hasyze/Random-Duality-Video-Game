@@ -1,0 +1,11 @@
+Test(Init){
+  * (Init)
+  | True ? Move :(Un)
+  * (Un)
+  | True ? Pop :(Deux)
+  *(Deux)
+  | True ? Move :(Trois)
+  *(Trois)
+  | True ? Pop :(Quatre)
+  *(Quatre)
+}

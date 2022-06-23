@@ -6,9 +6,9 @@ public class BinaryOperation implements ICondition{
 	
 	ICondition left;
 	ICondition right;
-	Operator operator;
+	String operator;
 	
-	public BinaryOperation(ICondition l, ICondition r, Operator op) {
+	public BinaryOperation(ICondition l, ICondition r, String op) {
 		left = l;
 		right = r;
 		operator = op;
@@ -16,7 +16,7 @@ public class BinaryOperation implements ICondition{
 	
 	@Override
 	public boolean eval(Entity e) throws Exception {
-		switch(operator.getValue()) {
+		switch(operator) {
 		case "&":
 			return left.eval(e) && right.eval(e);
 		case "/":

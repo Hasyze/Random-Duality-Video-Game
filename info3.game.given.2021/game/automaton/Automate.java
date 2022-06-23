@@ -36,10 +36,12 @@ public class Automate {
 		
 	public void step(Entity e) throws Exception {
 		Etat etat = null;
+		System.out.println("Etat courrant :"+this.current.name);
 		etat = current.doTransition(e);
 		if(etat != null) {
 			current = etat;
-		}				
+		}
+		System.out.println("Etat suivant :"+this.current.name);
 	}
 	
 	public boolean autStatic() {

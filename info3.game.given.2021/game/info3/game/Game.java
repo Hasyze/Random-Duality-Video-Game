@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -44,7 +45,6 @@ import Entities.Mur;
 import Entities.Rocher;
 import Map.Etage;
 import automaton.*;
-import automaton.Transition;
 import info3.game.graphics.GameCanvas;
 import info3.game.sound.RandomFileInputStream;
 
@@ -86,6 +86,7 @@ public class Game {
 
 	Cowboy m_cowboy, m_cowboy2;
 	Rocher rocher;
+	List<Automate> a = new LinkedList<Automate>();
 
 	void charger_entites_salle() throws IOException {
 		for (int i = 0; i < 50; i++) {
@@ -120,31 +121,13 @@ public class Game {
 		// in an Model-View-Controller pattern (MVC)
 		EM = new EntityManager();
 		modele = new Modele();
+		BotBuilder b = new BotBuilder();
+		this.a = b.loadAutomata("gal/exemple/test.gal"); 
 
-		LinkedList<Transition> tranzis = new LinkedList<Transition>();
-		LinkedList<Transition> tranzis2 = new LinkedList<Transition>();
-		LinkedList<Transition> tranzis3 = new LinkedList<Transition>();
-		
-		LinkedList<Etat> etats = new LinkedList<Etat>();
-		Etat init = new Etat("Init", tranzis);
-		Etat move = new Etat("Move", tranzis2);
-		Etat puit = new Etat("Puit", tranzis3);
-		
-		Transition une = new Transition(new True(), init, move, new Move());
-		Transition deux = new Transition(new True(), move, puit, new Stop());
-		
-		tranzis.add(une);
-		tranzis2.add(deux);
-		etats.add(init);
-		etats.add(move);
-		etats.add(puit);		
-		
-		Automate joueur = new Automate("joueur", init,etats,Type.NIMPORTE);
-		Automate joueur2 = new Automate("joueur", init,etats,Type.NIMPORTE);
 		
 		
-		m_cowboy = new Cowboy(EM, modele, 0, 200, "fabrice", 25, joueur);
-		m_cowboy2 = new Cowboy(EM, modele, 0, 0, "roger", 25, joueur2);
+		//m_cowboy = new Cowboy(EM, modele, 0, 200, "fabrice", 25, null);
+		m_cowboy2 = new Cowboy(EM, modele, 0, 0, "roger", 25, a.get(0));
 
 		// creating a listener for all the events
 		// from the game canvas, that would be
@@ -244,7 +227,7 @@ public class Game {
 		ArrayList<Entity> Static = EM.getStatic();
 		// modele.collision(); Calcul des interactions
 
-		m_cowboy.tick(elapsed);
+		//m_cowboy.tick(elapsed);
 		m_cowboy2.tick(elapsed);
 
 		// Update every second
@@ -281,8 +264,10 @@ public class Game {
 		int height = m_canvas.getHeight();
 
 		// Définit les coordonnées dans le monde du coin supérieur droit de la caméra
-		int coinscamX = (m_cowboy2.getx() + m_cowboy.getx()) / 2 - width / 2;
-		int coinscamY = (m_cowboy2.gety() + m_cowboy.gety()) / 2 - height / 2;
+		//int coinscamX = (m_cowboy2.getx() + m_cowboy.getx()) / 2 - width / 2;
+		//int coinscamY = (m_cowboy2.gety() + m_cowboy.gety()) / 2 - height / 2;
+		int coinscamX = (m_cowboy2.getx() / 2 - width / 2);
+		int coinscamY = (m_cowboy2.gety() / 2 - height / 2);
 
 		// erase background
 
@@ -303,9 +288,9 @@ public class Game {
 		g.fillRect(0, 0, width, height);
 		g.drawImage(bg, -coinscamX, -coinscamY, bg.getWidth(null), bg.getHeight(null), null);
 		g.drawOval(width / 2 - 5, height / 2 - 5, 10, 10);
-		g.drawLine(m_cowboy.getx() - coinscamX,
-				m_cowboy.gety() - coinscamY, m_cowboy2.getx() - coinscamX,
-				m_cowboy2.gety() - coinscamY);
+		//g.drawLine(m_cowboy.getx() - coinscamX,
+		//		m_cowboy.gety() - coinscamY, m_cowboy2.getx() - coinscamX,
+		//		m_cowboy2.gety() - coinscamY);
 
 		// paint
 		ArrayList<Entity> Affichage = EM.sort_affichage();

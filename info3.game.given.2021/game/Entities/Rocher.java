@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import java.awt.Point;
 
 public class Rocher extends Entity {
 	int taille;
@@ -41,12 +42,13 @@ public class Rocher extends Entity {
 		y = m_y;
 		
 		BufferedImage img = m_images[0];
-		/*int heigt_hb = img.getHeight()/2;
+		int heigt_hb = img.getHeight()/2;
 		int width_hb = img.getWidth()/2;
-		hitbox = new Hitbox(r,x+width_hb,y+heigt_hb,0);*/
+		hitbox = new Hitbox(r,x+width_hb,y+heigt_hb,0);/*
 		int heigt_hb = img.getHeight();
 		int width_hb = img.getWidth();
-		hitbox = new Hitbox(x,y,width_hb,heigt_hb);
+		Point p = new Point(x,y);
+		hitbox = new Hitbox(p,width_hb,heigt_hb);*/
 		type = 5;
 	}
 	

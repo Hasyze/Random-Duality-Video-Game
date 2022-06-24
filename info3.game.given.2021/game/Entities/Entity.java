@@ -1,5 +1,6 @@
 package Entities;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 import automaton.*;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import info3.game.*;
 
-public abstract class Entity extends Object{
+public abstract class Entity extends Object {
 
 	public Automate Aut;
 
@@ -35,14 +36,14 @@ public abstract class Entity extends Object{
 	protected int type;
 	protected EntityManager EM;
 	protected Modele modele;
-	protected ArrayList<Entity>close;
+	protected ArrayList<Entity> close;
 	/**
 	 * Type 0: Joueur 1: Ennemi 2: Missile Ennemi 3: Missile Joeur 4: Fnatome 5:
 	 * Rocher 6: Mur 7: Porte
 	 **/
 
-	public Direction direction = Direction.N; 
-	
+	public Direction direction = Direction.N;
+
 	// Stats
 	protected int speed;
 	protected int vie;
@@ -53,7 +54,7 @@ public abstract class Entity extends Object{
 
 		this.modele = modele;
 		close = new ArrayList();
-		for(int i=0; i<4;i++) {
+		for (int i = 0; i < 4; i++) {
 			close.add(i, null);
 		}
 		m_images = null;
@@ -70,165 +71,163 @@ public abstract class Entity extends Object{
 
 	public void move() {
 	}
-	
+
 	public void move(Direction dir) {
 		switch (dir) {
-		
+
 		case W:
 			x_nspeed = speed;
 			break;
-		
+
 		case E:
 			x_speed = speed;
 			break;
-		
+
 		case N:
 			y_nspeed = speed;
 			break;
-		
+
 		case S:
 			y_speed = speed;
 			break;
 		default:
 			break;
 		}
-		
+
 	}
 
 	public void stop(Direction dir) {
 		switch (dir) {
-		
+
 		case W:
 			x_nspeed = 0;
 			break;
-		
+
 		case E:
 			System.out.println("JE PASSE BIEN PAR ICI");
 			x_speed = 0;
 			break;
-		
+
 		case N:
 			y_nspeed = 0;
 			break;
-		
+
 		case S:
 			y_speed = 0;
 			break;
 		default:
 			break;
 		}
-		
+
 	}
-	
+
 	public void transfert(Entity e) {
 	}
-	
+
 	public Entity egg() {
 		return null;
 	}
-	
+
 	public void pop() {
-		
+
 	}
-	
+
 	public void wizz() {
-		
+
 	}
-	
-	
-	
-	
+
 	public void paint(Graphics g, int originex, int originey) {
 		BufferedImage img = m_images[m_imageIndex];
 		int scale = 2;
 		g.drawImage(img, x - originex - getWidth(), y - originey - getHeight(), scale * img.getWidth(),
 				scale * img.getHeight(), null);
 
-		//g.drawOval(x-originex-hitbox.getRayon(), y-originey-hitbox.getRayon(), hitbox.getRayon()*2, hitbox.getRayon()*2);
-		g.drawRect(hitbox.getRect().x - originex - getWidth()/2 , hitbox.getRect().y- originey - getHeight()/2  ,
-getWidth(), getHeight());
-	
-		}
-		
-		public void add_close(Rocher rocher) {
-			switch(direction) {
-				case N : 
-					System.out.println("Nord");
-					if(info3.game.Modele.plus_proche(hitboxvoisinN,rocher)) {
-						if(close.get(0)==null) {
-							close.add(0, rocher);
-						}
-						else {
-							if(info3.game.Modele.distance(this.x,this.y,rocher.x,rocher.y)<info3.game.Modele.distance(this.x,this.y,close.get(0).x,close.get(0).y)){
-								close.remove(0);
-								close.add(0,rocher);
-							}
-						}
-						
+		// g.drawOval(x-originex-hitbox.getRayon(), y-originey-hitbox.getRayon(),
+		// hitbox.getRayon()*2, hitbox.getRayon()*2);
+		g.drawRect(x,y- hitbox.getRayon(),1024 + x,hitbox.getRayon()*2);
+		g.setColor(Color.red);
+		g.drawRect(x-hitbox.getRayon(),y+hitbox.getRayon(),hitbox.getRayon()*2, 1024 + y);
+		g.setColor(Color.green);
+		g.drawRect(0-hitbox.getRayon(),y-hitbox.getRayon(), x,hitbox.getRayon()*2);
+		g.setColor(Color.black);
+		g.drawRect(x-hitbox.getRayon(),0, hitbox.getRayon()*2, y-hitbox.getRayon());
+		g.setColor(Color.white);
+
+	}
+
+	public void add_close(Rocher rocher) {
+		switch (direction) {
+		case N:
+			System.out.println("Nord");
+			if (info3.game.Modele.plus_proche(hitboxvoisinN, rocher)) {
+				if (close.get(0) == null) {
+					close.add(0, rocher);
+				} else {
+					if (info3.game.Modele.distance(this.x, this.y, rocher.x, rocher.y) < info3.game.Modele
+							.distance(this.x, this.y, close.get(0).x, close.get(0).y)) {
+						close.remove(0);
+						close.add(0, rocher);
 					}
-					break;
-				case S : 
-					System.out.println("Sud");
-					if(info3.game.Modele.plus_proche(hitboxvoisinN,rocher)) {
-						if(close.get(1)==null) {
-							close.add(1, rocher);
-						}
-						else {
-							if(info3.game.Modele.distance(this.x,this.y,rocher.x,rocher.y)<info3.game.Modele.distance(this.x,this.y,close.get(1).x,close.get(1).y)){
-								close.remove(1);
-								close.add(1,rocher);
-							}
-						}
-						
-					}
-					break;
-				case E : 
-					System.out.println("E");
-					if(info3.game.Modele.plus_proche(hitboxvoisinN,rocher)) {
-						if(close.get(2)==null) {
-							close.add(2, rocher);
-						}
-						else {
-							if(info3.game.Modele.distance(this.x,this.y,rocher.x,rocher.y)<info3.game.Modele.distance(this.x,this.y,close.get(2).x,close.get(2).y)){
-								close.remove(2);
-								close.add(2,rocher);
-							}
-						}
-						
-					}
-					break;
-				case W : 
-					System.out.println("West");
-					if(info3.game.Modele.plus_proche(hitboxvoisinN,rocher)) {
-						if(close.get(3)==null) {
-							close.add(3, rocher);
-						}
-						else {
-							if(info3.game.Modele.distance(this.x,this.y,rocher.x,rocher.y)<info3.game.Modele.distance(this.x,this.y,close.get(3).x,close.get(3).y)){
-								close.remove(3);
-								close.add(3,rocher);
-							}
-						}
-						
-					}
-					break;
+				}
+
 			}
-			System.out.println("N :" );
-			System.out.println(close.get(0));
-			System.out.println("S :" );
-			System.out.println(close.get(1));
-			System.out.println("E :" );
-			System.out.println(close.get(2));
-			System.out.println("W :" );
-			System.out.println(close.get(3));
-			
-			
+			break;
+		case S:
+			System.out.println("Sud");
+			if (info3.game.Modele.plus_proche(hitboxvoisinN, rocher)) {
+				if (close.get(1) == null) {
+					close.add(1, rocher);
+				} else {
+					if (info3.game.Modele.distance(this.x, this.y, rocher.x, rocher.y) < info3.game.Modele
+							.distance(this.x, this.y, close.get(1).x, close.get(1).y)) {
+						close.remove(1);
+						close.add(1, rocher);
+					}
+				}
+
+			}
+			break;
+		case E:
+			System.out.println("E");
+			if (info3.game.Modele.plus_proche(hitboxvoisinN, rocher)) {
+				if (close.get(2) == null) {
+					close.add(2, rocher);
+				} else {
+					if (info3.game.Modele.distance(this.x, this.y, rocher.x, rocher.y) < info3.game.Modele
+							.distance(this.x, this.y, close.get(2).x, close.get(2).y)) {
+						close.remove(2);
+						close.add(2, rocher);
+					}
+				}
+
+			}
+			break;
+		case W:
+			System.out.println("West");
+			if (info3.game.Modele.plus_proche(hitboxvoisinN, rocher)) {
+				if (close.get(3) == null) {
+					close.add(3, rocher);
+				} else {
+					if (info3.game.Modele.distance(this.x, this.y, rocher.x, rocher.y) < info3.game.Modele
+							.distance(this.x, this.y, close.get(3).x, close.get(3).y)) {
+						close.remove(3);
+						close.add(3, rocher);
+					}
+				}
+
+			}
+			break;
 		}
-	
+		System.out.println("N :");
+		System.out.println(close.get(0));
+		System.out.println("S :");
+		System.out.println(close.get(1));
+		System.out.println("E :");
+		System.out.println(close.get(2));
+		System.out.println("W :");
+		System.out.println(close.get(3));
 
-	
-
-	
+	}
 
 	public void degatVie(int degat) {
 		vie -= degat;
@@ -259,6 +258,7 @@ getWidth(), getHeight());
 	}
 
 	int m_moveElapsed = 0;
+
 	public void tick(long elapsed) throws Exception {
 		m_moveElapsed += elapsed;
 		hitbox.relocate(x, y);
@@ -267,13 +267,12 @@ getWidth(), getHeight());
 			if (x_speed > 0 || y_speed > 0 || x_nspeed > 0 || y_nspeed > 0) {
 				ArrayList<Entity> Dynamic = EM.getDynamic();
 				ArrayList<Entity> col = modele.collision(this, Dynamic);
-				if(col.isEmpty()) {
-					
+				if (col.isEmpty()) {
 
 					x = (x + x_speed - x_nspeed);
 					y = (y + y_speed - y_nspeed);
-					
-				}else {
+
+				} else {
 					modele.interaction(this, col);
 				}
 			}
@@ -283,10 +282,10 @@ getWidth(), getHeight());
 	public Hitbox getHitbox() {
 		return hitbox;
 	}
-	
+
 	public Hitbox getHitboxVoisin() {
 		return hitbox;
-}
+	}
 
 	public int getType() {
 		return type;

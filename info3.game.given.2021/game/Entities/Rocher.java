@@ -47,6 +47,7 @@ public class Rocher extends Entity {
 		int heigt_hb = img.getHeight();
 		int width_hb = img.getWidth();
 		hitbox = new Hitbox(x,y,width_hb,heigt_hb);
+		
 		type = 5;
 	}
 	

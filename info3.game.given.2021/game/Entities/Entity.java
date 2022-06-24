@@ -41,17 +41,17 @@ public abstract class Entity extends Object {
 
 	public Entity(EntityManager em, Modele modele) {
 		this.EM = em;
-		EM.EM_add(this); //A MODIFIER LIST JAVA
-		
+		EM.EM_add(this); // A MODIFIER LIST JAVA
+
 		this.modele = modele;
-		
+
 		m_images = null;
 		m_imageIndex = 0;
 		x_speed = 0;
 		y_speed = 0;
 		x_nspeed = 0;
 		y_nspeed = 0;
-		vie = 10;
+		vie = 1000;
 		speed = 4;
 	}
 
@@ -66,16 +66,13 @@ public abstract class Entity extends Object {
 	public void paint(Graphics g, int originex, int originey) {
 		BufferedImage img = m_images[m_imageIndex];
 		int scale = 2;
+			
 		g.drawImage(img, x - originex - getWidth(), y - originey - getHeight(), scale * img.getWidth(),
 				scale * img.getHeight(), null);
-		//g.drawOval(x-originex-hitbox.getRayon(), y-originey-hitbox.getRayon(), hitbox.getRayon()*2, hitbox.getRayon()*2);
-		g.drawRect(hitbox.getRect().x - originex - getWidth()/2 , hitbox.getRect().y- originey - getHeight()/2  ,
-getWidth(), getHeight());
-		
-		//g.drawOval(hitbox.getRect().x - originex , hitbox.getRect().y- originey , getWidth(), getWidth());
-		/*g.drawOval(hitbox.getRect().x - originex - getWidth(), y- originey , getWidth(), getWidth());
-		g.drawOval(hitbox.getRect().x - originex, y- originey - getHeight(),getWidth(), getWidth());
-		g.drawOval(hitbox.getRect().x - originex , y- originey ,getWidth(), getWidth());*/
+		// g.drawOval(x-originex-hitbox.getRayon(), y-originey-hitbox.getRayon(),
+		// hitbox.getRayon()*2, hitbox.getRayon()*2);
+		g.drawRect(hitbox.getRect().x - originex , hitbox.getRect().y - originey ,
+				getWidth(), getHeight());
 	}
 
 	public Entity egg() {
@@ -100,7 +97,7 @@ getWidth(), getHeight());
 	public int getvie() {
 		return vie;
 	}
-	
+
 	public EntityManager getEM() {
 		return EM;
 	}
@@ -113,22 +110,22 @@ getWidth(), getHeight());
 		// TODO : step automates pour l'aut de chaque entity.
 	}
 
-	
 	int m_moveElapsed = 0;
+
 	public void tick(long elapsed) {
 		m_moveElapsed += elapsed;
 		hitbox.relocate(x, y);
 		if (m_moveElapsed > 24) {
 			m_moveElapsed = 0;
-			if(x_speed>0 || y_speed>0 || x_nspeed>0 || y_nspeed>0) {
+			if (x_speed > 0 || y_speed > 0 || x_nspeed > 0 || y_nspeed > 0) {
 				ArrayList<Entity> Dynamic = EM.getDynamic();
 				ArrayList<Entity> col = modele.collision(this, Dynamic);
-				if(col.isEmpty()) {
-					
+				if (col.isEmpty()) {
+
 					x = (x + x_speed - x_nspeed);
 					y = (y + y_speed - y_nspeed);
-					
-				}else {
+
+				} else {
 					modele.interaction(this, col);
 				}
 			}
@@ -158,11 +155,11 @@ getWidth(), getHeight());
 	public int gety_nspeed() {
 		return y_nspeed;
 	}
-	
+
 	public int getWidth() {
 		return m_images[m_imageIndex].getWidth();
 	}
-	
+
 	public int getHeight() {
 		return m_images[m_imageIndex].getHeight();
 	}

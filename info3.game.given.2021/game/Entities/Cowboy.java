@@ -31,7 +31,6 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 import automaton.Automate;
-import java.awt.Point;
 
 /**
  * A simple class that holds the images of a sprite for an animated cowbow.
@@ -63,21 +62,20 @@ public class Cowboy extends Entity {
 		int heigt_hb = (m_images[0].getHeight()) / 2;
 		int width_hb = (m_images[0].getWidth()) / 2;
 		//hitbox = new Hitbox(r, x + width_hb, y + heigt_hb, 0);
-		/*int heigt_hb1 = (m_images[0].getHeight()) ;
+		int heigt_hb1 = (m_images[0].getHeight()) ;
 		int width_hb1 = (m_images[0].getWidth()) ;
-		Point p = new Point (x,y);
-		hitbox = new Hitbox(p,width_hb1,heigt_hb1);*/
+		hitbox = new Hitbox(x,y,width_hb1,heigt_hb1);
 
-		hitbox = new Hitbox(r, x + width_hb, y + heigt_hb);
+		//hitbox = new Hitbox(r, x + width_hb, y + heigt_hb);
 	//	switch(direction) {
 		//	case E : 
-				hitboxvoisinE=new Hitbox(x,y- width_hb,1024 + x,hitbox.getRayon()*2);
+				hitboxvoisinE=new Hitbox(x,y- width_hb/2,1024 + x,hitbox.getRect().height);
 		//	case S : 
-				hitboxvoisinS=new Hitbox(x-width_hb,y+width_hb, hitbox.getRayon()*2, 1024 + y);
+				hitboxvoisinS=new Hitbox(x-width_hb/2,y+width_hb/2, hitbox.getRect().width, 1024 + y);
 		//	case W : 
-				hitboxvoisinW=new Hitbox(0-width_hb,y-width_hb, x,hitbox.getRayon()*2);
+				hitboxvoisinW=new Hitbox(0-width_hb/2,y-width_hb/2, x,hitbox.getRect().height);
 		//	case N : 
-				hitboxvoisinN=new Hitbox(x-width_hb,0,hitbox.getRayon()*2,y-width_hb);
+				hitboxvoisinN=new Hitbox(x-width_hb/2,0,hitbox.getRect().width,y-width_hb/2);
 		//}
 		type = 0;
 	}

@@ -144,18 +144,18 @@ public abstract class Entity extends Object {
 
 		// g.drawOval(x-originex-hitbox.getRayon(), y-originey-hitbox.getRayon(),
 		// hitbox.getRayon()*2, hitbox.getRayon()*2);
-		g.drawRect(x,y- hitbox.getRayon(),1024 + x,hitbox.getRayon()*2);
+		g.drawRect(x,y- hitbox.getRect().height/2,1024 + x,hitbox.getRect().height);
 		g.setColor(Color.red);
-		g.drawRect(x-hitbox.getRayon(),y+hitbox.getRayon(),hitbox.getRayon()*2, 1024 + y);
+		g.drawRect(x-hitbox.getRect().width/2,y+hitbox.getRect().height/2,hitbox.getRect().width, 1024 + y);
 		g.setColor(Color.green);
-		g.drawRect(0-hitbox.getRayon(),y-hitbox.getRayon(), x,hitbox.getRayon()*2);
-		g.setColor(Color.black);
-		g.drawRect(x-hitbox.getRayon(),0, hitbox.getRayon()*2, y-hitbox.getRayon());
+		g.drawRect(0-hitbox.getRect().width/2,y-hitbox.getRect().height/2, x,hitbox.getRect().height);
+		g.setColor(Color.orange);
+		g.drawRect(x-hitbox.getRect().width/2,0, hitbox.getRect().width, y-hitbox.getRect().height/2);
 		g.setColor(Color.white);
 
 	}
 
-	public void add_close(Rocher rocher) {
+	public void add_close(Entity rocher) {
 		switch (direction) {
 		case N:
 			System.out.println("Nord");

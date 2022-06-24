@@ -18,20 +18,20 @@ public class Hitbox {
 
 	}	
 	
-	private int xr, yr, width, height;
+	//private int xr, yr, width, height;
 	
 	
 	
-	public Hitbox (int x, int y, int width, int height) {
+	/*public Hitbox (int x, int y, int width, int height) {
 		this.xr=x;
 		this.yr=y;
 		this.height=height;
 		this.width=width;
 
-	}
+	}*/
 
-	public Hitbox(Point p, int width, int height) {
-		rect= new Rectangle(p.x-width/2,p.y-height/2,width,height);
+	public Hitbox(int x, int y, int width, int height) {
+		rect= new Rectangle(x-width/2,y-height/2,width,height);
 	 }
 
     public void relocate(int m_x, int m_y) {
@@ -49,12 +49,11 @@ public class Hitbox {
 	public int getOrdonnee() {
 		return y;
 	}
-	
 
 	public Rectangle getRect() {
 		return rect;
 	}
-	public int getAbscisseRect() {
+	/*public int getAbscisseRect() {
 		return xr;
 	}
 	
@@ -68,6 +67,6 @@ public class Hitbox {
 	
 	public int getWidth() {
 		return width;
-	}
+	}*/
 
 }

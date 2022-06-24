@@ -23,8 +23,8 @@ public class Rocher extends Entity {
 	//Image texture = loadImage("resources/image_test/noir.png");
 	
 	
-	public Rocher(EntityManager EM, Modele modele, int pos_x, int pos_y) throws IOException {
-		super(EM, modele);
+	public Rocher(int pos_x, int pos_y, Game game) throws IOException {
+		super(game);
 		this.m_images = loadSprite("resources/image_test/marron.jpg",1,1);
 		this.taille = 20;
 		this.x = pos_x;
@@ -33,9 +33,9 @@ public class Rocher extends Entity {
 	
 
 	
-	public Rocher (EntityManager EM, Modele modele, int m_x, int m_y, String name, int r) throws IOException{
-		super(EM, modele);
-		m_images = loadSprite("resources/rocher.png", 2,5);
+	public Rocher (int m_x, int m_y, String name, int r,Game game) throws IOException{
+		super(game);
+		m_images = loadSprite("resources/images_test/marron_20x20.jpg",1,1);
 		this.Name = name;
 		x = m_x;
 		y = m_y;

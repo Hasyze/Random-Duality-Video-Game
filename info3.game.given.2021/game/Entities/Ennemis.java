@@ -10,34 +10,16 @@ public class Ennemis extends Entity {
 	private long m_imageElapsed;
 	private long m_moveElapsed;
 
-	public Ennemis(EntityManager EM, Modele modele) throws IOException {
-		super(EM, modele);
+	public Ennemis(Modele modele, EntityManager EM) throws IOException {
+		super(modele, EM);
 		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
 	}
-
-	public Ennemis(EntityManager EM, Modele modele, String name) throws IOException {
-		super(EM, modele);
-		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
-		this.Name = name;
-	}
-
-	public Ennemis(EntityManager EM, Modele modele, int m_x, int m_y, String name, int r) throws IOException {
-		super(EM, modele);
-		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
-		this.Name = name;
-		x = m_x;
-		y = m_y;
-		int heigt_hb = (m_images[0].getHeight()) ;
-		int width_hb = (m_images[0].getWidth()) ;
-		hitbox = new Hitbox(x,y,width_hb,heigt_hb);
-		type = 1;
-	}
-
-	/*
-	 * Simple animation here, the cowbow
-	 */
-	public void tick(long elapsed) {
-		super.tick(elapsed);
+	
+	
+	
+	
+	public void tick(long elapsed, EntityManager EM) {
+		super.tick(EM, elapsed);
 		m_imageElapsed += elapsed;
 		if (m_imageElapsed > 1500) {
 			m_imageElapsed = 0;
@@ -48,6 +30,7 @@ public class Ennemis extends Entity {
 
 	
 
+	
 	public void set_orientation() {
 		// Version un peu moche, verifier le format des sprites, cherche une nouvelle
 		// solution
@@ -76,6 +59,10 @@ public class Ennemis extends Entity {
 
 		}
 	}
+	public void hit() throws IOException {
+		ProjectileE balle = new ProjectileE(direction, modele,EM,x,y);
+		this.EM.EM_add(balle);
+		}
 
 	public void move(int code) {
 		switch (code) {

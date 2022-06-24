@@ -2,9 +2,9 @@ package automaton;
 
 import Entities.Entity;
 
-public class Stop implements IAction {
+public class Pop implements IAction {
 	
-	public Stop() {
+	public Pop() {
 		
 	}
 	@Override

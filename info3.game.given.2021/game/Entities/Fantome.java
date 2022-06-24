@@ -1,22 +1,21 @@
 package Entities;
 
-import java.awt.image.BufferedImage;
-import info3.game.*;
 import java.io.IOException;
 
-public class Fantome extends Entity{
-	
-	
-	public Fantome (EntityManager EM, int m_x, int m_y, String name, int r) throws IOException{
-		super(EM);
-		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
+import info3.game.Game;
+
+public class Fantome extends Cowboy {
+
+	public Fantome(int m_x, int m_y, String name, int r, Game game) throws IOException {
+		super(m_x, m_y, name, r, game);
+		m_images = loadSprite("resources/images_test/idle_resize.png", 4, 12);
 		this.Name = name;
-		x= m_x;
-		y=m_y;
-		BufferedImage img = m_images[0];
-		int heigt_hb = (img.getHeight())/2;
-		int width_hb = (img.getWidth())/2;
-		hitbox = new Hitbox(r,x+width_hb,y+heigt_hb,0);
-		type =4;
+		type = 4;
+		speed = 5;
 	}
+
+	public void pop() {
+		
+	}
+	
 }

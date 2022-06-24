@@ -1,3 +1,11 @@
+Balle(Init){
+  * (Init):
+  | MyDir(N) ? Move(N) :(Init)
+  | MyDir(S) ? Move(N) :(Init)
+  | MyDir(N) ? Move(N) :(Init)
+  | MyDir(N) ? Move(N) :(Init)
+}
+
 PopOrWizz(Init){
   * (Init): True ? 49% Pop / 49% Wizz / Power :(Init)
 }

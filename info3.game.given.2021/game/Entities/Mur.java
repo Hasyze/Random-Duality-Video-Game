@@ -11,26 +11,19 @@ public class Mur extends Entity {
 	int taille;
 
 	
-	public Mur(EntityManager EM, Modele modele, int pos_x, int pos_y) throws IOException {
-		super(EM, modele);
+	public Mur(int pos_x, int pos_y, Game game) throws IOException {
+		super(game);
 		this.m_images = loadSprite("resources/image_test/noir.png",1,1);
 		this.taille = 20;
 		this.x = pos_x;
 		this.y = pos_y;
 	}
 
-	public static Image loadImage(String filename) throws IOException {
-		File imageFile = new File(filename);
-		if (imageFile.exists()) {
-			BufferedImage image = ImageIO.read(imageFile);
-			return image;
-		}
-		return null;
-	}
+	
 
-	public Mur (EntityManager EM, Modele modele, int m_x, int m_y, String name, int r) throws IOException{
-		super(EM, modele);
-		m_images = loadSprite("resources/rocher.png", 2,5);
+	public Mur (int m_x, int m_y, String name, int r,Game game) throws IOException{
+		super(game);
+		m_images = loadSprite("resources/images_test/noir_20x20.png", 1,1);
 		this.Name = name;
 		x = m_x;
 		y = m_y;
@@ -40,6 +33,15 @@ public class Mur extends Entity {
 		int heigt_hb = img.getHeight()/2;
 		int width_hb = img.getWidth()/2;
 		hitbox = new Hitbox(r,x+width_hb,y+heigt_hb,0);
-		type = 6;
+		type = 1;
+	}
+	
+	public static Image loadImage(String filename) throws IOException {
+		File imageFile = new File(filename);
+		if (imageFile.exists()) {
+			BufferedImage image = ImageIO.read(imageFile);
+			return image;
+		}
+		return null;
 	}
 }

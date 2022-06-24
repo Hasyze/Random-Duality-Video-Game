@@ -21,17 +21,15 @@
 package info3.game;
 
 import java.awt.BorderLayout;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -40,12 +38,10 @@ import javax.swing.JLabel;
 import Entities.Cowboy;
 import Entities.Ennemis;
 import Entities.Entity;
-import Entities.Hitbox;
-import Entities.Mur;
-import Entities.Rocher;
+import Entities.Porte;
 import Map.Etage;
-import automaton.*;
-import automaton.Transition;
+import Map.Salle;
+import Menu.Ressource;
 import info3.game.graphics.GameCanvas;
 import info3.game.sound.RandomFileInputStream;
 
@@ -53,113 +49,38 @@ public class Game {
 
 	static Game game;
 
-	public static Image loadImage(String filename) throws IOException {
-		File imageFile = new File(filename);
-		if (imageFile.exists()) {
-			Image image = ImageIO.read(imageFile);
-			return image;
-		}
-		return null;
-	}
-
-	Image bg = loadImage("resources/images_test/among-us.png");
-
-	public static void main(String args[]) throws Exception {
-
-		try {
-			System.out.println("Game starting...");
-			game = new Game();
-
-			System.out.println("Game started.");
-		} catch (Throwable th) {
-			th.printStackTrace(System.err);
-		}
-	}
+	Image bg;
 
 	JFrame m_frame;
 	JLabel m_text;
 	GameCanvas m_canvas;
 	CanvasListener m_listener;
 	Sound m_music;
-	EntityManager EM;
+	
+	public EntityManager EM;
+	public Modele modele;
+
 	Etage etage;
-	Modele modele;
+	Salle salle_courante;
+	Porte changement_de_salle;	//Prend la valeur d'une porte avec laquelle le joueur rentre en contact pour faire le changement de salle
+	int niveau;
 
-/*<<<<<<< HEAD
-	Cowboy m_cowboy;// m_cowboy2;
-	Ennemis m_cowboy2;
-	Rocher rocher;
-=======*/
 	Cowboy m_cowboy, m_cowboy2;
-	Rocher rocher1, rocher2;
-
-	void charger_entites_salle() throws IOException {
-		for (int i = 0; i < 50; i++) {
-			for (int j = 0; j < 50; j++) {
-				int x = etage.salles[1].compo[i][j];
-				switch (x) {
-				case 1:
-					EM.EM_add(new Mur(EM, i * 20, j * 20));
-					break;
-				case 2:
-					/*
-					 * if ( (i == 0) && (portes[0] != null) ) { EM.EM_add(portes[0]); } if ( (j ==
-					 * 0) && (portes[3] != null) ) { EM.EM_add(portes[3]); } if ( (i == 49) &&
-					 * (portes[2] != null) ) { EM.EM_add(portes[2]); } if ( (j == 49) && (portes[1]
-					 * != null) ) { EM.EM_add(portes[1]); } else { EM.EM_add(new Mur(i*20, j*20)); }
-					 */
-					break;
-				case 3:
-					EM.EM_add(new Rocher(EM, modele, i * 20, j * 20));
-					break;
-				case 4:
-					break;
-				// EM.EM_add(new Ennemis(i*20, j*20));
-				}
-
-			}
-		}
+	
+	public Cowboy getPlayer() {
+		return m_cowboy2;
 	}
 
-	Game() throws Exception {
-		// creating a cowboy, that would be a model
-		// in an Model-View-Controller pattern (MVC)
+	
+	public Game(Ressource Res2) throws Exception {
+		niveau = 1;
+		changement_de_salle = null;
 		EM = new EntityManager();
-		modele = new Modele();
-
-		/*m_cowboy = new Cowboy(EM, modele, 0, 200, "fabrice", 25);
-		m_cowboy2 = new Ennemis(EM, modele, 0, 0, "roger", 25);*/
-
-		LinkedList<Transition> tranzis = new LinkedList<Transition>();
-		LinkedList<Transition> tranzis2 = new LinkedList<Transition>();
-		LinkedList<Transition> tranzis3 = new LinkedList<Transition>();
+		modele = new Modele(this);
+		
+		Init_niveau(niveau, Res2);
 		
 		
-		
-
-		
-		LinkedList<Etat> etats = new LinkedList<Etat>();
-		Etat init = new Etat("Init", tranzis);
-		Etat move = new Etat("Move", tranzis2);
-		Etat puit = new Etat("Puit", tranzis3);
-		Transition une = new Transition(new True(), init, move, new Move());
-		Transition deux = new Transition(new True(), move, puit, new Stop());
-		
-		
-		tranzis.add(une);
-		tranzis2.add(deux);
-		etats.add(init);
-		etats.add(move);
-		etats.add(puit);
-		
-		
-		
-		Automate joueur = new Automate("joueur", init,etats,Type.NIMPORTE);
-		
-		
-		m_cowboy = new Cowboy(EM, modele, 900, 600, "fabrice", 25, joueur);
-		m_cowboy2 = new Cowboy(EM, modele, 0, 0, "roger", 25, joueur);
-
 		// creating a listener for all the events
 		// from the game canvas, that would be
 		// the controller in the MVC pattern
@@ -167,23 +88,91 @@ public class Game {
 		// creating the game canvas to render the game,
 		// that would be a part of the view in the MVC pattern
 		m_canvas = new GameCanvas(m_listener);
-
-		etage = new Etage(1);
-
-		// charger_entites_salle();
-
-
-		rocher1 = new Rocher(EM, modele, 900, 20, "cailluo", 70);
-		m_cowboy.add_close(rocher1);
-		rocher2 = new Rocher(EM, modele, 900, 200, "cailluo", 70);
-		m_cowboy.add_close(rocher2);
-
 		System.out.println("  - creating frame...");
 		Dimension d = new Dimension(1024, 768);
 		m_frame = m_canvas.createFrame(d);
-
 		System.out.println("  - setting up the frame...");
 		setupFrame();
+	}
+	
+	public CanvasListener getListener() {
+		return m_listener;
+	}
+	
+	private void Init_niveau(int niv, Ressource Res2) throws IOException {
+		
+		
+		m_cowboy = new Cowboy(960, 1000, "Player1", 25, this);
+		m_cowboy2 = new Cowboy(980, 1100, "Player2", 25, this);
+		
+		Res2.set_couple(m_cowboy);
+		Res2.set_couple(m_cowboy2);
+		System.out.print("Test menu : cowboy 1 attribution automate : ");
+		System.out.print(m_cowboy.Name +" "+ m_cowboy.Aut.name+"\n");
+		
+		System.out.print("Test menu : cowboy 2 attribution automate : ");
+		System.out.print(m_cowboy2.Name + " "+m_cowboy2.Aut.name+"\n");
+		
+		
+
+		
+		
+		EM.EM_add(m_cowboy);
+		EM.EM_add(m_cowboy2);
+		
+		etage = new Etage(niv, this);
+
+		
+		salle_courante = etage.salles[0];
+		bg = salle_courante.background;
+		
+		salle_courante.charger_salle(EM, modele);
+		
+		niveau += 1; //On prévoie le changement de niveau
+	}
+	
+	//On affiche tous les élements statiques, on affiche ensuite les dynamiques a chaque ticks
+	
+	private void dessine_salle (Graphics g, int coinscamX, int coinscamY) {
+		ArrayList<Entity> Static = EM.sort_affichage();
+		Entity e;
+		for (int i=0; i<Static.size(); i++) {
+			//System.out.print("Nom : " + Static.get(i).Name + " x : " + Static.get(i).getx() + " y :" + Static.get(i).gety() + "\n");
+			e = Static.get(i);
+			e.paint(g, coinscamX, coinscamY);
+		}
+		//System.out.print("Affichage DONE");
+	}
+	
+	
+	
+	
+	private void Chgmt_salle(Porte porte) throws IOException {
+		EM.vider_entity_manager(); // --> vide l'entity manager sauf les deux cowboy
+		salle_courante = porte.salle_destination;
+		salle_courante.charger_salle(EM, modele);
+		bg = salle_courante.background;
+		
+		switch (porte.orientation_salle_destination) {
+		case 0 :
+			m_cowboy.Teleporte_joueur(23*40, 2*40);
+			m_cowboy2.Teleporte_joueur(25*40,  2*40);
+			break;
+		case 1 :
+			m_cowboy.Teleporte_joueur(46*40, 23*40);
+			m_cowboy2.Teleporte_joueur(46*40, 25*40);
+			break;
+		case 2 :
+			m_cowboy.Teleporte_joueur(23*40, 46*40);
+			m_cowboy2.Teleporte_joueur(25*40, 46*40);
+			break;
+		default :
+			m_cowboy.Teleporte_joueur(2*40, 23*40);
+			m_cowboy2.Teleporte_joueur(2*40, 25*40);
+			break;
+		}
+		changement_de_salle = null;
+		
 	}
 
 	/*
@@ -207,6 +196,16 @@ public class Game {
 		// make the vindow visible
 		m_frame.setVisible(true);
 	}
+	
+	public static Image loadImage(String filename) throws IOException {
+		File imageFile = new File(filename);
+		if (imageFile.exists()) {
+			Image image = ImageIO.read(imageFile);
+			return image;
+		}
+		return null;
+	}
+
 
 	/*
 	 * ================================================================ All the
@@ -244,28 +243,31 @@ public class Game {
 	 * that elapsed since the last time this method was invoked.
 	 */
 
-	long test = 0;
-
-
+	long test = 0;	
 	void tick(long elapsed) throws Exception {
 		test += elapsed;
 		if (test > 2500) {
 			test = 0;
-			//EM.afficher_EM();
-			//System.out.println("C1 :" + m_cowboy.getx() + "-" + m_cowboy.gety() + "C2 :" + m_cowboy2.getx() + "-"
-			//		+ m_cowboy2.gety() + "ROC :" + rocher.getx() + "-" + rocher.gety());
 		}
 		
 		// EM TICK STEPS
-		//EM.tick(elapsed);
-		// EM COLLSIONS
-		ArrayList<Entity> Dynamic = EM.getDynamic();
-		ArrayList<Entity> Static = EM.getStatic();
-		// modele.collision(); Calcul des interactions
-
-
-		m_cowboy.tick(elapsed);
-		m_cowboy2.tick(elapsed);
+		EM.tick(elapsed);
+		ArrayList<Entity> liste = EM.getDynamic();
+		for(Entity truc : liste) {
+			this.modele.collision(truc, liste);
+		}
+		
+		if (changement_de_salle != null) {	//à chaque tick on vérifie qu'il ne faut pas changer de salle
+			System.out.print("On doit changer de salle");
+			try {
+				Chgmt_salle(changement_de_salle);
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	
+	
 
 
 		// Update every second
@@ -292,8 +294,8 @@ public class Game {
 	// A terme ça faut que ce soit les bordures de la map ou de la salle
 	int xmin = 0;
 	int ymin = 0;
-	int xmax = 10000;
-	int ymax = 10000;
+	int xmax = 1920;
+	int ymax = 1920;
 
 	void paint(Graphics g) {
 
@@ -319,29 +321,14 @@ public class Game {
 		if (coinscamY + height > ymax) {
 			coinscamY = ymax - height;
 		}
-
 		g.setColor(Color.white);
 		g.fillRect(0, 0, width, height);
 		g.drawImage(bg, -coinscamX, -coinscamY, bg.getWidth(null), bg.getHeight(null), null);
 		g.drawOval(width / 2 - 5, height / 2 - 5, 10, 10);
-		g.drawLine(m_cowboy.getx() - coinscamX,
-				m_cowboy.gety() - coinscamY, m_cowboy2.getx() - coinscamX,
-				m_cowboy2.gety() - coinscamY);
+		g.drawLine(m_cowboy.getx() - coinscamX, m_cowboy.gety() - coinscamY, m_cowboy2.getx() - coinscamX, m_cowboy2.gety() - coinscamY);
 
-		// paint
-		// EM.afficher_EM();
-	
-
-		///////
-
-		ArrayList<Entity> Affichage = EM.sort_affichage();
-		for(int i = 0; i<Affichage.size(); i++) {
-			Affichage.get(i).paint(g, coinscamX, coinscamY);
-		}
 		
-		/*m_cowboy.paint(g, coinscamX, coinscamY);
-		m_cowboy2.paint(g, coinscamX, coinscamY);
-		rocher.paint(g, coinscamX, coinscamY);*/
+		dessine_salle(g, coinscamX, coinscamY);
 
 	}
 

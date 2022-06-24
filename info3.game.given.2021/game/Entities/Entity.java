@@ -2,15 +2,12 @@ package Entities;
 
 import java.awt.Color;
 import java.awt.Graphics;
-
 import automaton.*;
 import java.awt.image.BufferedImage;
-
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.imageio.ImageIO;
+import automaton.Automate;
 import info3.game.*;
 
 public abstract class Entity extends Object {
@@ -22,12 +19,9 @@ public abstract class Entity extends Object {
 	//
 	protected BufferedImage[] m_images;
 	protected int m_imageIndex;
+	protected Game game;
 
 	protected int x = 10, y = 10;
-	protected int x_speed;
-	protected int y_speed;
-	protected int x_nspeed;
-	protected int y_nspeed;
 	protected Hitbox hitbox;
 	protected Hitbox hitboxvoisinE;
 	protected Hitbox hitboxvoisinW;
@@ -49,13 +43,29 @@ public abstract class Entity extends Object {
 	public Direction direction = Direction.N;
 
 	// Stats
-	protected int speed;
-	protected int vie;
+	protected int speed; //
+	protected int vie; //
+	
+	// Cooldowns
+	protected long moveCD = 0; 
 
-	public Entity(EntityManager em, Modele modele) {
-		this.EM = em;
-		EM.EM_add(this); // A MODIFIER LIST JAVA
 
+	public Entity(Game game) {	
+		this.Name = "Undefined";
+		this.game = game;
+		m_images = null;
+		m_imageIndex = 0;
+		this.type = -1; 
+		this.modele = game.modele;
+		this.EM = game.EM;		
+		vie = 1000;
+		speed = 0;
+	}
+	
+	public Entity(Modele modele, String Name) {
+		System.out.print(Name);
+		this.Name = Name;
+		
 		this.modele = modele;
 		close = new ArrayList();
 		for (int i = 0; i < 8; i++) {
@@ -63,69 +73,56 @@ public abstract class Entity extends Object {
 		}
 		m_images = null;
 		m_imageIndex = 0;
-		x_speed = 0;
-		y_speed = 0;
-		x_nspeed = 0;
-		y_nspeed = 0;
-
-		vie = 10;
+		vie = 1;
 		speed = 4;
-
-	}
-
-	public void move() {
 	}
 
 	public void move(Direction dir) {
+		this.direction = dir;
+		if(moveCD > 0) {
+			return;
+		}
 		switch (dir) {
-
+		case F:
+			move(this.direction);
+			break;
+		case NW:
+			x-=speed;
+			y-=speed;
+			break;
+		case NE:
+			x+=speed;
+			y-=speed;
+			break;
+		case SW:
+			x-=speed;
+			y+=speed;
+			break;
+		case SE:
+			x+=speed;
+			y+=speed;
+			break;
 		case W:
-			x_nspeed = speed;
+			x-= speed;
 			break;
-
 		case E:
-			x_speed = speed;
+			x+=speed;
 			break;
-
 		case N:
-			y_nspeed = speed;
+			y-=speed;
 			break;
-
 		case S:
-			y_speed = speed;
+			y+=speed;
 			break;
 		default:
 			break;
-		}
-
-	}
-
-	public void stop(Direction dir) {
-		switch (dir) {
-
-		case W:
-			x_nspeed = 0;
-			break;
-
-		case E:
-			System.out.println("JE PASSE BIEN PAR ICI");
-			x_speed = 0;
-			break;
-
-		case N:
-			y_nspeed = 0;
-			break;
-
-		case S:
-			y_speed = 0;
-			break;
-		default:
-			break;
-		}
-
+		}	
 	}
 
 	public void transfert(Entity e) {
+		Automate temp = this.Aut;
+		this.Aut = e.Aut;
+		e.Aut = temp;
 	}
 
 	public Entity egg() {
@@ -295,45 +292,26 @@ public abstract class Entity extends Object {
 	}
 
 	public int gety() {
+		
 		return y;
 	}
 
 	public int getvie() {
 		return vie;
 	}
-
-	public EntityManager getEM() {
-		return EM;
-	}
+	
 
 	public void setVie(int i) {
 		vie += i;
 	}
 
-	public void step(ArrayList<Entity> New_Dynamic, ArrayList<Entity> New_Static) {
-		// TODO : step automates pour l'aut de chaque entity.
+	public void step() throws Exception {
+		this.Aut.step(this);
 	}
 
-	int m_moveElapsed = 0;
-
-	public void tick(long elapsed) throws Exception {
-		m_moveElapsed += elapsed;
+	public void tick(EntityManager em,long elapsed) throws IOException {
+		moveCD += elapsed;
 		hitbox.relocate(x, y);
-		if (m_moveElapsed > 24) {
-			m_moveElapsed = 0;
-			if (x_speed > 0 || y_speed > 0 || x_nspeed > 0 || y_nspeed > 0) {
-				ArrayList<Entity> Dynamic = EM.getDynamic();
-				ArrayList<Entity> col = modele.collision(this, Dynamic);
-				if (col.isEmpty()) {
-
-					x = (x + x_speed - x_nspeed);
-					y = (y + y_speed - y_nspeed);
-
-				} else {
-					modele.interaction(this, col);
-				}
-			}
-		}
 	}
 
 	public Hitbox getHitbox() {
@@ -367,26 +345,6 @@ public abstract class Entity extends Object {
 		return type;
 	}
 
-	public int get_speed() {
-		return speed;
-	}
-	
-	public int getx_speed() {
-		return x_speed;
-	}
-
-	public int gety_speed() {
-		return y_speed;
-	}
-
-	public int getx_nspeed() {
-		return x_nspeed;
-	}
-
-	public int gety_nspeed() {
-		return y_nspeed;
-	}
-
 	public int getWidth() {
 		return m_images[m_imageIndex].getWidth();
 	}
@@ -414,5 +372,21 @@ public abstract class Entity extends Object {
 		}
 		return null;
 	}
-
+	
+	public boolean MyDir(Direction Dir) {
+		return Dir==this.direction;
+		}
+	public boolean GotPower() {
+		return vie>0;
+	}
+	public boolean GotStuff() {
+		return false;
+	}
+		
+	public boolean key(Key k) {
+		return this.game.getListener().key(k);
+	}
+	public boolean cell(Direction dir, Type type) {
+		return game.modele.collisions(this, game.EM.getStatic());
+	}
 }

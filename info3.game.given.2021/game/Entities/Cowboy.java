@@ -38,23 +38,21 @@ import automaton.Automate;
  */
 public class Cowboy extends Entity {
 
-	private long m_imageElapsed;
-	private long m_moveElapsed;
+	Fantome doublure;
 
-	public Cowboy(EntityManager EM, Modele modele) throws IOException {
-		super(EM, modele);
+	public Cowboy(Modele modele, EntityManager EM) throws IOException {
+		super(modele, EM);
 		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
 	}
 
-	public Cowboy(EntityManager EM, Modele modele, String name) throws IOException {
-		super(EM, modele);
-		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
+	public Cowboy(Modele model, String name, EntityManager EM) throws IOException {
+		super(model, EM);
 		this.Name = name;
+		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
 	}
 
-	public Cowboy(EntityManager EM, Modele modele, int m_x, int m_y, String name, int r, Automate aut) throws IOException {
-		super(EM, modele);
-		this.Aut = aut;
+	public Cowboy(int m_x, int m_y, String name, int r, Game game) throws IOException {
+		super(game);
 		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
 		this.Name = name;
 		x = m_x;
@@ -86,153 +84,57 @@ public class Cowboy extends Entity {
 		        // case SE : 
 		                hitboxvoisinSE = new Hitbox(x+width_hb, y+width_hb, 1024-x, 758-y);    
 		type = 0;
-	}
-
-	/*
-	 * Simple animation here, the cowbow
-	 */
-	public void tick(long elapsed) throws Exception {
-		//super.tick(elapsed);
-		hitbox.relocate(x, y);
-		m_imageElapsed += elapsed;
-		m_moveElapsed += elapsed;
-		if (m_imageElapsed > 1500) {
-			m_imageElapsed = 0;
-		}
-		if (m_moveElapsed > 2000) {
-			m_moveElapsed = 0;
-
-			Aut.step(this);
-			if (x_speed > 0 || y_speed > 0 || x_nspeed > 0 || y_nspeed > 0) {
-				ArrayList<Entity> Dynamic = EM.getDynamic();
-				if (!(modele.collisions(this, Dynamic))) {
-					x = (x + x_speed - x_nspeed);
-					y = (y + y_speed - y_nspeed);
-				}
-			}
-		}
-		set_orientation();
-	}
-
-	
-
-	public void set_orientation() {
-		// Version un peu moche, verifier le format des sprites, cherche une nouvelle
-		// solution
-		// Ajouter un chant orientation pour les projectiles ?img.getWidth()
-		if (x_speed > 0) {
-			if (y_speed > 0) {
-				m_imageIndex = 23;// GOOD
-			} else if (y_nspeed > 0) {
-				m_imageIndex = 16;// GOOD
-			} else {
-				m_imageIndex = 20; // GOOD
-			}
-		} else if (x_nspeed > 0) {
-			if (y_speed > 0) {
-				m_imageIndex = 4;// GOOD
-			} else if (y_nspeed > 0) {
-				m_imageIndex = 10;// GOOD
-			} else {
-				m_imageIndex = 7;// GOOD
-			}
-		} else if (y_speed > 0) {
-			m_imageIndex = 1;// GOOD
-
-		} else if (y_nspeed > 0) {
-			m_imageIndex = 13;// GOOD
-
-		}
-	}
-
-	public void movet(int code) {
-		switch (code) {
-		case 37:
-		case 81:
-			this.direction = Direction.W;
-			break;
-		case 39:
-		case 68:
-			this.direction = Direction.E;
-			break;
-		case 38:
-		case 90:
-			this.direction = Direction.N;
-			break;
-		case 40:
-		case 83:
-			this.direction = Direction.S;
-			break;
-		}
-		// System.out.println("OUIIIIIIII");
-		// .out.println(this.x + this.y);
-
+		speed = 5;
 	}
 	
-	public void move(Direction dir) {
-		switch (dir) {
-		
-		case W:
-			x_nspeed = speed;
-			break;
-		
-		case E:
-			x_speed = speed;
-			break;
-		
-		case N:
-			y_nspeed = speed;
-			break;
-		
-		case S:
-			y_speed = speed;
-			break;
-		default:
-			break;
-		}
-		
+	public Cowboy(Game game, int m_x, int m_y, String name, int r, Automate aut) throws IOException {
+		super(game);
+		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
+		this.Name = name;
+		this.Aut = aut;
+		x = m_x;
+		y = m_y;
+		int heigt_hb = (m_images[0].getHeight()) / 2;
+		int width_hb = (m_images[0].getWidth()) / 2;
+		hitbox = new Hitbox(r, x + width_hb, y + heigt_hb, 0);
+		type = 0;
+	}
+
+	public void Teleporte_joueur(int m_x, int m_y) {
+		x = m_x;
+		y = m_y;
 	}
 	
-	
+	public void tick(EntityManager EM , long elapsed) throws IOException {
+		super.tick(EM, elapsed);
+		moveCD += elapsed;
+		if (moveCD > 24)
+			moveCD = 0;
+	}
 
-	public void stop(int code) {
-		switch (code) {
-		case 37:
-		case 81:
-			x_nspeed = 0;
-			break;
-		case 39:
-		case 68:
-			x_speed = 0;
-			break;
-		case 38:
-		case 90:
-			y_nspeed = 0;
-			break;
-		case 40:
-		case 83:
-			y_speed = 0;
-			break;
+	public void hit() throws IOException {
+		System.out.print("" + "" + "\n\n Creation balle \n\n");
+		ProjectileA balle = new ProjectileA(direction, modele, EM, x, y);
+		this.EM.EM_add(balle);
+	}
+
+	public void paint(Graphics g, int originex, int originey) {
+
+		BufferedImage img = m_images[m_imageIndex];
+		if (vie <= 0) {
+			img = doublure.m_images[m_imageIndex];
 		}
+		int scale = 2;
+		g.drawImage(img, x - originex - getWidth(), y - originey - getHeight(), scale * img.getWidth(),
+				scale * img.getHeight(), null);
+		g.drawOval(x - originex - hitbox.getRayon(), y - originey - hitbox.getRayon(), hitbox.getRayon() * 2,
+				hitbox.getRayon() * 2);
 	}
 
-	public void move() {
+	public int getType() {
+		if (vie <= 0) {
+			return doublure.type;
+		}
+		return type;
 	}
-
-	public void stop() {
-	}
-
-	public void pop() {
-	}
-
-	public void wizz() {
-	}
-
-	public void paint() {
-	}
-
-	public Entity egg() {
-		return null;
-	}
-
 }

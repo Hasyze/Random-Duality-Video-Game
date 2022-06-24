@@ -18,199 +18,287 @@
 
 package automaton;
 
-import info3.game.automata.util.Dot;
 import info3.game.automata.ast.*;
+import info3.game.automata.ast.Transition;
+import info3.game.automata.parser.AutomataParser;
+
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class BotBuilder implements IVisitor {
 
-	StringBuilder nodes;
-	StringBuilder edges;
+	List<Automate> automates;
+	Automate current;
 
 	public BotBuilder() {
-		nodes = new StringBuilder();
-		edges = new StringBuilder();
+		automates = new LinkedList<Automate>();
 	}
 
-	public String to_dot() {
-		return Dot.graph("ast", nodes + "\n" + edges);
+	@Override
+	public Object visit(Category cat) {
+		return cat.terminal.content;
 	}
 
-	// NODES
-
-	protected void dot_node(int id, String label, String options) {
-		nodes.append(Dot.declare_node(id, label, options));
+	@Override
+	public Object visit(Direction dir) {
+		return dir.terminal.content;
 	}
 
-	protected void dot_non_terminal_node(int id, String label) {
-		dot_node(id, label, "shape=box, fontsize=8");
+	@Override
+	public Object visit(info3.game.automata.ast.Key key) {
+		return key.terminal.content;
 	}
 
-	protected void dot_terminal_node(int id, String label) {
-		dot_node(id, Dot.asString(label), "shape=none, fontname=times,  fontsize=12, fontcolor=blue");
+	@Override
+	public Object visit(Value v) {
+		return v.value;
 	}
 
-	protected void dot_keyword_node(int id, String label) {
-		dot_node(id, label, "shape=none, fontname=comic, fontsize=12, fontcolor=orange");
+	@Override
+	public Object visit(Underscore u) {
+		return u.toString();
 	}
 
-	// TERMINAL, NON TERMINAL and EDGES
-
-	protected void edge(int src_id, int tgt_id) {
-		edges.append(Dot.edge(src_id, tgt_id));
+	@Override
+	public void enter(FunCall funcall) {
 	}
 
-	protected void non_terminal(Node node, String name) {
-		dot_non_terminal_node(node.id, name);
-	}
-
-	protected void identifier(Node node, String name) {
-		dot_non_terminal_node(node.id, name);
-		edge(node.id, -node.id);
-		dot_terminal_node(-node.id, node.toString());
-	}
-
-	protected void keyword(Node node, String name) {
-		dot_non_terminal_node(node.id, name);
-		edge(node.id, -node.id);
-		dot_keyword_node(-node.id, node.toString());
-	}
-
-
-	protected void subtree(Node node, List<Integer> son_ids) {
-		for (Integer id : son_ids) {
-			edge(node.id, id);
+	@Override
+	public Object exit(FunCall funcall, List<Object> parameters) {
+		if (parameters.isEmpty())
+			return new AppelFonc(funcall.name, funcall.percent);
+		else {
+			List<String>arg = new LinkedList<String>();
+			for (Object temp : parameters) {
+				arg.add((String)temp);
+			}
+			return new AppelFonc(funcall.name, funcall.percent, arg);
 		}
 	}
 
-	// THE METHODES OF IVisitor
-
+	@Override
 	public Object visit(BinaryOp operator, Object left, Object right) {
-		non_terminal(operator, "BinaryOp");
-		edge(operator.id, (Integer) left);
-		edge(operator.id, (Integer) right);
-		return operator.id;
-	}
-
-	public Object visit(UnaryOp operator, Object expr) {
-		non_terminal(operator, "UnaryOp");
-		edge(operator.id, (Integer) expr);
-		return operator.id;
-	}
-
-	public void enter(FunCall funcall) {
-		non_terminal(funcall, "FunCall");
-		edge(funcall.id, -funcall.id);
-		dot_keyword_node(-funcall.id, funcall.name);
-	}
-
-	public Object exit(FunCall funcall, List<Object> parameters) {
-		subtree(funcall, (List<Integer>) (Object) parameters);
-		return funcall.id;
-	}
-
-	public Object visit(Category terminal) {
-		keyword(terminal, "Category");
-		return terminal.id;
-	}
-
-	public Object visit(Direction terminal) {
-		keyword(terminal, "Direction");
-		return terminal.id;
-	}
-
-	public Object visit(Key terminal) {
-		keyword(terminal, "Key");
-		return terminal.id;
-	}
-
-	public Object visit(Underscore u) {
-		return null;
-	}
-
-	public Object visit(Value value) {
-		return null;
-	}
-
-	public void enter(Action action) {}
-
-	public Object exit(Action action, List<Object> funcalls) {
-		non_terminal(action,"Action");
-		subtree(action, (List<Integer>) (Object) funcalls);
-		return action.id;
-	}
-
-	public Object visit(Behaviour behaviour, List<Object> transitions) {
-		non_terminal(behaviour, "Behaviour");
-		subtree(behaviour, (List<Integer>) (Object) transitions);
-		return behaviour.id;
-	}
-
-	public Object visit(State state) {
-		identifier(state,"State");
-		return state.id;
-	}
-
-	public Object visit(Transition transition, Object condition, Object action, Object target) {
-		non_terminal(transition, "Transition");
-		edge(transition.id, (Integer) condition);
-		edge(transition.id, (Integer) action);
-		edge(transition.id, (Integer) target);
-		return transition.id;
-	}
-
-	public void enter(Automaton automaton) {
-		non_terminal(automaton,"Automaton");
-		edge(automaton.id,-automaton.id);
-		dot_terminal_node(-automaton.id, automaton.name);
-	}
-
-	public Object exit(Automaton automaton, Object initial_state, List<Object> modes) {
-		edge(automaton.id, (Integer) initial_state);
-		subtree(automaton, (List<Integer>) (Object) modes);
-		return automaton.id;
-	}
-
-	public Object visit(AST bot, List<Object> automata) {
-		non_terminal(bot,"AST");
-		subtree(bot, (List<Integer>) (Object) automata);
-		return bot.id;
-	}
-
-	public void enter(Mode mode) {}
-
-	public Object exit(Mode mode, Object state, Object behaviour) {
-		non_terminal(mode,"Mode");
-		edge(mode.id, (Integer) state);
-		edge(mode.id, (Integer) behaviour);
-		return mode.id;
-	}
-
-	public void enter(Condition condition) {}
-
-	public Object exit(Condition condition, Object expr) {
-		non_terminal(condition, "Condition");
-		edge(condition.id, (Integer) expr);
-		return condition.id;
+		
+		try {
+			left = (ICondition)convertAppelFonc((AppelFonc) left);
+		}catch(Exception e){
+		}
+		try {
+			right = (ICondition)convertAppelFonc((AppelFonc) right);
+		}catch(Exception e){
+		}
+		
+		
+		return new BinaryOperation((ICondition)left, (ICondition)right,
+				operator.operator);
 	}
 
 	@Override
-	public Object visit(info3.game.automata.ast.Transition transition, Object condition, Object action,
-			Object target_state) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void enter(info3.game.automata.ast.FunCall funcall) {
-		// TODO Auto-generated method stub
+	public Object visit(UnaryOp operator, Object expression) {
+		
+		try {
+			return new UnaryOperation((ICondition)convertAppelFonc((AppelFonc) expression), operator.operator);
+		}
+		catch(Exception e) {
+			return new UnaryOperation((ICondition)expression, operator.operator);
+		}
+		
 		
 	}
 
 	@Override
-	public Object exit(info3.game.automata.ast.FunCall funcall, List<Object> parameters) {
-		// TODO Auto-generated method stub
-		return null;
+	public Object visit(State state) {
+		for(Etat temp : current.etats) {
+			if(temp.name.equals(((State) state).toString())) {
+				return temp;
+			}
+		}
+		Etat e = new Etat(((State) state).toString());
+		current.addEtat(e);
+		return e;
+	}
+
+	@Override
+	public void enter(Mode mode) {
+
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Object exit(Mode mode, Object source_state, Object behaviour) {
+		for(Object transitions : (List<ATransition>)behaviour) {
+			((Etat)source_state).addTransition((ATransition) transitions);
+		}
+		return behaviour;
+	}
+
+	@Override
+	public Object visit(Behaviour behaviour, List<Object> transitions) {	
+		return transitions;
+	}
+
+	@Override
+	public void enter(Condition condition) {
+	}
+
+	@Override
+	public Object exit(Condition condition, Object expression) {
+		try {
+			return convertAppelFonc((AppelFonc) expression);
+		}
+		catch(Exception e) {
+			return expression;
+		}
+	}
+
+	@Override
+	public void enter(Action action) {
+	}
+
+	@Override
+	public Object exit(Action action, List<Object> funcalls) {
+		Map<IAction, Integer> actions = new HashMap<IAction, Integer>();
+		for (Object currentAction : funcalls) {
+			actions.put((IAction) convertAppelFonc((AppelFonc) currentAction), ((AppelFonc)currentAction).percent);
+		}
+		return actions;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Object visit(Transition transition, Object condition, Object action, Object target_state) {
+		return new ATransition((ICondition)condition, (Etat)target_state, (Map<IAction, Integer>)action);
+	}
+
+	@Override
+	public void enter(Automaton automaton) {
+		current = new Automate(automaton.name, null, new LinkedList<Etat>(), null);
+	}
+
+	@Override
+	public Object exit(Automaton automaton, Object initial_state, List<Object> modes) {
+		current.current = current.etats.get(0);
+		return current;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Object visit(AST bot, List<Object> automata) {
+		return automata;
+	}
+
+	public Object convertAppelFonc(AppelFonc af) {
+		if(!(af.arguments.isEmpty()))
+			return convertAppelFonc2(af);
+		switch (af.name) {
+		
+		//ACTIONS
+		case "Move":
+			return new Move();
+		case "Pop":
+			return new Pop();
+		case "Wizz":
+			return new Wizz();
+		case "Wait":
+			return new Wait();
+		case "Jump":
+			return new Jump();
+		case "Turn":
+			return new Turn();
+		case "Hit":
+			return new Hit();
+		case "Protect":
+			return new Protect();
+		case "Pick":
+			return new Pick();
+		case "Throw":
+			return new Throw();
+		case "Store":
+			return new Get();
+		case "Power":
+			return new Power();
+		case "Explode":
+			return new Explode();
+		case "Egg":
+			return new Egg();
+			
+			
+			
+		//CONDITIONS
+		case "True":
+			return new True();
+		case "GotPower":
+			return new GotPower();
+		case "GotStuff":
+			return new GotStuff();
+
+		default:
+			System.out.println("Non ajouté dans le switch convertAppelFonc dans BotBuilder :" + af.name);
+			return null;
+		}
+	}
+	
+	public Object convertAppelFonc2(AppelFonc af) {
+		switch (af.name) {
+		
+		//ACTIONS
+		case "Move":
+			return new Move(af.arguments.get(0));
+		/*case "Pop":
+			return new Pop(af.arguments.get(0));
+		case "Wizz":
+			return new Wizz(af.arguments.get(0));
+		case "Jump":
+			return new Jump(af.arguments.get(0));
+		case "Turn":
+			return new Turn(af.arguments.get(0));
+		case "Hit":
+			return new Hit(af.arguments.get(0));
+		case "Protect":
+			return new Protect(af.arguments.get(0));
+		case "Pick":
+			return new Pick(af.arguments.get(0));
+		case "Throw":
+			return new Throw(af.arguments.get(0));
+		case "Egg":
+			return new Egg(af.arguments.get(0));
+			
+			
+			
+		//CONDITIONS
+		 */
+		case "Key":
+			return new Key(af.arguments.get(0));
+		/*case "MyDir":
+			return new MyDir(af.arguments.get(0));
+		case "Cell":
+			return new Cell(af.arguments.get(0), af.arguments.get(1));
+		case "Closest":
+			return new Closest(af.arguments.get(0), af.arguments.get(1));*/
+		default:
+			System.out.println("Non ajouté dans le switch AppelFonc2 dans BotBuilder :" + af.name);
+			return null;
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Automate> loadAutomata(String filename) {
+		try {
+			AST ast = (AST) AutomataParser.from_file(filename);
+
+			List<Object> a = new LinkedList<Object>();
+			a = (List<Object>) ast.accept(this);
+			List<Automate> liste = new LinkedList<Automate>();
+
+			for (Object current : a) {
+				liste.add((Automate) current);
+			}
+			return liste;
+		} catch (Exception ex) {
+			return null;
+		}
 	}
 
 }

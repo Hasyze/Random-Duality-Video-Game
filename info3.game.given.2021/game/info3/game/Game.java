@@ -252,10 +252,7 @@ public class Game {
 
 		// EM TICK STEPS
 		EM.tick(elapsed);
-		ArrayList<Entity> liste = EM.getDynamic();
-		for(Entity truc : liste) {
-			this.modele.collision(truc, liste);
-		}
+		modele.collionsDynamic(EM.getDynamic());
 		
 		if (changement_de_salle != null) {	//à chaque tick on vérifie qu'il ne faut pas changer de salle
 			System.out.print("On doit changer de salle");

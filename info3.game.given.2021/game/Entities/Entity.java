@@ -28,7 +28,8 @@ public abstract class Entity extends Object{
 	protected int vie; //
 	
 	// Cooldowns
-	protected long moveCD = 0; 
+	protected long moveCD = 0;
+	protected long damageCD = 0;
 
 
 	public Entity(Game game) {	
@@ -130,7 +131,11 @@ public abstract class Entity extends Object{
 	
 
 	public void degatVie(int degat) {
+		if(damageCD>0)
+			return;
 		vie -= degat;
+		if(damageCD<=0)
+			damageCD = 2000;
 	}
 
 	public int getx() {
@@ -146,6 +151,10 @@ public abstract class Entity extends Object{
 		return vie;
 	}
 	
+	public int getSpeed() {
+		return speed;
+	}
+	
 
 	public void setVie(int i) {
 		vie += i;
@@ -156,7 +165,11 @@ public abstract class Entity extends Object{
 	}
 
 	public void tick(EntityManager em,long elapsed) throws IOException {
-		moveCD += elapsed;
+		System.out.println(moveCD);
+		if(moveCD>0)
+			moveCD -= elapsed;
+		if(damageCD>0)
+			damageCD -= elapsed;
 		hitbox.relocate(x, y);
 	}
 
@@ -210,6 +223,6 @@ public abstract class Entity extends Object{
 		return this.game.getListener().key(k);
 	}
 	public boolean cell(Direction dir, Type type) {
-		return game.modele.collisions(this, game.EM.getStatic());
+		return game.modele.collisions(this, game.EM.getStatic(),dir,type);
 	}
 }

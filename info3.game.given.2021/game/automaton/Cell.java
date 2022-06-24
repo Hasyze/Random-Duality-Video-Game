@@ -8,9 +8,41 @@ public class Cell implements ICondition{
 	Direction dir;
 	Type type;
 	
-	public Cell(Direction dir, Type type) {
-		this.dir = dir;
-		this.type = type;
+	public Type convert(String s) {
+		switch(s) {
+		case"A":
+			return Type.ADVERSAIRE;
+		case"C":
+			return Type.CLUE;
+		case"D":
+			return Type.DANGER;
+		case"G":
+			return Type.GATE;
+		case"J":
+			return Type.JUMPABLE;
+		case"M":
+			return Type.MISSILE;
+		case"O":
+			return Type.OBSTACLE;
+		case"P":
+			return Type.PRENDRE;
+		case"T":
+			return Type.TEAM;
+		case"V":
+			return Type.VOID;
+		case"@":
+			return Type.PLAYER;
+		case"_":
+			return Type.NIMPORTE;
+		default:
+			return Type.NIMPORTE;
+		
+		}
+	}
+	
+	public Cell(String dir, String type) {
+		this.dir = Direction.valueOf(dir);
+		this.type = convert(type);
 	}
 	
 	@Override

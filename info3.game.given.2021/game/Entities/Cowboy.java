@@ -84,11 +84,14 @@ public class Cowboy extends Entity {
 	
 	public void tick(EntityManager EM , long elapsed) throws IOException {
 		super.tick(EM, elapsed);
-		moveCD += elapsed;
-		if (moveCD > 24)
-			moveCD = 0;
 	}
 
+	public void move(Direction dir) {
+		super.move(dir);
+		if(moveCD<=0)
+			moveCD = 25;
+	}
+	
 	public void hit() throws IOException {
 		System.out.print("" + "" + "\n\n Creation balle \n\n");
 		ProjectileA balle = new ProjectileA(direction, modele, EM, x, y);

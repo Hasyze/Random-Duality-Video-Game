@@ -29,5 +29,7 @@ public enum Type {
 	public String getValue() {
 		return this.value;
 	}
+	
+	
 
 }

@@ -80,10 +80,6 @@ public class Cowboy extends Entity {
 		y = m_y;
 	}
 	
-
-	/*
-	 * Simple animation here, the cowbow
-	 */
 	public void tick(EntityManager EM , long elapsed) throws IOException {
 		super.tick(EM, elapsed);
 		moveCD += elapsed;

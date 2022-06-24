@@ -73,6 +73,10 @@ public class Game {
 	int niveau;
 
 	Cowboy m_cowboy, m_cowboy2;
+	
+	public Cowboy getPlayer() {
+		return m_cowboy2;
+	}
 
 	
 	public Game(Ressource Res2) throws Exception {

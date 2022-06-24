@@ -11,21 +11,21 @@ import info3.game.*;
 
 public abstract class Entity extends Object{
 	
-	public Automate Aut;
-	public String Name;
+	public Automate Aut; //
+	public String Name; //
 	protected Game game;
-	protected BufferedImage[] m_images;
+	protected BufferedImage[] m_images; //
 	protected int m_imageIndex;
 	protected int x = 0, y = 0;
-	protected Hitbox hitbox;
-	protected int type;
+	protected Hitbox hitbox; //
+	protected int type; //
 	protected Modele modele;
 	protected EntityManager EM;
 	public Direction direction = Direction.E; 
 	
 	// Stats
-	protected int speed;
-	protected int vie;
+	protected int speed; //
+	protected int vie; //
 	
 	// Cooldowns
 	protected long moveCD = 0; 
@@ -98,6 +98,9 @@ public abstract class Entity extends Object{
 	}
 	
 	public void transfert(Entity e) {
+		Automate temp = this.Aut;
+		this.Aut = e.Aut;
+		e.Aut = temp;
 	}
 	
 	public Entity egg() {

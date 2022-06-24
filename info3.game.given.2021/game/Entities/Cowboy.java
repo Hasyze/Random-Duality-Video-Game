@@ -38,18 +38,21 @@ import automaton.Automate;
  */
 public class Cowboy extends Entity {
 
+	Fantome doublure;
+
 	public Cowboy(Modele modele, EntityManager EM) throws IOException {
 		super(modele, EM);
 		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
 	}
-	public Cowboy(Modele model, String name,EntityManager EM) throws IOException{
+
+	public Cowboy(Modele model, String name, EntityManager EM) throws IOException {
 		super(model, EM);
 		this.Name = name;
 		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
 	}
 
-	public Cowboy(int m_x, int m_y, String name, int r,Game game) throws IOException {
-		super(game);		
+	public Cowboy(int m_x, int m_y, String name, int r, Game game) throws IOException {
+		super(game);
 		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
 		this.Name = name;
 		x = m_x;
@@ -62,7 +65,7 @@ public class Cowboy extends Entity {
 	}
 	
 	public Cowboy(Game game, int m_x, int m_y, String name, int r, Automate aut) throws IOException {
-		super(game);		
+		super(game);
 		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
 		this.Name = name;
 		this.Aut = aut;
@@ -73,29 +76,45 @@ public class Cowboy extends Entity {
 		hitbox = new Hitbox(r, x + width_hb, y + heigt_hb, 0);
 		type = 0;
 	}
-	
-	
+
 	public void Teleporte_joueur(int m_x, int m_y) {
 		x = m_x;
 		y = m_y;
 	}
-	
 
 	/*
 	 * Simple animation here, the cowbow
 	 */
-	public void tick(EntityManager EM , long elapsed) throws IOException {
+	public void tick(EntityManager EM, long elapsed) throws IOException {
 		super.tick(EM, elapsed);
 		moveCD += elapsed;
 		if (moveCD > 24)
 			moveCD = 0;
 	}
-	
+
 	public void hit() throws IOException {
-		System.out.print(""
-				+ ""
-				+ "\n\n Creation balle \n\n");
-		ProjectileA balle = new ProjectileA(direction, modele,EM,x,y);
+		System.out.print("" + "" + "\n\n Creation balle \n\n");
+		ProjectileA balle = new ProjectileA(direction, modele, EM, x, y);
 		this.EM.EM_add(balle);
+	}
+
+	public void paint(Graphics g, int originex, int originey) {
+
+		BufferedImage img = m_images[m_imageIndex];
+		if (vie <= 0) {
+			img = doublure.m_images[m_imageIndex];
 		}
+		int scale = 2;
+		g.drawImage(img, x - originex - getWidth(), y - originey - getHeight(), scale * img.getWidth(),
+				scale * img.getHeight(), null);
+		g.drawOval(x - originex - hitbox.getRayon(), y - originey - hitbox.getRayon(), hitbox.getRayon() * 2,
+				hitbox.getRayon() * 2);
+	}
+
+	public int getType() {
+		if (vie <= 0) {
+			return doublure.type;
+		}
+		return type;
+	}
 }

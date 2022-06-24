@@ -25,28 +25,21 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.function.BiConsumer;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import Entities.Cowboy;
+import Entities.Ennemis;
 import Entities.Entity;
 import Entities.Porte;
-//import Entities.Entity;
-//import Entities.Hitbox;
-//import Entities.Mur;
-import Entities.Rocher;
 import Map.Etage;
-import automaton.*;
 import Map.Salle;
 import Menu.Ressource;
 import info3.game.graphics.GameCanvas;
@@ -106,7 +99,7 @@ public class Game {
 		
 		
 		m_cowboy = new Cowboy(960, 1000, "Player1", 25, this);
-		m_cowboy2 = new Cowboy(960, 1000, "Player2", 25, this);
+		m_cowboy2 = new Cowboy(980, 1100, "Player2", 25, this);
 		
 		Res2.set_couple(m_cowboy);
 		Res2.set_couple(m_cowboy2);
@@ -255,6 +248,10 @@ public class Game {
 
 		// EM TICK STEPS
 		EM.tick(elapsed);
+		ArrayList<Entity> liste = EM.getDynamic();
+		for(Entity truc : liste) {
+			this.modele.collision(truc, liste);
+		}
 		
 		if (changement_de_salle != null) {	//à chaque tick on vérifie qu'il ne faut pas changer de salle
 			System.out.print("On doit changer de salle");

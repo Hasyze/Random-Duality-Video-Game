@@ -86,7 +86,6 @@ public class Cowboy extends Entity {
 	 */
 	public void tick(EntityManager EM , long elapsed) throws IOException {
 		super.tick(EM, elapsed);
-		System.out.println("OUi");
 		moveCD += elapsed;
 		if (moveCD > 24)
 			moveCD = 0;

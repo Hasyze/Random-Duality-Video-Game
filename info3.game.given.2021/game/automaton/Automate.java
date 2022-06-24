@@ -10,7 +10,6 @@ public class Automate {
 	public String name;
 	Etat current;
 	List<Etat> etats;
-	Type type;
 	
 	public Automate() {
 		name = "test";
@@ -23,7 +22,6 @@ public class Automate {
 		this.name = name;
 		this.current = initial;
 		this.etats = etats;
-		this.type = type;
 	}
 	public Automate(String Name) {
 		name = Name;

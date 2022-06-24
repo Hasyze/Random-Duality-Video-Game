@@ -34,7 +34,6 @@ public class ATransition {
 	}
 
 	public boolean testTransition(Entity e) throws Exception {
-		System.out.println("Test tranzi :" + condition.eval(e));
 		return condition.eval(e);
 	}
 	
@@ -65,8 +64,8 @@ public class ATransition {
 		}	
 		if ((value - percent) <= 0 && value>0) {
 			toApply.add(action);
-			this.value -= percent;
 		}
+		this.value -= percent;
 	}
 	
 	BiConsumer<IAction, Integer> apply = (action, percent) -> choose(action, percent);
@@ -75,12 +74,12 @@ public class ATransition {
 		if(actions.isEmpty())
 			return null;
 		Random r = new Random();
-		this.value = r.nextInt(100);	
+		this.value = r.nextInt(100);
 		actions.forEach(apply); //C'est ici qu'on applique nos tests a toutes les actions de la HashMap
-		System.out.println("To Apply :"+ toApply);
 		for(IAction a : toApply) {
 			a.apply(e);
 		}
+		this.toApply.clear();
 		return target;
 	}
 

@@ -63,6 +63,19 @@ public class Cowboy extends Entity {
 		type = 0;
 	}
 	
+	public Cowboy(Modele modele, int m_x, int m_y, String name, int r, Automate aut) throws IOException {
+		super(modele);		
+		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
+		this.Name = name;
+		this.Aut = aut;
+		x = m_x;
+		y = m_y;
+		int heigt_hb = (m_images[0].getHeight()) / 2;
+		int width_hb = (m_images[0].getWidth()) / 2;
+		hitbox = new Hitbox(r, x + width_hb, y + heigt_hb, 0);
+		type = 0;
+	}
+	
 	
 	public void Teleporte_joueur(int m_x, int m_y) {
 		x = m_x;
@@ -149,7 +162,8 @@ public class Cowboy extends Entity {
 	}
 	
 	public void move(Direction dir) {
-		switch (dir) {
+		super.move(dir);
+		/*switch (dir) {
 		
 		case W:
 			x_nspeed = speed;
@@ -168,7 +182,7 @@ public class Cowboy extends Entity {
 			break;
 		default:
 			break;
-		}
+		}*/
 		
 	}
 	

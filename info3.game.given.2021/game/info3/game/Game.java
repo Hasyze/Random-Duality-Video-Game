@@ -32,6 +32,7 @@ import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.BiConsumer;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -95,6 +96,10 @@ public class Game {
 		setupFrame();
 	}
 	
+	public CanvasListener getListener() {
+		return m_listener;
+	}
+	
 	private void Init_niveau(int niv, Ressource Res2) throws IOException {
 		EM = new EntityManager();
 		modele = new Modele(this);
@@ -109,6 +114,10 @@ public class Game {
 		
 		System.out.print("Test menu : cowboy 2 attribution automate : ");
 		System.out.print(m_cowboy2.Name + " "+m_cowboy2.Aut.name+"\n");
+		
+		
+
+		
 		
 		EM.EM_add(m_cowboy);
 		EM.EM_add(m_cowboy2);
@@ -236,15 +245,11 @@ public class Game {
 	 * that elapsed since the last time this method was invoked.
 	 */
 
-	long test = 0;
-
+	long test = 0;	
 	void tick(long elapsed) throws Exception {
 		test += elapsed;
 		if (test > 2500) {
 			test = 0;
-			EM.afficher_EM();
-			//System.out.println("C1 :" + m_cowboy.getx() + "-" + m_cowboy.gety() + "C2 :" + m_cowboy2.getx() + "-"
-					//+ m_cowboy2.gety() + "ROC :" + rocher.getx() + "-" + rocher.gety());
 		}
 
 		// EM TICK STEPS

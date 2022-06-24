@@ -24,8 +24,6 @@ public class Etat {
 	
 	public Etat doTransition(Entity e) throws Exception {
 		for(int i = 0; i<transitions.size();i++) {
-			System.out.println("OKOKOK" + transitions.get(i).toString());
-
 			if(transitions.get(i).testTransition(e)) {
 				return transitions.get(i).applyTransition(e);
 			}

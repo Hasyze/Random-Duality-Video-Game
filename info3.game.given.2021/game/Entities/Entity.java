@@ -15,13 +15,12 @@ import automaton.Automate;
 import info3.game.*;
 
 public abstract class Entity extends Object{
-
+	
 	public Automate Aut;
 	public String Name;
-	
+	protected Game game;
 	protected BufferedImage[] m_images;
 	protected int m_imageIndex;
-
 	protected int x = 10, y = 10;
 	protected int x_speed;
 	protected int y_speed;
@@ -60,7 +59,7 @@ public abstract class Entity extends Object{
 		x_nspeed = 0;
 		y_nspeed = 0;
 		vie = 1;
-		speed = 10;
+		speed = 4;
 	}
 	public Entity(Modele modele, String Name) {
 		System.out.print(Name);
@@ -82,23 +81,31 @@ public abstract class Entity extends Object{
 	public void move() {
 	}
 	
+	
+	
 	public void move(Direction dir) {
 		switch (dir) {
-		
+		case F:
+			move(this.direction);
+			break;
 		case W:
 			x_nspeed = speed;
+			//x-= speed;
 			break;
 		
 		case E:
 			x_speed = speed;
+			//x+=speed;
 			break;
 		
 		case N:
 			y_nspeed = speed;
+			//y-=speed;
 			break;
 		
 		case S:
 			y_speed = speed;
+			//y+=speed;
 			break;
 		default:
 			break;
@@ -114,7 +121,6 @@ public abstract class Entity extends Object{
 			break;
 		
 		case E:
-			System.out.println("JE PASSE BIEN PAR ICI");
 			x_speed = 0;
 			break;
 		
@@ -182,8 +188,8 @@ public abstract class Entity extends Object{
 		vie += i;
 	}
 
-	public void step() {
-		// TODO : step automates pour l'aut de chaque entity.
+	public void step() throws Exception {
+		this.Aut.step(this);
 	}
 
 	int m_moveElapsed = 0;
@@ -263,5 +269,8 @@ public abstract class Entity extends Object{
 	}
 	boolean GotStuff() {
 		return false;
+		
+	public boolean key(Key k) {
+		return this.game.getListener().key(k);
 	}
 }

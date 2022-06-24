@@ -80,13 +80,32 @@ public class BotBuilder implements IVisitor {
 
 	@Override
 	public Object visit(BinaryOp operator, Object left, Object right) {
-		return new BinaryOperation((ICondition)convertAppelFonc((AppelFonc) left), (ICondition)convertAppelFonc((AppelFonc) right),
-				operator.toString());
+		
+		try {
+			left = (ICondition)convertAppelFonc((AppelFonc) left);
+		}catch(Exception e){
+		}
+		try {
+			right = (ICondition)convertAppelFonc((AppelFonc) right);
+		}catch(Exception e){
+		}
+		
+		
+		return new BinaryOperation((ICondition)left, (ICondition)right,
+				operator.operator);
 	}
 
 	@Override
 	public Object visit(UnaryOp operator, Object expression) {
-		return new UnaryOperation((ICondition)convertAppelFonc((AppelFonc) expression), operator.toString());
+		
+		try {
+			return new UnaryOperation((ICondition)convertAppelFonc((AppelFonc) expression), operator.operator);
+		}
+		catch(Exception e) {
+			return new UnaryOperation((ICondition)expression, operator.operator);
+		}
+		
+		
 	}
 
 	@Override
@@ -126,7 +145,12 @@ public class BotBuilder implements IVisitor {
 
 	@Override
 	public Object exit(Condition condition, Object expression) {
-		return convertAppelFonc((AppelFonc) expression);
+		try {
+			return convertAppelFonc((AppelFonc) expression);
+		}
+		catch(Exception e) {
+			return expression;
+		}
 	}
 
 	@Override
@@ -146,8 +170,6 @@ public class BotBuilder implements IVisitor {
 	@Override
 	public Object visit(Transition transition, Object condition, Object action, Object target_state) {
 		return new ATransition((ICondition)condition, (Etat)target_state, (Map<IAction, Integer>)action);
-		// return new ATransition(convertCondition((Condition) condition), new
-		// Etat(((State) target_state).toString()));
 	}
 
 	@Override
@@ -224,7 +246,7 @@ public class BotBuilder implements IVisitor {
 		//ACTIONS
 		case "Move":
 			return new Move(af.arguments.get(0));
-		case "Pop":
+		/*case "Pop":
 			return new Pop(af.arguments.get(0));
 		case "Wizz":
 			return new Wizz(af.arguments.get(0));
@@ -254,7 +276,7 @@ public class BotBuilder implements IVisitor {
 			return new Cell(af.arguments.get(0), af.arguments.get(1));
 		case "Closest":
 			return new Closest(af.arguments.get(0), af.arguments.get(1));
-
+		*/
 		default:
 			System.out.println("Non ajouté dans le switch AppelFonc2 dans BotBuilder :" + af.name);
 			return null;

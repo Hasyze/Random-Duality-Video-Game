@@ -3,6 +3,7 @@ package Map;
 import java.io.IOException;
 import java.util.Random;
 
+import info3.game.EntityManager;
 import info3.game.Modele;
 
 public class Etage {
@@ -14,24 +15,24 @@ public class Etage {
 
 	int niveau;
 
-	public Etage(Modele modele, int niv) throws IOException {
+	public Etage(Modele modele, int niv, EntityManager EM) throws IOException {
 		this.modele = modele;
 		
 		salles = new Salle[niv + 3];
 		this.niveau = niv;
-		this.init_etage();
-		this.creer_salles();
+		this.init_etage(EM);
+		this.creer_salles(EM);
 		this.lier_salles();
-		this.Ajout_salle_boss();
+		this.Ajout_salle_boss(EM);
 	}
 
-	void init_etage() throws IOException { // Créer l'entrée
+	void init_etage(EntityManager EM) throws IOException { // Créer l'entrée
 		Random r = new Random();
 		int j = r.nextInt(3) + 1;
-		salles[0] = new Salle(modele, j, "entree");
+		salles[0] = new Salle(modele, j, "entree", EM);
 	}
 
-	void creer_salles() throws IOException { // créé toutes les salles et leur portes entre l'entrée et le boss
+	void creer_salles(EntityManager EM) throws IOException { // créé toutes les salles et leur portes entre l'entrée et le boss
 
 		for (int i = 1; i < niveau + 2; i++) {
 			int nbr_de_porte_valide = 0; // Passe à un lorsque le nombre de porte choisi ne créer pas une boucle
@@ -47,7 +48,7 @@ public class Etage {
 			if (i == niveau + 1) {
 				j = nbr_a_eviter + 1;
 			}
-			salles[i] = new Salle(modele, j, "normale");
+			salles[i] = new Salle(modele, j, "normale", EM);
 		}
 
 	}
@@ -114,11 +115,11 @@ public class Etage {
 		}
 	}
 
-	void Ajout_salle_boss() throws IOException {
-		salles[niveau + 2] = new Salle(modele, 1, "boss"); // On créer la salle du boss
+	void Ajout_salle_boss(EntityManager EM) throws IOException {
+		salles[niveau + 2] = new Salle(modele, 1, "boss", EM); // On créer la salle du boss
 
 		if (salles[niveau + 1].Porte_non_liees() == false) { // Si pas assez de porte dans la salle précédent le boss
-			salles[niveau + 1].Ajouter_portes(1); // On en rajoute une
+			salles[niveau + 1].Ajouter_portes(1, EM); // On en rajoute une
 		}
 
 		salles[niveau + 1].Lier_deux_salles(salles[niveau + 2]); // On lie la salle du boss et l'avant dernière salle

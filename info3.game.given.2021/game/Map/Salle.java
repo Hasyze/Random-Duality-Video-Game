@@ -50,7 +50,7 @@ public class Salle {
 
 	//** INITIALISATION SALLE **//
 	
-	Salle(Modele modele, int nbr_de_portes, String type) throws IOException {
+	Salle(Modele modele, int nbr_de_portes, String type, EntityManager EM) throws IOException {
 		this.modele = modele;
 
 		this.portes = new Porte[4];
@@ -59,7 +59,7 @@ public class Salle {
 		this.type = type;
 		this.background = this.init_background();
 
-		this.Ajouter_portes(nbr_de_portes);
+		this.Ajouter_portes(nbr_de_portes, EM);
 		this.set_compo(type);
 	}
 
@@ -106,7 +106,7 @@ public class Salle {
 		background[1] = loadImage("resources/images_test/sprite_mur2.png");
 		background[2] = loadImage("resources/images_test/grey_background.jpg");
 		Random rand = new Random();
-		int r = rand.nextInt(2);
+		int r = rand.nextInt(2); // never used
 		return background[2];
 	}
 
@@ -134,16 +134,16 @@ public class Salle {
 	
 	//** CREATION ETAGE **//
 
-	void Ajouter_portes(int nbr_de_portes) throws IOException { // Ajoute plusieurs portes
+	void Ajouter_portes(int nbr_de_portes, EntityManager EM) throws IOException { // Ajoute plusieurs portes
 		for (int i = 0; i < nbr_de_portes; i++) {
-			boolean v = Ajouter_une_porte();
+			boolean v = Ajouter_une_porte(EM);
 			if (v) {
 				nbr_portes++;
 			} // Si l'ajout à réussi, on incrémente nbr_portes
 		}
 	}
 
-	boolean Ajouter_une_porte() throws IOException { // Ajoute une porte sur un des côtés (Aléatoire), renvoie false si aucune porte n'a pu être ajoutée
+	boolean Ajouter_une_porte(EntityManager EM) throws IOException { // Ajoute une porte sur un des côtés (Aléatoire), renvoie false si aucune porte n'a pu être ajoutée
 
 		// Ici on vérifie qu'il reste au moins un emplacement de porte non utilisé
 		boolean emplacement_dispo = false;
@@ -161,7 +161,7 @@ public class Salle {
 			Random r = new Random();
 			int j = r.nextInt(4);
 			if (portes[j] == null) {
-				portes[j] = new Porte(modele, this, j);
+				portes[j] = new Porte(modele, this, j, EM);
 				return true;
 			}
 		}
@@ -241,7 +241,7 @@ public class Salle {
 				//System.out.print(x);
 				switch (x) {
 				case 49 :
-					EM.EM_add(new Mur(modele, i*40, j*40, "Mur", 20));
+					EM.EM_add(new Mur(modele, i*40, j*40, "Mur", 20,EM));
 					break;
 				case 50 :
 					if ( (j == 0) && (portes[0] != null) ) {
@@ -258,15 +258,15 @@ public class Salle {
 					}
 					
 					else {
-						EM.EM_add(new Mur(modele, i*40, j*40, "Mur_Porte", 20));
+						EM.EM_add(new Mur(modele, i*40, j*40, "Mur_Porte", 20, EM));
 					}
 					break;
 				case 51 :
-					EM.EM_add(new Rocher(modele, i*40, j*40, "Rocher", 20));
+					EM.EM_add(new Rocher(modele, i*40, j*40, "Rocher", 20, EM));
 					break;
 				case 52 :
 					
-					EM.EM_add(new Mur(modele, i*40, j*40, "Ennemis", 20));
+					EM.EM_add(new Mur(modele, i*40, j*40, "Ennemis", 20, EM));
 					break;
 				}
 				

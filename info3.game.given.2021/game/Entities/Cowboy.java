@@ -41,18 +41,18 @@ public class Cowboy extends Entity {
 	private long m_imageElapsed;
 	private long m_moveElapsed;
 
-	public Cowboy(Modele modele) throws IOException {
-		super(modele);
+	public Cowboy(Modele modele, EntityManager EM) throws IOException {
+		super(modele, EM);
 		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
 	}
-	public Cowboy(Modele model, String name) throws IOException{
-		super(model);
+	public Cowboy(Modele model, String name,EntityManager EM) throws IOException{
+		super(model, EM);
 		this.Name = name;
 		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
 	}
 
-	public Cowboy(Modele modele, int m_x, int m_y, String name, int r) throws IOException {
-		super(modele);		
+	public Cowboy(Modele modele, int m_x, int m_y, String name, int r,EntityManager EM) throws IOException {
+		super(modele, EM);		
 		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
 		this.Name = name;
 		x = m_x;
@@ -73,8 +73,8 @@ public class Cowboy extends Entity {
 	/*
 	 * Simple animation here, the cowbow
 	 */
-	public void tick(long elapsed, EntityManager EM) {
-		super.tick(EM, elapsed);
+	public void tick(long elapsed, EntityManager EM) throws IOException {
+		super.tick(EM, elapsed);	
 		m_imageElapsed += elapsed;
 		m_moveElapsed += elapsed;
 		if (m_imageElapsed > 1500) {
@@ -82,18 +82,6 @@ public class Cowboy extends Entity {
 		}
 		if (m_moveElapsed > 2000) {
 			m_moveElapsed = 0;
-
-			//Aut.step(this);
-			/*if (x_speed > 0 || y_speed > 0 || x_nspeed > 0 || y_nspeed > 0) {
-				ArrayList<Entity> Dynamic = EM.getDynamic();
-				if (!(modele.collisions(this, Dynamic))) {
-					x = (x + x_speed - x_nspeed);
-					y = (y + y_speed - y_nspeed);
-					
-				}
-			}
-			System.out.println("Speed x:"+x_speed);
-		}*/
 		set_orientation();
 		}
 	}
@@ -185,7 +173,15 @@ public class Cowboy extends Entity {
 	}
 	
 	
-
+	public void hit() throws IOException {
+		System.out.print(""
+				+ ""
+				+ "\n\n Creation balle \n\n");
+		ProjectileA balle = new ProjectileA(direction, modele,EM,x,y);
+		this.EM.EM_add(balle);
+		}
+	
+	
 	public void stop(int code) {
 		switch (code) {
 		case 37:

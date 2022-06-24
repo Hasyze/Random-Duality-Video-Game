@@ -59,31 +59,24 @@ public class EntityManager {
 	public int EM_remove(Entity obj) {
 		if (obj.Aut == null) {// alors il est static;
 			Static.remove(obj);
-//System.out.print("Obj : "+ obj.Name +" added to New_Static\n");
 			return 1;
 		} else if (obj.Aut != null) {// alors il est dynamic;
-			Dynamic.remove(obj);// System.out.print("Obj : "+obj.Name +" added to New_Dynamic\n");
+			Dynamic.remove(obj);
 			return 1;
 		} else {
-//System.out.print("ERREUR ADD, ni static ni dynamic : "+ obj);
 			return 0;
 		}
 
 	}
 
 	public void vider_entity_manager() {
-		ArrayList<Entity> List = new ArrayList<Entity>();
-		List = sort_affichage();
-		for (int i = 0; i < List.size(); i++) {
-			if (List.get(i).getType() != 0) {
-				EM_remove(List.get(i));
-			}
-		}
+		 this.New_Dynamic.clear();
+	     this.New_Static.clear();
+	     this.Static.clear();
+	     Dynamic.removeIf(n -> n.getType() != 0);
 	}
-
-	 
-
-
+	
+	
 	protected void organize() { // regarde toutes les entitées dynamiques, si leur flag vie = 0, alors elles dégagent car elles sont mortes.
 							    // les static ne peuvent pas mourir car leur automate est nul => pas de concept de vie 
 		//System.out.print("Dynamic : size "+Dynamic.size()+"\n");

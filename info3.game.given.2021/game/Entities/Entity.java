@@ -29,7 +29,8 @@ public abstract class Entity extends Object{
 	protected int y_nspeed;
 	protected Hitbox hitbox;
 	protected int type;
-	protected Modele modele; // ??
+	protected Modele modele; // 
+	protected EntityManager EM;
 	
 	/**
 	 * Type 
@@ -49,8 +50,9 @@ public abstract class Entity extends Object{
 	protected int speed;
 	protected int vie;
 
-	public Entity(Modele modele) {	
+	public Entity(Modele modele, EntityManager EM) {	
 		this.modele = modele;
+		this.EM =EM;
 		m_images = null;
 		m_imageIndex = 0;
 		x_speed = 0;
@@ -253,5 +255,13 @@ public abstract class Entity extends Object{
 		return null;
 	}
 	
-
+	boolean MyDir(Direction Dir) {
+		return Dir==this.direction;
+		}
+	boolean GotPower() {
+		return true;
+	}
+	boolean GotStuff() {
+		return false;
+	}
 }

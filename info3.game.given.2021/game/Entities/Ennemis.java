@@ -10,8 +10,8 @@ public class Ennemis extends Entity {
 	private long m_imageElapsed;
 	private long m_moveElapsed;
 
-	public Ennemis(Modele modele) throws IOException {
-		super(modele);
+	public Ennemis(Modele modele, EntityManager EM) throws IOException {
+		super(modele, EM);
 		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
 	}
 	
@@ -56,6 +56,10 @@ public class Ennemis extends Entity {
 
 		}
 	}
+	public void hit() throws IOException {
+		ProjectileE balle = new ProjectileE(direction, modele,EM,x,y);
+		this.EM.EM_add(balle);
+		}
 
 	public void move(int code) {
 		switch (code) {

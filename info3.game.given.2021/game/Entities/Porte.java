@@ -29,8 +29,8 @@ public class Porte extends Entity {
 	 */
 	
 
-	public Porte(Modele modele, Salle salle, int orientation) throws IOException {	//Créer une porte dans une salle sans la lié à une autre salle
-		super(modele);
+	public Porte(Modele modele, Salle salle, int orientation, EntityManager EM) throws IOException {	//Créer une porte dans une salle sans la lié à une autre salle
+		super(modele, EM);
 		this.m_images = loadSprite("resources/images_test/jaune_20x20.jpg",1,1);
 		BufferedImage img = this.m_images[0];
 		salle_origine = salle;

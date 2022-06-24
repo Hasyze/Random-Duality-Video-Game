@@ -99,8 +99,8 @@ public class Game {
 		EM = new EntityManager();
 		modele = new Modele(this);
 		
-		m_cowboy = new Cowboy(modele, 960, 1000, "Player1", 25);
-		m_cowboy2 = new Cowboy( modele, 960, 1000, "Player2", 25);
+		m_cowboy = new Cowboy(modele, 960, 1000, "Player1", 25, EM);
+		m_cowboy2 = new Cowboy( modele, 960, 1000, "Player2", 25, EM);
 		
 		Res2.set_couple(m_cowboy);
 		Res2.set_couple(m_cowboy2);
@@ -113,7 +113,7 @@ public class Game {
 		EM.EM_add(m_cowboy);
 		EM.EM_add(m_cowboy2);
 		
-		etage = new Etage(modele, niv);
+		etage = new Etage(modele, niv, EM);
 
 		
 		salle_courante = etage.salles[0];
@@ -242,7 +242,7 @@ public class Game {
 		test += elapsed;
 		if (test > 2500) {
 			test = 0;
-			//EM.afficher_EM();
+			EM.afficher_EM();
 			//System.out.println("C1 :" + m_cowboy.getx() + "-" + m_cowboy.gety() + "C2 :" + m_cowboy2.getx() + "-"
 					//+ m_cowboy2.gety() + "ROC :" + rocher.getx() + "-" + rocher.gety());
 		}

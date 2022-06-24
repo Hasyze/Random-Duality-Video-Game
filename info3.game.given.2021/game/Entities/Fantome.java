@@ -7,8 +7,8 @@ import java.io.IOException;
 public class Fantome extends Entity{
 	
 	
-	public Fantome (Modele model, int m_x, int m_y, String name, int r) throws IOException{
-		super(model);
+	public Fantome (Modele model, int m_x, int m_y, String name, int r, EntityManager EM) throws IOException{
+		super(model, EM);
 		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
 		this.Name = name;
 		x= m_x;

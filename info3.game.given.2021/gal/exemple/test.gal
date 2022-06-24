@@ -1,11 +1,23 @@
-Trois(Init){
+Joueur1(Init){
   * (Init)
-  | True ? Move(N) :(Deux)
-  *(Deux)
+  | Key(z) & Key(q) ? Move(NW) :(Init)
+  | Key(z) & Key(d) ? Move(NE) :(Init)
+  | Key(s) & Key(q) ? Move(SW) :(Init)
+  | Key(s) & Key(d) ? Move(SE) :(Init)
+  | Key(z) ? Move(N) :(Init)
+  | Key(q) ? Move(W) :(Init)
+  | Key(s) ? Move(S) :(Init)
+  | Key(d) ? Move(E) :(Init)
 }
-Test(Init){
+
+Joueur2(Init){
   * (Init)
-  | True ? 50%Move / 50%Pop :(Deux)
-  *(Deux)
-  | True ? 50%Move / 50%Pop :(Init)
+  | Key(FU) & Key(FR) ? Move(NE) :(Init)
+  | Key(FL) & Key(FU) ? Move(NW) :(Init)
+  | Key(FD) & Key(FR) ? Move(SE) :(Init)
+  | Key(FD) & Key(FL) ? Move(SW) :(Init)
+  | Key(FU) ? Move(N) :(Init)
+  | Key(FL) ? Move(W) :(Init)
+  | Key(FD) ? Move(S) :(Init)
+  | Key(FR) ? Move(E) :(Init)
 }

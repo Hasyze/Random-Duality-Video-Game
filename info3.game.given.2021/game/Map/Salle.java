@@ -47,19 +47,21 @@ public class Salle {
 	public Image background; // Fond d'ecran de la salle
 	
 	Modele modele; //On en a besoin pour les constructeurs
+	
+	Game game;
 
 	//** INITIALISATION SALLE **//
 	
-	Salle(Modele modele, int nbr_de_portes, String type, EntityManager EM) throws IOException {
-		this.modele = modele;
-
+	Salle(int nbr_de_portes, String type, Game game) throws IOException {
+		this.modele = game.modele;
+		this.game = game;
 		this.portes = new Porte[4];
 		this.nbr_portes = 0;
 		this.compo = new int[49][49];
 		this.type = type;
 		this.background = this.init_background();
 
-		this.Ajouter_portes(nbr_de_portes, EM);
+		this.Ajouter_portes(nbr_de_portes, game.EM);
 		this.set_compo(type);
 	}
 
@@ -161,7 +163,7 @@ public class Salle {
 			Random r = new Random();
 			int j = r.nextInt(4);
 			if (portes[j] == null) {
-				portes[j] = new Porte(modele, this, j, EM);
+				portes[j] = new Porte(this, j, game);
 				return true;
 			}
 		}
@@ -241,7 +243,7 @@ public class Salle {
 				//System.out.print(x);
 				switch (x) {
 				case 49 :
-					EM.EM_add(new Mur(modele, i*40, j*40, "Mur", 20,EM));
+					EM.EM_add(new Mur(i*40, j*40, "Mur", 20,game));
 					break;
 				case 50 :
 					if ( (j == 0) && (portes[0] != null) ) {
@@ -258,15 +260,15 @@ public class Salle {
 					}
 					
 					else {
-						EM.EM_add(new Mur(modele, i*40, j*40, "Mur_Porte", 20, EM));
+						EM.EM_add(new Mur(i*40, j*40, "Mur_Porte", 20, game));
 					}
 					break;
 				case 51 :
-					EM.EM_add(new Rocher(modele, i*40, j*40, "Rocher", 20, EM));
+					EM.EM_add(new Rocher(i*40, j*40, "Rocher", 20, game));
 					break;
 				case 52 :
 					
-					EM.EM_add(new Mur(modele, i*40, j*40, "Ennemis", 20, EM));
+					EM.EM_add(new Mur(i*40, j*40, "Ennemis", 20, game));
 					break;
 				}
 				

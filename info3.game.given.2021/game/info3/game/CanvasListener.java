@@ -43,32 +43,36 @@ public class CanvasListener implements GameCanvasListener {
 	}
 
 	public boolean key(Key k) {
-		switch (k) {
-		case Z:
-			return keyboard.get(90);
-		case Q:
-			return keyboard.get(81);
-		case S:
-			return keyboard.get(83);
-		case D:
-			return keyboard.get(68);
-		case FU:
-			return keyboard.get(37);
-		case FL:
-			return keyboard.get(38);
-		case FD:
-			return keyboard.get(40);
-		case FR:
-			return keyboard.get(39);
-		case SPACE:
-			return keyboard.get(32);
-		case ENTER:
-			return keyboard.get(10);
-		case A:
-			return keyboard.get(65);
-		case E:
-			return keyboard.get(69);
-		default:
+		try {
+			switch (k) {
+			case Z:
+				return keyboard.get(90);
+			case Q:
+				return keyboard.get(81);
+			case S:
+				return keyboard.get(83);
+			case D:
+				return keyboard.get(68);
+			case FU:
+				return keyboard.get(38);
+			case FL:
+				return keyboard.get(37);
+			case FD:
+				return keyboard.get(40);
+			case FR:
+				return keyboard.get(39);
+			case SPACE:
+				return keyboard.get(32);
+			case ENTER:
+				return keyboard.get(10);
+			case A:
+				return keyboard.get(65);
+			case E:
+				return keyboard.get(69);
+			default:
+				return false;
+			}
+		} catch (Exception e) {
 			return false;
 		}
 	}
@@ -138,7 +142,7 @@ public class CanvasListener implements GameCanvasListener {
 			keyboard.replace(e.getKeyCode(), true);
 		}
 
-		switch (e.getKeyCode()) {
+		/*switch (e.getKeyCode()) {
 		case 37:
 		case 38:
 		case 39:
@@ -152,7 +156,7 @@ public class CanvasListener implements GameCanvasListener {
 			m_game.m_cowboy2.movet(e.getKeyCode());
 			break;
 		}
-		;
+		;*/
 	}
 
 	@Override
@@ -161,7 +165,7 @@ public class CanvasListener implements GameCanvasListener {
 		// e.getKeyCode());
 		keyboard.replace(e.getKeyCode(), false);
 
-		switch (e.getKeyCode()) {
+		/*switch (e.getKeyCode()) {
 		case 37:
 		case 38:
 		case 39:
@@ -174,7 +178,7 @@ public class CanvasListener implements GameCanvasListener {
 		case 68:
 			m_game.m_cowboy2.stop(e.getKeyCode());
 			break;
-		}
+		}*/
 	}
 
 	@Override

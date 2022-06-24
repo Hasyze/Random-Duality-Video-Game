@@ -64,8 +64,8 @@ public class Game {
 	CanvasListener m_listener;
 	Sound m_music;
 	
-	EntityManager EM;
-	Modele modele;
+	public EntityManager EM;
+	public Modele modele;
 
 	Etage etage;
 	Salle salle_courante;
@@ -78,6 +78,8 @@ public class Game {
 	public Game(Ressource Res2) throws Exception {
 		niveau = 1;
 		changement_de_salle = null;
+		EM = new EntityManager();
+		modele = new Modele(this);
 		
 		Init_niveau(niveau, Res2);
 		
@@ -101,11 +103,10 @@ public class Game {
 	}
 	
 	private void Init_niveau(int niv, Ressource Res2) throws IOException {
-		EM = new EntityManager();
-		modele = new Modele(this);
 		
-		m_cowboy = new Cowboy(modele, 960, 1000, "Player1", 25, EM);
-		m_cowboy2 = new Cowboy( modele, 960, 1000, "Player2", 25, EM);
+		
+		m_cowboy = new Cowboy(960, 1000, "Player1", 25, this);
+		m_cowboy2 = new Cowboy(960, 1000, "Player2", 25, this);
 		
 		Res2.set_couple(m_cowboy);
 		Res2.set_couple(m_cowboy2);
@@ -122,7 +123,7 @@ public class Game {
 		EM.EM_add(m_cowboy);
 		EM.EM_add(m_cowboy2);
 		
-		etage = new Etage(modele, niv, EM);
+		etage = new Etage(niv, this);
 
 		
 		salle_courante = etage.salles[0];

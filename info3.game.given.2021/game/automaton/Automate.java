@@ -47,7 +47,7 @@ public class Automate {
 		}
 	}
 	public boolean autStatic() {
-        return (etats.size() == 1);
+        return (etats.size() == 1) && (etats.get(0).transitions.size()<=1);
     }
 
 }

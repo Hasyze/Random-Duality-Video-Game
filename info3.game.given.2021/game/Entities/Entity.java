@@ -1,16 +1,11 @@
 package Entities;
 
 import java.awt.Graphics;
-
 import automaton.*;
 import java.awt.image.BufferedImage;
-
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.imageio.ImageIO;
-
 import automaton.Automate;
 import info3.game.*;
 
@@ -21,120 +16,85 @@ public abstract class Entity extends Object{
 	protected Game game;
 	protected BufferedImage[] m_images;
 	protected int m_imageIndex;
-	protected int x = 10, y = 10;
-	protected int x_speed;
-	protected int y_speed;
-	protected int x_nspeed;
-	protected int y_nspeed;
+	protected int x = 0, y = 0;
 	protected Hitbox hitbox;
 	protected int type;
-	protected Modele modele; // 
+	protected Modele modele;
 	protected EntityManager EM;
-	
-	/**
-	 * Type 
-	 * 0: Joueur 
-	 * 1: Ennemi 
-	 * 2: Missile Ennemi 
-	 * 3: Missile Joueur 
-	 * 4: Fantome
-	 * 5: Rocher 
-	 * 6: Mur 
-	 * 7: Porte
-	 **/
-
 	public Direction direction = Direction.E; 
 	
 	// Stats
 	protected int speed;
 	protected int vie;
+	
+	// Cooldowns
+	protected long moveCD = 0; 
 
-	public Entity(Modele modele, EntityManager EM) {	
-		this.modele = modele;
-		this.EM =EM;
+
+	public Entity(Game game) {	
+		this.Name = "Undefined";
+		this.game = game;
 		m_images = null;
 		m_imageIndex = 0;
-		x_speed = 0;
-		y_speed = 0;
-		x_nspeed = 0;
-		y_nspeed = 0;
-		vie = 1;
-		speed = 4;
+		this.type = -1; 
+		this.modele = game.modele;
+		this.EM = game.EM;		
+		vie = 1000;
+		speed = 0;
 	}
+	
 	public Entity(Modele modele, String Name) {
 		System.out.print(Name);
-		//this.EM = em;
 		this.Name = Name;
 		
 		this.modele = modele;
 
 		m_images = null;
 		m_imageIndex = 0;
-		x_speed = 0;
-		y_speed = 0;
-		x_nspeed = 0;
-		y_nspeed = 0;
 		vie = 1;
-		speed = 100;
+		speed = 4;
 	}
-
-	public void move() {
-	}
-	
-	
 	
 	public void move(Direction dir) {
+		this.direction = dir;
+		if(moveCD > 0) {
+			return;
+		}
 		switch (dir) {
 		case F:
 			move(this.direction);
 			break;
+		case NW:
+			x-=speed;
+			y-=speed;
+			break;
+		case NE:
+			x+=speed;
+			y-=speed;
+			break;
+		case SW:
+			x-=speed;
+			y+=speed;
+			break;
+		case SE:
+			x+=speed;
+			y+=speed;
+			break;
 		case W:
-			x_nspeed = speed;
-			//x-= speed;
+			x-= speed;
 			break;
-		
 		case E:
-			x_speed = speed;
-			//x+=speed;
+			x+=speed;
 			break;
-		
 		case N:
-			y_nspeed = speed;
-			//y-=speed;
+			y-=speed;
 			break;
-		
 		case S:
-			y_speed = speed;
-			//y+=speed;
+			y+=speed;
 			break;
 		default:
 			break;
-		}
-		
-	}
-
-	public void stop(Direction dir) {
-		switch (dir) {
-		
-		case W:
-			x_nspeed = 0;
-			break;
-		
-		case E:
-			x_speed = 0;
-			break;
-		
-		case N:
-			y_nspeed = 0;
-			break;
-		
-		case S:
-			y_speed = 0;
-			break;
-		default:
-			break;
-		}
-		
+		}	
 	}
 	
 	public void transfert(Entity e) {
@@ -192,21 +152,9 @@ public abstract class Entity extends Object{
 		this.Aut.step(this);
 	}
 
-	int m_moveElapsed = 0;
-	public void tick(EntityManager em,long elapsed) {
-		m_moveElapsed += elapsed;
+	public void tick(EntityManager em,long elapsed) throws IOException {
+		moveCD += elapsed;
 		hitbox.relocate(x, y);
-		if (m_moveElapsed > 24) {
-			m_moveElapsed = 0;
-			if(x_speed>0 || y_speed>0 || x_nspeed>0 || y_nspeed>0) {
-				ArrayList<Entity> Static = em.getStatic();
-				ArrayList<Entity> col = modele.collision(this, Static);
-				if(col.isEmpty()) {		
-					x = (x + x_speed - x_nspeed);
-					y = (y + y_speed - y_nspeed);
-				}
-			}
-		}
 	}
 
 	public Hitbox getHitbox() {
@@ -215,22 +163,6 @@ public abstract class Entity extends Object{
 
 	public int getType() {
 		return type;
-	}
-
-	public int getx_speed() {
-		return x_speed;
-	}
-
-	public int gety_speed() {
-		return y_speed;
-	}
-
-	public int getx_nspeed() {
-		return x_nspeed;
-	}
-
-	public int gety_nspeed() {
-		return y_nspeed;
 	}
 
 	public int getWidth() {
@@ -261,16 +193,20 @@ public abstract class Entity extends Object{
 		return null;
 	}
 	
-	boolean MyDir(Direction Dir) {
+	public boolean MyDir(Direction Dir) {
 		return Dir==this.direction;
 		}
-	boolean GotPower() {
-		return true;
+	public boolean GotPower() {
+		return vie>0;
 	}
-	boolean GotStuff() {
+	public boolean GotStuff() {
 		return false;
+	}
 		
 	public boolean key(Key k) {
 		return this.game.getListener().key(k);
+	}
+	public boolean cell(Direction dir, Type type) {
+		return game.modele.collisions(this, game.EM.getStatic());
 	}
 }

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Random;
 
 import info3.game.EntityManager;
+import info3.game.Game;
 import info3.game.Modele;
 
 public class Etage {
@@ -12,24 +13,24 @@ public class Etage {
 	
 	public Salle[] salles; // Tableau des salle. salles[0] est l'entrée, et la dernière est la salle du
 					// boss
-
+	Game game;
 	int niveau;
 
-	public Etage(Modele modele, int niv, EntityManager EM) throws IOException {
-		this.modele = modele;
-		
+	public Etage(int niv, Game game) throws IOException {
+		this.modele = game.modele;
+		this.game = game;
 		salles = new Salle[niv + 3];
 		this.niveau = niv;
-		this.init_etage(EM);
-		this.creer_salles(EM);
+		this.init_etage(game.EM);
+		this.creer_salles(game.EM);
 		this.lier_salles();
-		this.Ajout_salle_boss(EM);
+		this.Ajout_salle_boss(game.EM);
 	}
 
 	void init_etage(EntityManager EM) throws IOException { // Créer l'entrée
 		Random r = new Random();
 		int j = r.nextInt(3) + 1;
-		salles[0] = new Salle(modele, j, "entree", EM);
+		salles[0] = new Salle(j, "entree", game);
 	}
 
 	void creer_salles(EntityManager EM) throws IOException { // créé toutes les salles et leur portes entre l'entrée et le boss
@@ -48,7 +49,7 @@ public class Etage {
 			if (i == niveau + 1) {
 				j = nbr_a_eviter + 1;
 			}
-			salles[i] = new Salle(modele, j, "normale", EM);
+			salles[i] = new Salle(j, "normale", game);
 		}
 
 	}
@@ -116,7 +117,7 @@ public class Etage {
 	}
 
 	void Ajout_salle_boss(EntityManager EM) throws IOException {
-		salles[niveau + 2] = new Salle(modele, 1, "boss", EM); // On créer la salle du boss
+		salles[niveau + 2] = new Salle(1, "boss", game); // On créer la salle du boss
 
 		if (salles[niveau + 1].Porte_non_liees() == false) { // Si pas assez de porte dans la salle précédent le boss
 			salles[niveau + 1].Ajouter_portes(1, EM); // On en rajoute une

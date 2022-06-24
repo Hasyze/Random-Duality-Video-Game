@@ -11,8 +11,8 @@ public class Mur extends Entity {
 	int taille;
 
 	
-	public Mur(Modele modele, int pos_x, int pos_y, EntityManager EM) throws IOException {
-		super(modele, EM);
+	public Mur(int pos_x, int pos_y, Game game) throws IOException {
+		super(game);
 		this.m_images = loadSprite("resources/image_test/noir.png",1,1);
 		this.taille = 20;
 		this.x = pos_x;
@@ -21,8 +21,8 @@ public class Mur extends Entity {
 
 	
 
-	public Mur (Modele modele, int m_x, int m_y, String name, int r, EntityManager EM) throws IOException{
-		super(modele, EM);
+	public Mur (int m_x, int m_y, String name, int r,Game game) throws IOException{
+		super(game);
 		m_images = loadSprite("resources/images_test/noir_20x20.png", 1,1);
 		this.Name = name;
 		x = m_x;

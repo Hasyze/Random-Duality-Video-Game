@@ -268,15 +268,15 @@ public class BotBuilder implements IVisitor {
 			
 			
 		//CONDITIONS
+		 */
 		case "Key":
 			return new Key(af.arguments.get(0));
-		case "MyDir":
+		/*case "MyDir":
 			return new MyDir(af.arguments.get(0));
 		case "Cell":
 			return new Cell(af.arguments.get(0), af.arguments.get(1));
 		case "Closest":
-			return new Closest(af.arguments.get(0), af.arguments.get(1));
-		*/
+			return new Closest(af.arguments.get(0), af.arguments.get(1));*/
 		default:
 			System.out.println("Non ajouté dans le switch AppelFonc2 dans BotBuilder :" + af.name);
 			return null;

@@ -38,9 +38,6 @@ import automaton.Automate;
  */
 public class Cowboy extends Entity {
 
-	private long m_imageElapsed;
-	private long m_moveElapsed;
-
 	public Cowboy(Modele modele, EntityManager EM) throws IOException {
 		super(modele, EM);
 		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
@@ -51,8 +48,8 @@ public class Cowboy extends Entity {
 		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
 	}
 
-	public Cowboy(Modele modele, int m_x, int m_y, String name, int r,EntityManager EM) throws IOException {
-		super(modele, EM);		
+	public Cowboy(int m_x, int m_y, String name, int r,Game game) throws IOException {
+		super(game);		
 		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
 		this.Name = name;
 		x = m_x;
@@ -61,10 +58,11 @@ public class Cowboy extends Entity {
 		int width_hb = (m_images[0].getWidth()) / 2;
 		hitbox = new Hitbox(r, x + width_hb, y + heigt_hb, 0);
 		type = 0;
+		speed = 5;
 	}
 	
-	public Cowboy(Modele modele, int m_x, int m_y, String name, int r, Automate aut) throws IOException {
-		super(modele);		
+	public Cowboy(Game game, int m_x, int m_y, String name, int r, Automate aut) throws IOException {
+		super(game);		
 		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
 		this.Name = name;
 		this.Aut = aut;
@@ -86,106 +84,13 @@ public class Cowboy extends Entity {
 	/*
 	 * Simple animation here, the cowbow
 	 */
-	public void tick(long elapsed, EntityManager EM) throws IOException {
-		super.tick(EM, elapsed);	
-		m_imageElapsed += elapsed;
-		m_moveElapsed += elapsed;
-		if (m_imageElapsed > 1500) {
-			m_imageElapsed = 0;
-		}
-		if (m_moveElapsed > 2000) {
-			m_moveElapsed = 0;
-		set_orientation();
-		}
+	public void tick(EntityManager EM , long elapsed) throws IOException {
+		super.tick(EM, elapsed);
+		System.out.println("OUi");
+		moveCD += elapsed;
+		if (moveCD > 24)
+			moveCD = 0;
 	}
-
-	
-
-	public void set_orientation() {
-		// Version un peu moche, verifier le format des sprites, cherche une nouvelle
-		// solution
-		// Ajouter un chant orientation pour les projectiles ?img.getWidth()
-		if (x_speed > 0) {
-			if (y_speed > 0) {
-				m_imageIndex = 23;// GOOD
-			} else if (y_nspeed > 0) {
-				m_imageIndex = 16;// GOOD
-			} else {
-				m_imageIndex = 20; // GOOD
-			}
-		} else if (x_nspeed > 0) {
-			if (y_speed > 0) {
-				m_imageIndex = 4;// GOOD
-			} else if (y_nspeed > 0) {
-				m_imageIndex = 10;// GOOD
-			} else {
-				m_imageIndex = 7;// GOOD
-			}
-		} else if (y_speed > 0) {
-			m_imageIndex = 1;// GOOD
-
-		} else if (y_nspeed > 0) {
-			m_imageIndex = 13;// GOOD
-
-		}
-	}
-
-	public void movet(int code) {
-		switch (code) {
-		case 37:
-		case 81:
-			this.direction = Direction.W;
-			this.move(Direction.W);
-			break;
-		case 39:
-		case 68:
-			this.direction = Direction.E;
-			this.move(Direction.E);
-
-			break;
-		case 38:
-		case 90:
-			this.direction = Direction.N;
-			this.move(Direction.N);
-
-			break;
-		case 40:
-		case 83:
-			this.direction = Direction.S;
-			this.move(Direction.S);
-
-			break;
-		}
-		// System.out.println("OUIIIIIIII");
-		// .out.println(this.x + this.y);
-
-	}
-	
-	public void move(Direction dir) {
-		super.move(dir);
-		/*switch (dir) {
-		
-		case W:
-			x_nspeed = speed;
-			break;
-		
-		case E:
-			x_speed = speed;
-			break;
-		
-		case N:
-			y_nspeed = speed;
-			break;
-		
-		case S:
-			y_speed = speed;
-			break;
-		default:
-			break;
-		}*/
-		
-	}
-	
 	
 	public void hit() throws IOException {
 		System.out.print(""
@@ -194,28 +99,4 @@ public class Cowboy extends Entity {
 		ProjectileA balle = new ProjectileA(direction, modele,EM,x,y);
 		this.EM.EM_add(balle);
 		}
-	
-	
-	public void stop(int code) {
-		switch (code) {
-		case 37:
-		case 81:
-			x_nspeed = 0;
-			break;
-		case 39:
-		case 68:
-			x_speed = 0;
-			break;
-		case 38:
-		case 90:
-			y_nspeed = 0;
-			break;
-		case 40:
-		case 83:
-			y_speed = 0;
-			break;
-		}
-	}
-
-
 }

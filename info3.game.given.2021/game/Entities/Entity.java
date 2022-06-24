@@ -1,14 +1,19 @@
 package Entities;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import automaton.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.imageio.ImageIO;
+
 import automaton.Automate;
-import info3.game.*;
+import automaton.Type;
+import info3.game.EntityManager;
+import info3.game.Game;
+import info3.game.Modele;
 
 public abstract class Entity extends Object {
 
@@ -34,7 +39,7 @@ public abstract class Entity extends Object {
 	protected int type;
 	protected EntityManager EM;
 	protected Modele modele;
-	protected ArrayList<Entity> close;
+	protected List<Entity> close;
 	/**
 	 * Type 0: Joueur 1: Ennemi 2: Missile Ennemi 3: Missile Joeur 4: Fnatome 5:
 	 * Rocher 6: Mur 7: Porte
@@ -67,7 +72,7 @@ public abstract class Entity extends Object {
 		this.Name = Name;
 		
 		this.modele = modele;
-		close = new ArrayList();
+		close = new ArrayList<Entity>();
 		for (int i = 0; i < 8; i++) {
 			close.add(i, null);
 		}
@@ -341,8 +346,29 @@ public abstract class Entity extends Object {
 		}
 	}
 
-	public int getType() {
+	public int getTypeInt() {
 		return type;
+	}
+	public Type getType() {
+		switch(type) {
+		case 0:
+			return Type.PLAYER;
+		case 1:
+			return Type.ADVERSAIRE;
+		case 2:
+			return Type.MISSILE;
+		case 3:
+			return Type.CLUE;
+		case 4:
+			return Type.VOID;
+		case 5:
+			return Type.JUMPABLE;
+		case 6:
+			return Type.OBSTACLE;
+		case 7:
+			return Type.GATE;		
+		}
+		return null;
 	}
 
 	public int getWidth() {

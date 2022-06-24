@@ -32,7 +32,7 @@ public class Ressource {
 	
 	
 	public void set_couple(Entity e) {
-		int type = e.getType();
+		int type = e.getTypeInt();
 		if(Couples[type][0]==-1) {
 			e.Aut = null; //si aut -1, c'est l'aut null
 		}else {

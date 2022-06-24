@@ -6,6 +6,7 @@ import java.util.Comparator;
 
 import Entities.Entity;
 import Entities.Fantome;
+import automaton.Type;
 
 public class EntityManager {
 	protected ArrayList<Entity> Dynamic;
@@ -68,7 +69,7 @@ public class EntityManager {
 		this.New_Dynamic.clear();
 		this.New_Static.clear();
 		this.Static.clear();
-		Dynamic.removeIf(n -> n.getType() != 0);
+		Dynamic.removeIf(n -> n.getType() != Type.PLAYER);
 	}
 
 	protected void organize() { // regarde toutes les entitées dynamiques, si leur flag vie = 0, alors elles
@@ -80,7 +81,7 @@ public class EntityManager {
 			// System.out.print("Vie de "+Dynamic.get(i).Name+" : "+
 			// Dynamic.get(i).getvie()+"\n");
 			if (Dynamic.get(i).getvie() == 0) { // mort : ça dégage
-				if (Dynamic.get(i).getType() != 0) {
+				if (Dynamic.get(i).getType() != Type.PLAYER) {
 					Dynamic.remove(i);
 					i--;
 				}

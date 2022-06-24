@@ -176,13 +176,13 @@ public class Modele {
 		return col;
 	}
 
-	public ArrayList<Entity> collision(Entity Obj, ArrayList<Entity> list, Type type, Direction dir, int htype) {
+	public ArrayList<Entity> collision(Entity Obj, ArrayList<Entity> list, Type type, Direction dir) {
 		ArrayList<Entity> col = new ArrayList<Entity>();
 		boolean collision = false;
 
 		for (int i = 0; i < list.size(); i++) {
 			Entity elem = list.get(i); // on récupére un a un les elements de la liste
-			collision = collisionR(Obj, elem, Obj.direction, htype); // calcul de la collision entre l'objet et l'élément de la
+			collision = collisionR(Obj, elem, Obj.direction, 0); // calcul de la collision entre l'objet et l'élément de la
 																// liste.
 			if (collision && elem.getType() == type) {
 				Type t = Obj.getType(); // retourne le type de l'élément dans la liste :
@@ -203,18 +203,18 @@ public class Modele {
 					}
 					break;
 				case ADVERSAIRE: // Ennemi
-					if (type == automaton.Type.PLAYER || (type == automaton.Type.MISSILE && elem.getType() == 0)
+					if (type == automaton.Type.PLAYER || (type == automaton.Type.MISSILE && elem.getType() == Type.PLAYER)
 							|| type == automaton.Type.JUMPABLE || type == automaton.Type.OBSTACLE
 							|| type == automaton.Type.GATE)
 						col.add(elem);
 					break;
 				case MISSILE: // Missile Ennemi
-					if (type == automaton.Type.ADVERSAIRE
+					/*if (type == automaton.Type.ADVERSAIRE
 							|| (type == automaton.Type.MISSILE
 									&& ((Missile) elem).getType() != ((Missile) Obj).getType())
 							|| type == automaton.Type.JUMPABLE || type == automaton.Type.OBSTACLE
 							|| type == automaton.Type.GATE) 
-						col.add(elem);
+						col.add(elem);*/
 					break;
 				/*
 				 * case 3: // Missile Joueur if ( type == 1 || type == 2 || type == 5 || type ==

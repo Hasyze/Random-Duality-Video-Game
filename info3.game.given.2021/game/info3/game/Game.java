@@ -36,6 +36,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import Entities.Cowboy;
+import Entities.Direction;
 import Entities.Ennemis;
 import Entities.Entity;
 import Entities.Porte;
@@ -254,7 +255,7 @@ public class Game {
 		EM.tick(elapsed);
 		ArrayList<Entity> liste = EM.getDynamic();
 		for(Entity truc : liste) {
-			this.modele.collision(truc, liste);
+			this.modele.collision(truc,liste ,truc.getType() ,Direction.N);
 		}
 		
 		if (changement_de_salle != null) {	//à chaque tick on vérifie qu'il ne faut pas changer de salle

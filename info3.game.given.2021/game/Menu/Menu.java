@@ -1,9 +1,11 @@
 package Menu;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
 
-import automaton.Automate;
+
+import automaton.*;
 import info3.game.Game;
 public class Menu {
 	static Game game;
@@ -15,24 +17,13 @@ public class Menu {
 	 **/
 	
 	public static void main(String[] args) {
-		ArrayList<Automate> ListAut = new ArrayList<Automate>();
-		Automate m_automate_test0 = new Automate("Automate_test0");
-		Automate m_automate_test1 = new Automate("Automate_test1");
-		Automate m_automate_test2 = new Automate("Automate_test2");
-		Automate m_automate_test3 = new Automate("Automate_test3");
-		Automate m_automate_test4 = new Automate("Automate_test4");
-
-		ListAut.add(m_automate_test0);
-		ListAut.add(m_automate_test1);
-		ListAut.add(m_automate_test2);
-		ListAut.add(m_automate_test3);
-		ListAut.add(m_automate_test4);
-		
+		BotBuilder b = new BotBuilder();
+		List<Automate> ListAut = b.loadAutomata("gal/exemple/test.gal");
 	   Ressource Res = AutomatonAssociator(ListAut);
-	   GameLauncher(Res);
+	   GameLauncher(Res);	   
 	   }
-	public static Ressource AutomatonAssociator(ArrayList<Automate> ListAut) {
-		Ressource Res = new Ressource(ListAut);
+	public static Ressource AutomatonAssociator(List<Automate> listAut) {
+		Ressource Res = new Ressource(listAut);
 		int ChoosenAutInt;
 		String[] optionsToChoose = {"Automaton0","Automaton1", "Automaton2", "Automaton3", "Automaton4", "None"}; // a remplacer si + d'auts
 	     

@@ -1,21 +1,23 @@
 package Menu;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import Entities.Entity;
-import automaton.Automate;
+import automaton.*;
 
 
 
 public class Ressource {
-	protected ArrayList<Automate> Aut_List = new ArrayList<Automate>(); // temporaire, ici on mettra la liste d'automates ArrayList<Automaton> List = ...
+	protected List<Automate> Aut_List = new ArrayList<Automate>(); // temporaire, ici on mettra la liste d'automates ArrayList<Automaton> List = ...
 	private int nb_entity = 8;//0 a 7 entitées.
 	int [][] Couples;
 	
 
-	public Ressource(ArrayList<Automate> AutL) {
+	public Ressource(List<Automate> listAut) {
 		int[][] intList={{4,3},{1},{2},{3},{0},{4},{4},{4}}; // liste de couples
 		Couples = intList; // liste par défault, a changer si on fait + d'automates : 5/entitées : 8;
-		Aut_List = AutL;
+		Aut_List = listAut;
 	}
 	
 	//setup les couples selon l'ordre qu'on choisit (si null, ordre de base)

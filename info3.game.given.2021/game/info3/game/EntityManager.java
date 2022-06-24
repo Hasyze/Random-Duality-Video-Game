@@ -152,7 +152,7 @@ public class EntityManager {
 					/*Entity Obj1,
 					ArrayList<Entity> List,
 					long elapsed // si jamais on utilise une list*/
-	 				) {
+	 				) throws Exception {
 		
 		
 		/*Obj1.m_imageElapsed += elapsed;

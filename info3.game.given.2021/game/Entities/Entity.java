@@ -195,5 +195,25 @@ public abstract class Entity extends Object {
 		}
 		return null;
 	}
+	
+	
+	void MyDir(String Dir) {
+		
+		switch(Dir) {
+			case ("Nord"):{
+				
+			}
+			case ("Sud"):{
+							
+						}
+			case ("West"):{
+				
+			}
+			case ("East"):{
+				
+			}
+		}
+			
+	}
 
 }

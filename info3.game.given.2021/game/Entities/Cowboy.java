@@ -77,6 +77,14 @@ public class Cowboy extends Entity {
 		//	case N : 
 				hitboxvoisinN=new Hitbox(x-width_hb/2,0,hitbox.getRect().width,y-width_hb/2);
 		//}
+				hitboxvoisinNW = new Hitbox(0, 0, x-width_hb, y-width_hb);
+		        // case NE : 
+		                hitboxvoisinNE = new Hitbox(x+width_hb, 0, 1024, y-width_hb);
+		                
+		        // case SW : 
+		                hitboxvoisinSW = new Hitbox(0, y+width_hb, x-width_hb, 758-y);
+		        // case SE : 
+		                hitboxvoisinSE = new Hitbox(x+width_hb, y+width_hb, 1024-x, 758-y);    
 		type = 0;
 	}
 

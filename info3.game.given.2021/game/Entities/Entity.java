@@ -33,6 +33,10 @@ public abstract class Entity extends Object {
 	protected Hitbox hitboxvoisinW;
 	protected Hitbox hitboxvoisinS;
 	protected Hitbox hitboxvoisinN;
+	protected Hitbox hitboxvoisinNE;
+	protected Hitbox hitboxvoisinNW;
+	protected Hitbox hitboxvoisinSE;
+	protected Hitbox hitboxvoisinSW;
 	protected int type;
 	protected EntityManager EM;
 	protected Modele modele;
@@ -54,7 +58,7 @@ public abstract class Entity extends Object {
 
 		this.modele = modele;
 		close = new ArrayList();
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 8; i++) {
 			close.add(i, null);
 		}
 		m_images = null;
@@ -145,13 +149,9 @@ public abstract class Entity extends Object {
 		// g.drawOval(x-originex-hitbox.getRayon(), y-originey-hitbox.getRayon(),
 		// hitbox.getRayon()*2, hitbox.getRayon()*2);
 		g.drawRect(x,y- hitbox.getRect().height/2,1024 + x,hitbox.getRect().height);
-		g.setColor(Color.red);
 		g.drawRect(x-hitbox.getRect().width/2,y+hitbox.getRect().height/2,hitbox.getRect().width, 1024 + y);
-		g.setColor(Color.green);
 		g.drawRect(0-hitbox.getRect().width/2,y-hitbox.getRect().height/2, x,hitbox.getRect().height);
-		g.setColor(Color.orange);
 		g.drawRect(x-hitbox.getRect().width/2,0, hitbox.getRect().width, y-hitbox.getRect().height/2);
-		g.setColor(Color.white);
 
 	}
 
@@ -174,7 +174,7 @@ public abstract class Entity extends Object {
 			break;
 		case S:
 			System.out.println("Sud");
-			if (info3.game.Modele.plus_proche(hitboxvoisinN, rocher)) {
+			if (info3.game.Modele.plus_proche(hitboxvoisinS, rocher)) {
 				if (close.get(1) == null) {
 					close.add(1, rocher);
 				} else {
@@ -189,7 +189,7 @@ public abstract class Entity extends Object {
 			break;
 		case E:
 			System.out.println("E");
-			if (info3.game.Modele.plus_proche(hitboxvoisinN, rocher)) {
+			if (info3.game.Modele.plus_proche(hitboxvoisinE, rocher)) {
 				if (close.get(2) == null) {
 					close.add(2, rocher);
 				} else {
@@ -204,7 +204,7 @@ public abstract class Entity extends Object {
 			break;
 		case W:
 			System.out.println("West");
-			if (info3.game.Modele.plus_proche(hitboxvoisinN, rocher)) {
+			if (info3.game.Modele.plus_proche(hitboxvoisinW, rocher)) {
 				if (close.get(3) == null) {
 					close.add(3, rocher);
 				} else {
@@ -217,7 +217,64 @@ public abstract class Entity extends Object {
 
 			}
 			break;
+		case NE:
+			System.out.println("NordEst");
+			if (info3.game.Modele.plus_proche(hitboxvoisinNE, rocher)) {
+				if (close.get(4) == null) {
+					close.add(4, rocher);
+				} else {
+					if (info3.game.Modele.distance(this.x, this.y, rocher.x, rocher.y) < info3.game.Modele
+							.distance(this.x, this.y, close.get(0).x, close.get(0).y)) {
+						close.remove(4);
+						close.add(4, rocher);
+					}
+				}
+
+			}
+		case NW:
+			System.out.println("NordWest");
+			if (info3.game.Modele.plus_proche(hitboxvoisinNW, rocher)) {
+				if (close.get(5) == null) {
+					close.add(5, rocher);
+				} else {
+					if (info3.game.Modele.distance(this.x, this.y, rocher.x, rocher.y) < info3.game.Modele
+							.distance(this.x, this.y, close.get(0).x, close.get(0).y)) {
+						close.remove(5);
+						close.add(5, rocher);
+					}
+				}
+
+			}
+		case SE:
+			System.out.println("SudEst");
+			if (info3.game.Modele.plus_proche(hitboxvoisinSE, rocher)) {
+				if (close.get(6) == null) {
+					close.add(6, rocher);
+				} else {
+					if (info3.game.Modele.distance(this.x, this.y, rocher.x, rocher.y) < info3.game.Modele
+							.distance(this.x, this.y, close.get(0).x, close.get(0).y)) {
+						close.remove(6);
+						close.add(6, rocher);
+					}
+				}
+
+			}
+		case SW:
+			System.out.println("SudWest");
+			if (info3.game.Modele.plus_proche(hitboxvoisinSW, rocher)) {
+				if (close.get(7) == null) {
+					close.add(7, rocher);
+				} else {
+					if (info3.game.Modele.distance(this.x, this.y, rocher.x, rocher.y) < info3.game.Modele
+							.distance(this.x, this.y, close.get(0).x, close.get(0).y)) {
+						close.remove(7);
+						close.add(7, rocher);
+					}
+				}
+
+			}
 		}
+		
 		System.out.println("N :");
 		System.out.println(close.get(0));
 		System.out.println("S :");
@@ -283,14 +340,37 @@ public abstract class Entity extends Object {
 		return hitbox;
 	}
 
-	public Hitbox getHitboxVoisin() {
-		return hitbox;
+	public Hitbox getHitboxVoisin(Direction dir) {
+		switch (dir) {
+		case N:
+			return hitboxvoisinN;
+		case S:
+			return hitboxvoisinS;
+		case E:
+			return hitboxvoisinE;
+		case W:
+			return hitboxvoisinW;
+		case NE:
+			return hitboxvoisinNE;
+		case NW:
+			return hitboxvoisinNW;
+		case SE:
+			return hitboxvoisinSE;
+		case SW:
+			return hitboxvoisinSW;
+		default:
+			return null;
+		}
 	}
 
 	public int getType() {
 		return type;
 	}
 
+	public int get_speed() {
+		return speed;
+	}
+	
 	public int getx_speed() {
 		return x_speed;
 	}

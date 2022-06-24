@@ -12,7 +12,13 @@ public class Closest implements ICondition{
 
 	//@Override
 	public boolean closest(Entity e, Direction dir) {
-		if(e.)
+		switch (dir) {
+		case N:
+			//return collision(e.getHitboxVoisin(N)
+		case S:
+		case W:
+		case E:
+		}
 	}
 
 }

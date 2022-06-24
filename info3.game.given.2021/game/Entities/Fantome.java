@@ -18,5 +18,6 @@ public class Fantome extends Entity{
 		int width_hb = (img.getWidth())/2;
 		hitbox = new Hitbox(r,x+width_hb,y+heigt_hb,0);
 		type =4;
+		
 	}
 }

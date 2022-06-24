@@ -52,11 +52,19 @@ public class EntityManager {
     	   return 0;
        }
          
-     }
-	 
-	 
-	 
-
+     } 
+	void vider_EM() {
+		this.New_Dynamic.clear();
+		this.New_Static.clear();
+		this.Dynamic.clear();
+		this.Static.clear();
+	}
+	void vider_EM_P() {
+		this.New_Dynamic.clear();
+		this.New_Static.clear();
+		this.Static.clear();
+		Dynamic.removeIf(n -> n.getType() != 0);
+	}
 
 	protected void organize() { // regarde toutes les entitées dynamiques, si leur flag vie = 0, alors elles dégagent car elles sont mortes.
 							    // les static ne peuvent pas mourir car leur automate est nul => pas de concept de vie 

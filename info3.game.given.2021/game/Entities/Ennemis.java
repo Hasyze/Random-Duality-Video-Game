@@ -14,12 +14,28 @@ public class Ennemis extends Entity {
 		super(modele);
 		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
 	}
+public Ennemis(Modele modele, int m_x, int m_y, String name, int r) throws IOException {
+		super(modele);
+		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
+		this.Name = name;
+		x = m_x;
+		y = m_y;
+		int heigt_hb = (m_images[0].getHeight()) ;
+		int width_hb = (m_images[0].getWidth()) ;
+		hitbox = new Hitbox(x,y,width_hb,heigt_hb);
+		type = 1;
+	}
+public Ennemis(Modele modele, String name) throws IOException {
+		super(modele);
+		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
+		this.Name = name;
+	}
 	
 	
 	
 	
 	public void tick(long elapsed, EntityManager EM) {
-		super.tick(EM, elapsed);
+		super.tick(EM,elapsed);
 		m_imageElapsed += elapsed;
 		if (m_imageElapsed > 1500) {
 			m_imageElapsed = 0;
@@ -27,7 +43,9 @@ public class Ennemis extends Entity {
 		}
 		set_orientation();
 	}
+
 	
+
 	public void set_orientation() {
 		// Version un peu moche, verifier le format des sprites, cherche une nouvelle
 		// solution
@@ -80,6 +98,7 @@ public class Ennemis extends Entity {
 		// .out.println(this.x + this.y);
 
 	}
+
 	public void stop(int code) {
 		switch (code) {
 		case 37:
@@ -100,4 +119,6 @@ public class Ennemis extends Entity {
 			break;
 		}
 	}
+
+
 }

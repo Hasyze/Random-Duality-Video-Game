@@ -89,8 +89,12 @@ public abstract class Entity extends Object {
 		int scale = 2;
 		g.drawImage(img, x - originex - getWidth(), y - originey - getHeight(), scale * img.getWidth(),
 				scale * img.getHeight(), null);
-		g.drawOval(x-originex-hitbox.getRayon(), y-originey-hitbox.getRayon(), hitbox.getRayon()*2, hitbox.getRayon()*2);
-	}
+
+		g.drawRect(hitbox.getRect().x - originex - getWidth()/2 , 
+		hitbox.getRect().y- originey - getHeight()/2  ,
+		getWidth(), getHeight());
+		
+		}
 
 	public Entity egg() {
 		return null;
@@ -115,6 +119,7 @@ public abstract class Entity extends Object {
 		return vie;
 	}
 	
+	
 
 	public void setVie(int i) {
 		vie += i;
@@ -123,19 +128,21 @@ public abstract class Entity extends Object {
 	public void step() {
 		// TODO : step automates pour l'aut de chaque entity.
 	}
-
 	
 	int m_moveElapsed = 0;
 	public void tick(EntityManager em,long elapsed) {
+		ArrayList<Entity> Static = em.getStatic();
+		ArrayList<Entity> col = modele.collision(this, Static);
 		m_moveElapsed += elapsed;
+		hitbox.relocate(x, y);
 		if (m_moveElapsed > 24) {
 			m_moveElapsed = 0;
 			if(x_speed>0 || y_speed>0 || x_nspeed>0 || y_nspeed>0) {
-				ArrayList<Entity> Static = em.getStatic();
-				if(!(modele.collisions(this, Static))) {
-					
+				if((col.isEmpty())) {			
 					x = (x + x_speed - x_nspeed);
 					y = (y + y_speed - y_nspeed);
+				}else {
+					modele.interaction(this, Static);
 				}
 			}
 		}

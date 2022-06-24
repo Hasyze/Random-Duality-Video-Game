@@ -25,10 +25,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
-<<<<<<< HEAD
-//import java.awt.image.BufferedImage;
-=======
->>>>>>> origin/florian_saintmerge
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -39,30 +36,24 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import Entities.Cowboy;
-<<<<<<< HEAD
+import Entities.Ennemis;
+import Entities.Entity;
+import Entities.Porte;
 //import Entities.Entity;
 //import Entities.Hitbox;
 //import Entities.Mur;
 import Entities.Rocher;
 import Map.Etage;
+import Map.Salle;
 import Menu.Ressource;
 import automaton.Automate;
-=======
-import Entities.Entity;
-import Entities.Porte;
-import Entities.Rocher;
-import Map.Etage;
-import Map.Salle;
->>>>>>> origin/florian_saintmerge
 import info3.game.graphics.GameCanvas;
 import info3.game.sound.RandomFileInputStream;
-
 
 public class Game {
 
 	static Game game;
-	
-	
+
 	public static Image loadImage(String filename) throws IOException {
 		File imageFile = new File(filename);
 		if (imageFile.exists()) {
@@ -72,34 +63,18 @@ public class Game {
 		return null;
 	}
 
-	Image bg; //= loadImage("resources/images_test/among-us.png");
+	Image bg = loadImage("resources/images_test/among-us.png");
 
-<<<<<<< HEAD
-=======
-	public static void main(String args[]) throws Exception {
-
-		try {
-			System.out.println("Game starting...");
-			game = new Game();
-
-			System.out.println("Game started.");
-		} catch (Throwable th) {
-			th.printStackTrace(System.err);
-		}
-	}
-	
-
->>>>>>> origin/florian_saintmerge
 	JFrame m_frame;
 	JLabel m_text;
 	GameCanvas m_canvas;
 	CanvasListener m_listener;
 	Sound m_music;
 	
-	
 	EntityManager EM;
 	Modele modele;
 
+<<<<<<< HEAD
 	Etage etage;
 	Salle salle_courante;
 
@@ -107,16 +82,82 @@ public class Game {
 	Rocher rocher;
 
 	
-<<<<<<< HEAD
 	public Game(Ressource Res2) throws Exception {
-		
+		int niveau = 1;
+		Init_niveau(niveau, Res2);
+=======
+	Cowboy m_cowboy;// m_cowboy2;
+	Ennemis m_cowboy2;
+	Rocher rocher;
+
+	void charger_entites_salle() throws IOException {
+		for (int i = 0; i < 50; i++) {
+			for (int j = 0; j < 50; j++) {
+				int x = etage.salles[1].compo[i][j];
+				switch (x) {
+				case 1:
+					EM.EM_add(new Mur(EM, i * 20, j * 20));
+					break;
+				case 2:
+					/*
+					 * if ( (i == 0) && (portes[0] != null) ) { EM.EM_add(portes[0]); } if ( (j ==
+					 * 0) && (portes[3] != null) ) { EM.EM_add(portes[3]); } if ( (i == 49) &&
+					 * (portes[2] != null) ) { EM.EM_add(portes[2]); } if ( (j == 49) && (portes[1]
+					 * != null) ) { EM.EM_add(portes[1]); } else { EM.EM_add(new Mur(i*20, j*20)); }
+					 */
+					break;
+				case 3:
+					EM.EM_add(new Rocher(EM, modele, i * 20, j * 20));
+					break;
+				case 4:
+					break;
+				// EM.EM_add(new Ennemis(i*20, j*20));
+				}
+
+			}
+		}
+	}
+
+	Game() throws Exception {
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
 		EM = new EntityManager();
 		modele = new Modele();
+
+		m_cowboy = new Cowboy(EM, modele, 0, 200, "fabrice", 25);
+		m_cowboy2 = new Ennemis(EM, modele, 0, 0, "roger", 25);
+
+>>>>>>> origin/interaction
+		// creating a listener for all the events
+		// from the game canvas, that would be
+		// the controller in the MVC pattern
+		m_listener = new CanvasListener(this);
+		// creating the game canvas to render the game,
+		// that would be a part of the view in the MVC pattern
+		m_canvas = new GameCanvas(m_listener);
+<<<<<<< HEAD
+=======
+
+		etage = new Etage(1);
+
+		// charger_entites_salle();
+
+		rocher = new Rocher(EM, modele, 400, 400, "cailluo", 50);
+
+>>>>>>> origin/interaction
+		System.out.println("  - creating frame...");
+		Dimension d = new Dimension(1024, 768);
+		m_frame = m_canvas.createFrame(d);
+		System.out.println("  - setting up the frame...");
+		setupFrame();
+	}
+	
+	private void Init_niveau(int niv, Ressource Res2) throws IOException {
+		EM = new EntityManager();
+		modele = new Modele();
 		
-		m_cowboy = new Cowboy(modele, 0, 200, "Player1", 75);
-		m_cowboy2 = new Cowboy( modele, 0, 0, "Player2", 75);
+		m_cowboy = new Cowboy(modele, 500, 150, "Player1", 25);
+		m_cowboy2 = new Cowboy( modele, 500, 150, "Player2", 25);
 		
 		Res2.set_couple(m_cowboy);
 		Res2.set_couple(m_cowboy2);
@@ -126,47 +167,6 @@ public class Game {
 		System.out.print("Test menu : cowboy 2 attribution automate : ");
 		System.out.print(m_cowboy2.Name + " "+m_cowboy2.Aut.name+"\n");
 		
-		EM.EM_add(m_cowboy);
-		EM.EM_add(m_cowboy2);
-
-=======
-	Game() throws Exception {
-		
-		int niveau = 1;
-		EM = new EntityManager();
-		modele = new Modele();
-		
-		Init_niveau(niveau);
->>>>>>> origin/florian_saintmerge
-		
-		// creating a listener for all the events
-		// from the game canvas, that would be
-		// the controller in the MVC pattern
-		m_listener = new CanvasListener(this);
-		// creating the game canvas to render the game,
-		// that would be a part of the view in the MVC pattern
-		m_canvas = new GameCanvas(m_listener);
-
-		
-		
-		
-		
-		System.out.println("  - creating frame...");
-		Dimension d = new Dimension(1024, 768);
-		m_frame = m_canvas.createFrame(d);
-
-		System.out.println("  - setting up the frame...");
-		setupFrame();
-	}
-	
-	private void Init_niveau(int niv) throws IOException {
-		m_cowboy = new Cowboy(modele, 500, 150, "Cowboy1", 50);
-		m_cowboy2 = new Cowboy( modele, 500, 150, "Cowboy2", 50);
-		int[] ListInt = {1,2,3}; // émulation d'un automate
-		// creating a cowboy, that would be a model
-		// in an Model-View-Controller pattern (MVC)
-		m_cowboy.Aut = ListInt;
-		m_cowboy2.Aut = ListInt;
 		EM.EM_add(m_cowboy);
 		EM.EM_add(m_cowboy2);
 		
@@ -189,13 +189,13 @@ public class Game {
 		ArrayList<Entity> Static = EM.getStatic();
 		Entity e;
 		for (int i=0; i<Static.size(); i++) {
-			System.out.print("Nom : " + Static.get(i).Name + " x : " + Static.get(i).getx() + " y :" + Static.get(i).gety() + "\n");
+			//System.out.print("Nom : " + Static.get(i).Name + " x : " + Static.get(i).getx() + " y :" + Static.get(i).gety() + "\n");
 			e = Static.get(i);
 			e.paint(g, coinscamX, coinscamY);
 		}
-		System.out.print("Affichage DONE");
+		//System.out.print("Affichage DONE");
 	}
-	
+	// Demander a axel si on garde
 	private void Chgmt_salle(Porte porte) throws IOException {
 		//EM.vider_salle_courante(); // --> vide l'entity manager sauf les deux cowboy
 		salle_courante = porte.salle_destination;
@@ -262,21 +262,35 @@ public class Game {
 	 */
 
 	long test = 0;
-
+	
 	void tick(long elapsed) {
 		test += elapsed;
 		if (test > 2500) {
 			test = 0;
-			EM.afficher_EM();
-			//System.out.println("C1 :" + m_cowboy.getx() + "-" + m_cowboy.gety() + "C2 :" + m_cowboy2.getx() + "-" + m_cowboy2.gety() + "ROC :" + rocher.getx() + "-" + rocher.gety());
+			//EM.afficher_EM();
+			//System.out.println("C1 :" + m_cowboy.getx() + "-" + m_cowboy.gety() + "C2 :" + m_cowboy2.getx() + "-"
+					//+ m_cowboy2.gety() + "ROC :" + rocher.getx() + "-" + rocher.gety());
 		}
-
+		
 		// EM TICK STEPS
 		EM.tick(elapsed);
+<<<<<<< HEAD
+		
 	
 	
-		//m_cowboy.tick(EM, elapsed);
-		//m_cowboy2.tick(EM, elapsed);
+	
+=======
+		// EM COLLSIONS
+		ArrayList<Entity> Dynamic = EM.getDynamic();
+		ArrayList<Entity> Static = EM.getStatic();
+		// modele.collision(); Calcul des interactions
+		for (int i = 0; i < Dynamic.size(); i++) {
+
+		}
+		
+		/*m_cowboy.tick(elapsed);
+		m_cowboy2.tick(elapsed);*/
+>>>>>>> origin/interaction
 
 		// Update every second
 		// the text on top of the frame: tick and fps
@@ -339,12 +353,19 @@ public class Game {
 				m_cowboy2.gety() - coinscamY);
 
 		// paint
-		//EM.afficher_EM();
+<<<<<<< HEAD
+		
 		dessine_salle_static(g, coinscamX, coinscamY);
 		m_cowboy.paint(g, coinscamX, coinscamY);
 		m_cowboy2.paint(g, coinscamX, coinscamY);
-		
-		//rocher.paint(g, coinscamX, coinscamY);
+=======
+		// EM.afficher_EM();
+		rocher.paint(g, coinscamX, coinscamY);
+		if (m_cowboy.getvie()>0)
+			m_cowboy.paint(g, coinscamX, coinscamY);
+		if (m_cowboy2.getvie()>0)
+			m_cowboy2.paint(g, coinscamX, coinscamY);
+>>>>>>> origin/interaction
 		
 
 		///////

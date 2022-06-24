@@ -21,6 +21,7 @@
 package info3.game;
 
 import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -36,6 +37,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import Entities.Cowboy;
+import Entities.Ennemis;
 import Entities.Entity;
 import Entities.Porte;
 //import Entities.Entity;
@@ -68,15 +70,14 @@ public class Game {
 	JLabel m_text;
 	GameCanvas m_canvas;
 	CanvasListener m_listener;
-	Sound m_music;
-	
+	Sound m_music;	
 	EntityManager EM;
-	Modele modele;
-
 	Etage etage;
 	Salle salle_courante;
+	Modele modele;
 
-	Cowboy m_cowboy, m_cowboy2;
+	Cowboy m_cowboy;// m_cowboy2;
+	Ennemis m_cowboy2;
 	Rocher rocher;
 
 	
@@ -102,10 +103,11 @@ public class Game {
 		modele = new Modele();
 		
 		m_cowboy = new Cowboy(modele, 500, 150, "Player1", 25);
-		m_cowboy2 = new Cowboy( modele, 500, 150, "Player2", 25);
+		m_cowboy2 = new Ennemis( modele, 500, 150, "Player2", 25);
 		
 		Res2.set_couple(m_cowboy);
 		Res2.set_couple(m_cowboy2);
+		
 		System.out.print("Test menu : cowboy 1 attribution automate : ");
 		System.out.print(m_cowboy.Name +" "+ m_cowboy.Aut.name+"\n");
 		
@@ -116,6 +118,7 @@ public class Game {
 		EM.EM_add(m_cowboy2);
 		
 		etage = new Etage(niv);
+		
 		
 		salle_courante = etage.salles[1];
 		

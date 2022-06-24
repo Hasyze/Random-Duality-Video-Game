@@ -44,7 +44,7 @@ public class Porte extends Entity {
 
 		switch (orientation) {
 		case 0 :
-			x = 23*40;
+			x = 24*40;
 			y = 0;
 			break;
 		case 1 :
@@ -52,7 +52,7 @@ public class Porte extends Entity {
 			y = 24*40;
 			break;
 		case 2 :
-			x = 23*40;
+			x = 24*40;
 			y = 48*40;
 			break;
 		default :

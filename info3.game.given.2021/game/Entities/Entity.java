@@ -165,7 +165,6 @@ public abstract class Entity extends Object{
 	}
 
 	public void tick(EntityManager em,long elapsed) throws IOException {
-		System.out.println(moveCD);
 		if(moveCD>0)
 			moveCD -= elapsed;
 		if(damageCD>0)

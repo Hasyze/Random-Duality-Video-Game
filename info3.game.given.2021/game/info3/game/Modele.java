@@ -213,6 +213,7 @@ public class Modele {
 			case 0:
 				if (type == 1 || type == 2) {
 					Obj.degatVie(1);
+					System.out.println(Obj.getvie());
 					if (type == 2)
 						Obj2.degatVie(1);
 				}				

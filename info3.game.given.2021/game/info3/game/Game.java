@@ -42,6 +42,8 @@ import Entities.Porte;
 import Map.Etage;
 import Map.Salle;
 import Menu.Ressource;
+import automaton.Automate;
+import automaton.BotBuilder;
 import info3.game.graphics.GameCanvas;
 import info3.game.sound.RandomFileInputStream;
 
@@ -66,6 +68,7 @@ public class Game {
 	int niveau;
 
 	Cowboy m_cowboy, m_cowboy2;
+	Ennemis mechant;
 	
 	public Cowboy getPlayer() {
 		return m_cowboy2;
@@ -104,6 +107,11 @@ public class Game {
 		
 		m_cowboy = new Cowboy(960, 1000, "Player1", 25, this);
 		m_cowboy2 = new Cowboy(980, 1100, "Player2", 25, this);
+		mechant = new Ennemis(900, 900, "Mechant", 25, this);
+		BotBuilder b = new BotBuilder();
+		List<Automate> liste = b.loadAutomata("gal/exemple/mechant.gal");
+		mechant.Aut = liste.get(0);
+	
 		
 		Res2.set_couple(m_cowboy);
 		Res2.set_couple(m_cowboy2);
@@ -119,6 +127,7 @@ public class Game {
 		
 		EM.EM_add(m_cowboy);
 		EM.EM_add(m_cowboy2);
+		EM.EM_add(mechant);
 		
 		etage = new Etage(niv, this);
 
@@ -248,6 +257,8 @@ public class Game {
 		test += elapsed;
 		if (test > 2500) {
 			test = 0;
+			System.out.println("SWITCH");
+			switchplayers();
 		}
 
 		// EM TICK STEPS
@@ -282,6 +293,13 @@ public class Game {
 		}
 	}
 
+	
+	private void switchplayers() {
+		Automate a = this.m_cowboy.Aut;
+		this.m_cowboy.Aut = this.m_cowboy2.Aut;
+		this.m_cowboy2.Aut = a;
+	}
+	
 	/*
 	 * This request is to paint the Game Canvas, using the given graphics. This is
 	 * called from the GameCanvasListener, called from the GameCanvas.

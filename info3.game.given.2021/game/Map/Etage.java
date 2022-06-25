@@ -93,20 +93,7 @@ public class Etage {
 				}
 				j++;
 				if (i + j >= niveau + 2) { // Si on arrive sur le dernière salle avant le boss
-					if ((salles[i].Porte_non_liees() == true) && (salles[i + j - 1].Porte_non_liees() == false)) { // Si
-																													// l'on
-																													// se
-																													// retrouve
-																													// bloqué
-																													// car
-																													// pas
-																													// assez
-																													// de
-																													// porte
-																													// dans
-																													// les
-																													// salles
-																													// suivantes
+					if ((salles[i].Porte_non_liees() == true) && (salles[i + j - 1].Porte_non_liees() == false)) { // Si l'on se retrouve bloqué car pas assez de porte dans les salles suivantes
 						salles[i].Retirer_Portes(salles[i].Trouver_porte_disponible());
 					}
 					j = 1;

@@ -87,9 +87,9 @@ public class Porte extends Entity {
 		if (this.etat = true) {	//Optimisation
 			return false;
 		}
-		ArrayList list = game.EM.getDynamic();
+		ArrayList<Entity> list = game.EM.getDynamic();
 		for (int i = 0; i < list.size(); i++) {
-			if (((Entity)list.get(i)).type == 1) {
+			if (list.get(i).type == 1) {
 				return false;
 			}
 		}

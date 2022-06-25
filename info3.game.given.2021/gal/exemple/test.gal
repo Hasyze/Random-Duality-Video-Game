@@ -42,3 +42,20 @@ Projectilesimple(Init){
   | True ? Move() :(Init)
 }
 
+Ennemis(Init){
+* (Init): 
+| Closest(N,A) ? Hit(N) :(Init)
+| Closest(NE,A) ? Hit(NE) :(Init)
+| Closest(E,A) ? Hit(E) :(Init)
+| Closest(SE,A) ? Hit(SE) :(Init)
+| Closest(S,A) ? Hit(S) :(Init)
+| Closest(SW,A) ? Hit(SW) :(Init)
+| Closest(W,A) ? Hit(W) :(Init)
+| Closest(NW,A) ? Hit(NW) :(Init)
+| Cell(F,V) ? 70 % Move(F) / Turn(L) / Turn(R) / Egg(F) :(Init)
+| Cell(F,_) ? 50 % Turn(B) / 25 % Turn(L) / 25 % Turn(R) :(Init)
+}
+
+Boss(Init){
+| Cell(F,V) ? 70 % Move(F) / Turn(L) / Turn(R) / Egg(F) :(Init)
+| Cell(F,_) ? 50 % Turn(B) / 25 % Turn(L) / 25 % Turn(R) :(Init)

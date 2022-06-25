@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import Entities.Porte;
 import Entities.Mur;
 import Entities.Rocher;
+import Entities.Boss;
 import Entities.Ennemis;
 import info3.game.EntityManager;
 import info3.game.Game;
@@ -269,12 +270,15 @@ public class Salle {
 					break;
 				case 52 :
 					if (this.salle_vide == false) {
-						EM.EM_add(new Mur(i*40, j*40, "Ennemis", 20, game));
+						EM.EM_add(new Ennemis(i*40, j*40, "Ennemis", 20, game));
 					}
 					break;
 				}
 				
 			}
+		}
+		if (this.type == "boss") {
+			EM.EM_add(new Boss(largeur*20, hauteur*20, game));
 		}
 	}
 	

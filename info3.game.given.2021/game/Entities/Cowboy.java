@@ -61,7 +61,7 @@ public class Cowboy extends Entity {
 		int width_hb = (m_images[0].getWidth()) / 2;
 		hitbox = new Hitbox(r, x + width_hb, y + heigt_hb, 0);
 		type = 0;
-		speed = 5;
+		speed = 25;
 	}
 
 	public Cowboy(Game game, int m_x, int m_y, String name, int r, Automate aut) throws IOException {

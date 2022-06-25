@@ -9,7 +9,8 @@ public class Ennemis extends Entity {
 
 	public Ennemis(int m_x, int m_y, Game game) throws IOException {
 		super(game, "Ennemis");
-		m_images = loadSprite("resources/modgenerator.png", 3, 8);
+		m_images = loadSprite("resources/idle.png", 4, 12
+				);
 		this.Name = "Ennemis";
 		x = m_x;
 		y = m_y;
@@ -17,7 +18,7 @@ public class Ennemis extends Entity {
 		int width_hb = (m_images[0].getWidth()) / 2;
 		hitbox = new Hitbox(25, x + width_hb, y + heigt_hb, 0);
 		type = 1;
-		speed = 2;
+		speed = 1;
 		vie = 3;
 		moveCDR = 10;
 	}

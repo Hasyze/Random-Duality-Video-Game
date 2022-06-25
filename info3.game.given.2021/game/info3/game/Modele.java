@@ -254,7 +254,7 @@ public class Modele {
 		for(int i = 0; i<liste.size()-1; i++) {
 			for(int j = i+1; j<liste.size(); j++) {
 				if(collision(liste.get(i),liste.get(j))) {
-					System.out.println(liste.get(i).Name+"|"+liste.get(j).Name+"\n"+liste.get(i).getType()+"|"+liste.get(j).getType());
+					//System.out.println(liste.get(i).Name+"|"+liste.get(j).Name+"\n"+liste.get(i).getType()+"|"+liste.get(j).getType());
 					interaction(liste.get(i),liste.get(j));
 				}
 				

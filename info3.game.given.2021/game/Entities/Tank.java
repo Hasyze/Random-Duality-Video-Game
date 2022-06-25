@@ -12,7 +12,7 @@ public class Tank extends Entity{
 	
 	public Tank(int m_x, int m_y, String name, int r, Game game) throws IOException {
 		super(game,name);
-		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
+		m_images = loadSprite("resources/Tank.png", 4, 6);
 		this.Name = name;
 		x = m_x;
 		y = m_y;

@@ -269,7 +269,16 @@ public class Salle {
 					break;
 				case 52:
 					if (!(this.salle_vide)) {
-						EM.EM_add(new EnnemisProjectile(i * 40, j * 40, game));
+						Random rand = new Random();
+						int r = rand.nextInt(2);
+						switch (r) {
+						case 0 :
+							EM.EM_add(new EnnemisProjectile(i * 40, j * 40, game));
+							break;
+						default :
+							EM.EM_add(new Ennemis(i * 40, j * 40, game));
+							break;
+						}
 						break;
 					}
 				}

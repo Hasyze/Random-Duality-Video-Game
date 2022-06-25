@@ -23,7 +23,7 @@ public class Menu {
 		BotBuilder b = new BotBuilder();
 		List<Automate> ListAut = b.loadAutomata("gal/exemple/test.gal");
 		AutomateMap map = new AutomateMap();
-		String[] Entities = { "Joueur1", "Joueur2", "Ennemie1", "Mur", "Balle", "Coup", "Porte", "Rocher", "Boss","EnnemisProjectile", "Fantome1", "Fantome2"};
+		String[] Entities = { "Joueur1", "Joueur2", "Ennemis", "EnnemisP", "Boss", "Fantome1", "Fantome2", "Balle", "Coup", "Porte", "Mur", "Rocher"};
 		//Ressource res = AutomatonAssociator(ListAut);
 		AutomatonAssociator(map,ListAut, Entities);
 		//GameLauncher(res);

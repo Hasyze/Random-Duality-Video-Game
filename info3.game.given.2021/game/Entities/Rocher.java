@@ -12,18 +12,6 @@ import javax.imageio.ImageIO;
 public class Rocher extends Entity {
 	int taille;
 	
-	/*
-	public Rocher(int pos_x, int pos_y, Game game) throws IOException {
-		super(game,"Rocher");
-		//this.m_images = loadSprite("resources/image_test/marron.jpg",1,1);
-		this.m_images = loadSprite("resources/image_test/Rocher.png",1,1);
-		this.taille = 20;
-		this.x = pos_x;
-		this.y = pos_y;
-	}*/
-	
-
-	
 	public Rocher (int m_x, int m_y,Game game) throws IOException{
 		super(game,"Rocher");
 		m_images = loadSprite("resources/images_test/marron_20x20.jpg",1,1);

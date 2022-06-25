@@ -11,15 +11,6 @@ public class Mur extends Entity {
 	int taille;
 
 	
-	public Mur(int pos_x, int pos_y, Game game) throws IOException {
-		super(game);
-		this.m_images = loadSprite("resources/image_test/noir.png",1,1);
-		this.taille = 20;
-		this.x = pos_x;
-		this.y = pos_y;
-	}
-
-	
 
 	public Mur (int m_x, int m_y, String name, int r,Game game) throws IOException{
 		super(game, "Mur");

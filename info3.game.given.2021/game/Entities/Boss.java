@@ -35,7 +35,7 @@ public class Boss extends Entity {
 		int j = r.nextInt(3) + 2;
 		for (int i = 0;  i < j; i++) {
 			try {
-				game.EM.EM_add(new Ennemis(x, y, "Ennemie1", 20, game));
+				game.EM.EM_add(new Ennemis(x, y, game));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

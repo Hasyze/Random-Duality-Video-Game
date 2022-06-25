@@ -259,9 +259,12 @@ public class Game {
 	boolean J2dead = false;
 
 	void pitiFantome() {
+		Entity ent;
 		if (!J1dead) {
 			if (Player1.getvie() <= 0) {
-				Entity ent;
+				//switchplayers();
+				System.out.println("ET NIQUE TA MERE");
+
 				try {
 					ent = Player1;
 					Player1 = new Fantome("Fantome1", Player1.getx(), Player1.gety(), this);
@@ -275,7 +278,6 @@ public class Game {
 		}
 		if (!J2dead) {
 			if (Player2.getvie() <= 0) {
-				Entity ent;
 				try {
 					ent = Player2;
 					Player2 = new Fantome("Fantome2", Player2.getx(), Player2.gety(), this);
@@ -296,7 +298,7 @@ public class Game {
 		test += elapsed;
 		if (test > 2500) {
 			test = 0;
-			EM.afficher_EM();
+			//EM.afficher_EM();
 			// switchplayers();
 		}
 

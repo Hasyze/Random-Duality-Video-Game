@@ -9,7 +9,7 @@ public class Fantome extends Entity {
 
 	public Fantome(String name,int m_x, int m_y, Game game) throws IOException {
 		super(game,name);
-		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
+		m_images = loadSprite("resources/fantome.png", 1, 1);
 		x = m_x;
 		y = m_y;
 		int heigt_hb = (m_images[0].getHeight()) / 2;
@@ -34,39 +34,9 @@ public class Fantome extends Entity {
 	
 	public void move(Direction dir) {
 		super.move(dir);
-		set_orientation();
+		//set_orientation();
 	}
-
-	public void set_orientation() {
-		switch (this.direction) {
-		case NW:
-			m_imageIndex = 10;
-			break;
-		case NE:
-			m_imageIndex = 16;
-			break;
-		case SW:
-			m_imageIndex = 4;
-			break;
-		case SE:
-			m_imageIndex = 23;
-			break;
-		case W:
-			m_imageIndex = 7;
-			break;
-		case E:
-			m_imageIndex = 20;
-			break;
-		case N:
-			m_imageIndex = 13;
-			break;
-		case S:
-			m_imageIndex = 1;
-			break;
-		default:
-			break;
-		}
-	}	
+	
 	public void hit(Direction dir) {
 		if(hitCD > 0)
 			return;

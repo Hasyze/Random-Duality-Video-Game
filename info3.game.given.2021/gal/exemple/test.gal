@@ -50,26 +50,26 @@ Boss(Init){
 
 Fantome1(Init){
   * (Init)
-  | Key(z) & Key(q) & !Cell(NW,O) ? Move(NW) :(Action)
-  | Key(z) & Key(d) & !Cell(NE,O) ? Move(NE) :(Action)
-  | Key(s) & Key(q) & !Cell(SW,O) ? Move(SW) :(Action)
-  | Key(s) & Key(d) & !Cell(SE,O) ? Move(SE) :(Action)
-  | Key(z) & !Cell(N,O) ? Move(N) :(Action)
-  | Key(q) & !Cell(W,O) ? Move(W) :(Action)
-  | Key(s) & !Cell(S,O) ? Move(S) :(Action)
-  | Key(d) & !Cell(E,O) ? Move(E) :(Action)
+  | Key(z) & Key(q) & !Cell(NW,O) ? Move(NW) :(Init)
+  | Key(z) & Key(d) & !Cell(NE,O) ? Move(NE) :(Init)
+  | Key(s) & Key(q) & !Cell(SW,O) ? Move(SW) :(Init)
+  | Key(s) & Key(d) & !Cell(SE,O) ? Move(SE) :(Init)
+  | Key(z) & !Cell(N,O) ? Move(N) :(Init)
+  | Key(q) & !Cell(W,O) ? Move(W) :(Init)
+  | Key(s) & !Cell(S,O) ? Move(S) :(Init)
+  | Key(d) & !Cell(E,O) ? Move(E) :(Init)
 }
 
 Fantome2(Init){
   * (Init)
-  | Key(FU) & Key(FR) & !Cell(NW,O) ? Move(NE) :(Action)
-  | Key(FU) & Key(FL) & !Cell(NE,O) ? Move(NW) :(Action)
-  | Key(FD) & Key(FR) & !Cell(SW,O) ? Move(SE) :(Action)
-  | Key(FD) & Key(FL) & !Cell(SE,O) ? Move(SW) :(Action)
-  | Key(FU) & !Cell(N,O) ? Move(N) :(Action)
-  | Key(FL) & !Cell(W,O) ? Move(W) :(Action)
-  | Key(FD) & !Cell(S,O) ? Move(S) :(Action)
-  | Key(FR) & !Cell(E,O) ? Move(E) :(Action)
+  | Key(FU) & Key(FR) & !Cell(NW,O) ? Move(NE) :(Init)
+  | Key(FU) & Key(FL) & !Cell(NE,O) ? Move(NW) :(Init)
+  | Key(FD) & Key(FR) & !Cell(SW,O) ? Move(SE) :(Init)
+  | Key(FD) & Key(FL) & !Cell(SE,O) ? Move(SW) :(Init)
+  | Key(FU) & !Cell(N,O) ? Move(N) :(Init)
+  | Key(FL) & !Cell(W,O) ? Move(W) :(Init)
+  | Key(FD) & !Cell(S,O) ? Move(S) :(Init)
+  | Key(FR) & !Cell(E,O) ? Move(E) :(Init)
 }
 
 Balle(Init){

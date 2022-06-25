@@ -4,14 +4,11 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-import automaton.Automate;
 import info3.game.EntityManager;
 import info3.game.Game;
 
 public class Tireur extends Entity{
 	
-	//Fantome doublure;
-
 	public Tireur(int m_x, int m_y, String name, int r, Game game) throws IOException {
 		super(game,name);
 		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);

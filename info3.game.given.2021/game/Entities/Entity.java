@@ -226,7 +226,7 @@ public abstract class Entity extends Object {
 	}
 
 	public void tick(EntityManager em, long elapsed) throws IOException {
-		if(this.Aut.current().getName() == "")
+		if(this.Aut.current().getName().equals(""))
 			vie = 0;
 		if (moveCD > 0)
 			moveCD -= elapsed;

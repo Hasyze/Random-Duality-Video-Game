@@ -66,7 +66,7 @@ public class Modele {
 		int X2 = Obj2.getx();
 		int Y2 = Obj2.gety();
 
-		int speed = Obj1.getSpeed();
+		int speed = Obj1.getSpeed() + 1;
 		switch (Dir) {
 		case F:
 			break;
@@ -138,9 +138,9 @@ public class Modele {
 			case 0: // Joueur
 				if (collision && (type == 1 || type == 2 || type == 5 || type == 6 || type == 7)) {
 					// System.out.print("collision \n");
-					if ((type == 7) && (((Porte) elem).etat == true)) {
+					if ((type == 7) && ((Porte) elem).etat == true) {
 						System.out.print("collision avec porte ouverte");
-						game.changement_de_salle = (Porte) elem;
+						//game.changement_de_salle = (Porte) elem;
 					}
 					col.add(elem);
 				}
@@ -216,7 +216,14 @@ public class Modele {
 					System.out.println(Obj.getvie());
 					if (type == 2)
 						Obj2.degatVie(1);
-				}				
+				}
+				if ( (type == 7) && (((Porte)Obj2).etat == true) ) {
+					System.out.print("collision avec porte ouverte");
+					game.changement_de_salle = (Porte)Obj2;
+				}
+				if ( (type == 7) && (((Porte)Obj2).etat == false) ) {
+					System.out.print("collision avec porte fermee");
+				}
 				break;
 			case 1:
 				if (type == 3)
@@ -251,6 +258,7 @@ public class Modele {
 		for(int i = 0; i<liste.size()-1; i++) {
 			for(int j = i+1; j<liste.size(); j++) {
 				if(collision(liste.get(i),liste.get(j))) {
+					System.out.println(liste.get(i).Name+"|"+liste.get(j).Name+"\n"+liste.get(i).getType()+"|"+liste.get(j).getType());
 					interaction(liste.get(i),liste.get(j));
 				}
 				

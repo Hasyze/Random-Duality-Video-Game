@@ -23,7 +23,7 @@ public class Tireur extends Entity{
 		hitbox = new Hitbox(r, x + width_hb, y + heigt_hb, 0);
 		type = 0;
 		speed = 4;
-		vie = 10;		
+		vie = 20;		
 	}
 
 	public void Teleporte_joueur(int m_x, int m_y) {
@@ -39,7 +39,7 @@ public class Tireur extends Entity{
 		super.move(dir);
 		set_orientation();
 		if (moveCD <= 0)
-			moveCD = 25;
+			moveCD = 10;
 	}
 
 	public void set_orientation() {

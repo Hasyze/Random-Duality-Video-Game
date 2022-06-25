@@ -134,7 +134,7 @@ public class CanvasListener implements GameCanvasListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		System.out.println("Key pressed: " + e.getKeyChar() + " code=" + e.getKeyCode());
+		//System.out.println("Key pressed: " + e.getKeyChar() + " code=" + e.getKeyCode());
 		check = keyboard.putIfAbsent(e.getKeyCode(), true);
 		if (check == null)
 			return;

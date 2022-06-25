@@ -177,8 +177,7 @@ public abstract class Entity extends Object {
 	public void paint(Graphics g, int originex, int originey) {
 		BufferedImage img = m_images[m_imageIndex];
 		int scale = 2;
-		g.drawImage(img, x - originex - getWidth(), y - originey - getHeight(), scale * img.getWidth(),
-				scale * img.getHeight(), null);
+		g.drawImage(img, x - originex - getWidth(), y - originey - getHeight(), scale * img.getWidth(),scale * img.getHeight(), null);
 		g.drawOval(x - originex - hitbox.getRayon(), y - originey - hitbox.getRayon(), hitbox.getRayon() * 2,
 				hitbox.getRayon() * 2);
 	}
@@ -280,7 +279,7 @@ public abstract class Entity extends Object {
 	}
 
 	public boolean GotStuff() {
-		return false;
+		return true;
 	}
 
 	public boolean key(Key k) {
@@ -288,7 +287,7 @@ public abstract class Entity extends Object {
 	}
 
 	public boolean cell(Direction dir, Type type) {
-		return game.modele.collisions(this, game.EM.getStatic(), dir, type);
+		return game.modele.collisions(this, game.EM.sort_affichage(), dir, type);
 	}
 	public boolean closest(Direction dir, Type type) {
 		return false;
@@ -338,7 +337,10 @@ public abstract class Entity extends Object {
 		case B:
 			index = (index + 4)%8;
 			break;
+		default:
+			break;
 		}
+		
 		return boussole[index];
 	}
 	

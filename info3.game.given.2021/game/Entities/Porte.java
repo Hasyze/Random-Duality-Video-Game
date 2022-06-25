@@ -84,9 +84,7 @@ public class Porte extends Entity {
 	}
 
 	public boolean GotStuff() {	//Change l'etat de la porte en true s'il n'y a plus d'ennemis dans la salle
-		if (this.etat = true) {	//Optimisation
-			return false;
-		}
+		System.out.print("ON PASSE DANS GOTSTUFF !!!!!!!!\n");
 		ArrayList<Entity> list = game.EM.getDynamic();
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i).type == 1) {

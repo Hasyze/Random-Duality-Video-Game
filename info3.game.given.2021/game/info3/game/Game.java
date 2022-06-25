@@ -300,7 +300,7 @@ public class Game {
 		test += elapsed;
 		if (test > 2500) {
 			test = 0;
-			System.out.println("SWITCH");
+			//System.out.println("SWITCH");
 			switchplayers();
 		}
 

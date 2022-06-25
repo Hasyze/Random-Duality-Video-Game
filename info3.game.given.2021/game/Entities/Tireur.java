@@ -72,6 +72,12 @@ public class Tireur extends Entity{
 			break;
 		}
 	}
+	
+	public void degatVie(int degat) {
+		super.degatVie(degat);
+		if (damageCD <= 0)
+			damageCD = 2000;
+	}
 
 	public void hit(Direction dir) {
 		if(hitCD > 0)

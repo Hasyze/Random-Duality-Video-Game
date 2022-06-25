@@ -187,8 +187,6 @@ public abstract class Entity extends Object {
 		if (damageCD > 0)
 			return;
 		vie -= degat;
-		if (damageCD <= 0)
-			damageCD = 2000;
 	}
 
 	public int getx() {
@@ -332,7 +330,7 @@ public abstract class Entity extends Object {
 		case F:
 			break;
 		case L:
-			index = (index - 1)%8;
+			index = (index + 7)%8;
 			break;
 		case R:
 			index = (index + 1)%8;

@@ -30,7 +30,14 @@ public class Tank extends Entity{
 		x = m_x;
 		y = m_y;
 	}
+	
+	public void degatVie(int degat) {
+		super.degatVie(degat);
+		if (damageCD <= 0)
+			damageCD = 2000;
+	}
 
+	
 	public void tick(EntityManager EM, long elapsed) throws IOException {
 		super.tick(EM, elapsed);
 	}

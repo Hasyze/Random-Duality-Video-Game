@@ -37,9 +37,16 @@ public class Tank extends Entity{
 			damageCD = 2000;
 	}
 
-	
+	long test = 0;
 	public void tick(EntityManager EM, long elapsed) throws IOException {
 		super.tick(EM, elapsed);
+		if(test>0) {
+			test -= elapsed;
+		}else{
+			test = 500;
+			System.out.println(targetDirection( game.getPlayer1().getx() , game.getPlayer1().gety() ));
+		}
+		
 	}
 
 	public void move(Direction dir) {
@@ -78,8 +85,7 @@ public class Tank extends Entity{
 		default:
 			break;
 		}
-	}
-
+	}	
 	public void hit(Direction dir) {
 		if(hitCD > 0)
 			return;

@@ -146,6 +146,7 @@ public abstract class Entity extends Object {
 	}
 
 	public void turn(Direction dir) {
+		this.direction = dir;
 
 	}
 

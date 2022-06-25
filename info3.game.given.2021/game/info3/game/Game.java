@@ -262,6 +262,7 @@ public class Game {
 			System.out.print("On doit changer de salle");
 			try {
 				Chgmt_salle(changement_de_salle);
+				System.out.print("changement de salle succeed\n");
 
 			} catch (IOException e) {
 				e.printStackTrace();

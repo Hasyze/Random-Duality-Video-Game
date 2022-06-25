@@ -338,7 +338,7 @@ public class Game {
 		g.setColor(Color.white);
 		g.fillRect(0, 0, width, height);
 		
-		for(int i = 0; i<19200; i+= bg.getWidth()) {
+		for(int i = 0; i<1920; i+= bg.getWidth()) {
 			for(int j = 0;j<1920;j+= bg.getHeight()) {
 				g.drawImage(bg, -coinscamX + i, -coinscamY + j, bg.getWidth(), bg.getHeight(), null);
 			}

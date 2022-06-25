@@ -9,7 +9,7 @@ import info3.game.Game;
 public class Boss extends Entity {
 
 	public Boss(int m_x, int m_y, Game game) throws IOException {
-		super(game);
+		super(game, "Boss");
 		m_images = loadSprite("resources/modgenerator.png", 3, 8);
 		this.Name = "Boss";
 		x = m_x;
@@ -19,7 +19,7 @@ public class Boss extends Entity {
 		hitbox = new Hitbox(40, x + width_hb, y + heigt_hb, 0);
 		type = 1;
 		speed = 4;
-		vie = 25000;
+		vie = 25;
 
 	}
 	

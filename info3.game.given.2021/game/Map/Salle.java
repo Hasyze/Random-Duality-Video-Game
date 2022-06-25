@@ -15,6 +15,7 @@ import Entities.Mur;
 import Entities.Rocher;
 import Entities.Boss;
 import Entities.Ennemis;
+import Entities.EnnemisProjectile;
 import info3.game.EntityManager;
 import info3.game.Game;
 import info3.game.Modele;
@@ -264,11 +265,11 @@ public class Salle {
 					}
 					break;
 				case 51:
-					EM.EM_add(new Rocher(i * 40, j * 40, "Rocher", 20, game));
+					EM.EM_add(new Rocher(i * 40, j * 40, game));
 					break;
 				case 52:
 					if (!(this.salle_vide)) {
-						EM.EM_add(new Ennemis(i * 40, j * 40, "Ennemie1", 25, game));
+						EM.EM_add(new EnnemisProjectile(i * 40, j * 40, game));
 						break;
 					}
 				}

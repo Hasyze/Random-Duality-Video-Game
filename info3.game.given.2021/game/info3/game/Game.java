@@ -263,7 +263,6 @@ public class Game {
 		if (!J1dead) {
 			if (Player1.getvie() <= 0) {
 				//switchplayers();
-				System.out.println("ET NIQUE TA MERE");
 
 				try {
 					ent = Player1;

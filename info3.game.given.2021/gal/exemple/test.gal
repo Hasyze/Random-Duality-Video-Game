@@ -63,7 +63,9 @@ Static(Init){
 
 Projectilesimple(Init){
  * (Init)
-  | True ? Move() :(Init)
+  | !Cell(F,O) ? Move() :(Init)
+  | True ? :()
+ * ()
 }
 
 Boss(Init){

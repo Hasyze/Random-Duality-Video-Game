@@ -32,36 +32,30 @@ public class EntityManager {
 ////////////////////////////////// ADD	
 	// return 1 si réussi, 0 sinon
 	public int EM_add(Entity obj) {
-		if (obj.Aut == null) {
+		System.out.println(obj.Name);
+		if (obj.Aut.autStatic()) {
 			// alors il est static;
 			New_Static.add(obj);
 			// System.out.print("Obj : "+ obj.Name +" added to New_Static\n");
 			return 1;
-		} else if (obj.Aut != null) {
+		} else{
 			// alors il est dynamic;
 			New_Dynamic.add(obj);
 			// System.out.print("Obj : "+obj.Name +" added to New_Dynamic\n");
 			return 1;
-		} else {
-			// System.out.print("ERREUR ADD, ni static ni dynamic : "+ obj);
-			return 0;
-		}
-
+		} 
 	}
 
 //////////////////////////////////REMOVE
 //return 1 si réussi, 0 sinon
 	public int EM_remove(Entity obj) {
-		if (obj.Aut == null) {// alors il est static;
+		if (obj.Aut.autStatic()) {// alors il est static;
 			Static.remove(obj);
 			return 1;
-		} else if (obj.Aut != null) {// alors il est dynamic;
+		} else{// alors il est dynamic;
 			Dynamic.remove(obj);
 			return 1;
-		} else {
-			return 0;
 		}
-
 	}
 
 	public void vider_entity_manager() {
@@ -106,10 +100,10 @@ public class EntityManager {
 	// stocks a list of entities into a list of dyn and static appart.
 	public void list_to_EM(ArrayList<Entity> List) {
 		for (int i = 0; i < List.size(); i++) {
-			if (List.get(i).Aut == null) {
+			if (List.get(i).Aut.autStatic()) {
 				// alors il est static;
 				Static.add(List.get(i));
-			} else if (List.get(i).Aut != null) {
+			} else {
 				// alors il est dynamic;
 				Dynamic.add(List.get(i));
 			}

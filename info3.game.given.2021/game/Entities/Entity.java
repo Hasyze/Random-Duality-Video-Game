@@ -29,6 +29,7 @@ public abstract class Entity extends Object {
 
 	// Cooldowns
 	protected long moveCD = 0;
+	protected long hitCD = 0;
 	protected long damageCD = 0;
 	protected long wait = 0;
 
@@ -74,13 +75,15 @@ public abstract class Entity extends Object {
 		if (moveCD > 0) {
 			return;
 		}
+		
 		switch(dir) {
-		case F:
-			dir = direction;
+		case F:case R: case L: case B:
+			dir = boussole(dir);
 			break;
 		default:
 			break;
 		}
+		
 		switch (dir) {
 		case NW:
 			x -= speed;
@@ -208,6 +211,11 @@ public abstract class Entity extends Object {
 	public void setVie(int i) {
 		vie += i;
 	}
+	
+	public void Teleporte_joueur(int m_x, int m_y) {
+		x = m_x;
+		y = m_y;
+	}
 
 	public void step() throws Exception {
 		if (wait > 0)
@@ -224,6 +232,8 @@ public abstract class Entity extends Object {
 			damageCD -= elapsed;
 		if (wait > 0)
 			wait -= elapsed;
+		if(hitCD > 0)
+			hitCD-= elapsed;
 		hitbox.relocate(x, y);
 	}
 
@@ -285,4 +295,53 @@ public abstract class Entity extends Object {
 	public boolean closest(Direction dir, Type type) {
 		return false;
 	}
+	
+	//Prend une direction relative, renvoie la direction absolue correspondante a cette entitée
+	public Direction boussole(Direction dir) {
+		Direction[] boussole = {Direction.N,Direction.NE,Direction.E,Direction.SE,Direction.S,Direction.SW,Direction.W,Direction.NW};
+		int index = 0;
+		switch(this.direction) {
+		case E:
+			index = 2;
+			break;
+		case N:
+			index = 0;
+			break;
+		case NE:
+			index = 1;
+			break;
+		case NW:
+			index = 7;
+			break;
+		case S:
+			index = 4;
+			break;
+		case SE:
+			index = 3;
+			break;
+		case SW:
+			index = 5;
+			break;
+		case W:
+			index = 6;
+			break;
+		default:
+			break;	
+		}
+		switch(dir) {
+		case F:
+			break;
+		case L:
+			index = (index - 1)%8;
+			break;
+		case R:
+			index = (index + 1)%8;
+			break;
+		case B:
+			index = (index + 4)%8;
+			break;
+		}
+		return boussole[index];
+	}
+	
 }

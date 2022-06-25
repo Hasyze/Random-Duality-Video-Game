@@ -72,7 +72,7 @@ public class ATransition {
 
 	public Etat applyTransition(Entity e) throws Exception{
 		if(actions.isEmpty())
-			return null;
+			return target;
 		Random r = new Random();
 		this.value = r.nextInt(100);
 		actions.forEach(apply); //C'est ici qu'on applique nos tests a toutes les actions de la HashMap

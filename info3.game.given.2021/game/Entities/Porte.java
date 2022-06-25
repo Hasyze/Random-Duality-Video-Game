@@ -30,7 +30,7 @@ public class Porte extends Entity {
 	
 
 	public Porte(Salle salle, int orientation, Game game) throws IOException {	//Créer une porte dans une salle sans la lié à une autre salle
-		super(game);
+		super(game,"Porte");
 		this.m_images = loadSprite("resources/images_test/jaune_20x20.jpg",1,1);
 		BufferedImage img = this.m_images[0];
 		salle_origine = salle;

@@ -1,10 +1,8 @@
 package automaton;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import Entities.Entity;
-
 
 public class Automate {
 	public String name;
@@ -48,7 +46,7 @@ public class Automate {
 		}
 	}
 	public boolean autStatic() {
-        return (etats.size() == 1) && (etats.get(0).transitions.size()<=1);
+        return (this.name == "Static");
     }
 
 }

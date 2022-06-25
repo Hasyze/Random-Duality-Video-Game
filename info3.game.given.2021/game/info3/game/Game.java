@@ -29,7 +29,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -39,12 +38,13 @@ import Entities.Cowboy;
 import Entities.Ennemis;
 import Entities.Entity;
 import Entities.Porte;
+import Entities.Tank;
+import Entities.Tireur;
 import Map.Etage;
 import Map.Salle;
 import Menu.AutomateMap;
 import Menu.Ressource;
 import automaton.Automate;
-import automaton.BotBuilder;
 import info3.game.graphics.GameCanvas;
 import info3.game.sound.RandomFileInputStream;
 
@@ -71,6 +71,9 @@ public class Game {
 	public AutomateMap automatemap;
 	
 	Cowboy m_cowboy, m_cowboy2;
+	Entity Player1, Player2;
+	Tank tank;
+	Tireur tireur;
 	Ennemis mechant;
 	
 	public Cowboy getPlayer() {
@@ -107,11 +110,15 @@ public class Game {
 		changement_de_salle = null;
 		EM = new EntityManager();
 		modele = new Modele(this);
-		m_cowboy = new Cowboy(960, 1000, "Joueur1", 25, this);
-		m_cowboy2 = new Cowboy(980, 1100, "Joueur2", 25, this);
+		//m_cowboy = new Cowboy(800, 1000, "Mur", 25, this);
+		//m_cowboy2 = new Cowboy(800, 1100, "Mur", 25, this);
+		Player1 = new Tireur(960, 1000, "Joueur1", 25, this);
+		Player2 = new Tank(980, 1100, "Joueur2", 25, this);
 		mechant = new Ennemis(900, 900, "Ennemie1", 25, this);
-		EM.EM_add(m_cowboy);
-		EM.EM_add(m_cowboy2);
+		//EM.EM_add(m_cowboy);
+		//EM.EM_add(m_cowboy2);
+		EM.EM_add(Player1);
+		EM.EM_add(Player2);
 		EM.EM_add(mechant);
 		
 		etage = new Etage(niveau, this);
@@ -200,20 +207,20 @@ public class Game {
 		
 		switch (porte.orientation_salle_destination) {
 		case 0 :
-			m_cowboy.Teleporte_joueur(23*40, 2*40);
-			m_cowboy2.Teleporte_joueur(25*40,  2*40);
+			Player1.Teleporte_joueur(23*40, 2*40);
+			Player2.Teleporte_joueur(25*40,  2*40);
 			break;
 		case 1 :
-			m_cowboy.Teleporte_joueur(46*40, 23*40);
-			m_cowboy2.Teleporte_joueur(46*40, 25*40);
+			Player1.Teleporte_joueur(46*40, 23*40);
+			Player2.Teleporte_joueur(46*40, 25*40);
 			break;
 		case 2 :
-			m_cowboy.Teleporte_joueur(23*40, 46*40);
-			m_cowboy2.Teleporte_joueur(25*40, 46*40);
+			Player1.Teleporte_joueur(23*40, 46*40);
+			Player2.Teleporte_joueur(25*40, 46*40);
 			break;
 		default :
-			m_cowboy.Teleporte_joueur(2*40, 23*40);
-			m_cowboy2.Teleporte_joueur(2*40, 25*40);
+			Player1.Teleporte_joueur(2*40, 23*40);
+			Player2.Teleporte_joueur(2*40, 25*40);
 			break;
 		}
 		changement_de_salle = null;
@@ -331,9 +338,9 @@ public class Game {
 
 	
 	private void switchplayers() {
-		Automate a = this.m_cowboy.Aut;
-		this.m_cowboy.Aut = this.m_cowboy2.Aut;
-		this.m_cowboy2.Aut = a;
+		//Automate a = this.m_cowboy.Aut;
+		//this.m_cowboy.Aut = this.m_cowboy2.Aut;
+		//this.m_cowboy2.Aut = a;
 	}
 	
 	/*
@@ -354,8 +361,8 @@ public class Game {
 		int height = m_canvas.getHeight();
 
 		// Définit les coordonnées dans le monde du coin supérieur droit de la caméra
-		int coinscamX = (m_cowboy2.getx() + m_cowboy.getx()) / 2 - width / 2;
-		int coinscamY = (m_cowboy2.gety() + m_cowboy.gety()) / 2 - height / 2;
+		int coinscamX = (Player2.getx() + Player1.getx()) / 2 - width / 2;
+		int coinscamY = (Player2.gety() + Player2.gety()) / 2 - height / 2;
 
 		// erase background
 
@@ -375,7 +382,7 @@ public class Game {
 		g.fillRect(0, 0, width, height);
 		g.drawImage(bg, -coinscamX, -coinscamY, bg.getWidth(null), bg.getHeight(null), null);
 		g.drawOval(width / 2 - 5, height / 2 - 5, 10, 10);
-		g.drawLine(m_cowboy.getx() - coinscamX, m_cowboy.gety() - coinscamY, m_cowboy2.getx() - coinscamX, m_cowboy2.gety() - coinscamY);
+		g.drawLine(Player1.getx() - coinscamX, Player1.gety() - coinscamY, Player2.getx() - coinscamX, Player2.gety() - coinscamY);
 
 		
 		dessine_salle(g, coinscamX, coinscamY);

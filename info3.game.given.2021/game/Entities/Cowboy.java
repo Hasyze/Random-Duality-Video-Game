@@ -40,7 +40,7 @@ public class Cowboy extends Entity {
 
 	Fantome doublure;
 
-	public Cowboy(Modele modele, EntityManager EM) throws IOException {
+	/*public Cowboy(Modele modele, EntityManager EM) throws IOException {
 		super(modele, EM);
 		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
 	}
@@ -49,10 +49,10 @@ public class Cowboy extends Entity {
 		super(model, EM);
 		this.Name = name;
 		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
-	}
+	}*/
 
 	public Cowboy(int m_x, int m_y, String name, int r, Game game) throws IOException {
-		super(game,name);
+		super(game, name);
 		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
 		this.Name = name;
 		x = m_x;
@@ -63,7 +63,7 @@ public class Cowboy extends Entity {
 		type = 0;
 		speed = 5;
 	}
-	
+
 	public Cowboy(Game game, int m_x, int m_y, String name, int r, Automate aut) throws IOException {
 		super(game);
 		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
@@ -77,26 +77,55 @@ public class Cowboy extends Entity {
 		type = 0;
 	}
 
-	public void Teleporte_joueur(int m_x, int m_y) {
-		x = m_x;
-		y = m_y;
-	}
-	
-	public void tick(EntityManager EM , long elapsed) throws IOException {
+	public void tick(EntityManager EM, long elapsed) throws IOException {
 		super.tick(EM, elapsed);
 	}
 
 	public void move(Direction dir) {
 		super.move(dir);
-		if(moveCD<=0)
+		set_orientation();
+		if (moveCD <= 0)
 			moveCD = 25;
 	}
-	
+
+	public void set_orientation() {
+		switch (this.direction) {
+		case NW:
+			m_imageIndex = 10;
+			break;
+		case NE:
+			m_imageIndex = 16;
+			break;
+		case SW:
+			m_imageIndex = 4;
+			break;
+		case SE:
+			m_imageIndex = 23;
+			break;
+		case W:
+			m_imageIndex = 7;
+			break;
+		case E:
+			m_imageIndex = 20;
+			break;
+		case N:
+			m_imageIndex = 13;
+			break;
+		case S:
+			m_imageIndex = 1;
+			break;
+		default:
+			break;
+		}
+	}
+
 	public void hit(Direction dir) {
-		System.out.println("PIOU PIOU");
+		if(hitCD > 0)
+			return;
+		hitCD = 500;
 		Projectile balle;
 		try {
-			balle = new Projectile(x,y,3,this.direction, "Balle",20, game);
+			balle = new Projectile(x, y, 3, this.direction, "Balle", 20, game);
 			this.EM.EM_add(balle);
 
 		} catch (IOException e) {

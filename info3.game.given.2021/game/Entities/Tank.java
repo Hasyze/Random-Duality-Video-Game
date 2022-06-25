@@ -46,7 +46,7 @@ public class Tank extends Entity{
 		super.move(dir);
 		set_orientation();
 		if (moveCD <= 0)
-			moveCD = 25;
+			moveCD = 20;
 	}
 
 	public void set_orientation() {

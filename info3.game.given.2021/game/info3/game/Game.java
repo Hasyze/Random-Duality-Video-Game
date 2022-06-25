@@ -25,6 +25,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -34,8 +35,6 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import Entities.Cowboy;
-import Entities.Ennemis;
 import Entities.Entity;
 import Entities.Porte;
 import Entities.Tank;
@@ -43,7 +42,6 @@ import Entities.Tireur;
 import Map.Etage;
 import Map.Salle;
 import Menu.AutomateMap;
-import Menu.Ressource;
 import automaton.Automate;
 import info3.game.graphics.GameCanvas;
 import info3.game.sound.RandomFileInputStream;
@@ -52,85 +50,72 @@ public class Game {
 
 	static Game game;
 
-	Image bg;
+	BufferedImage[] bg = loadSprite("resources/sol.png",1,1);
+	
 
+	public static BufferedImage[] loadSprite(String filename, int nrows, int ncols) throws IOException {
+		File imageFile = new File(filename);
+		if (imageFile.exists()) {
+			BufferedImage image = ImageIO.read(imageFile);
+			int width = image.getWidth(null) / ncols;
+			int height = image.getHeight(null) / nrows;
+
+			BufferedImage[] images = new BufferedImage[nrows * ncols];
+			for (int i = 0; i < nrows; i++) {
+				for (int j = 0; j < ncols; j++) {
+					int x = j * width;
+					int y = i * height;
+					images[(i * ncols) + j] = image.getSubimage(x, y, width, height);
+				}
+			}
+			return images;
+		}
+		return null;
+	}
+	
 	JFrame m_frame;
 	JLabel m_text;
 	GameCanvas m_canvas;
 	CanvasListener m_listener;
 	Sound m_music;
-	
+
 	public EntityManager EM;
 	public Modele modele;
 
 	Etage etage;
 	Salle salle_courante;
-	Porte changement_de_salle;	//Prend la valeur d'une porte avec laquelle le joueur rentre en contact pour faire le changement de salle
+	Porte changement_de_salle; // Prend la valeur d'une porte avec laquelle le joueur rentre en contact pour
+								// faire le changement de salle
 	int niveau;
 
 	public AutomateMap automatemap;
-	
-	Cowboy m_cowboy, m_cowboy2;
-	Entity Player1, Player2;
-	Tank tank;
-	Tireur tireur;
-	Ennemis mechant;
-	
-	public Cowboy getPlayer() {
-		return m_cowboy2;
-	}
 
-	
-	public Game(Ressource Res2) throws Exception {
-		niveau = 1;
-		changement_de_salle = null;
-		EM = new EntityManager();
-		modele = new Modele(this);
-		
-		Init_niveau(niveau, Res2);
-		
-		
-		// creating a listener for all the events
-		// from the game canvas, that would be
-		// the controller in the MVC pattern
-		m_listener = new CanvasListener(this);
-		// creating the game canvas to render the game,
-		// that would be a part of the view in the MVC pattern
-		m_canvas = new GameCanvas(m_listener);
-		System.out.println("  - creating frame...");
-		Dimension d = new Dimension(1024, 768);
-		m_frame = m_canvas.createFrame(d);
-		System.out.println("  - setting up the frame...");
-		setupFrame();
-	}
-	
+	Entity Player1, Player2;
+
 	public Game(AutomateMap map) throws Exception {
 		this.automatemap = map;
 		niveau = 1;
 		changement_de_salle = null;
 		EM = new EntityManager();
 		modele = new Modele(this);
-		//m_cowboy = new Cowboy(800, 1000, "Mur", 25, this);
-		//m_cowboy2 = new Cowboy(800, 1100, "Mur", 25, this);
+		// m_cowboy = new Cowboy(800, 1000, "Mur", 25, this);
+		// m_cowboy2 = new Cowboy(800, 1100, "Mur", 25, this);
 		Player1 = new Tireur(960, 1000, "Joueur1", 25, this);
 		Player2 = new Tank(980, 1100, "Joueur2", 25, this);
-		mechant = new Ennemis(900, 900, "Ennemie1", 25, this);
-		//EM.EM_add(m_cowboy);
-		//EM.EM_add(m_cowboy2);
+		// EM.EM_add(m_cowboy);
+		// EM.EM_add(m_cowboy2);
 		EM.EM_add(Player1);
 		EM.EM_add(Player2);
-		EM.EM_add(mechant);
-		
+
 		etage = new Etage(niveau, this);
 
-		
 		salle_courante = etage.salles[0];
-		bg = salle_courante.background;
-		
+		//bg = salle_courante.background;
+
 		salle_courante.charger_salle(EM, modele);
-		
-		niveau += 1; //On prévoie le changement de niveau
-		
+
+		niveau += 1; // On prévoie le changement de niveau
+
 		// creating a listener for all the events
 		// from the game canvas, that would be
 		// the controller in the MVC pattern
@@ -144,87 +129,52 @@ public class Game {
 		System.out.println("  - setting up the frame...");
 		setupFrame();
 	}
-	
+
 	public CanvasListener getListener() {
 		return m_listener;
 	}
-	
-	private void Init_niveau(int niv, Ressource Res2) throws IOException {
-		
-		
-		
-		
-	
-		
-		Res2.set_couple(m_cowboy);
-		Res2.set_couple(m_cowboy2);
-		System.out.print("Test menu : cowboy 1 attribution automate : ");
-		System.out.print(m_cowboy.Name +" "+ m_cowboy.Aut.name+"\n");
-		
-		System.out.print("Test menu : cowboy 2 attribution automate : ");
-		System.out.print(m_cowboy2.Name + " "+m_cowboy2.Aut.name+"\n");
-		
-		
 
-		
-		
-		EM.EM_add(m_cowboy);
-		EM.EM_add(m_cowboy2);
-		EM.EM_add(mechant);
-		
-		etage = new Etage(niv, this);
+	// On affiche tous les élements statiques, on affiche ensuite les dynamiques a
+	// chaque ticks
 
-		
-		salle_courante = etage.salles[0];
-		bg = salle_courante.background;
-		
-		salle_courante.charger_salle(EM, modele);
-		
-		niveau += 1; //On prévoie le changement de niveau
-	}
-	
-	//On affiche tous les élements statiques, on affiche ensuite les dynamiques a chaque ticks
-	
-	private void dessine_salle (Graphics g, int coinscamX, int coinscamY) {
+	private void dessine_salle(Graphics g, int coinscamX, int coinscamY) {
 		ArrayList<Entity> Static = EM.sort_affichage();
 		Entity e;
-		for (int i=0; i<Static.size(); i++) {
-			//System.out.print("Nom : " + Static.get(i).Name + " x : " + Static.get(i).getx() + " y :" + Static.get(i).gety() + "\n");
+		for (int i = 0; i < Static.size(); i++) {
+			// System.out.print("Nom : " + Static.get(i).Name + " x : " +
+			// Static.get(i).getx() + " y :" + Static.get(i).gety() + "\n");
 			e = Static.get(i);
 			e.paint(g, coinscamX, coinscamY);
 		}
-		//System.out.print("Affichage DONE");
+		// System.out.print("Affichage DONE");
 	}
-	
-	
-	
-	
+
 	private void Chgmt_salle(Porte porte) throws IOException {
 		EM.vider_entity_manager(); // --> vide l'entity manager sauf les deux cowboy
 		salle_courante = porte.salle_destination;
 		salle_courante.charger_salle(EM, modele);
 		bg = salle_courante.background;
-		
+
 		switch (porte.orientation_salle_destination) {
-		case 0 :
-			Player1.Teleporte_joueur(23*40, 2*40);
-			Player2.Teleporte_joueur(25*40,  2*40);
+		case 0:
+			Player1.Teleporte_joueur(23 * 40, 2 * 40);
+			Player2.Teleporte_joueur(25 * 40, 2 * 40);
 			break;
-		case 1 :
-			Player1.Teleporte_joueur(46*40, 23*40);
-			Player2.Teleporte_joueur(46*40, 25*40);
+		case 1:
+			Player1.Teleporte_joueur(46 * 40, 23 * 40);
+			Player2.Teleporte_joueur(46 * 40, 25 * 40);
 			break;
-		case 2 :
-			Player1.Teleporte_joueur(23*40, 46*40);
-			Player2.Teleporte_joueur(25*40, 46*40);
+		case 2:
+			Player1.Teleporte_joueur(23 * 40, 46 * 40);
+			Player2.Teleporte_joueur(25 * 40, 46 * 40);
 			break;
-		default :
-			Player1.Teleporte_joueur(2*40, 23*40);
-			Player2.Teleporte_joueur(2*40, 25*40);
+		default:
+			Player1.Teleporte_joueur(2 * 40, 23 * 40);
+			Player2.Teleporte_joueur(2 * 40, 25 * 40);
 			break;
 		}
 		changement_de_salle = null;
-		
+
 	}
 
 	/*
@@ -248,7 +198,7 @@ public class Game {
 		// make the vindow visible
 		m_frame.setVisible(true);
 	}
-	
+
 	public static Image loadImage(String filename) throws IOException {
 		File imageFile = new File(filename);
 		if (imageFile.exists()) {
@@ -257,7 +207,6 @@ public class Game {
 		}
 		return null;
 	}
-
 
 	/*
 	 * ================================================================ All the
@@ -295,30 +244,29 @@ public class Game {
 	 * that elapsed since the last time this method was invoked.
 	 */
 
-	long test = 0;	
+	long test = 0;
+
 	void tick(long elapsed) throws Exception {
 		test += elapsed;
-		if (test > 2500) {
+		if (test > 25000) {
 			test = 0;
-			//System.out.println("SWITCH");
+			System.out.println("SWITCH");
 			switchplayers();
 		}
 
 		// EM TICK STEPS
 		EM.tick(elapsed);
 		modele.collionsDynamic(EM.getDynamic());
-		
-		if (changement_de_salle != null) {	//à chaque tick on vérifie qu'il ne faut pas changer de salle
+
+		if (changement_de_salle != null) { // à chaque tick on vérifie qu'il ne faut pas changer de salle
 			System.out.print("On doit changer de salle");
 			try {
 				Chgmt_salle(changement_de_salle);
-				
+
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-	
-	
 
 		// Update every second
 		// the text on top of the frame: tick and fps
@@ -336,13 +284,12 @@ public class Game {
 		}
 	}
 
-	
 	private void switchplayers() {
-		//Automate a = this.m_cowboy.Aut;
-		//this.m_cowboy.Aut = this.m_cowboy2.Aut;
-		//this.m_cowboy2.Aut = a;
+		Automate a = this.Player1.Aut;
+		this.Player1.Aut = this.Player2.Aut;
+		this.Player2.Aut = a;
 	}
-	
+
 	/*
 	 * This request is to paint the Game Canvas, using the given graphics. This is
 	 * called from the GameCanvasListener, called from the GameCanvas.
@@ -353,7 +300,8 @@ public class Game {
 	int ymin = 0;
 	int xmax = 1920;
 	int ymax = 1920;
-
+	
+	
 	void paint(Graphics g) {
 
 		// get the size of the canvas
@@ -362,7 +310,7 @@ public class Game {
 
 		// Définit les coordonnées dans le monde du coin supérieur droit de la caméra
 		int coinscamX = (Player2.getx() + Player1.getx()) / 2 - width / 2;
-		int coinscamY = (Player2.gety() + Player2.gety()) / 2 - height / 2;
+		int coinscamY = (Player2.gety() + Player1.gety()) / 2 - height / 2;
 
 		// erase background
 
@@ -378,13 +326,18 @@ public class Game {
 		if (coinscamY + height > ymax) {
 			coinscamY = ymax - height;
 		}
+		
 		g.setColor(Color.white);
 		g.fillRect(0, 0, width, height);
-		g.drawImage(bg, -coinscamX, -coinscamY, bg.getWidth(null), bg.getHeight(null), null);
+		
+		/*for(int i = 0; i<19200; i+= bg[0].getWidth()) {
+			for(int j = 0;j<1920;j+= bg[0].getHeight()) {
+				g.drawImage(bg[0], -coinscamX + i, -coinscamY + j, bg[0].getWidth(), bg[0].getHeight(), null);
+			}
+		}*/
 		g.drawOval(width / 2 - 5, height / 2 - 5, 10, 10);
 		g.drawLine(Player1.getx() - coinscamX, Player1.gety() - coinscamY, Player2.getx() - coinscamX, Player2.gety() - coinscamY);
 
-		
 		dessine_salle(g, coinscamX, coinscamY);
 
 	}

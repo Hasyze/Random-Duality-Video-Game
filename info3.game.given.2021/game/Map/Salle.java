@@ -268,7 +268,7 @@ public class Salle {
 					break;
 				case 52 :
 					
-					EM.EM_add(new Mur(i*40, j*40, "Ennemis", 20, game));
+					EM.EM_add(new Ennemis(i*40, j*40, "Ennemie1", 25, game));
 					break;
 				}
 				

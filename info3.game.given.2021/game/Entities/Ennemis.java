@@ -13,8 +13,8 @@ public class Ennemis extends Entity {
 		this.Name = name;
 		x = m_x;
 		y = m_y;
-		int height_hb = 2*(m_images[0].getHeight()) ;/// 2;
-		int width_hb = 2*(m_images[0].getWidth());// / 2;
+		int height_hb = (m_images[0].getHeight()) ;/// 2;
+		int width_hb = (m_images[0].getWidth());// / 2;
 		//hitbox = new Hitbox(r, x + width_hb, y + heigt_hb, 0);
 		hitbox = new Hitbox (x,y,width_hb,height_hb);
 		type = 1;

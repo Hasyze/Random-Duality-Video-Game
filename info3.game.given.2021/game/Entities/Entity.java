@@ -181,7 +181,7 @@ public abstract class Entity extends Object {
 		g.drawOval(x - originex - hitbox.getRayon(), y - originey - hitbox.getRayon(), hitbox.getRayon() * 2,
 				hitbox.getRayon() * 2);
 		g.drawRect(hitbox.getRect().x - originex , hitbox.getRect().y - originey ,
-				scale*getWidth(), scale*getHeight());
+				hitbox.getRect().width,hitbox.getRect().height);
 
 	}
 

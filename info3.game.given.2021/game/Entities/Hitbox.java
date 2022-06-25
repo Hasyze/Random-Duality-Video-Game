@@ -1,22 +1,40 @@
 package Entities;
 
+import java.awt.Rectangle;
+
 public class Hitbox {
 
 	private int rayon;
 	private int x, y;
-	private int type;
+	//private int type; il sert à rien
 	
-	public Hitbox (int rayon, int m_x, int m_y, int type) {
+
+	private Rectangle rect = new Rectangle();
+
+	
+	public Hitbox (int rayon, int m_x, int m_y) {
 		this.rayon = rayon;
 		this.x = m_x;
 		this.y = m_y;
-		this.type= type;
 	}
 	
-	public void relocate (int m_x, int m_y) {
+	public Hitbox(int x, int y, int width, int height) {
+		rect= new Rectangle(x-width/2,y-height/2,width,height);
+	 }
+
+    public void relocate(int m_x, int m_y) {
+        rect.setRect(m_x-rect.width/2,m_y-rect.height/2,rect.width,rect.height);
+    }
+    
+    public Rectangle getRect() {
+		return rect;
+	}
+
+
+	/*public void relocate (int m_x, int m_y) {
 		this.x = m_x;
 		this.y = m_y;
-	}
+	}*/
 
 	public int getRayon() {
 		return rayon;
@@ -30,9 +48,9 @@ public class Hitbox {
 		return y;
 	}
 	
-	int getType() {
+	/*int getType() {
 		return type;
-	}
+	}*/
 	
 	
 	/*double distance (int a_x,int a_y, int b_x, int b_y) {

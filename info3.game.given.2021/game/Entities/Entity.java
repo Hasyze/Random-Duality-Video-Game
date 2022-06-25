@@ -180,6 +180,9 @@ public abstract class Entity extends Object {
 		g.drawImage(img, x - originex - getWidth(), y - originey - getHeight(), scale * img.getWidth(),scale * img.getHeight(), null);
 		g.drawOval(x - originex - hitbox.getRayon(), y - originey - hitbox.getRayon(), hitbox.getRayon() * 2,
 				hitbox.getRayon() * 2);
+		g.drawRect(hitbox.getRect().x - originex , hitbox.getRect().y - originey ,
+				scale*getWidth(), scale*getHeight());
+
 	}
 
 	public void degatVie(int degat) {

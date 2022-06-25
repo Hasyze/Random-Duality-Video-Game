@@ -18,9 +18,10 @@ public class Tireur extends Entity{
 		this.Name = name;
 		x = m_x;
 		y = m_y;
-		int heigt_hb = (m_images[0].getHeight()) / 2;
-		int width_hb = (m_images[0].getWidth()) / 2;
-		hitbox = new Hitbox(r, x + width_hb, y + heigt_hb, 0);
+		int height_hb = (m_images[0].getHeight());// / 2;
+		int width_hb = (m_images[0].getWidth());// / 2;
+		//hitbox = new Hitbox(r, x + width_hb, y + heigt_hb, 0);
+		hitbox = new Hitbox (x,y,width_hb,height_hb);
 		type = 0;
 		speed = 4;
 		vie = 10;		

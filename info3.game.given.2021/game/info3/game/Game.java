@@ -36,6 +36,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import Entities.Entity;
+import Entities.Fantome;
 import Entities.Porte;
 import Entities.Tank;
 import Entities.Tireur;
@@ -51,7 +52,8 @@ public class Game {
 	static Game game;
 
 	BufferedImage bg;
-	
+	BufferedImage heart = (loadSprite("resources/heart.png", 1, 1))[0];
+	BufferedImage heart2 = (loadSprite("resources/heart2.png", 1, 1))[0];
 
 	public static BufferedImage[] loadSprite(String filename, int nrows, int ncols) throws IOException {
 		File imageFile = new File(filename);
@@ -72,7 +74,7 @@ public class Game {
 		}
 		return null;
 	}
-	
+
 	JFrame m_frame;
 	JLabel m_text;
 	GameCanvas m_canvas;
@@ -91,10 +93,11 @@ public class Game {
 	public AutomateMap automatemap;
 
 	Entity Player1, Player2;
-	
+
 	public Entity getPlayer1() {
 		return Player1;
 	}
+
 	public Entity getPlayer2() {
 		return Player2;
 	}
@@ -117,7 +120,7 @@ public class Game {
 		etage = new Etage(niveau, this);
 
 		salle_courante = etage.salles[0];
-		//bg = salle_courante.background;
+		// bg = salle_courante.background;
 
 		salle_courante.charger_salle(EM, modele);
 		bg = salle_courante.background;
@@ -252,14 +255,50 @@ public class Game {
 	 * that elapsed since the last time this method was invoked.
 	 */
 
+	boolean J1dead = false;
+	boolean J2dead = false;
+
+	void pitiFantome() {
+		if (!J1dead) {
+			if (Player1.getvie() <= 0) {
+				Entity ent;
+				try {
+					ent = Player1;
+					Player1 = new Fantome("Fantome1", Player1.getx(), Player1.gety(), Player1.getHitbox().getRayon(),
+							this);
+					EM.EM_remove(ent);
+					EM.EM_add(Player1);
+					J1dead = true;
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		if (!J2dead) {
+			if (Player2.getvie() <= 0) {
+				Entity ent;
+				try {
+					ent = Player2;
+					Player2 = new Fantome("Fantome2", Player2.getx(), Player2.gety(), Player2.getHitbox().getRayon(),
+							this);
+					EM.EM_remove(ent);
+					EM.EM_add(Player2);
+					J2dead = true;
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
 	long test = 0;
 
 	void tick(long elapsed) throws Exception {
 		test += elapsed;
-		if (test > 25000) {
+		if (test > 2500) {
 			test = 0;
-			System.out.println("SWITCH");
-			switchplayers();
+			EM.afficher_EM();
+			// switchplayers();
 		}
 
 		// EM TICK STEPS
@@ -281,6 +320,7 @@ public class Game {
 		m_textElapsed += elapsed;
 		if (m_textElapsed > 1000) {
 			m_textElapsed = 0;
+			pitiFantome();
 			float period = m_canvas.getTickPeriod();
 			int fps = m_canvas.getFPS();
 
@@ -289,6 +329,15 @@ public class Game {
 				txt += " ";
 			txt = txt + fps + " fps   ";
 			m_text.setText(txt);
+		}
+	}
+
+	private void lifePrint(Graphics g) {
+		for (int i = 0; i < Player1.getvie(); i++) {
+			g.drawImage(heart, 0 + i * heart.getWidth(), 10, heart.getWidth(), heart.getHeight(), null);
+		}
+		for (int i = 0; i < Player2.getvie(); i++) {
+			g.drawImage(heart2, 0 + i * heart2.getWidth(), 40, heart2.getWidth(), heart2.getHeight(), null);
 		}
 	}
 
@@ -308,8 +357,7 @@ public class Game {
 	int ymin = 0;
 	int xmax = 1920;
 	int ymax = 1920;
-	
-	
+
 	void paint(Graphics g) {
 
 		// get the size of the canvas
@@ -334,19 +382,20 @@ public class Game {
 		if (coinscamY + height > ymax) {
 			coinscamY = ymax - height;
 		}
-		
+
 		g.setColor(Color.white);
 		g.fillRect(0, 0, width, height);
-		
-		for(int i = 0; i<19200; i+= bg.getWidth()) {
-			for(int j = 0;j<1920;j+= bg.getHeight()) {
+
+		for (int i = 0; i < 1920; i += bg.getWidth()) {
+			for (int j = 0; j < 1920; j += bg.getHeight()) {
 				g.drawImage(bg, -coinscamX + i, -coinscamY + j, bg.getWidth(), bg.getHeight(), null);
 			}
 		}
 		g.drawOval(width / 2 - 5, height / 2 - 5, 10, 10);
-		g.drawLine(Player1.getx() - coinscamX, Player1.gety() - coinscamY, Player2.getx() - coinscamX, Player2.gety() - coinscamY);
-
+		g.drawLine(Player1.getx() - coinscamX, Player1.gety() - coinscamY, Player2.getx() - coinscamX,
+				Player2.gety() - coinscamY);
 		dessine_salle(g, coinscamX, coinscamY);
+		lifePrint(g);
 
 	}
 

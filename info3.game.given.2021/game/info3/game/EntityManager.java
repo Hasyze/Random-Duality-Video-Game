@@ -74,7 +74,7 @@ public class EntityManager {
 			// System.out.print("Vie de "+Dynamic.get(i).Name+" : "+
 			// Dynamic.get(i).getvie()+"\n");
 			if (Dynamic.get(i).getvie() == 0) { // mort : ça dégage
-				if (Dynamic.get(i).getType() != 0) {
+				if ((Dynamic.get(i).getType() != 0) && (Dynamic.get(i).getType() != 4)) {
 					Dynamic.remove(i);
 					i--;
 				}

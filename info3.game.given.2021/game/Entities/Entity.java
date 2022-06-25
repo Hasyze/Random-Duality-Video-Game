@@ -32,6 +32,12 @@ public abstract class Entity extends Object {
 	protected long hitCD = 0;
 	protected long damageCD = 0;
 	protected long wait = 0;
+	
+	// Valeur
+	protected long moveCDR = 10;
+	protected long hitCDR = 200;
+	protected long damageCDR = 250;
+	protected long waitR = 5000;
 
 	
 	public Entity(Game game) {
@@ -117,13 +123,14 @@ public abstract class Entity extends Object {
 			break;
 		}
 		this.direction = dir;
+		moveCD = moveCDR;
 
 	}
 
 	public void Wait() {
 		if (wait > 0)
 			return;
-		wait = 5000;
+		wait = waitR;
 	}
 
 	public void pop(Direction dir) {
@@ -167,11 +174,7 @@ public abstract class Entity extends Object {
 	public void explode() {
 
 	}
-	
-
-
-	public Entity egg() {
-		return null;
+	public void egg(Direction dir) {
 	}
 
 	public void paint(Graphics g, int originex, int originey) {
@@ -186,6 +189,7 @@ public abstract class Entity extends Object {
 		if (damageCD > 0)
 			return;
 		vie -= degat;
+		damageCD = damageCDR;
 	}
 
 	public int getx() {

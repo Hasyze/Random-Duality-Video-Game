@@ -17,19 +17,15 @@ public class Ennemis extends Entity {
 		int width_hb = (m_images[0].getWidth()) / 2;
 		hitbox = new Hitbox(r, x + width_hb, y + heigt_hb, 0);
 		type = 1;
-		speed = 3;
+		speed = 2;
 		vie = 3;
+		moveCDR = 10;
 	}
 
 	public void tick(EntityManager EM, long elapsed) throws IOException {
 		super.tick(EM, elapsed);
 	}
 
-	/*public void move(Direction dir) {
-		super.move(dir);
-		if (moveCD <= 0)
-			moveCD = 15;
-	}*/
 
 	
 

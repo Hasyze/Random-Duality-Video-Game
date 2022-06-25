@@ -46,7 +46,7 @@ public class Automate {
 		}
 	}
 	public boolean autStatic() {
-        return (this.name == "Static");
+        return (this.name.equals("Static"));
     }
 
 }

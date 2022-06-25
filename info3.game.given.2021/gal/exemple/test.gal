@@ -32,6 +32,30 @@ Joueur2(Init){
   | True ?  :(Init)
 }
 
+Fantome1(Init){
+  * (Init)
+  | Key(z) & Key(q) & !Cell(NW,O) ? Move(NW) :(Action)
+  | Key(z) & Key(d) & !Cell(NE,O) ? Move(NE) :(Action)
+  | Key(s) & Key(q) & !Cell(SW,O) ? Move(SW) :(Action)
+  | Key(s) & Key(d) & !Cell(SE,O) ? Move(SE) :(Action)
+  | Key(z) & !Cell(N,O) ? Move(N) :(Action)
+  | Key(q) & !Cell(W,O) ? Move(W) :(Action)
+  | Key(s) & !Cell(S,O) ? Move(S) :(Action)
+  | Key(d) & !Cell(E,O) ? Move(E) :(Action)
+}
+
+Fantome2(Init){
+  * (Init)
+  | Key(FU) & Key(FR) & !Cell(NW,O) ? Move(NE) :(Action)
+  | Key(FU) & Key(FL) & !Cell(NE,O) ? Move(NW) :(Action)
+  | Key(FD) & Key(FR) & !Cell(SW,O) ? Move(SE) :(Action)
+  | Key(FD) & Key(FL) & !Cell(SE,O) ? Move(SW) :(Action)
+  | Key(FU) & !Cell(N,O) ? Move(N) :(Action)
+  | Key(FL) & !Cell(W,O) ? Move(W) :(Action)
+  | Key(FD) & !Cell(S,O) ? Move(S) :(Action)
+  | Key(FR) & !Cell(E,O) ? Move(E) :(Action)
+}
+
 Static(Init){
  * (Init)
   | True ? Wait :(Init)
@@ -44,8 +68,7 @@ Projectilesimple(Init){
 
 Boss(Init){
   * (Init)
-  | Cell(F,V) ? 70 % Move(F) / Turn(L) / Turn(R) / Egg(F) :(Init)
-  | True ? Turn(B) :(Init)
+  | True ? 70%Wait() / 30%Egg() :(Init)
 }
 
 Porte(Init){

@@ -9,7 +9,6 @@ import info3.game.Modele;
 public class Projectile extends Entity {
 		
 	long duree = 4000;
-	int tickRate = 25;
 	
 	public Projectile(int m_x, int m_y, int type, Direction dir,int speed, int tickRate, int duree, String name, int r, Game game) throws IOException {
 		super(game, name);
@@ -22,7 +21,7 @@ public class Projectile extends Entity {
 		hitbox = new Hitbox(r, x + width_hb, y + heigt_hb, 0);
 		this.type = type;
 		this.speed = speed;
-		this.tickRate = tickRate;
+		this.moveCDR = tickRate;
 		this.direction = dir;
 		this.duree = duree;
 		vie = 1;
@@ -40,11 +39,5 @@ public class Projectile extends Entity {
 		if(test<0) {
 			//System.out.println("Direction"+direction);
 		}
-	}
-
-	public void move(Direction dir) {
-		super.move(dir);
-		if (moveCD <= 0)
-			moveCD = tickRate;
 	}
 }

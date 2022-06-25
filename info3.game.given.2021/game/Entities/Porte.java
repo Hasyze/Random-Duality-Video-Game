@@ -81,14 +81,15 @@ public class Porte extends Entity {
         orientation_salle_destination = orientation;    
     }
 
+	
     public boolean GotStuff() {    //Change l'etat de la porte en true s'il n'y a plus d'ennemis dans la salle
-        System.out.print("ON PASSE DANS GOTSTUFF !!!!!!!!\n");
         List<Entity> list = game.EM.getDynamic();
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).type == 1) {
                 return false;
             }
         }
+        wait = waitR;
         //Change l'etat de la salle_origine en salle_vide = true si renvoie true
         return true;
     }

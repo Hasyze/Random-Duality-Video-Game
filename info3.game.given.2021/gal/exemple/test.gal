@@ -34,7 +34,7 @@ Joueur2(Init){
 
 Ennemis(Init){
   * (Init)
-  | True ? Wait :(Init)
+  | True ? Move() :(Init)
 }
 
 EnnemisP(Init){

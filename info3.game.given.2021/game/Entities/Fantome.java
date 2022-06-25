@@ -9,7 +9,11 @@ public class Fantome extends Entity {
 
 	public Fantome(String name,int m_x, int m_y, Game game) throws IOException {
 		super(game,name);
+<<<<<<< HEAD
 		m_images = loadSprite("resources/fantome.png", 1, 1);
+=======
+		m_images = loadSprite("resources/Fantome.png", 4, 6);
+>>>>>>> origin/Axel_22h41
 		x = m_x;
 		y = m_y;
 		int heigt_hb = (m_images[0].getHeight()) / 2;

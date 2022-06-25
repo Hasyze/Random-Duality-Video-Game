@@ -14,5 +14,14 @@ public class ProjectileA extends Entity {
 		this.type = 3;
 		this.x = x;
 		this.y = y;
+
+		int heigt_hb = (m_images[0].getHeight()) / 2;
+		int width_hb = (m_images[0].getWidth()) / 2;
+		
+		
+		
+		
+		
+		hitbox = new Hitbox(5, x + width_hb, y + heigt_hb, 0);
 	}
 }

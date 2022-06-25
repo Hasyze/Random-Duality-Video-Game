@@ -87,6 +87,7 @@ public class Cowboy extends Entity {
 	}
 
 	
+	
 
 	public void set_orientation() {
 		// Version un peu moche, verifier le format des sprites, cherche une nouvelle
@@ -174,13 +175,10 @@ public class Cowboy extends Entity {
 	
 	
 	public void hit() throws IOException {
-		System.out.print(""
-				+ ""
-				+ "\n\n Creation balle \n\n");
+		System.out.print("\n\n Creation balle \n\n");
 		ProjectileA balle = new ProjectileA(direction, modele,EM,x,y);
 		this.EM.EM_add(balle);
 		}
-	
 	
 	public void stop(int code) {
 		switch (code) {

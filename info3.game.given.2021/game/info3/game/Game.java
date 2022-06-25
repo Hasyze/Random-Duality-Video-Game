@@ -242,6 +242,8 @@ public class Game {
 		test += elapsed;
 		if (test > 2500) {
 			test = 0;
+			m_cowboy.hit();
+			
 			EM.afficher_EM();
 			//System.out.println("C1 :" + m_cowboy.getx() + "-" + m_cowboy.gety() + "C2 :" + m_cowboy2.getx() + "-"
 					//+ m_cowboy2.gety() + "ROC :" + rocher.getx() + "-" + rocher.gety());

@@ -71,14 +71,17 @@ public abstract class Entity extends Object {
 	}
 
 	public void move(Direction dir) {
-		this.direction = dir;
 		if (moveCD > 0) {
 			return;
 		}
-		switch (dir) {
+		switch(dir) {
 		case F:
-			move(this.direction);
+			dir = direction;
 			break;
+		default:
+			break;
+		}
+		switch (dir) {
 		case NW:
 			x -= speed;
 			y -= speed;
@@ -110,6 +113,8 @@ public abstract class Entity extends Object {
 		default:
 			break;
 		}
+		this.direction = dir;
+
 	}
 
 	public void Wait() {
@@ -211,6 +216,8 @@ public abstract class Entity extends Object {
 	}
 
 	public void tick(EntityManager em, long elapsed) throws IOException {
+		if(this.Aut.current().getName() == "")
+			vie = 0;
 		if (moveCD > 0)
 			moveCD -= elapsed;
 		if (damageCD > 0)

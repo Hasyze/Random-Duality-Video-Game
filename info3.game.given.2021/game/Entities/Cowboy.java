@@ -92,10 +92,17 @@ public class Cowboy extends Entity {
 			moveCD = 25;
 	}
 	
-	public void hit() throws IOException {
-		System.out.print("" + "" + "\n\n Creation balle \n\n");
-		ProjectileA balle = new ProjectileA(direction, modele, EM, x, y);
-		this.EM.EM_add(balle);
+	public void hit(Direction dir) {
+		System.out.println("PIOU PIOU");
+		Projectile balle;
+		try {
+			balle = new Projectile(x,y,3,this.direction, "Balle",20, game);
+			this.EM.EM_add(balle);
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void paint(Graphics g, int originex, int originey) {

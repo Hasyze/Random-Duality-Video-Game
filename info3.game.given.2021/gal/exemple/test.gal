@@ -1,14 +1,17 @@
 Joueur1(Init){
   * (Init)
-  | Key(z) & Key(q) & !(Cell(NW,O) / Cell(NW,J)) ? Move(NW) :(Init)
-  | Key(z) & Key(d) & !(Cell(NE,O) / Cell(NE,J)) ? Move(NE) :(Init)
-  | Key(s) & Key(q) & !(Cell(SW,O) / Cell(SW,J)) ? Move(SW) :(Init)
-  | Key(s) & Key(d) & !(Cell(SE,O) / Cell(SE,J)) ? Move(SE) :(Init)
-  | Key(z) & !(Cell(N,O) / Cell(N,J)) ? Move(N) :(Init)
-  | Key(q) & !(Cell(W,O) / Cell(W,J)) ? Move(W) :(Init)
-  | Key(s) & !(Cell(S,O) / Cell(S,J)) ? Move(S) :(Init)
-  | Key(d) & !(Cell(E,O) / Cell(E,J)) ? Move(E) :(Init)
-  | Key(SPACE) ? Pop(F) :(Init)
+  | Key(z) & Key(q) & !(Cell(NW,O) / Cell(NW,J)) ? Move(NW) :(Action)
+  | Key(z) & Key(d) & !(Cell(NE,O) / Cell(NE,J)) ? Move(NE) :(Action)
+  | Key(s) & Key(q) & !(Cell(SW,O) / Cell(SW,J)) ? Move(SW) :(Action)
+  | Key(s) & Key(d) & !(Cell(SE,O) / Cell(SE,J)) ? Move(SE) :(Action)
+  | Key(z) & !(Cell(N,O) / Cell(N,J)) ? Move(N) :(Action)
+  | Key(q) & !(Cell(W,O) / Cell(W,J)) ? Move(W) :(Action)
+  | Key(s) & !(Cell(S,O) / Cell(S,J)) ? Move(S) :(Action)
+  | Key(d) & !(Cell(E,O) / Cell(E,J)) ? Move(E) :(Action)
+  | Key(SPACE) ? Hit() :(Init)
+  * (Action)
+  | Key(SPACE) ? Hit() :(Init)
+  | True ?  :(Init)
 }
 
 Joueur2(Init){
@@ -21,11 +24,16 @@ Joueur2(Init){
   | Key(FL) & !(Cell(W,J) / Cell(W,O)) ? Move(W) :(Init)
   | Key(FD) & !(Cell(S,J) / Cell(S,O)) ? Move(S) :(Init)
   | Key(FR) & !(Cell(E,J) / Cell(E,O)) ? Move(E) :(Init)
-  | Key(ENTER) ? Pop(F) :(Init)
+  | Key(ENTER) ? Hit() :(Init)
 }
 
 Con(Init){
  * (Init)
   | True ? Wait :(Init)
+}
+
+Projectilesimple(Init){
+ * (Init)
+  | True ? Move(N) :(Init)
 }
 

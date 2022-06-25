@@ -30,4 +30,8 @@ public class Etat {
 		}
 		return null;
 	}	
+	
+	public String getName() {
+		return name;
+	}
 }

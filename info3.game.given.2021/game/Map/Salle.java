@@ -57,6 +57,7 @@ public class Salle {
 		this.nbr_portes = 0;
 		this.compo = new int[49][49];
 		this.type = type;
+		salle_vide = false;
 		this.background = this.init_background();
 
 		this.Ajouter_portes(nbr_de_portes);
@@ -265,8 +266,9 @@ public class Salle {
 					EM.EM_add(new Rocher(modele, i*40, j*40, "Rocher", 20));
 					break;
 				case 52 :
-					
-					EM.EM_add(new Mur(modele, i*40, j*40, "Ennemis", 20));
+					if (this.salle_vide == false) {
+						EM.EM_add(new Mur(modele, i*40, j*40, "Ennemis", 20));
+					}
 					break;
 				}
 				

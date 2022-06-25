@@ -11,6 +11,8 @@ public class Hitbox {
 		this.x = m_x;
 		this.y = m_y;
 		this.type= type;
+		
+		
 	}
 	
 	public void relocate (int m_x, int m_y) {

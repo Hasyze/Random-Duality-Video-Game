@@ -83,6 +83,13 @@ public class Porte extends Entity {
 	}
 
 	
+	boolean GotStuff() {
+		//Parcourir l'EM et renvoie False si trouve un ennemis, true sinon
+		//Change l'etat de la porte en ouvert si renvoie true
+		//Change l'etat de la salle_origine en salle_vide = true si renvoie true
+		return true;
+	}
+	
 	
 
 }

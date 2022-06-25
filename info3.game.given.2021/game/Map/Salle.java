@@ -40,7 +40,7 @@ public class Salle {
 	int largeur = 49; // Nombre de bloc sur le coté de la salle.
 	int hauteur = 49;
 
-	boolean salle_vide; // =false tant que le joueur n'a pas tué tout les ennemis.
+	public boolean salle_vide; // =false tant que le joueur n'a pas tué tout les ennemis.
 
 	String type; // Type de la salle (Normale, Boss, Entrée, etc...)
 
@@ -57,8 +57,9 @@ public class Salle {
 		this.game = game;
 		this.portes = new Porte[4];
 		this.nbr_portes = 0;
-		this.compo = new int[49][49];
+		this.compo = new int[largeur][hauteur];
 		this.type = type;
+		this.salle_vide = false;
 		this.background = this.init_background();
 
 		this.Ajouter_portes(nbr_de_portes, game.EM);
@@ -78,19 +79,19 @@ public class Salle {
 										// sautant plus ou moins de ligne
 				Random x = new Random();
 				int j = x.nextInt(2);
-				for (int i = 0; i < 2450 * j; i++) { // On saute 2550 caractères (nombre de caractère pour faire un
+				for (int i = 0; i < (largeur+1)*hauteur * j; i++) { // On saute 2550 caractères (nombre de caractère pour faire un
 														// pattern)si j=1
 					r = br.read();
 				}
 			}
 
 			// On lit le pattern et on l'écrit dans compo[][]
-			while (((r = br.read()) != -1) && (l < 49)) {
+			while (((r = br.read()) != -1) && (l < hauteur)) {
 				System.out.print((char) r);
 				if ((r == 48) || (r == 49) || (r == 50) || (r == 51) || (r == 52)) {
 					this.compo[l][c] = r;
 					c++;
-					if (c >= 49) {
+					if (c >= largeur) {
 						c = 0;
 						l++;
 					}
@@ -237,8 +238,8 @@ public class Salle {
 	
 	//Créer les entités en fonction de la compo de la salle
 	public void charger_salle(EntityManager EM, Modele modele) throws IOException {
-		for (int i = 0; i<49; i++) {
-			for (int j = 0; j<49; j++) {
+		for (int i = 0; i<hauteur; i++) {
+			for (int j = 0; j<largeur; j++) {
 				int x = compo[j][i];
 				//System.out.print(x);
 				switch (x) {
@@ -249,10 +250,10 @@ public class Salle {
 					if ( (j == 0) && (portes[0] != null) ) {
 						EM.EM_add(portes[0]);
 					}
-					else if ( (i == 48) && (portes[1] != null) ) {
+					else if ( (i == hauteur-1) && (portes[1] != null) ) {
 						EM.EM_add(portes[1]);
 					}
-					else if ( (j == 48) && (portes[2] != null) ) {
+					else if ( (j == largeur-1) && (portes[2] != null) ) {
 						EM.EM_add(portes[2]);
 					}
 					else if ( (i == 0) && (portes[3] != null) ) {
@@ -267,8 +268,9 @@ public class Salle {
 					EM.EM_add(new Rocher(i*40, j*40, "Rocher", 20, game));
 					break;
 				case 52 :
-					
-					EM.EM_add(new Mur(i*40, j*40, "Ennemis", 20, game));
+					if (this.salle_vide == false) {
+						EM.EM_add(new Mur(i*40, j*40, "Ennemis", 20, game));
+					}
 					break;
 				}
 				

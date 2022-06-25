@@ -4,6 +4,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -39,7 +40,7 @@ public class Porte extends Entity {
 		orientation_salle_destination = -1;
 		
 		this.Name = "Porte";
-		this.etat = true;
+		this.etat = false;
 		
 
 		switch (orientation) {
@@ -82,7 +83,24 @@ public class Porte extends Entity {
 		orientation_salle_destination = orientation;	
 	}
 
+	public boolean GotStuff() {	//Change l'etat de la porte en true s'il n'y a plus d'ennemis dans la salle
+		if (this.etat = true) {	//Optimisation
+			return false;
+		}
+		ArrayList list = game.EM.getDynamic();
+		for (int i = 0; i < list.size(); i++) {
+			if (((Entity)list.get(i)).type == 1) {
+				return false;
+			}
+		}
+        //Change l'etat de la salle_origine en salle_vide = true si renvoie true
+        return true;
+    }
 	
+	public void pop(Direction dir) {
+		this.etat = true;
+		salle_origine.salle_vide = true;
+	}
 	
 
 }

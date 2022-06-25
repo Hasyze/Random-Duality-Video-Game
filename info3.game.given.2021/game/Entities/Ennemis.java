@@ -8,7 +8,7 @@ import info3.game.Game;
 public class Ennemis extends Entity {
 
 	public Ennemis(int m_x, int m_y, String name, int r, Game game) throws IOException {
-		super(game);
+		super(game, name);
 		m_images = loadSprite("resources/modgenerator.png", 3, 8);
 		this.Name = name;
 		x = m_x;

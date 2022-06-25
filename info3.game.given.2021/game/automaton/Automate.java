@@ -12,10 +12,6 @@ public class Automate {
 	List<Etat> etats;
 	
 	public Automate() {
-		name = "test";
-		current = new Etat("Init");
-		etats = new LinkedList<Etat>();
-		etats.add(current);
 	}
 	
 	public Automate(String name, Etat initial, List<Etat> etats, Type type) {
@@ -26,7 +22,14 @@ public class Automate {
 	public Automate(String Name) {
 		name = Name;
 		current = new Etat("Init");	
-
+	}
+	
+	public Automate copy() {
+		Automate a = new Automate();
+		a.name = this.name;
+		a.current = current;
+		a.etats = etats;
+		return a;
 	}
 	
 	public Etat current() {

@@ -52,7 +52,7 @@ public class Cowboy extends Entity {
 	}
 
 	public Cowboy(int m_x, int m_y, String name, int r, Game game) throws IOException {
-		super(game);
+		super(game,name);
 		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
 		this.Name = name;
 		x = m_x;

@@ -22,9 +22,8 @@ public class Mur extends Entity {
 	
 
 	public Mur (int m_x, int m_y, String name, int r,Game game) throws IOException{
-		super(game);
+		super(game, "Mur");
 		m_images = loadSprite("resources/images_test/noir_20x20.png", 1,1);
-		this.Name = name;
 		x = m_x;
 		y = m_y;
 		
@@ -34,6 +33,7 @@ public class Mur extends Entity {
 		int width_hb = img.getWidth()/2;
 		hitbox = new Hitbox(r,x+width_hb,y+heigt_hb,0);
 		type = 6;
+		speed = 10;
 	}
 	
 	public static Image loadImage(String filename) throws IOException {

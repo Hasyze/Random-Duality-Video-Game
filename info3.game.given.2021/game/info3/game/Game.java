@@ -41,6 +41,7 @@ import Entities.Entity;
 import Entities.Porte;
 import Map.Etage;
 import Map.Salle;
+import Menu.AutomateMap;
 import Menu.Ressource;
 import automaton.Automate;
 import automaton.BotBuilder;
@@ -67,6 +68,8 @@ public class Game {
 	Porte changement_de_salle;	//Prend la valeur d'une porte avec laquelle le joueur rentre en contact pour faire le changement de salle
 	int niveau;
 
+	public AutomateMap automatemap;
+	
 	Cowboy m_cowboy, m_cowboy2;
 	Ennemis mechant;
 	
@@ -98,6 +101,43 @@ public class Game {
 		setupFrame();
 	}
 	
+	public Game(AutomateMap map) throws Exception {
+		this.automatemap = map;
+		niveau = 1;
+		changement_de_salle = null;
+		EM = new EntityManager();
+		modele = new Modele(this);
+		m_cowboy = new Cowboy(960, 1000, "Joueur1", 25, this);
+		m_cowboy2 = new Cowboy(980, 1100, "Joueur2", 25, this);
+		mechant = new Ennemis(900, 900, "Ennemie1", 25, this);
+		EM.EM_add(m_cowboy);
+		EM.EM_add(m_cowboy2);
+		EM.EM_add(mechant);
+		
+		etage = new Etage(niveau, this);
+
+		
+		salle_courante = etage.salles[0];
+		bg = salle_courante.background;
+		
+		salle_courante.charger_salle(EM, modele);
+		
+		niveau += 1; //On prévoie le changement de niveau
+		
+		// creating a listener for all the events
+		// from the game canvas, that would be
+		// the controller in the MVC pattern
+		m_listener = new CanvasListener(this);
+		// creating the game canvas to render the game,
+		// that would be a part of the view in the MVC pattern
+		m_canvas = new GameCanvas(m_listener);
+		System.out.println("  - creating frame...");
+		Dimension d = new Dimension(1024, 768);
+		m_frame = m_canvas.createFrame(d);
+		System.out.println("  - setting up the frame...");
+		setupFrame();
+	}
+	
 	public CanvasListener getListener() {
 		return m_listener;
 	}
@@ -105,12 +145,8 @@ public class Game {
 	private void Init_niveau(int niv, Ressource Res2) throws IOException {
 		
 		
-		m_cowboy = new Cowboy(960, 1000, "Player1", 25, this);
-		m_cowboy2 = new Cowboy(980, 1100, "Player2", 25, this);
-		mechant = new Ennemis(900, 900, "Mechant", 25, this);
-		BotBuilder b = new BotBuilder();
-		List<Automate> liste = b.loadAutomata("gal/exemple/mechant.gal");
-		mechant.Aut = liste.get(0);
+		
+		
 	
 		
 		Res2.set_couple(m_cowboy);

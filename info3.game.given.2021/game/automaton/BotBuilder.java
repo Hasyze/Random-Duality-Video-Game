@@ -183,7 +183,6 @@ public class BotBuilder implements IVisitor {
 		return current;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Object visit(AST bot, List<Object> automata) {
 		return automata;
@@ -246,7 +245,7 @@ public class BotBuilder implements IVisitor {
 		//ACTIONS
 		case "Move":
 			return new Move(af.arguments.get(0));
-		/*case "Pop":
+		case "Pop":
 			return new Pop(af.arguments.get(0));
 		case "Wizz":
 			return new Wizz(af.arguments.get(0));
@@ -262,17 +261,15 @@ public class BotBuilder implements IVisitor {
 			return new Pick(af.arguments.get(0));
 		case "Throw":
 			return new Throw(af.arguments.get(0));
-		case "Egg":
-			return new Egg(af.arguments.get(0));
 			
 			
 			
 		//CONDITIONS
-		 */
+		 
 		case "Key":
 			return new Key(af.arguments.get(0));
-		//case "MyDir":
-			//return new MyDir(af.arguments.get(0));
+		case "MyDir":
+			return new MyDir(af.arguments.get(0));
 		case "Cell":
 			return new Cell(af.arguments.get(0), af.arguments.get(1));
 		//case "Closest":

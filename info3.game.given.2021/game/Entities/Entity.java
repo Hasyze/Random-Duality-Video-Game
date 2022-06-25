@@ -9,8 +9,8 @@ import javax.imageio.ImageIO;
 import automaton.Automate;
 import info3.game.*;
 
-public abstract class Entity extends Object{
-	
+public abstract class Entity extends Object {
+
 	public Automate Aut; //
 	public String Name; //
 	protected Game game;
@@ -21,33 +21,47 @@ public abstract class Entity extends Object{
 	protected int type; //
 	protected Modele modele;
 	protected EntityManager EM;
-	public Direction direction = Direction.E; 
-	
+	public Direction direction = Direction.E;
+
 	// Stats
 	protected int speed; //
 	protected int vie; //
-	
+
 	// Cooldowns
 	protected long moveCD = 0;
 	protected long damageCD = 0;
+	protected long wait = 0;
 
-
-	public Entity(Game game) {	
+	
+	public Entity(Game game) {
 		this.Name = "Undefined";
 		this.game = game;
 		m_images = null;
 		m_imageIndex = 0;
-		this.type = -1; 
+		this.type = -1;
 		this.modele = game.modele;
-		this.EM = game.EM;		
+		this.EM = game.EM;
 		vie = 1000;
 		speed = 0;
+		//game.automatemap.associate(this);
 	}
-	
+	public Entity(Game game, String name) {
+		this.Name = name;
+		this.game = game;
+		m_images = null;
+		m_imageIndex = 0;
+		this.type = -1;
+		this.modele = game.modele;
+		this.EM = game.EM;
+		vie = 1000;
+		speed = 0;
+		game.automatemap.associate(this);
+	}
+
 	public Entity(Modele modele, String Name) {
 		System.out.print(Name);
 		this.Name = Name;
-		
+
 		this.modele = modele;
 
 		m_images = null;
@@ -55,10 +69,10 @@ public abstract class Entity extends Object{
 		vie = 1;
 		speed = 4;
 	}
-	
+
 	public void move(Direction dir) {
 		this.direction = dir;
-		if(moveCD > 0) {
+		if (moveCD > 0) {
 			return;
 		}
 		switch (dir) {
@@ -66,57 +80,92 @@ public abstract class Entity extends Object{
 			move(this.direction);
 			break;
 		case NW:
-			x-=speed;
-			y-=speed;
+			x -= speed;
+			y -= speed;
 			break;
 		case NE:
-			x+=speed;
-			y-=speed;
+			x += speed;
+			y -= speed;
 			break;
 		case SW:
-			x-=speed;
-			y+=speed;
+			x -= speed;
+			y += speed;
 			break;
 		case SE:
-			x+=speed;
-			y+=speed;
+			x += speed;
+			y += speed;
 			break;
 		case W:
-			x-= speed;
+			x -= speed;
 			break;
 		case E:
-			x+=speed;
+			x += speed;
 			break;
 		case N:
-			y-=speed;
+			y -= speed;
 			break;
 		case S:
-			y+=speed;
+			y += speed;
 			break;
 		default:
 			break;
-		}	
+		}
+	}
+
+	public void Wait() {
+		if (wait > 0)
+			return;
+		wait = 5000;
+	}
+
+	public void pop(Direction dir) {
+
+	}
+
+	public void wizz(Direction dir) {
+
+	}
+
+	public void jump(Direction dir) {
+
+	}
+
+	public void turn(Direction dir) {
+
+	}
+
+	public void hit(Direction dir) {
+
+	}
+	public void protect(Direction dir) {
+
 	}
 	
-	public void transfert(Entity e) {
-		Automate temp = this.Aut;
-		this.Aut = e.Aut;
-		e.Aut = temp;
+	public void pick(Direction dir) {
+
+	}
+	public void Throw(Direction dir) {
+
+	}
+	public void store() {
+
+	}
+	public void get() {
+
+	}
+	public void power() {
+
+	}
+	public void explode() {
+
 	}
 	
+
+
 	public Entity egg() {
 		return null;
 	}
-	
-	public void pop() {
-		
-	}
-	
-	public void wizz() {
-		
-	}
-	
-	
+
 	public void paint(Graphics g, int originex, int originey) {
 		BufferedImage img = m_images[m_imageIndex];
 		int scale = 2;
@@ -126,15 +175,11 @@ public abstract class Entity extends Object{
 				hitbox.getRayon() * 2);
 	}
 
-	
-
-	
-
 	public void degatVie(int degat) {
-		if(damageCD>0)
+		if (damageCD > 0)
 			return;
 		vie -= degat;
-		if(damageCD<=0)
+		if (damageCD <= 0)
 			damageCD = 2000;
 	}
 
@@ -143,32 +188,35 @@ public abstract class Entity extends Object{
 	}
 
 	public int gety() {
-		
+
 		return y;
 	}
 
 	public int getvie() {
 		return vie;
 	}
-	
+
 	public int getSpeed() {
 		return speed;
 	}
-	
 
 	public void setVie(int i) {
 		vie += i;
 	}
 
 	public void step() throws Exception {
+		if (wait > 0)
+			return;
 		this.Aut.step(this);
 	}
 
-	public void tick(EntityManager em,long elapsed) throws IOException {
-		if(moveCD>0)
+	public void tick(EntityManager em, long elapsed) throws IOException {
+		if (moveCD > 0)
 			moveCD -= elapsed;
-		if(damageCD>0)
+		if (damageCD > 0)
 			damageCD -= elapsed;
+		if (wait > 0)
+			wait -= elapsed;
 		hitbox.relocate(x, y);
 	}
 
@@ -207,21 +255,27 @@ public abstract class Entity extends Object{
 		}
 		return null;
 	}
-	
+
 	public boolean MyDir(Direction Dir) {
-		return Dir==this.direction;
-		}
-	public boolean GotPower() {
-		return vie>0;
+		return Dir == this.direction;
 	}
+
+	public boolean GotPower() {
+		return vie > 0;
+	}
+
 	public boolean GotStuff() {
 		return false;
 	}
-		
+
 	public boolean key(Key k) {
 		return this.game.getListener().key(k);
 	}
+
 	public boolean cell(Direction dir, Type type) {
-		return game.modele.collisions(this, game.EM.getStatic(),dir,type);
+		return game.modele.collisions(this, game.EM.getStatic(), dir, type);
+	}
+	public boolean closest(Direction dir, Type type) {
+		return false;
 	}
 }

@@ -50,7 +50,7 @@ public class Game {
 
 	static Game game;
 
-	BufferedImage[] bg = loadSprite("resources/sol.png",1,1);
+	BufferedImage bg;
 	
 
 	public static BufferedImage[] loadSprite(String filename, int nrows, int ncols) throws IOException {
@@ -91,6 +91,13 @@ public class Game {
 	public AutomateMap automatemap;
 
 	Entity Player1, Player2;
+	
+	public Entity getPlayer1() {
+		return Player1;
+	}
+	public Entity getPlayer2() {
+		return Player2;
+	}
 
 	public Game(AutomateMap map) throws Exception {
 		this.automatemap = map;
@@ -113,6 +120,7 @@ public class Game {
 		//bg = salle_courante.background;
 
 		salle_courante.charger_salle(EM, modele);
+		bg = salle_courante.background;
 
 		niveau += 1; // On prévoie le changement de niveau
 
@@ -330,11 +338,11 @@ public class Game {
 		g.setColor(Color.white);
 		g.fillRect(0, 0, width, height);
 		
-		/*for(int i = 0; i<19200; i+= bg[0].getWidth()) {
-			for(int j = 0;j<1920;j+= bg[0].getHeight()) {
-				g.drawImage(bg[0], -coinscamX + i, -coinscamY + j, bg[0].getWidth(), bg[0].getHeight(), null);
+		for(int i = 0; i<19200; i+= bg.getWidth()) {
+			for(int j = 0;j<1920;j+= bg.getHeight()) {
+				g.drawImage(bg, -coinscamX + i, -coinscamY + j, bg.getWidth(), bg.getHeight(), null);
 			}
-		}*/
+		}
 		g.drawOval(width / 2 - 5, height / 2 - 5, 10, 10);
 		g.drawLine(Player1.getx() - coinscamX, Player1.gety() - coinscamY, Player2.getx() - coinscamX, Player2.gety() - coinscamY);
 

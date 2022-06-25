@@ -44,7 +44,7 @@ public class Salle {
 
 	String type; // Type de la salle (Normale, Boss, Entrée, etc...)
 
-	public Image background; // Fond d'ecran de la salle
+	public BufferedImage background; // Fond d'ecran de la salle
 	
 	Modele modele; //On en a besoin pour les constructeurs
 	
@@ -102,18 +102,18 @@ public class Salle {
 		}
 	}
 
-	public Image init_background() throws IOException {
-		Image[] background = new Image[3];
+	public BufferedImage init_background() throws IOException {
+		BufferedImage[] background = new BufferedImage[3];
 		background[0] = loadImage("resources/images_test/sprite_mur.png");
 		background[1] = loadImage("resources/images_test/sprite_mur2.png");
 		background[2] = loadImage("resources/images_test/grey_background.jpg");
 		Random rand = new Random();
-		int r = rand.nextInt(2); // never used
-		return background[2];
+		int r = rand.nextInt(2);
+		return background[r];
 	}
 
 	// Fonction pour récupérer une image
-	public static Image loadImage(String filename) throws IOException {
+	public static BufferedImage loadImage(String filename) throws IOException {
 		File imageFile = new File(filename);
 		if (imageFile.exists()) {
 			BufferedImage image = ImageIO.read(imageFile);

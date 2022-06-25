@@ -290,7 +290,32 @@ public abstract class Entity extends Object {
 		return game.modele.collisions(this, game.EM.sort_affichage(), dir, type);
 	}
 	public boolean closest(Direction dir, Type type) {
+		
+		
 		return false;
+	}
+	
+	public Direction targetDirection(int x, int y) {
+		String res = "";
+
+		if (this.y != y) {
+			if (this.y > y) {
+				res += "N";
+			} else {
+				res += "S";
+			}
+		}
+		if(this.x != x) {
+			if (this.x > x) {
+				res += "W";
+			} else {
+				res += "E";
+			}
+		}
+		if(res == "") {
+			return Direction.F;
+		}
+		return Direction.valueOf(res);
 	}
 	
 	//Prend une direction relative, renvoie la direction absolue correspondante a cette entitée

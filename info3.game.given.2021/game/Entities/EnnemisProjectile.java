@@ -7,9 +7,9 @@ import info3.game.Game;
 
 public class EnnemisProjectile extends Entity {
 	public EnnemisProjectile(int m_x, int m_y, Game game) throws IOException {
-		super(game, "EnnemisProjectile");
+		super(game, "EnnemisP");
 		m_images = loadSprite("resources/modgenerator.png", 3, 8);
-		this.Name = "EnnemisProjectile";
+		this.Name = "EnnemisP";
 		x = m_x;
 		y = m_y;
 		int heigt_hb = (m_images[0].getHeight()) / 2;

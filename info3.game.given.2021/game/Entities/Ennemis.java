@@ -7,15 +7,15 @@ import info3.game.Game;
 
 public class Ennemis extends Entity {
 
-	public Ennemis(int m_x, int m_y, String name, int r, Game game) throws IOException {
-		super(game, name);
+	public Ennemis(int m_x, int m_y, Game game) throws IOException {
+		super(game, "Ennemis");
 		m_images = loadSprite("resources/modgenerator.png", 3, 8);
-		this.Name = name;
+		this.Name = "Ennemis";
 		x = m_x;
 		y = m_y;
 		int heigt_hb = (m_images[0].getHeight()) / 2;
 		int width_hb = (m_images[0].getWidth()) / 2;
-		hitbox = new Hitbox(r, x + width_hb, y + heigt_hb, 0);
+		hitbox = new Hitbox(25, x + width_hb, y + heigt_hb, 0);
 		type = 1;
 		speed = 2;
 		vie = 3;

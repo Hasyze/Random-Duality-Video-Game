@@ -264,8 +264,7 @@ public class Game {
 				Entity ent;
 				try {
 					ent = Player1;
-					Player1 = new Fantome("Fantome1", Player1.getx(), Player1.gety(), Player1.getHitbox().getRayon(),
-							this);
+					Player1 = new Fantome("Fantome1", Player1.getx(), Player1.gety(), this);
 					EM.EM_remove(ent);
 					EM.EM_add(Player1);
 					J1dead = true;
@@ -279,8 +278,7 @@ public class Game {
 				Entity ent;
 				try {
 					ent = Player2;
-					Player2 = new Fantome("Fantome2", Player2.getx(), Player2.gety(), Player2.getHitbox().getRayon(),
-							this);
+					Player2 = new Fantome("Fantome2", Player2.getx(), Player2.gety(), this);
 					EM.EM_remove(ent);
 					EM.EM_add(Player2);
 					J2dead = true;

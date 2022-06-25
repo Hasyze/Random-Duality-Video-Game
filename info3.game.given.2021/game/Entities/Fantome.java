@@ -7,14 +7,14 @@ import info3.game.Game;
 
 public class Fantome extends Entity {
 
-	public Fantome(String name,int m_x, int m_y, int r, Game game) throws IOException {
+	public Fantome(String name,int m_x, int m_y, Game game) throws IOException {
 		super(game,name);
 		m_images = loadSprite("resources/winchester-4x6.png", 4, 6);
 		x = m_x;
 		y = m_y;
 		int heigt_hb = (m_images[0].getHeight()) / 2;
 		int width_hb = (m_images[0].getWidth()) / 2;
-		hitbox = new Hitbox(r, x + width_hb, y + heigt_hb, 0);
+		hitbox = new Hitbox(25, x + width_hb, y + heigt_hb, 0);
 		type = 0;
 		speed = 3;
 		vie = 1;

@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import Entities.Porte;
 import Entities.Mur;
 import Entities.Rocher;
+import Entities.Boss;
 import Entities.Ennemis;
 import info3.game.EntityManager;
 import info3.game.Game;
@@ -22,11 +23,8 @@ public class Salle {
 
 	Porte[] portes;
 	/*
-	 * Stock les portes de la salle. Leur indice correspond à leur orientation :
-	 * 0 = Nord
-	 * 1 = Est
-	 * 2 = Sud
-	 * 3 = Ouest
+	 * Stock les portes de la salle. Leur indice correspond à leur orientation : 0 =
+	 * Nord 1 = Est 2 = Sud 3 = Ouest
 	 */
 
 	int nbr_portes; // NOmbre de porte que possède la salle
@@ -40,24 +38,24 @@ public class Salle {
 	int largeur = 49; // Nombre de bloc sur le coté de la salle.
 	int hauteur = 49;
 
-	boolean salle_vide; // =false tant que le joueur n'a pas tué tout les ennemis.
+	public boolean salle_vide; // =false tant que le joueur n'a pas tué tout les ennemis.
 
 	String type; // Type de la salle (Normale, Boss, Entrée, etc...)
 
 	public BufferedImage background; // Fond d'ecran de la salle
-	
-	Modele modele; //On en a besoin pour les constructeurs
-	
+
+	Modele modele; // On en a besoin pour les constructeurs
+
 	Game game;
 
-	//** INITIALISATION SALLE **//
-	
+	// ** INITIALISATION SALLE **//
+
 	Salle(int nbr_de_portes, String type, Game game) throws IOException {
 		this.modele = game.modele;
 		this.game = game;
 		this.portes = new Porte[4];
 		this.nbr_portes = 0;
-		this.compo = new int[49][49];
+		this.compo = new int[largeur][hauteur];
 		this.type = type;
 		this.background = this.init_background();
 
@@ -65,7 +63,7 @@ public class Salle {
 		this.set_compo(type);
 	}
 
-	void set_compo(String type) {	//Rempli le tableau compo de salle à partir d'un fichier txt
+	void set_compo(String type) { // Rempli le tableau compo de salle à partir d'un fichier txt
 		String path;
 		path = "resources/".concat(type).concat(".txt"); // On choisi le fichier pattern en fonction du type de la salle
 		try {
@@ -78,19 +76,19 @@ public class Salle {
 										// sautant plus ou moins de ligne
 				Random x = new Random();
 				int j = x.nextInt(2);
-				for (int i = 0; i < 2450 * j; i++) { // On saute 2550 caractères (nombre de caractère pour faire un
+				for (int i = 0; i < (largeur+1)*hauteur * j; i++) { // On saute 2550 caractères (nombre de caractère pour faire un
 														// pattern)si j=1
 					r = br.read();
 				}
 			}
 
 			// On lit le pattern et on l'écrit dans compo[][]
-			while (((r = br.read()) != -1) && (l < 49)) {
+			while (((r = br.read()) != -1) && (l < hauteur)) {
 				System.out.print((char) r);
 				if ((r == 48) || (r == 49) || (r == 50) || (r == 51) || (r == 52)) {
 					this.compo[l][c] = r;
 					c++;
-					if (c >= 49) {
+					if (c >= largeur) {
 						c = 0;
 						l++;
 					}
@@ -121,8 +119,8 @@ public class Salle {
 		}
 		return null;
 	}
-	
-	//Affiche le contenu de compo (SEULEMENT POUR LES TESTS)
+
+	// Affiche le contenu de compo (SEULEMENT POUR LES TESTS)
 	void print_salle() {
 		System.out.print("\n");
 		for (int i = 0; i < hauteur; i++) {
@@ -133,8 +131,8 @@ public class Salle {
 		}
 		System.out.print("\n");
 	}
-	
-	//** CREATION ETAGE **//
+
+	// ** CREATION ETAGE **//
 
 	void Ajouter_portes(int nbr_de_portes, EntityManager EM) throws IOException { // Ajoute plusieurs portes
 		for (int i = 0; i < nbr_de_portes; i++) {
@@ -145,7 +143,9 @@ public class Salle {
 		}
 	}
 
-	boolean Ajouter_une_porte(EntityManager EM) throws IOException { // Ajoute une porte sur un des côtés (Aléatoire), renvoie false si aucune porte n'a pu être ajoutée
+	boolean Ajouter_une_porte(EntityManager EM) throws IOException { // Ajoute une porte sur un des côtés (Aléatoire),
+																		// renvoie false si aucune porte n'a pu être
+																		// ajoutée
 
 		// Ici on vérifie qu'il reste au moins un emplacement de porte non utilisé
 		boolean emplacement_dispo = false;
@@ -158,7 +158,8 @@ public class Salle {
 			return false;
 		}
 
-		// Ensuite on prend un emplacement random et on essai d'y mettre une porte. On réessaye tant qu'on n'y arrive pas
+		// Ensuite on prend un emplacement random et on essai d'y mettre une porte. On
+		// réessaye tant qu'on n'y arrive pas
 		while (true) {
 			Random r = new Random();
 			int j = r.nextInt(4);
@@ -182,7 +183,8 @@ public class Salle {
 		return porte_dispo;
 	}
 
-	boolean Lier_deux_salles(Salle salle) { // renvois true si on lie deux salles en recherchant des portes disponible, false sinon
+	boolean Lier_deux_salles(Salle salle) { // renvois true si on lie deux salles en recherchant des portes disponible,
+											// false sinon
 		Porte P1 = this.Trouver_porte_disponible();
 		Porte P2 = salle.Trouver_porte_disponible();
 		if ((P1 == null) || (P2 == null)) {
@@ -194,7 +196,8 @@ public class Salle {
 
 	}
 
-	void Lier_deux_salles(Salle salle2, Porte P1, Porte P2) { // On lie les deux salles en choisissant les portes qui feront le lien
+	void Lier_deux_salles(Salle salle2, Porte P1, Porte P2) { // On lie les deux salles en choisissant les portes qui
+																// feront le lien
 
 		P1.salle_destination = salle2;
 		P1.orientation_salle_destination = P2.orientation_salle_origine;
@@ -215,13 +218,15 @@ public class Salle {
 
 	}
 
-	Porte Trouver_porte_disponible() { // On cherche une portes dispo aléatoirement, renvoie nul si aucune porte n'est dispo
+	Porte Trouver_porte_disponible() { // On cherche une portes dispo aléatoirement, renvoie nul si aucune porte n'est
+										// dispo
 
 		if (Porte_non_liees() == false) { // On renvoie null si aucune porte n'est dispo
 			return null;
 		}
 
-		while (true) { // On choisi un emplacement de porte random et on renvoie la porte si elle est dispo, on recommence sinon
+		while (true) { // On choisi un emplacement de porte random et on renvoie la porte si elle est
+						// dispo, on recommence sinon
 			Random r = new Random();
 			int j = r.nextInt(4);
 			if (portes[j] != null) {
@@ -232,49 +237,47 @@ public class Salle {
 		}
 
 	}
-	
-	
-	
-	//Créer les entités en fonction de la compo de la salle
+
+	// Créer les entités en fonction de la compo de la salle
 	public void charger_salle(EntityManager EM, Modele modele) throws IOException {
-		for (int i = 0; i<49; i++) {
-			for (int j = 0; j<49; j++) {
+		for (int i = 0; i < hauteur; i++) {
+			for (int j = 0; j < largeur; j++) {
 				int x = compo[j][i];
-				//System.out.print(x);
+				// System.out.print(x);
 				switch (x) {
-				case 49 :
-					EM.EM_add(new Mur(i*40, j*40, "Mur", 20,game));
+				case 49:
+					EM.EM_add(new Mur(i * 40, j * 40, "Mur", 20, game));
 					break;
-				case 50 :
-					if ( (j == 0) && (portes[0] != null) ) {
+				case 50:
+					if ((j == 0) && (portes[0] != null)) {
 						EM.EM_add(portes[0]);
-					}
-					else if ( (i == 48) && (portes[1] != null) ) {
+					} else if ((i == hauteur-1) && (portes[1] != null)) {
 						EM.EM_add(portes[1]);
-					}
-					else if ( (j == 48) && (portes[2] != null) ) {
+					} else if ((j == largeur-1) && (portes[2] != null)) {
 						EM.EM_add(portes[2]);
-					}
-					else if ( (i == 0) && (portes[3] != null) ) {
+					} else if ((i == 0) && (portes[3] != null)) {
 						EM.EM_add(portes[3]);
 					}
-					
+
 					else {
-						EM.EM_add(new Mur(i*40, j*40, "Mur_Porte", 20, game));
+						EM.EM_add(new Mur(i * 40, j * 40, "Mur_Porte", 20, game));
 					}
 					break;
-				case 51 :
-					EM.EM_add(new Rocher(i*40, j*40, "Rocher", 20, game));
+				case 51:
+					EM.EM_add(new Rocher(i * 40, j * 40, "Rocher", 20, game));
 					break;
-				case 52 :
-					
-					EM.EM_add(new Ennemis(i*40, j*40, "Ennemie1", 25, game));
-					break;
+				case 52:
+					if (!(this.salle_vide)) {
+						EM.EM_add(new Ennemis(i * 40, j * 40, "Ennemie1", 25, game));
+						break;
+					}
 				}
-				
+
 			}
 		}
+		if(this.type == "boss") {
+			EM.EM_add(new Boss(largeur*20, hauteur*20,game));
+		}
 	}
-	
 
 }

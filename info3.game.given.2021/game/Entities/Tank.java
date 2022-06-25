@@ -40,12 +40,6 @@ public class Tank extends Entity{
 	long test = 0;
 	public void tick(EntityManager EM, long elapsed) throws IOException {
 		super.tick(EM, elapsed);
-		if(test>0) {
-			test -= elapsed;
-		}else{
-			test = 500;
-			System.out.println(targetDirection( game.getPlayer1().getx() , game.getPlayer1().gety() ));
-		}
 		
 	}
 
@@ -53,7 +47,7 @@ public class Tank extends Entity{
 		super.move(dir);
 		set_orientation();
 		if (moveCD <= 0)
-			moveCD = 20;
+			moveCD = 10;
 	}
 
 	public void set_orientation() {
@@ -101,41 +95,41 @@ public class Tank extends Entity{
 		}
 		switch (dir) {
 		case NW:
-			X -= 35;
-			Y -= 35;
+			X -= 20;
+			Y -= 20;
 			break;
 		case NE:
-			X += 35;
-			Y -= 35;
+			X += 20;
+			Y -= 20;
 			break;
 		case SW:
-			X -= 35;
-			Y += 35;
+			X -= 20;
+			Y += 20;
 			break;
 		case SE:
-			X += 35;
-			Y += 35;
+			X += 20;
+			Y += 20;
 			break;
 		case W:
-			X -= 35;
+			X -= 20;
 			break;
 		case E:
-			X += 35;
+			X += 20;
 			break;
 		case N:
-			Y -= 35;
+			Y -= 20;
 			break;
 		case S:
-			Y += 35;
+			Y += 20;
 			break;
 		default:
 			break;
 		}
 		
 		try {
-			Projectile balle1 = new Projectile(x+X, y+Y, 3, boussole(Direction.F),2,5,150, "Coup", 35, game);
-			Projectile balle2 = new Projectile(x+X, y+Y, 3, boussole(Direction.L),2,5,150, "Coup", 35, game);
-			Projectile balle3 = new Projectile(x+X, y+Y, 3, boussole(Direction.R),2,5,150, "Coup", 35, game);
+			Projectile balle1 = new Projectile(x+X, y+Y, 3, boussole(Direction.F),2,5,200, "Coup", 35, game);
+			Projectile balle2 = new Projectile(x+X, y+Y, 3, boussole(Direction.L),2,5,200, "Coup", 35, game);
+			Projectile balle3 = new Projectile(x+X, y+Y, 3, boussole(Direction.R),2,5,200, "Coup", 35, game);
 			this.EM.EM_add(balle1);
 			this.EM.EM_add(balle2);
 			this.EM.EM_add(balle3);

@@ -39,7 +39,7 @@ public class Tireur extends Entity{
 		super.move(dir);
 		set_orientation();
 		if (moveCD <= 0)
-			moveCD = 20;
+			moveCD = 10;
 	}
 
 	public void set_orientation() {
@@ -85,7 +85,7 @@ public class Tireur extends Entity{
 		hitCD = 500;
 		Projectile balle;
 		try {
-			balle = new Projectile(x, y, 3, this.direction, 2,5,4000, "Balle", 20, game);
+			balle = new Projectile(x, y, 3, this.direction, 3,2,4000, "Balle", 10, game);
 			this.EM.EM_add(balle);
 
 		} catch (IOException e) {

@@ -42,3 +42,18 @@ Projectilesimple(Init){
   | True ? Move() :(Init)
 }
 
+Boss(Init){
+  * (Init)
+  | Cell(F,V) ? 70 % Move(F) / Turn(L) / Turn(R) / Egg(F) :(Init)
+  | True ? Turn(B) :(Init)
+}
+
+Porte(Init){
+  * (Init)
+  | GotStuff ? Pop(N) :(Open)
+  | True ? :(Init)
+
+  * (Open)
+  | True ? :(Open)
+}
+

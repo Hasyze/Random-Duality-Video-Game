@@ -217,7 +217,7 @@ public class Modele {
 					if (type == 2)
 						Obj2.degatVie(1);
 				}
-				if(type == 7) {
+				if((type == 7) && ((Porte)Obj2).etat) {
 					game.changement_de_salle = (Porte)Obj2;
 				}
 				break;

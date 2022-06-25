@@ -9,6 +9,6 @@ public class GotStuff implements ICondition{
 	
 	@Override
 	public boolean eval(Entity e) throws Exception {
-		return false;
+		return e.GotStuff();
 	}
 }

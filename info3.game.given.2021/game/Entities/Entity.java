@@ -206,10 +206,9 @@ public abstract class Entity extends Object {
 	public void paint(Graphics g, int originex, int originey) {
 		BufferedImage img = m_images[m_imageIndex];
 		int scale = 2;
-		g.drawImage(img, x - originex - getWidth(), y - originey - getHeight(), scale * img.getWidth(),
+		g.drawImage(img, x - originex - getWidth(), y - originey - getHeight(), scale * img.getWidth(), 
 				scale * img.getHeight(), null);
-		g.drawOval(x - originex - hitbox.getRayon(), y - originey - hitbox.getRayon(), hitbox.getRayon() * 2,
-				hitbox.getRayon() * 2);
+		//g.drawOval(x - originex - hitbox.getRayon(), y - originey - hitbox.getRayon(), hitbox.getRayon() * 2, hitbox.getRayon() * 2);	//Dessine la hitbox
 	}
 
 	public void degatVie(int degat) {

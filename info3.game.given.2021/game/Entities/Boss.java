@@ -13,7 +13,7 @@ public class Boss extends Entity {
 		m_images = loadSprite("resources/Boss.png", 1, 1);
 		x = m_x;
 		y = m_y;
-		hitbox = new Hitbox(40, x, y);
+		hitbox = new Hitbox(70, x, y);
 		type = 1;
 		speed = 4;
 		vie = 25;

@@ -58,13 +58,13 @@ Ennemis(Init){
 EnnemisP(Init){
   * (Init)
   | !(Cell(F,O) / Cell(F,J)) ? 98 % Move(F) / 2 % Pop(F) :(Init)
-  | True ? 40 % Move(L) / 40 % Move(R) / Move(B) :(Init)
+  | True ? 40 % Move(L) / 40 % Move(R) / 20 % Move(B) :(Init)
 }
 
 Boss(Init){
   * (Init)
-  | !(Cell(F,O) / Cell(F,J)) ? 98 % Move(F) / 2 % Egg(F) :(Init)
-  | True ? 40 % Move(L) / 40 % Move(R) / Move(B) :(Init)
+  | !(Cell(F,O) / Cell(F,J)) ? 98 % Move(F) / 2 % Egg(F) / Wait() :(Init)
+  | True ? 40 % Move(L) / 40 % Move(R) / 20% Move(B) / Wait() :(Init)
 }
 
 Fantome1(Init){

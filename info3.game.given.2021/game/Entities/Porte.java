@@ -27,7 +27,7 @@ public class Porte extends Entity {
 	public Porte(int m_x, int m_y, Game game) { // Porte spéciale qui enclenche le changement de niveau
 		super(game, "Portail");
 		try {
-			this.m_images = loadSprite("resources/images_test/jaune_20x20.jpg", 1, 1);
+			this.m_images = loadSprite("resources/images_test/Portal.png", 1, 1);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

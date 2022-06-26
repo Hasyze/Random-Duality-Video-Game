@@ -327,7 +327,6 @@ public class Game {
 		modele.collionsDynamic(EM.getDynamic());
 
 		if (chgmt_salle != null) { // à chaque tick on vérifie qu'il ne faut pas changer de salle
-			System.out.print("On doit changer de salle");
 			try {
 				Chgmt_salle(chgmt_salle);
 
@@ -337,7 +336,6 @@ public class Game {
 		}
 
 		if (chgmt_niveau == true) {
-			System.out.print("CHANGEMENT NIVEAU INITIALISE\n");
 			this.Init_niv();
 			chgmt_niveau = false;
 		}
@@ -372,9 +370,7 @@ public class Game {
 		}
 	}
 	
-	public void Game_Over_print(Graphics g) {
-		System.out.print("Affichage de gameover\n");
-		
+	public void Game_Over_print(Graphics g) {		
 		g.drawImage(gameover, m_canvas.getWidth()/2-gameover.getWidth()/2, m_canvas.getHeight()/2-gameover.getHeight()/2, gameover.getWidth(), gameover.getHeight(), null);
 		
 	}
@@ -462,9 +458,8 @@ public class Game {
 				g.drawImage(bg, -coinscamX + i, -coinscamY + j, bg.getWidth(), bg.getHeight(), null);
 			}
 		}
-		g.drawOval(width / 2 - 5, height / 2 - 5, 10, 10);
-		g.drawLine(Player1.getx() - coinscamX, Player1.gety() - coinscamY, Player2.getx() - coinscamX,
-				Player2.gety() - coinscamY);
+		//g.drawOval(width / 2 - 5, height / 2 - 5, 10, 10);	//Cercle au milieu de l'écran
+		//g.drawLine(Player1.getx() - coinscamX, Player1.gety() - coinscamY, Player2.getx() - coinscamX, Player2.gety() - coinscamY);	//Ligne entre les deux joueurs
 		dessine_salle(g, coinscamX, coinscamY);
 		hud(g);
 		if (GameOver == true) {

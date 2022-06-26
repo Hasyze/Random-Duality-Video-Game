@@ -85,7 +85,6 @@ public class Salle {
 
 			// On lit le pattern et on l'écrit dans compo[][]
 			while (((r = br.read()) != -1) && (l < hauteur)) {
-				System.out.print((char) r);
 				if ((r == 48) || (r == 49) || (r == 50) || (r == 51) || (r == 52)) {
 					this.compo[l][c] = r;
 					c++;
@@ -119,18 +118,6 @@ public class Salle {
 			return image;
 		}
 		return null;
-	}
-
-	// Affiche le contenu de compo (SEULEMENT POUR LES TESTS)
-	void print_salle() {
-		System.out.print("\n");
-		for (int i = 0; i < hauteur; i++) {
-			for (int j = 0; j < largeur; j++) {
-				System.out.print(compo[j][i]);
-			}
-			System.out.print("\n");
-		}
-		System.out.print("\n");
 	}
 
 	// ** CREATION ETAGE **//

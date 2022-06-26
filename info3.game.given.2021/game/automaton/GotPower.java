@@ -2,11 +2,10 @@ package automaton;
 
 import Entities.Entity;
 
-public class GotPower implements ICondition{
-	
+public class GotPower implements ICondition {
+
 	public GotPower() {
-		
-		
+
 	}
 
 	@Override

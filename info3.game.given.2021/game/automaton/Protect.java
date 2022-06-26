@@ -3,7 +3,7 @@ package automaton;
 import Entities.Direction;
 import Entities.Entity;
 
-public class Protect implements IAction{
+public class Protect implements IAction {
 	Direction dir;
 
 	public Protect() {

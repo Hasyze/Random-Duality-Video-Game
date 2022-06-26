@@ -7,9 +7,9 @@ import info3.game.Game;
 
 public class Fantome extends Entity {
 
-	public Fantome(String name,int m_x, int m_y, Game game) throws IOException {
-		super(game,name);
-		
+	public Fantome(String name, int m_x, int m_y, Game game) throws IOException {
+		super(game, name);
+
 		m_images = loadSprite("resources/Fantome.png", 4, 6);
 		x = m_x;
 		y = m_y;
@@ -25,7 +25,7 @@ public class Fantome extends Entity {
 		x = m_x;
 		y = m_y;
 	}
-	
+
 	public void set_orientation() {
 		switch (this.direction) {
 		case NW:
@@ -56,17 +56,15 @@ public class Fantome extends Entity {
 			break;
 		}
 	}
-	
+
 	public void tick(EntityManager EM, long elapsed) throws IOException {
 		super.tick(EM, elapsed);
-		
+
 	}
-	
+
 	public void move(Direction dir) {
 		super.move(dir);
 		set_orientation();
 	}
-	
-	
-	
+
 }

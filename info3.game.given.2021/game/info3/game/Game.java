@@ -90,7 +90,7 @@ public class Game {
 	Salle salle_courante;
 	Porte chgmt_salle; // Prend la valeur d'une porte avec laquelle le joueur rentre en contact pour
 								// faire le changement de salle
-	boolean chgmt_niveau;	//True s'il faut changer de niveau
+	boolean chgmt_niveau; // True s'il faut changer de niveau
 	int niveau;
 	
 	boolean GameOver;	// False par default, True dès que les deux joueur sont des fantômes 
@@ -116,14 +116,10 @@ public class Game {
 		GameOver = false;
 		EM = new EntityManager(this);
 		modele = new Modele(this);
-		
+
 		this.Init_niv();
-		// creating a listener for all the events
-		// from the game canvas, that would be
-		// the controller in the MVC pattern
+
 		m_listener = new CanvasListener(this);
-		// creating the game canvas to render the game,
-		// that would be a part of the view in the MVC pattern
 		m_canvas = new GameCanvas(m_listener);
 		System.out.println("  - creating frame...");
 		Dimension d = new Dimension(1024, 768);
@@ -131,15 +127,15 @@ public class Game {
 		System.out.println("  - setting up the frame...");
 		setupFrame();
 	}
-	
+
 	public void Init_niv() throws IOException {
 		EM.vider_EM();
-		
+
 		Player1 = new Tireur(960, 1000, "Joueur1", this);
 		Player2 = new Tank(980, 1100, "Joueur2", this);
 		EM.EM_add(Player1);
 		EM.EM_add(Player2);
-		
+
 		etage = new Etage(niveau, this);
 		salle_courante = etage.salles[0];
 		salle_courante.charger_salle(EM, modele);
@@ -152,19 +148,13 @@ public class Game {
 		return m_listener;
 	}
 
-	// On affiche tous les élements statiques, on affiche ensuite les dynamiques a
-	// chaque ticks
-
 	private void dessine_salle(Graphics g, int coinscamX, int coinscamY) {
-		ArrayList<Entity> Static = EM.sort_affichage();
+		ArrayList<Entity> entities = EM.sort_affichage();
 		Entity e;
-		for (int i = 0; i < Static.size(); i++) {
-			// System.out.print("Nom : " + Static.get(i).Name + " x : " +
-			// Static.get(i).getx() + " y :" + Static.get(i).gety() + "\n");
-			e = Static.get(i);
+		for (int i = 0; i < entities.size(); i++) {
+			e = entities.get(i);
 			e.paint(g, coinscamX, coinscamY);
 		}
-		// System.out.print("Affichage DONE");
 	}
 
 	private void Chgmt_salle(Porte porte) throws IOException {
@@ -195,10 +185,6 @@ public class Game {
 
 	}
 
-	/*
-	 * Then it lays out the frame, with a border layout, adding a label to the north
-	 * and the game canvas to the center.
-	 */
 	private void setupFrame() {
 
 		m_frame.setTitle("Game");
@@ -226,16 +212,6 @@ public class Game {
 		return null;
 	}
 
-	/*
-	 * ================================================================ All the
-	 * methods below are invoked from the GameCanvas listener, once the window is
-	 * visible on the screen.
-	 * ==============================================================
-	 */
-
-	/*
-	 * Called from the GameCanvas listener when the frame
-	 */
 	String m_musicName;
 
 	void loadMusic() {
@@ -254,13 +230,6 @@ public class Game {
 
 	private int m_musicIndex = 0;
 	private String[] m_musicNames = new String[] { "Runaway-Food-Truck" };
-
-	private long m_textElapsed;
-
-	/*
-	 * This method is invoked almost periodically, given the number of milli-seconds
-	 * that elapsed since the last time this method was invoked.
-	 */
 
 	boolean J1dead = false;
 	boolean J2dead = false;
@@ -333,19 +302,13 @@ public class Game {
 			Player2 = dead;
 			Player2.Teleporte_joueur(coordx, coordy);
 			Player2.setVie(20);
-			EM.EM_add(Player2
-					
-					
-					);
+			EM.EM_add(Player2);
 
 			J1dead = false;
 		}
-
-		// Player1 = new Tireur(960, 1000, "Joueur1", 25, this);
-		// Player2 = new Tank(980, 1100, "Joueur2", 25, this);
-
 	}
 
+	private long m_textElapsed;
 	long test = 0;
 
 	void tick(long elapsed) throws Exception {
@@ -372,7 +335,7 @@ public class Game {
 				e.printStackTrace();
 			}
 		}
-		
+
 		if (chgmt_niveau == true) {
 			System.out.print("CHANGEMENT NIVEAU INITIALISE\n");
 			this.Init_niv();
@@ -388,11 +351,7 @@ public class Game {
 		m_textElapsed += elapsed;
 		if (m_textElapsed > 1000) {
 			m_textElapsed = 0;
-			// EM.afficher_EM();
-
 			pitiFantome();
-			// System.out.println(Player1.getvie());
-
 			float period = m_canvas.getTickPeriod();
 			int fps = m_canvas.getFPS();
 
@@ -421,7 +380,7 @@ public class Game {
 		
 	}
 
-	private void lifePrint(Graphics g) {
+	private void hud(Graphics g) {
 		g.setColor(Color.cyan);
 		if (Player1.Name.equals("Joueur1")) {
 			for (int i = 0; i < Player1.getvie(); i++) {
@@ -437,7 +396,6 @@ public class Game {
 			}
 			g.drawImage(lifebar[2], 0 + (11 * lifebar[2].getWidth()), 10, lifebar[2].getWidth(), lifebar[2].getHeight(),
 					null);
-
 		}
 		if (Player2.Name.equals("Joueur2")) {
 			for (int i = 0; i < Player2.getvie(); i++) {
@@ -453,8 +411,11 @@ public class Game {
 			}
 			g.drawImage(lifebar[2], 0 + (11 * lifebar[2].getWidth()), 40, lifebar[2].getWidth(), lifebar[2].getHeight(),
 					null);
-
 		}
+		g.setColor(Color.cyan);
+		g.fillArc(m_canvas.getWidth() - 125, 30, 100, 100, 90, ((int) test * 360) / 25000);
+		g.setColor(Color.black);
+		g.drawOval(m_canvas.getWidth() - 125, 30, 100, 100);
 	}
 
 	private void switchplayers() {
@@ -466,17 +427,11 @@ public class Game {
 		else
 			switched = true;
 	}
-
-	/*
-	 * This request is to paint the Game Canvas, using the given graphics. This is
-	 * called from the GameCanvasListener, called from the GameCanvas.
-	 */
-
-	// A terme ça faut que ce soit les bordures de la map ou de la salle
-	int xmin = 0;
-	int ymin = 0;
-	int xmax = 1920;
-	int ymax = 1920;
+	//Taille des salles fixes
+	static final int xmin = 0;
+	static final int ymin = 0;
+	static final int xmax = 1920;
+	static final int ymax = 1920;
 
 	void paint(Graphics g) {
 
@@ -512,16 +467,9 @@ public class Game {
 		g.drawLine(Player1.getx() - coinscamX, Player1.gety() - coinscamY, Player2.getx() - coinscamX,
 				Player2.gety() - coinscamY);
 		dessine_salle(g, coinscamX, coinscamY);
-		lifePrint(g);
+		hud(g);
 		if (GameOver == true) {
 			Game_Over_print(g);
 		}
-
-		g.setColor(Color.cyan);
-		g.fillArc(width - 125, 30, 100, 100, 90, ((int) test * 360) / 25000);
-		g.setColor(Color.black);
-		g.drawOval(width - 125, 30, 100, 100);
-
 	}
-
 }

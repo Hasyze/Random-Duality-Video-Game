@@ -9,7 +9,7 @@ import info3.game.Game;
 public class Boss extends Entity {
 
 	public Boss(int m_x, int m_y, Game game) throws IOException {
-		super(game,"Boss");
+		super(game, "Boss");
 		m_images = loadSprite("resources/Boss.png", 1, 1);
 		x = m_x;
 		y = m_y;
@@ -21,16 +21,15 @@ public class Boss extends Entity {
 		waitR = 500;
 
 	}
-	
+
 	public void tick(EntityManager EM, long elapsed) throws IOException {
 		super.tick(EM, elapsed);
 	}
 
-	
 	public void egg(Direction dir) {
 		Random r = new Random();
 		int j = r.nextInt(3) + 2;
-		for (int i = 0;  i < j; i++) {
+		for (int i = 0; i < j; i++) {
 			try {
 				game.EM.EM_add(new Ennemis(x, y, game));
 			} catch (IOException e) {

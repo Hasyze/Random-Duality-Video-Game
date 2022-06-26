@@ -3,51 +3,51 @@ package automaton;
 import Entities.Direction;
 import Entities.Entity;
 
-public class Cell implements ICondition{
-	
+public class Cell implements ICondition {
+
 	Direction dir;
 	Type type;
-	
+
 	public Type convert(String s) {
-		switch(s) {
-		case"A":
+		switch (s) {
+		case "A":
 			return Type.ADVERSAIRE;
-		case"C":
+		case "C":
 			return Type.CLUE;
-		case"D":
+		case "D":
 			return Type.DANGER;
-		case"G":
+		case "G":
 			return Type.GATE;
-		case"J":
+		case "J":
 			return Type.JUMPABLE;
-		case"M":
+		case "M":
 			return Type.MISSILE;
-		case"O":
+		case "O":
 			return Type.OBSTACLE;
-		case"P":
+		case "P":
 			return Type.PRENDRE;
-		case"T":
+		case "T":
 			return Type.TEAM;
-		case"V":
+		case "V":
 			return Type.VOID;
-		case"@":
+		case "@":
 			return Type.PLAYER;
-		case"_":
+		case "_":
 			return Type.NIMPORTE;
 		default:
 			return Type.NIMPORTE;
-		
+
 		}
 	}
-	
+
 	public Cell(String dir, String type) {
 		this.dir = Direction.valueOf(dir);
 		this.type = convert(type);
 	}
-	
+
 	@Override
 	public boolean eval(Entity e) throws Exception {
-		return e.cell(dir,type);
+		return e.cell(dir, type);
 	}
 
 }

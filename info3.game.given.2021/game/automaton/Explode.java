@@ -2,7 +2,7 @@ package automaton;
 
 import Entities.Entity;
 
-public class Explode implements IAction{
+public class Explode implements IAction {
 
 	public Explode() {
 	}

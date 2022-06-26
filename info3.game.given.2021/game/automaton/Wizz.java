@@ -3,8 +3,8 @@ package automaton;
 import Entities.Direction;
 import Entities.Entity;
 
-public class Wizz implements IAction{
-	
+public class Wizz implements IAction {
+
 	Direction dir;
 
 	public Wizz() {

@@ -105,6 +105,7 @@ public class Modele {
 		int R2 = Obj2.getHitbox().getRayon();
 		return ((distance(X1, Y1, X2, Y2)) <= R1 + R2);
 	}
+	
 	public boolean collision(Entity Obj1, Entity Obj2) {
 		int X1 = Obj1.getx();
 		int Y1 = Obj1.gety();
@@ -166,46 +167,6 @@ public class Modele {
 		return col;
 	}
 
-	public void interaction(Entity Obj, ArrayList<Entity> list) {
-		for (int i = 0; i < list.size(); i++) {
-			Entity elem = list.get(i);
-			int type = elem.getType();
-			switch (Obj.getType()) {
-			case 0:
-				if (type == 1 || type == 2) {
-					Obj.degatVie(1);
-					if (type == 2)
-						elem.degatVie(1);
-				}
-				break;
-			case 1:
-				if (type == 3)
-					Obj.degatVie(1);
-				else if (type == 0)
-					elem.degatVie(1);
-				break;
-			case 2:
-				if (type == 0 || type == 3) {
-					Obj.degatVie(1);
-					elem.degatVie(1);
-				}
-				break;
-			case 3:
-				if (type == 1 || type == 2) {
-					Obj.degatVie(1);
-					elem.degatVie(1);
-				}
-				break;
-			case 4:
-				break;
-			case 7:
-				/*
-				 * if(Obj.type==1) list.deplace();
-				 */
-				break;
-			}
-		}
-	}
 	
 	public void interaction(Entity Obj, Entity Obj2) {
 			int type = Obj2.getType();

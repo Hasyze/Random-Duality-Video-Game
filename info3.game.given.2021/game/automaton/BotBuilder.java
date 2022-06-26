@@ -70,9 +70,9 @@ public class BotBuilder implements IVisitor {
 		if (parameters.isEmpty())
 			return new AppelFonc(funcall.name, funcall.percent);
 		else {
-			List<String>arg = new LinkedList<String>();
+			List<String> arg = new LinkedList<String>();
 			for (Object temp : parameters) {
-				arg.add((String)temp);
+				arg.add((String) temp);
 			}
 			return new AppelFonc(funcall.name, funcall.percent, arg);
 		}
@@ -80,38 +80,34 @@ public class BotBuilder implements IVisitor {
 
 	@Override
 	public Object visit(BinaryOp operator, Object left, Object right) {
-		
+
 		try {
-			left = (ICondition)convertAppelFonc((AppelFonc) left);
-		}catch(Exception e){
+			left = (ICondition) convertAppelFonc((AppelFonc) left);
+		} catch (Exception e) {
 		}
 		try {
-			right = (ICondition)convertAppelFonc((AppelFonc) right);
-		}catch(Exception e){
+			right = (ICondition) convertAppelFonc((AppelFonc) right);
+		} catch (Exception e) {
 		}
-		
-		
-		return new BinaryOperation((ICondition)left, (ICondition)right,
-				operator.operator);
+
+		return new BinaryOperation((ICondition) left, (ICondition) right, operator.operator);
 	}
 
 	@Override
 	public Object visit(UnaryOp operator, Object expression) {
-		
+
 		try {
-			return new UnaryOperation((ICondition)convertAppelFonc((AppelFonc) expression), operator.operator);
+			return new UnaryOperation((ICondition) convertAppelFonc((AppelFonc) expression), operator.operator);
+		} catch (Exception e) {
+			return new UnaryOperation((ICondition) expression, operator.operator);
 		}
-		catch(Exception e) {
-			return new UnaryOperation((ICondition)expression, operator.operator);
-		}
-		
-		
+
 	}
 
 	@Override
 	public Object visit(State state) {
-		for(Etat temp : current.etats) {
-			if(temp.name.equals(((State) state).toString())) {
+		for (Etat temp : current.etats) {
+			if (temp.name.equals(((State) state).toString())) {
 				return temp;
 			}
 		}
@@ -124,18 +120,18 @@ public class BotBuilder implements IVisitor {
 	public void enter(Mode mode) {
 
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public Object exit(Mode mode, Object source_state, Object behaviour) {
-		for(Object transitions : (List<ATransition>)behaviour) {
-			((Etat)source_state).addTransition((ATransition) transitions);
+		for (Object transitions : (List<ATransition>) behaviour) {
+			((Etat) source_state).addTransition((ATransition) transitions);
 		}
 		return behaviour;
 	}
 
 	@Override
-	public Object visit(Behaviour behaviour, List<Object> transitions) {	
+	public Object visit(Behaviour behaviour, List<Object> transitions) {
 		return transitions;
 	}
 
@@ -147,8 +143,7 @@ public class BotBuilder implements IVisitor {
 	public Object exit(Condition condition, Object expression) {
 		try {
 			return convertAppelFonc((AppelFonc) expression);
-		}
-		catch(Exception e) {
+		} catch (Exception e) {
 			return expression;
 		}
 	}
@@ -161,7 +156,7 @@ public class BotBuilder implements IVisitor {
 	public Object exit(Action action, List<Object> funcalls) {
 		Map<IAction, Integer> actions = new HashMap<IAction, Integer>();
 		for (Object currentAction : funcalls) {
-			actions.put((IAction) convertAppelFonc((AppelFonc) currentAction), ((AppelFonc)currentAction).percent);
+			actions.put((IAction) convertAppelFonc((AppelFonc) currentAction), ((AppelFonc) currentAction).percent);
 		}
 		return actions;
 	}
@@ -169,7 +164,7 @@ public class BotBuilder implements IVisitor {
 	@SuppressWarnings("unchecked")
 	@Override
 	public Object visit(Transition transition, Object condition, Object action, Object target_state) {
-		return new ATransition((ICondition)condition, (Etat)target_state, (Map<IAction, Integer>)action);
+		return new ATransition((ICondition) condition, (Etat) target_state, (Map<IAction, Integer>) action);
 	}
 
 	@Override
@@ -189,11 +184,11 @@ public class BotBuilder implements IVisitor {
 	}
 
 	public Object convertAppelFonc(AppelFonc af) {
-		if(!(af.arguments.isEmpty()))
+		if (!(af.arguments.isEmpty()))
 			return convertAppelFonc2(af);
 		switch (af.name) {
-		
-		//ACTIONS
+
+		// ACTIONS
 		case "Move":
 			return new Move();
 		case "Pop":
@@ -222,10 +217,8 @@ public class BotBuilder implements IVisitor {
 			return new Explode();
 		case "Egg":
 			return new Egg();
-			
-			
-			
-		//CONDITIONS
+
+		// CONDITIONS
 		case "True":
 			return new True();
 		case "GotPower":
@@ -238,11 +231,11 @@ public class BotBuilder implements IVisitor {
 			return null;
 		}
 	}
-	
+
 	public Object convertAppelFonc2(AppelFonc af) {
 		switch (af.name) {
-		
-		//ACTIONS
+
+		// ACTIONS
 		case "Move":
 			return new Move(af.arguments.get(0));
 		case "Pop":
@@ -263,19 +256,17 @@ public class BotBuilder implements IVisitor {
 			return new Throw(af.arguments.get(0));
 		case "Egg":
 			return new Egg(af.arguments.get(0));
-			
-			
-			
-		//CONDITIONS
-		 
+
+		// CONDITIONS
+
 		case "Key":
 			return new Key(af.arguments.get(0));
 		case "MyDir":
 			return new MyDir(af.arguments.get(0));
 		case "Cell":
 			return new Cell(af.arguments.get(0), af.arguments.get(1));
-		//case "Closest":
-		//	return new Closest(af.arguments.get(0), af.arguments.get(1));
+		case "Closest":
+			return new Closest(af.arguments.get(0), af.arguments.get(1));
 		default:
 			System.out.println("Non ajouté dans le switch AppelFonc2 dans BotBuilder :" + af.name);
 			return null;

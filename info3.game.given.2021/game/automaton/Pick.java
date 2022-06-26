@@ -3,10 +3,10 @@ package automaton;
 import Entities.Direction;
 import Entities.Entity;
 
-public class Pick implements IAction{
+public class Pick implements IAction {
 
 	Direction dir;
-	
+
 	public Pick() {
 		dir = Direction.F;
 	}

@@ -9,10 +9,10 @@ import info3.game.Modele;
 
 public class Etage {
 
-	Modele modele; //On en a besoin pour les constructeur d'entité dans les salles
-	
+	Modele modele; // On en a besoin pour les constructeur d'entité dans les salles
+
 	public Salle[] salles; // Tableau des salle. salles[0] est l'entrée, et la dernière est la salle du
-					// boss
+	// boss
 	Game game;
 	int niveau;
 
@@ -33,7 +33,8 @@ public class Etage {
 		salles[0] = new Salle(j, "entree", game);
 	}
 
-	void creer_salles(EntityManager EM) throws IOException { // créé toutes les salles et leur portes entre l'entrée et le boss
+	void creer_salles(EntityManager EM) throws IOException { // créé toutes les salles et leur portes entre l'entrée et
+																// le boss
 
 		for (int i = 1; i < niveau + 2; i++) {
 			int nbr_de_porte_valide = 0; // Passe à un lorsque le nombre de porte choisi ne créer pas une boucle
@@ -93,20 +94,7 @@ public class Etage {
 				}
 				j++;
 				if (i + j >= niveau + 2) { // Si on arrive sur le dernière salle avant le boss
-					if ((salles[i].Porte_non_liees() == true) && (salles[i + j - 1].Porte_non_liees() == false)) { // Si
-																													// l'on
-																													// se
-																													// retrouve
-																													// bloqué
-																													// car
-																													// pas
-																													// assez
-																													// de
-																													// porte
-																													// dans
-																													// les
-																													// salles
-																													// suivantes
+					if ((salles[i].Porte_non_liees() == true) && (salles[i + j - 1].Porte_non_liees() == false)) {
 						salles[i].Retirer_Portes(salles[i].Trouver_porte_disponible());
 					}
 					j = 1;

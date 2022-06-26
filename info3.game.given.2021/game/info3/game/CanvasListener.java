@@ -27,9 +27,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import Entities.Key;
-
-import java.io.IOException;
-
 import info3.game.graphics.GameCanvasListener;
 
 public class CanvasListener implements GameCanvasListener {
@@ -134,7 +131,8 @@ public class CanvasListener implements GameCanvasListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		//System.out.println("Key pressed: " + e.getKeyChar() + " code=" + e.getKeyCode());
+		// System.out.println("Key pressed: " + e.getKeyChar() + " code=" +
+		// e.getKeyCode());
 		check = keyboard.putIfAbsent(e.getKeyCode(), true);
 		if (check == null)
 			return;
@@ -142,21 +140,11 @@ public class CanvasListener implements GameCanvasListener {
 			keyboard.replace(e.getKeyCode(), true);
 		}
 
-		/*switch (e.getKeyCode()) {
-		case 37:
-		case 38:
-		case 39:
-		case 40:
-			m_game.m_cowboy.movet(e.getKeyCode());
-			break;
-		case 81:
-		case 83:
-		case 90:
-		case 68:
-			m_game.m_cowboy2.movet(e.getKeyCode());
-			break;
-		}
-		;*/
+		/*
+		 * switch (e.getKeyCode()) { case 37: case 38: case 39: case 40:
+		 * m_game.m_cowboy.movet(e.getKeyCode()); break; case 81: case 83: case 90: case
+		 * 68: m_game.m_cowboy2.movet(e.getKeyCode()); break; } ;
+		 */
 	}
 
 	@Override
@@ -165,20 +153,11 @@ public class CanvasListener implements GameCanvasListener {
 		// e.getKeyCode());
 		keyboard.replace(e.getKeyCode(), false);
 
-		/*switch (e.getKeyCode()) {
-		case 37:
-		case 38:
-		case 39:
-		case 40:
-			m_game.m_cowboy.stop(e.getKeyCode());
-			break;
-		case 81:
-		case 83:
-		case 90:
-		case 68:
-			m_game.m_cowboy2.stop(e.getKeyCode());
-			break;
-		}*/
+		/*
+		 * switch (e.getKeyCode()) { case 37: case 38: case 39: case 40:
+		 * m_game.m_cowboy.stop(e.getKeyCode()); break; case 81: case 83: case 90: case
+		 * 68: m_game.m_cowboy2.stop(e.getKeyCode()); break; }
+		 */
 	}
 
 	@Override

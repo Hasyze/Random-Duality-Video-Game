@@ -2,8 +2,8 @@ package automaton;
 
 import Entities.Entity;
 
-public class Get implements IAction{
-	
+public class Get implements IAction {
+
 	public Get() {
 	}
 

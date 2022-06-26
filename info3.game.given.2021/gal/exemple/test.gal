@@ -36,11 +36,8 @@ Joueur2(Init){
 Ennemis(Init){
   * (Init)
   | !(Cell(F,O) / Cell(F,J)) ? Move() :(Init)
-<<<<<<< HEAD
-=======
   | !(Cell(B,O) / Cell(B,J)) ? Move(B) :(Init)
-  | !(Cell(F,O) / Cell(F,J)) ? Move() :(Init)
->>>>>>> origin/merge_22h30
+  | True ? 50 % Move(L) / 50 % Move(R) :(Init)
 }
 
 EnnemisP(Init){

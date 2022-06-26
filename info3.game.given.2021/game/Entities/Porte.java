@@ -29,6 +29,9 @@ public class Porte extends Entity {
 	 * 3 = Ouest
 	 */
 	
+	public Porte(String Name, int m_x, int m_y, Game game) {
+		super(game, "Portail");
+	}
 
 	public Porte(Salle salle, int orientation, Game game) throws IOException {	//Créer une porte dans une salle sans la lié à une autre salle
 		super(game,"Porte");

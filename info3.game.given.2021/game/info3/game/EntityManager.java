@@ -75,6 +75,9 @@ public class EntityManager {
 			// Dynamic.get(i).getvie()+"\n");
 			if (Dynamic.get(i).getvie() == 0) { // mort : ça dégage
 				if ((Dynamic.get(i).getType() != 0) && (Dynamic.get(i).getType() != 4)) {
+					if (Dynamic.get(i).Name == "Boss") {
+						this.EM_add(new Porte(Dynamic.get(i).getx(), Dynamic.get(i).gety(), Dynamic.get(i).));
+					}
 					Dynamic.remove(i);
 					i--;
 				}

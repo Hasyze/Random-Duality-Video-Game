@@ -1,7 +1,5 @@
 package Entities;
 
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import info3.game.EntityManager;
@@ -14,12 +12,11 @@ public class Tireur extends Entity{
 		m_images = loadSprite("resources/Tireur.png", 4, 6);
 		x = m_x;
 		y = m_y;
-		hitbox = new Hitbox(25, x, y, 0);
+		hitbox = new Hitbox(25, x, y);
 		type = 0;
 		speed = 6;
 		vie = 10;	
-		moveCDR = 25;
-		damageCDR = 2000;
+		damageCDR = 1500;
 	}
 
 	public void Teleporte_joueur(int m_x, int m_y) {

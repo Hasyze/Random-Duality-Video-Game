@@ -11,7 +11,7 @@ public class EnnemisProjectile extends Entity {
 		m_images = loadSprite("resources/idle.png", 4, 12);
 		x = m_x;
 		y = m_y;
-		hitbox = new Hitbox(25, x, y, 0);
+		hitbox = new Hitbox(25, x, y);
 		type = 1;
 		speed = 1;
 		vie = 2;
@@ -48,9 +48,9 @@ public class EnnemisProjectile extends Entity {
 
 		
 		if (p1 < p2) {
-			dir = targetDirection(player1.x, player1.y);
+			dir = targetDirection(player1.x, player1.y,100);
 		} else {
-			dir = targetDirection(player2.x, player2.y);
+			dir = targetDirection(player2.x, player2.y,100);
 		}
 		try {
 			EM.EM_add(new Projectile(x, y, 2, dir,3,2,4000, "Balle", 10, game));

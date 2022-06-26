@@ -17,9 +17,7 @@ public class Mur extends Entity {
 		m_images = loadSprite("resources/images_test/noir_20x20.png", 1,1);
 		x = m_x;
 		y = m_y;
-		
-		BufferedImage img = m_images[0];
-		hitbox = new Hitbox(r,x,y,0);
+		hitbox = new Hitbox(r,x,y);
 		type = 6;
 	}
 	

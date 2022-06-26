@@ -12,11 +12,10 @@ public class Ennemis extends Entity {
 		m_images = loadSprite("resources/idle.png", 4, 12);
 		x = m_x;
 		y = m_y;
-		hitbox = new Hitbox(25, x, y, 0);
+		hitbox = new Hitbox(25, x, y);
 		type = 1;
 		speed = 3;
 		vie = 3;
-		moveCDR = 25;
 		waitR = 30;
 	}
 
@@ -30,10 +29,13 @@ public class Ennemis extends Entity {
 		double p1 = game.modele.distance(this.x, this.y, player1.x, player1.y);
 		double p2 = game.modele.distance(this.x, this.y, player2.x, player2.y);
 		if (p1 < p2) {
-			dir = targetDirection(player1.x, player1.y);
+			dir = targetDirection(player1.x, player1.y, 200);
 		} else {
-			dir = targetDirection(player2.x, player2.y);
+			dir = targetDirection(player2.x, player2.y, 200);
 		}
+		
+		
+		
 		this.direction = dir;
 	}
 }

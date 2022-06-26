@@ -19,10 +19,8 @@ public class Mur extends Entity {
 		y = m_y;
 		
 		BufferedImage img = m_images[0];
-		
-		int heigt_hb = img.getHeight()/2;
-		int width_hb = img.getWidth()/2;
-		hitbox = new Hitbox(r,x+width_hb,y+heigt_hb,0);
+
+		hitbox = new Hitbox(r,x,y,0);
 		type = 6;
 		speed = 10;
 	}

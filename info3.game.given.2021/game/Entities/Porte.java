@@ -43,9 +43,7 @@ public class Porte extends Entity {
 		x = m_x;
 		y = m_y;
 		this.type = 7;
-		int heigt_hb = img.getHeight()/2;
-		int width_hb = img.getWidth()/2;
-		hitbox = new Hitbox(20,x+width_hb,y+heigt_hb,0);
+		hitbox = new Hitbox(20,x,y,0);
 		
 	}
 
@@ -79,10 +77,8 @@ public class Porte extends Entity {
 			break;
 			
 		}
-		
-		int heigt_hb = img.getHeight()/2;
-		int width_hb = img.getWidth()/2;
-		hitbox = new Hitbox(20,x+width_hb,y+heigt_hb,0);
+
+		hitbox = new Hitbox(20,x,y,0);
 		type = 7;
 	}
 	

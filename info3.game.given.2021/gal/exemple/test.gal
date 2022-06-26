@@ -18,10 +18,10 @@ Joueur1(Init){
 
 Joueur2(Init){
   * (Init)
-  | Key(FU) & Key(FR) & !(Cell(NW,O) / Cell(NW,J)) ? Move(NE) :(Action)
-  | Key(FU) & Key(FL) & !(Cell(NE,O) / Cell(NE,J)) ? Move(NW) :(Action)
-  | Key(FD) & Key(FR) & !(Cell(SW,O) / Cell(SW,J)) ? Move(SE) :(Action)
-  | Key(FD) & Key(FL) & !(Cell(SE,O) / Cell(SE,J)) ? Move(SW) :(Action)
+  | Key(FU) & Key(FL) & !(Cell(NW,O) / Cell(NW,J)) ? Move(NW) :(Action)
+  | Key(FU) & Key(FR) & !(Cell(NE,O) / Cell(NE,J)) ? Move(NE) :(Action)
+  | Key(FD) & Key(FL) & !(Cell(SW,O) / Cell(SW,J)) ? Move(SW) :(Action)
+  | Key(FD) & Key(FR) & !(Cell(SE,O) / Cell(SE,J)) ? Move(SE) :(Action)
   | Key(FU) & !(Cell(N,J) / Cell(N,O)) ? Move(N) :(Action)
   | Key(FL) & !(Cell(W,J) / Cell(W,O)) ? Move(W) :(Action)
   | Key(FD) & !(Cell(S,J) / Cell(S,O)) ? Move(S) :(Action)

@@ -35,7 +35,6 @@ public class EntityManager {
 
 ////////////////////////////////// ADD	
 	public void EM_add(Entity obj) {
-		System.out.println(obj.Name);
 		if ((obj.getType() == 6) || (obj.getType() == 5)) {
 			New_Static.add(obj);
 		} else {

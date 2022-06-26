@@ -16,7 +16,7 @@ public class Tireur extends Entity {
 		type = 0;
 		speed = 6;
 		vie = 10;
-		damageCDR = 1500;
+		damageCDR = 1000;
 	}
 
 	public void Teleporte_joueur(int m_x, int m_y) {

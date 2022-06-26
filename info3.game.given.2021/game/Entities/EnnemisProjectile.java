@@ -16,6 +16,7 @@ public class EnnemisProjectile extends Entity {
 		speed = 1;
 		vie = 2;
 		moveCDR = 10;
+		hitCDR = 1500;
 	}
 
 	public void tick(EntityManager EM, long elapsed) throws IOException {
@@ -29,7 +30,7 @@ public class EnnemisProjectile extends Entity {
 	public void pop(Direction dir) {
 		if (hitCD > 0)
 			return;
-		hitCD = 2000;
+		hitCD = hitCDR;
 
 		Entity player1 = game.getPlayer1();
 		Entity player2 = game.getPlayer2();
@@ -46,7 +47,5 @@ public class EnnemisProjectile extends Entity {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		hitCD = hitCDR;
-
 	}
 }

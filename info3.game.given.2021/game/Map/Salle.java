@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 
 import Entities.Boss;
 import Entities.Ennemis;
+import Entities.EnnemisProjectile;
 import Entities.Mur;
 import Entities.Porte;
 import Entities.Rocher;
@@ -272,7 +273,6 @@ public class Salle {
 						int r = rand.nextInt(2);
 						switch (r) {
 						case 0 :
-							
 							EM.EM_add(new EnnemisProjectile(i * 40, j * 40, game));
 							break;
 						default:

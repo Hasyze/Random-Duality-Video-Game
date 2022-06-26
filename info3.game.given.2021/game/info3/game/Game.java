@@ -341,10 +341,6 @@ public class Game {
 			this.Init_niv();
 			chgmt_niveau = false;
 		}
-		
-		if (GameOver == true) {
-			Game_Over();
-		}
 
 		// Update every second
 		// the text on top of the frame: tick and fps
@@ -352,6 +348,9 @@ public class Game {
 		if (m_textElapsed > 1000) {
 			m_textElapsed = 0;
 			pitiFantome();
+			if (GameOver == true) {
+				Game_Over();
+			}
 			float period = m_canvas.getTickPeriod();
 			int fps = m_canvas.getFPS();
 

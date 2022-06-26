@@ -35,12 +35,24 @@ Joueur2(Init){
 Ennemis(Init){
   * (Init)
   | True ? Pop() :(Deux)
+  
   * (Deux)
-  | !(Cell(F,O) / Cell(F,J)) ? Move() :(Init)
-  | !(Cell(B,O) / Cell(B,J)) ? Move(B) / Wait() :(Trois)
-  * (Trois)
-  | !(Cell(R,O) / Cell(R,J)) ? Move(R) / Wait() :(Init)
+  | !(Cell(F,O) / Cell(F,J)) ? Move() / Wait() :(Init)
   | True ? :(Trois)
+  
+  *(Trois)
+  | !(Cell(B,O) / Cell(B,J)) ? Move(B) / Wait() :(Quatre)
+  |	True ? :(Init)
+  
+  *(Quatre)
+  | !(Cell(L,O) / Cell(L,J)) ? Move(L) / Wait() :(Deux)
+  | True ? :(Cinq)
+  
+  *(Cinq)
+  | !(Cell(R,O) / Cell(R,J)) ? Move(R) / Wait() :(Deux)
+  | True ? :(Init)
+  
+
 }
 
 EnnemisP(Init){

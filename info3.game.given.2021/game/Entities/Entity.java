@@ -139,7 +139,10 @@ public abstract class Entity extends Object {
 	}
 
 	public void pop(Direction dir) {
-
+		if (hitCD > 0) {
+			return;
+		}
+		hitCD = hitCDR;
 	}
 
 	public void wizz(Direction dir) {
@@ -166,10 +169,7 @@ public abstract class Entity extends Object {
 	}
 
 	public void hit(Direction dir) {
-		if (hitCD > 0) {
-			return;
-		}
-		hitCD = hitCDR;
+	
 	}
 
 	public void protect(Direction dir) {

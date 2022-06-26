@@ -69,64 +69,6 @@ public class Fantome extends Entity {
 		set_orientation();
 	}
 	
-	public void hit(Direction dir) {
-		if(hitCD > 0)
-			return;
-		hitCD = 450;
-		int X = 0;
-		int Y = 0;		
-		switch(dir) {
-		case F:
-			dir = this.direction;
-			break;
-		default:
-			break;
-		}
-		switch (dir) {
-		case NW:
-			X -= 20;
-			Y -= 20;
-			break;
-		case NE:
-			X += 20;
-			Y -= 20;
-			break;
-		case SW:
-			X -= 20;
-			Y += 20;
-			break;
-		case SE:
-			X += 20;
-			Y += 20;
-			break;
-		case W:
-			X -= 20;
-			break;
-		case E:
-			X += 20;
-			break;
-		case N:
-			Y -= 20;
-			break;
-		case S:
-			Y += 20;
-			break;
-		default:
-			break;
-		}
-		
-		try {
-			Projectile balle1 = new Projectile(x+X, y+Y, 3, boussole(Direction.F),2,4,200, "Coup", 35, game);
-			Projectile balle2 = new Projectile(x+X, y+Y, 3, boussole(Direction.L),2,4,200, "Coup", 35, game);
-			Projectile balle3 = new Projectile(x+X, y+Y, 3, boussole(Direction.R),2,4,200, "Coup", 35, game);
-			this.EM.EM_add(balle1);
-			this.EM.EM_add(balle2);
-			this.EM.EM_add(balle3);
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+	
 	
 }

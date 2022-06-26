@@ -34,7 +34,7 @@ Joueur2(Init){
 
 Ennemis(Init){
   * (Init)
-  | True ? Turn() :(Trois)
+  | True ? Turn() :(Deux)
   * (Deux)
   | !(Cell(F,O) / Cell(F,J)) ? Move() :(Init)
   | !(Cell(B,O) / Cell(B,J)) ? Move(B) :(Trois)

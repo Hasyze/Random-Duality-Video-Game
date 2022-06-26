@@ -1,3 +1,4 @@
+
 Joueur1(Init){
   * (Init)
   | Key(z) & Key(q) & !(Cell(NW,O) / Cell(NW,J)) ? Move(NW) :(Action)
@@ -34,18 +35,19 @@ Joueur2(Init){
 
 Ennemis(Init){
   * (Init)
-  | True ? Move() :(Init)
+  | !(Cell(F,O) / Cell(F,J)) ? Move() :(Init)
 }
 
 EnnemisP(Init){
   * (Init)
-  | !(Cell(NW,O) / Cell(NW,J)) ? 96 % Move(F) / 1 % Move(L) / 1 % Move(R) / 1 % Move(B) / 1 % Hit(F) :(Init)
-  | True ? Move(B) :(Init)
+  | !(Cell(F,O) / Cell(F,J)) ? 98 % Move(F) / 2 % Hit(F) :(Init)
+  | True ? 40 % Move(L) / 40 % Move(R) / Move(B) :(Init)
 }
 
 Boss(Init){
   * (Init)
-  | True ? 70%Wait() / 30%Egg() :(Init)
+  | !(Cell(F,O) / Cell(F,J)) ? 98 % Move(F) / 2 % Egg(F) :(Init)
+  | True ? 40 % Move(L) / 40 % Move(R) / Move(B) :(Init)
 }
 
 Fantome1(Init){

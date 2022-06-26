@@ -110,8 +110,8 @@ public class Game {
 		modele = new Modele(this);
 		// m_cowboy = new Cowboy(800, 1000, "Mur", 25, this);
 		// m_cowboy2 = new Cowboy(800, 1100, "Mur", 25, this);
-		Player1 = new Tireur(960, 1000, "Joueur1", 25, this);
-		Player2 = new Tank(980, 1100, "Joueur2", 25, this);
+		Player1 = new Tireur(960, 1000, "Joueur1", this);
+		Player2 = new Tank(980, 1100, "Joueur2", this);
 		// EM.EM_add(m_cowboy);
 		// EM.EM_add(m_cowboy2);
 		EM.EM_add(Player1);

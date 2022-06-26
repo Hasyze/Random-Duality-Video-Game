@@ -9,7 +9,6 @@ public class EnnemisProjectile extends Entity {
 	public EnnemisProjectile(int m_x, int m_y, Game game) throws IOException {
 		super(game, "EnnemisP");
 		m_images = loadSprite("resources/idle.png", 4, 12);
-		this.Name = "EnnemisP";
 		x = m_x;
 		y = m_y;
 		int heigt_hb = (m_images[0].getHeight()) / 2;
@@ -36,9 +35,17 @@ public class EnnemisProjectile extends Entity {
 		super.move(dir);
 		if (moveCD <= 0)
 			moveCD = 25;
+		System.out.print("Ennemis distance move\n");
+
 	}
 	
 	public void hit(Direction dir) {
+		if(hitCD > 0)
+			return;
+		hitCD = 2000;
+		
+		
+		
 		Entity player1 = game.getPlayer1();
 		Entity player2 = game.getPlayer2();
 		double p1 = game.modele.distance(this.x, this.y, player1.x, player1.y);
@@ -51,7 +58,7 @@ public class EnnemisProjectile extends Entity {
 			dir = targetDirection(player2.x, player2.y);
 		}
 		try {
-			EM.EM_add(new Projectile(x, y, 2, boussole(dir),3,2,4000, "Balle", 10, game));
+			EM.EM_add(new Projectile(x, y, 2, dir,3,2,4000, "Balle", 10, game));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

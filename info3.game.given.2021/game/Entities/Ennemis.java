@@ -9,9 +9,7 @@ public class Ennemis extends Entity {
 
 	public Ennemis(int m_x, int m_y, Game game) throws IOException {
 		super(game, "Ennemis");
-		m_images = loadSprite("resources/idle.png", 4, 12
-				);
-		this.Name = "Ennemis";
+		m_images = loadSprite("resources/idle.png", 4, 12);
 		x = m_x;
 		y = m_y;
 		int heigt_hb = (m_images[0].getHeight()) / 2;

@@ -94,7 +94,7 @@ public class Game {
 	int niveau;
 	
 	boolean GameOver;	// False par default, True dès que les deux joueur sont des fantômes 
-	int GameOverCD = 7000;		// Décompte pour afficher Game over à l'ecran puis restart le jeu.
+	int GameOverCD = 7;		// Décompte pour afficher Game over à l'ecran puis restart le jeu.
 
 	public AutomateMap automatemap;
 

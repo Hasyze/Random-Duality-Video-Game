@@ -211,7 +211,8 @@ public abstract class Entity extends Object {
 	}
 
 	public void setVie(int i) {
-		vie += i;
+		
+		vie = i;
 	}
 	
 	public void Teleporte_joueur(int m_x, int m_y) {

@@ -54,6 +54,7 @@ public class Game {
 	BufferedImage bg;
 	BufferedImage heart = (loadSprite("resources/heart.png", 1, 1))[0];
 	BufferedImage heart2 = (loadSprite("resources/heart2.png", 1, 1))[0];
+	BufferedImage[] lifebar = loadSprite("resources/lifebar.png", 3, 1);
 
 	public static BufferedImage[] loadSprite(String filename, int nrows, int ncols) throws IOException {
 		File imageFile = new File(filename);
@@ -257,18 +258,25 @@ public class Game {
 
 	boolean J1dead = false;
 	boolean J2dead = false;
+	boolean switched = false;
+	int deathCD = 0;
+	Entity dead;
 
 	void pitiFantome() {
-		Entity ent;
 		if (!J1dead) {
 			if (Player1.getvie() <= 0) {
-				//switchplayers();
-
+				System.out.println(Player1.getvie());
 				try {
-					ent = Player1;
-					Player1 = new Fantome("Fantome1", Player1.getx(), Player1.gety(), this);
-					EM.EM_remove(ent);
+					dead = Player1;
+
+					if (switched)
+						Player1 = new Fantome("Fantome2", Player1.getx(), Player1.gety(), this);
+					else
+						Player1 = new Fantome("Fantome1", Player1.getx(), Player1.gety(), this);
+					EM.EM_remove(dead);
 					EM.EM_add(Player1);
+
+					deathCD = 100000;
 					J1dead = true;
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -278,28 +286,66 @@ public class Game {
 		if (!J2dead) {
 			if (Player2.getvie() <= 0) {
 				try {
-					ent = Player2;
-					Player2 = new Fantome("Fantome2", Player2.getx(), Player2.gety(), this);
-					EM.EM_remove(ent);
+					dead = Player2;
+
+					if (switched)
+						Player2 = new Fantome("Fantome1", Player2.getx(), Player2.gety(), this);
+					else
+						Player2 = new Fantome("Fantome2", Player2.getx(), Player2.gety(), this);
+					EM.EM_remove(dead);
 					EM.EM_add(Player2);
+					deathCD = 100000;
 					J2dead = true;
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
 		}
+		if (J1dead && deathCD <= 0) {
+
+			int coordx = Player1.getx();
+			int coordy = Player1.gety();
+			EM.EM_remove(Player1);
+			Player1 = dead;
+			Player1.Teleporte_joueur(coordx, coordy);
+			Player1.setVie(10);
+			EM.EM_add(Player1);
+
+			J1dead = false;
+		}
+		if (J2dead && deathCD <= 0) {
+
+			int coordx = Player2.getx();
+			int coordy = Player2.gety();
+			EM.EM_remove(Player2);
+			Player2 = dead;
+			Player2.Teleporte_joueur(coordx, coordy);
+			Player2.setVie(20);
+			EM.EM_add(Player2
+					
+					
+					);
+
+			J1dead = false;
+		}
+
+		// Player1 = new Tireur(960, 1000, "Joueur1", 25, this);
+		// Player2 = new Tank(980, 1100, "Joueur2", 25, this);
+
 	}
-	
 
 	long test = 0;
 
 	void tick(long elapsed) throws Exception {
-		test += elapsed;
-		if (test > 2500) {
-			test = 0;
-			//EM.afficher_EM();
-			// switchplayers();
+		if (!(J1dead || J2dead)) {
+			test += elapsed;
+			if (test > 25000) {
+				test = 0;
+				switchplayers();
+			}
 		}
+		if (deathCD > 0)
+			deathCD -= elapsed;
 
 		// EM TICK STEPS
 		EM.tick(elapsed);
@@ -320,7 +366,11 @@ public class Game {
 		m_textElapsed += elapsed;
 		if (m_textElapsed > 1000) {
 			m_textElapsed = 0;
+			// EM.afficher_EM();
+
 			pitiFantome();
+			// System.out.println(Player1.getvie());
+
 			float period = m_canvas.getTickPeriod();
 			int fps = m_canvas.getFPS();
 
@@ -333,11 +383,38 @@ public class Game {
 	}
 
 	private void lifePrint(Graphics g) {
-		for (int i = 0; i < Player1.getvie(); i++) {
-			g.drawImage(heart, 0 + i * heart.getWidth(), 10, heart.getWidth(), heart.getHeight(), null);
+		g.setColor(Color.cyan);
+		if (Player1.Name.equals("Joueur1")) {
+			for (int i = 0; i < Player1.getvie(); i++) {
+				g.drawImage(heart, 0 + i * heart.getWidth(), 10, heart.getWidth(), heart.getHeight(), null);
+			}
+		} else {
+			g.fillRect(13, 15, (deathCD * 340) / 100000, 16);
+
+			g.drawImage(lifebar[0], 0, 11, lifebar[1].getWidth(), lifebar[1].getHeight(), null);
+			for (int i = 0; i < 10; i++) {
+				g.drawImage(lifebar[1], 0 + ((i + 1) * lifebar[1].getWidth()), 10, lifebar[1].getWidth(),
+						lifebar[1].getHeight(), null);
+			}
+			g.drawImage(lifebar[2], 0 + (11 * lifebar[2].getWidth()), 10, lifebar[2].getWidth(), lifebar[2].getHeight(),
+					null);
+
 		}
-		for (int i = 0; i < Player2.getvie(); i++) {
-			g.drawImage(heart2, 0 + i * heart2.getWidth(), 40, heart2.getWidth(), heart2.getHeight(), null);
+		if (Player2.Name.equals("Joueur2")) {
+			for (int i = 0; i < Player2.getvie(); i++) {
+				g.drawImage(heart2, 0 + i * heart2.getWidth(), 40, heart2.getWidth(), heart2.getHeight(), null);
+			}
+		} else {
+			g.fillRect(13, 45, (deathCD * 340) / 100000, 16);
+
+			g.drawImage(lifebar[0], 0, 41, lifebar[1].getWidth(), lifebar[1].getHeight(), null);
+			for (int i = 0; i < 10; i++) {
+				g.drawImage(lifebar[1], 0 + ((i + 1) * lifebar[1].getWidth()), 40, lifebar[1].getWidth(),
+						lifebar[1].getHeight(), null);
+			}
+			g.drawImage(lifebar[2], 0 + (11 * lifebar[2].getWidth()), 40, lifebar[2].getWidth(), lifebar[2].getHeight(),
+					null);
+
 		}
 	}
 
@@ -345,6 +422,10 @@ public class Game {
 		Automate a = this.Player1.Aut;
 		this.Player1.Aut = this.Player2.Aut;
 		this.Player2.Aut = a;
+		if (switched)
+			switched = false;
+		else
+			switched = true;
 	}
 
 	/*
@@ -383,9 +464,6 @@ public class Game {
 			coinscamY = ymax - height;
 		}
 
-		g.setColor(Color.white);
-		g.fillRect(0, 0, width, height);
-
 		for (int i = 0; i < 1920; i += bg.getWidth()) {
 			for (int j = 0; j < 1920; j += bg.getHeight()) {
 				g.drawImage(bg, -coinscamX + i, -coinscamY + j, bg.getWidth(), bg.getHeight(), null);
@@ -396,6 +474,11 @@ public class Game {
 				Player2.gety() - coinscamY);
 		dessine_salle(g, coinscamX, coinscamY);
 		lifePrint(g);
+
+		g.setColor(Color.cyan);
+		g.fillArc(width - 125, 30, 100, 100, 90, ((int) test * 360) / 25000);
+		g.setColor(Color.black);
+		g.drawOval(width - 125, 30, 100, 100);
 
 	}
 

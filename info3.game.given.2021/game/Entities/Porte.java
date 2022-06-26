@@ -14,9 +14,7 @@ import info3.game.*;
 public class Porte extends Entity {
 	
 	public boolean etat; // =false si porte fermé, =true si porte ouverte
-	
-	String Name = "Porte";
-	
+		
 	public Salle salle_origine;
 	public Salle salle_destination;
 	
@@ -29,8 +27,26 @@ public class Porte extends Entity {
 	 * 3 = Ouest
 	 */
 	
-	public Porte(String Name, int m_x, int m_y, Game game) {
+	public Porte(int m_x, int m_y, Game game) {	//Porte spéciale qui enclenche le changement de niveau
 		super(game, "Portail");
+		try {
+			this.m_images = loadSprite("resources/images_test/jaune_20x20.jpg",1,1);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		BufferedImage img = this.m_images[0];
+		salle_origine = null;
+		orientation_salle_origine = -1;
+		salle_destination = null;
+		orientation_salle_destination = -1;
+		this.etat = true;
+		x = m_x;
+		y = m_y;
+		this.type = 7;
+		int heigt_hb = img.getHeight()/2;
+		int width_hb = img.getWidth()/2;
+		hitbox = new Hitbox(20,x+width_hb,y+heigt_hb,0);
+		
 	}
 
 	public Porte(Salle salle, int orientation, Game game) throws IOException {	//Créer une porte dans une salle sans la lié à une autre salle

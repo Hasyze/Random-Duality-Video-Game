@@ -108,6 +108,12 @@ Porte(Init){
   | True ? :(Open)
 }
 
+Portail(Init){
+  * (Init)
+  | True ? :(Init)
+  
+}
+
 Static(Init){
  * (Init)
   | True ? Wait :(Init)

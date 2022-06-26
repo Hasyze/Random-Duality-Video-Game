@@ -35,8 +35,6 @@ public class EnnemisProjectile extends Entity {
 		super.move(dir);
 		if (moveCD <= 0)
 			moveCD = 25;
-		System.out.print("Ennemis distance move\n");
-
 	}
 	
 	public void hit(Direction dir) {

@@ -273,7 +273,8 @@ public class Salle {
 						int r = rand.nextInt(2);
 						switch (r) {
 						case 0 :
-							//EM.EM_add(new EnnemisProjectile(i * 40, j * 40, game));
+							
+							EM.EM_add(new EnnemisProjectile(i * 40, j * 40, game));
 							break;
 						default :
 							EM.EM_add(new Ennemis(i * 40, j * 40, game));

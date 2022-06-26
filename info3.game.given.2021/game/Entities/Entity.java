@@ -151,6 +151,9 @@ public abstract class Entity extends Object {
 	}
 
 	public void hit(Direction dir) {
+		if(hitCD>0) {
+			return;
+		}
 
 	}
 	public void protect(Direction dir) {
@@ -210,8 +213,7 @@ public abstract class Entity extends Object {
 		return speed;
 	}
 
-	public void setVie(int i) {
-		
+	public void setVie(int i) {	
 		vie = i;
 	}
 	
@@ -293,7 +295,7 @@ public abstract class Entity extends Object {
 	}
 
 	public boolean cell(Direction dir, Type type) {
-		return game.modele.collisions(this, game.EM.sort_affichage(), dir, type);
+		return game.modele.collisions(this, game.EM.getStatic(), dir, type);
 	}
 	public boolean closest(Direction dir, Type type) {
 		

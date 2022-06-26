@@ -19,9 +19,9 @@ public class Tireur extends Entity{
 		int width_hb = (m_images[0].getWidth()) / 2;
 		hitbox = new Hitbox(r, x + width_hb, y + heigt_hb, 0);
 		type = 0;
-		speed = 3;
+		speed = 6;
 		vie = 10;	
-		moveCDR = 8;
+		moveCDR = 25;
 		damageCDR = 2000;
 	}
 

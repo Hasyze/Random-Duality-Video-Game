@@ -33,7 +33,7 @@ public class EntityManager {
 	// return 1 si réussi, 0 sinon
 	public int EM_add(Entity obj) {
 		System.out.println(obj.Name);
-		if (obj.Aut.autStatic()) {
+		if ((obj.getType() == 6) || (obj.getType() == 5)) {
 			// alors il est static;
 			New_Static.add(obj);
 			// System.out.print("Obj : "+ obj.Name +" added to New_Static\n");
@@ -49,7 +49,7 @@ public class EntityManager {
 //////////////////////////////////REMOVE
 //return 1 si réussi, 0 sinon
 	public int EM_remove(Entity obj) {
-		if (obj.Aut.autStatic()) {// alors il est static;
+		if ((obj.getType() == 6) || (obj.getType() == 5)) {// alors il est static;
 			Static.remove(obj);
 			return 1;
 		} else{// alors il est dynamic;
@@ -100,7 +100,7 @@ public class EntityManager {
 	// stocks a list of entities into a list of dyn and static appart.
 	public void list_to_EM(ArrayList<Entity> List) {
 		for (int i = 0; i < List.size(); i++) {
-			if (List.get(i).Aut.autStatic()) {
+			if ((List.get(i).getType() == 6) || (List.get(i).getType() == 5)) {
 				// alors il est static;
 				Static.add(List.get(i));
 			} else {

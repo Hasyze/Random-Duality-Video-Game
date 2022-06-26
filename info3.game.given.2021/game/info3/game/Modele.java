@@ -103,7 +103,7 @@ public class Modele {
 		}
 		int R1 = Obj1.getHitbox().getRayon();
 		int R2 = Obj2.getHitbox().getRayon();
-		return (distance(X1, Y1, X2, Y2) < R1 + R2);
+		return ((distance(X1, Y1, X2, Y2)) <= R1 + R2);
 	}
 	public boolean collision(Entity Obj1, Entity Obj2) {
 		int X1 = Obj1.getx();
@@ -262,13 +262,14 @@ public class Modele {
 	}
 
 	public boolean collisions(Entity Obj, ArrayList<Entity> list, Direction dir, Type type) {
+		boolean ret = false;
 		for (int i = 0; i < list.size(); i++) {
 			Entity elem = list.get(i);
 			if (elem.getType() == convertType(type)) {
 				if (collision(Obj, elem, dir))
-					return true;
+					ret = true;
 			}
 		}
-		return false;
+		return ret;
 	}
 }

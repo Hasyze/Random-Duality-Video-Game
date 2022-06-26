@@ -11,8 +11,8 @@ import info3.game.*;
 
 public abstract class Entity extends Object {
 
-	
-	static final Direction[] boussole =  { Direction.N, Direction.NE, Direction.E, Direction.SE, Direction.S, Direction.SW,Direction.W, Direction.NW };
+	static final Direction[] boussole = { Direction.N, Direction.NE, Direction.E, Direction.SE, Direction.S,
+			Direction.SW, Direction.W, Direction.NW };
 	public Automate Aut; //
 	public String Name; //
 	protected Game game;
@@ -36,14 +36,11 @@ public abstract class Entity extends Object {
 	public long wait = 0;
 
 	// Valeur
-	protected long moveCDR = 10;
+	protected long moveCDR = 25;
 	protected long hitCDR = 200;
 	protected long damageCDR = 250;
 	protected long waitR = 5000;
 
-	
-	public Entity() {}
-	
 	public Entity(Game game) {
 		this.Name = "Undefined";
 		this.game = game;
@@ -172,7 +169,7 @@ public abstract class Entity extends Object {
 		if (hitCD > 0) {
 			return;
 		}
-
+		hitCD = hitCDR;
 	}
 
 	public void protect(Direction dir) {
@@ -322,45 +319,68 @@ public abstract class Entity extends Object {
 
 	public boolean cell(Direction dir, Type type) {
 
-		return game.modele.collisions(this, game.EM.getStatic(), boussole(dir), type); // ICI J'AVAIS MIS BOUSSOLE
+		return game.modele.collisions(this, game.EM.sort_affichage(), boussole(dir), type); // ICI J'AVAIS MIS BOUSSOLE
 	}
 
 	public boolean closest(Direction dir, Type type) {
-
-		return false;
+		
+		return false;//game.modele.collisions(this, game.EM.sort_affichage(), boussole(dir), type);
 	}
 
-	public Direction targetDirection(int x, int y) {
+	public Direction targetDirection(int x, int y, int tolerance) {
 		String res = "";
 
-		if (this.y != y) {
-			if (this.y > y) {
-				res += "N";
-			} else {
-				res += "S";
+		if ((this.y + tolerance >= y && this.y - tolerance <= y)) {
+			if ((this.x + tolerance >= x && this.x - tolerance <= x)) {
+				return targetDirectionSharp(x,y);
 			}
 		}
-		if (this.x != x) {
-			if (this.x > x) {
-				res += "W";
-			} else {
-				res += "E";
-			}
+
+		if (this.y + tolerance < y) {
+			res += "S";
+		} else if (this.y - tolerance > y){
+			res += "N";
 		}
-		if (res == "") {
-			return Direction.F;
+
+		if (this.x + tolerance < x) {
+			res += "E";
+		} else if (this.x - tolerance > x){
+			res += "W";
 		}
+
 		return Direction.valueOf(res);
 	}
+	
+	public Direction targetDirectionSharp(int x, int y) {
+        String res = "";
+        if (this.y != y) {
+            if (this.y > y) {
+                res += "N";
+            } else {
+                res += "S";
+            }
+        }
+        if (this.x != x) {
+            if (this.x > x) {
+                res += "W";
+            } else {
+                res += "E";
+            }
+        }
+        if (res == "") {
+            return Direction.F;
+        }
+        return Direction.valueOf(res);
+    }
+	
+	
 
 	// Prend une direction relative, renvoie la direction absolue correspondante a
 	// cette entitée
-	
-	
-	
+
 	public Direction boussole(Direction dir) {
 		int index = 0;
-		switch(this.direction) {
+		switch (this.direction) {
 		case E:
 			index = 2;
 			break;
@@ -388,7 +408,7 @@ public abstract class Entity extends Object {
 		default:
 			break;
 		}
-		
+
 		switch (dir) {
 		case E:
 			index = 2;

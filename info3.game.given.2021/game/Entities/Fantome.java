@@ -13,7 +13,7 @@ public class Fantome extends Entity {
 		m_images = loadSprite("resources/Fantome.png", 4, 6);
 		x = m_x;
 		y = m_y;
-		hitbox = new Hitbox(25, x, y, 0);
+		hitbox = new Hitbox(25, x, y);
 		type = 0;
 		speed = 3;
 		vie = 1;

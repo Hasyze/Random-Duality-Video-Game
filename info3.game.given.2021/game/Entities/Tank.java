@@ -1,7 +1,5 @@
 package Entities;
 
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import info3.game.EntityManager;
@@ -10,22 +8,16 @@ import info3.game.Game;
 
 public class Tank extends Entity{
 	
-	public Tank() {
-		super();
-		this.direction = Direction.N;
-	}
-	
 	public Tank(int m_x, int m_y, String name, Game game) throws IOException {
 		super(game,name);
 		m_images = loadSprite("resources/Tank.png", 4, 6);
 		x = m_x;
 		y = m_y;
-		hitbox = new Hitbox(25, x, y, 0);
+		hitbox = new Hitbox(25, x, y);
 		type = 0;
 		speed = 6;
 		vie = 20;
-		moveCDR = 25;
-		damageCDR = 2000;
+		damageCDR = 1500;
 		//doublure = new FantomeTank(x,y,r,game);
 	}
 

@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import info3.game.EntityManager;
 import info3.game.Game;
-import info3.game.Modele;
 
 public class Projectile extends Entity {
 		
@@ -16,7 +15,7 @@ public class Projectile extends Entity {
 		this.Name = name;
 		x = m_x;
 		y = m_y;
-		hitbox = new Hitbox(r, x, y, 0);
+		hitbox = new Hitbox(r, x, y);
 		this.type = type;
 		this.speed = speed;
 		this.moveCDR = tickRate;

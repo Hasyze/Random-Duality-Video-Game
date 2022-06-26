@@ -34,7 +34,6 @@ public class Porte extends Entity {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		BufferedImage img = this.m_images[0];
 		salle_origine = null;
 		orientation_salle_origine = -1;
 		salle_destination = null;
@@ -43,14 +42,13 @@ public class Porte extends Entity {
 		x = m_x;
 		y = m_y;
 		this.type = 7;
-		hitbox = new Hitbox(20,x,y,0);
+		hitbox = new Hitbox(20,x,y);
 		
 	}
 
 	public Porte(Salle salle, int orientation, Game game) throws IOException {	//Créer une porte dans une salle sans la lié à une autre salle
 		super(game,"Porte");
 		this.m_images = loadSprite("resources/images_test/jaune_20x20.jpg",1,1);
-		BufferedImage img = this.m_images[0];
 		salle_origine = salle;
 		orientation_salle_origine = orientation;
 		salle_destination = null;
@@ -77,7 +75,7 @@ public class Porte extends Entity {
 			break;
 			
 		}
-		hitbox = new Hitbox(20,x,y,0);
+		hitbox = new Hitbox(20,x,y);
 		type = 7;
 	}
 	

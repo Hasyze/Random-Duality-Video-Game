@@ -217,7 +217,13 @@ public class Modele {
 						Obj2.degatVie(1);
 				}
 				if((type == 7) && ((Porte)Obj2).etat) {
-					game.changement_de_salle = (Porte)Obj2;
+					if ( ((Porte)Obj2).Name == "Porte" ) {
+						game.changement_de_salle = (Porte)Obj2;
+					}
+					else {
+						System.out.print("COLLISION PORTAIL\n");
+						game.chgmt_niveau = true;
+					}
 				}
 				break;
 			case 1:

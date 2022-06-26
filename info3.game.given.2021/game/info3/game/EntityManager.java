@@ -6,15 +6,20 @@ import java.util.Comparator;
 
 import Entities.Entity;
 import Entities.Fantome;
+import Entities.Porte;
 
 public class EntityManager {
+	
+	protected Game game;
+	
 	protected ArrayList<Entity> Dynamic;
 	protected ArrayList<Entity> Static;
 
 	protected ArrayList<Entity> New_Dynamic;
 	protected ArrayList<Entity> New_Static;
 
-	EntityManager() {
+	EntityManager(Game game) {
+		this.game = game;
 		Dynamic = new ArrayList<Entity>();
 		Static = new ArrayList<Entity>();
 		New_Dynamic = new ArrayList<Entity>();
@@ -58,11 +63,18 @@ public class EntityManager {
 		}
 	}
 
-	public void vider_entity_manager() {
+	public void vider_EM_except_players() {
 		this.New_Dynamic.clear();
 		this.New_Static.clear();
 		this.Static.clear();
 		Dynamic.removeIf(n -> n.getType() != 0);
+	}
+	
+	public void vider_EM() {
+		this.New_Dynamic.clear();
+		this.New_Static.clear();
+		this.Static.clear();
+		this.Dynamic.clear();
 	}
 
 	protected void organize() { // regarde toutes les entitées dynamiques, si leur flag vie = 0, alors elles
@@ -75,6 +87,10 @@ public class EntityManager {
 			// Dynamic.get(i).getvie()+"\n");
 			if (Dynamic.get(i).getvie() == 0) { // mort : ça dégage
 				if ((Dynamic.get(i).getType() != 0) && (Dynamic.get(i).getType() != 4)) {
+					if ((Dynamic.get(i).getType() == 1) && (Dynamic.get(i).Name == "Boss") ) {
+						System.out.print("CREATION PORTAIL\n");
+						this.EM_add(new Porte(Dynamic.get(i).getx(), Dynamic.get(i).gety(), this.game));
+					}
 					Dynamic.remove(i);
 					i--;
 				}

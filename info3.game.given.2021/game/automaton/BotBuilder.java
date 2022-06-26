@@ -261,6 +261,8 @@ public class BotBuilder implements IVisitor {
 			return new Pick(af.arguments.get(0));
 		case "Throw":
 			return new Throw(af.arguments.get(0));
+		case "Egg":
+			return new Egg(af.arguments.get(0));
 			
 			
 			

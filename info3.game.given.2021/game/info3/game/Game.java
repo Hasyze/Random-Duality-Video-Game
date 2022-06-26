@@ -89,6 +89,7 @@ public class Game {
 	Salle salle_courante;
 	Porte changement_de_salle; // Prend la valeur d'une porte avec laquelle le joueur rentre en contact pour
 								// faire le changement de salle
+	boolean chgmt_niveau;	//True s'il faut changer de niveau
 	int niveau;
 
 	public AutomateMap automatemap;
@@ -103,31 +104,14 @@ public class Game {
 		return Player2;
 	}
 
-	public Game(AutomateMap map) throws Exception {
+	public Game(AutomateMap map) throws IOException {
 		this.automatemap = map;
 		niveau = 1;
 		changement_de_salle = null;
-		EM = new EntityManager();
+		EM = new EntityManager(this);
 		modele = new Modele(this);
-		// m_cowboy = new Cowboy(800, 1000, "Mur", 25, this);
-		// m_cowboy2 = new Cowboy(800, 1100, "Mur", 25, this);
-		Player1 = new Tireur(960, 1000, "Joueur1", 25, this);
-		Player2 = new Tank(980, 1100, "Joueur2", 25, this);
-		// EM.EM_add(m_cowboy);
-		// EM.EM_add(m_cowboy2);
-		EM.EM_add(Player1);
-		EM.EM_add(Player2);
-
-		etage = new Etage(niveau, this);
-
-		salle_courante = etage.salles[0];
-		// bg = salle_courante.background;
-
-		salle_courante.charger_salle(EM, modele);
-		bg = salle_courante.background;
-
-		niveau += 1; // On prévoie le changement de niveau
-
+		
+		this.Init_niv();
 		// creating a listener for all the events
 		// from the game canvas, that would be
 		// the controller in the MVC pattern
@@ -140,6 +124,22 @@ public class Game {
 		m_frame = m_canvas.createFrame(d);
 		System.out.println("  - setting up the frame...");
 		setupFrame();
+	}
+	
+	public void Init_niv() throws IOException {
+		EM.vider_EM();
+		
+		Player1 = new Tireur(960, 1000, "Joueur1", this);
+		Player2 = new Tank(980, 1100, "Joueur2", this);
+		EM.EM_add(Player1);
+		EM.EM_add(Player2);
+		
+		etage = new Etage(niveau, this);
+		salle_courante = etage.salles[0];
+		salle_courante.charger_salle(EM, modele);
+		bg = salle_courante.background;
+
+		niveau += 1; // On prévoie le changement de niveau
 	}
 
 	public CanvasListener getListener() {
@@ -162,7 +162,7 @@ public class Game {
 	}
 
 	private void Chgmt_salle(Porte porte) throws IOException {
-		EM.vider_entity_manager(); // --> vide l'entity manager sauf les deux cowboy
+		EM.vider_EM_except_players(); // --> vide l'entity manager sauf les deux cowboy
 		salle_courante = porte.salle_destination;
 		salle_courante.charger_salle(EM, modele);
 		bg = salle_courante.background;
@@ -360,6 +360,13 @@ public class Game {
 				e.printStackTrace();
 			}
 		}
+		
+		if (chgmt_niveau == true) {
+			System.out.print("CHANGEMENT NIVEAU INITIALISE\n");
+			this.Init_niv();
+			chgmt_niveau = false;
+		}
+			
 
 		// Update every second
 		// the text on top of the frame: tick and fps

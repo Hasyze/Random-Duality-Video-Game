@@ -10,10 +10,9 @@ public class Ennemis extends Entity {
 	public Ennemis(int m_x, int m_y, Game game) throws IOException {
 		super(game, "Ennemis");
 		m_images = loadSprite("resources/idle.png", 4, 12);
-		this.Name = "Ennemis";
 		x = m_x;
 		y = m_y;
-		hitbox = new Hitbox(25, x , y , 0);
+		hitbox = new Hitbox(25, x, y, 0);
 		type = 1;
 		speed = 1;
 		vie = 3;

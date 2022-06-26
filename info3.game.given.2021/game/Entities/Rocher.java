@@ -16,12 +16,10 @@ public class Rocher extends Entity {
 		super(game,"Rocher");
 		m_images = loadSprite("resources/images_test/marron_20x20.jpg",1,1);
 		//this.m_images = loadSprite("resources/images_test/Rocher2.png",1,1);
-		this.Name = "Rocher";
 		x = m_x;
 		y = m_y;
 		
 		BufferedImage img = m_images[0];
-		
 		
 		hitbox = new Hitbox(20,x,y,0);
 		type = 5;

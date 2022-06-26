@@ -16,7 +16,7 @@ public class Projectile extends Entity {
 		this.Name = name;
 		x = m_x;
 		y = m_y;
-		hitbox = new Hitbox(r, x , y , 0);
+		hitbox = new Hitbox(r, x, y, 0);
 		this.type = type;
 		this.speed = speed;
 		this.moveCDR = tickRate;

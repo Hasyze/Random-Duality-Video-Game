@@ -10,8 +10,7 @@ public class Boss extends Entity {
 
 	public Boss(int m_x, int m_y, Game game) throws IOException {
 		super(game,"Boss");
-		m_images = loadSprite("resources/modgenerator.png", 3, 8);
-		this.Name = "Boss";
+		m_images = loadSprite("resources/Boss.png", 1, 1);
 		x = m_x;
 		y = m_y;
 		hitbox = new Hitbox(40, x, y , 0);

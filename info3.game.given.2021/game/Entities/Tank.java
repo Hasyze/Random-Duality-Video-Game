@@ -10,14 +10,12 @@ import info3.game.Game;
 
 public class Tank extends Entity{
 	
-	public Tank(int m_x, int m_y, String name, int r, Game game) throws IOException {
+	public Tank(int m_x, int m_y, String name, Game game) throws IOException {
 		super(game,name);
 		m_images = loadSprite("resources/Tank.png", 4, 6);
-		this.Name = name;
 		x = m_x;
 		y = m_y;
-		
-		hitbox = new Hitbox(r, x , y , 0);
+		hitbox = new Hitbox(25, x, y, 0);
 		type = 0;
 		speed = 6;
 		vie = 20;

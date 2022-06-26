@@ -9,10 +9,10 @@ public class Projectile extends Entity {
 
 	long duree = 4000;
 
-	public Projectile(int m_x, int m_y, int type, Direction dir, int speed, int tickRate, int duree, String name, int r,
-			Game game) throws IOException {
+	public Projectile(int m_x, int m_y, int type, Direction dir, int speed, int tickRate, int duree, String name,
+			String spriteName, int r, Game game) throws IOException {
 		super(game, name);
-		m_images = loadSprite("resources/images_test/marron_20x20.jpg", 1, 1);
+		m_images = loadSprite("resources/" + spriteName + "." + "png", 1, 1);
 		this.Name = name;
 		x = m_x;
 		y = m_y;

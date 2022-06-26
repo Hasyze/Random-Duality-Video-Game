@@ -65,7 +65,7 @@ public class Tank extends Entity {
 		}
 	}
 
-	public void hit(Direction dir) {
+	public void pop(Direction dir) {
 		if (hitCD > 0)
 			return;
 		hitCD = 450;
@@ -112,9 +112,9 @@ public class Tank extends Entity {
 		}
 
 		try {
-			Projectile balle1 = new Projectile(x + X, y + Y, 3, boussole(Direction.F), 2, 4, 200, "Coup", 35, game);
-			Projectile balle2 = new Projectile(x + X, y + Y, 3, boussole(Direction.L), 2, 4, 200, "Coup", 35, game);
-			Projectile balle3 = new Projectile(x + X, y + Y, 3, boussole(Direction.R), 2, 4, 200, "Coup", 35, game);
+			Projectile balle1 = new Projectile(x + X, y + Y, 3, boussole(Direction.F), 2, 4, 200, "Coup","coup", 35, game);
+			Projectile balle2 = new Projectile(x + X, y + Y, 3, boussole(Direction.L), 2, 4, 200, "Coup","coup", 35, game);
+			Projectile balle3 = new Projectile(x + X, y + Y, 3, boussole(Direction.R), 2, 4, 200, "Coup","coup", 35, game);
 			this.EM.EM_add(balle1);
 			this.EM.EM_add(balle2);
 			this.EM.EM_add(balle3);

@@ -23,7 +23,7 @@ public class Ennemis extends Entity {
 		super.tick(EM, elapsed);
 	}
 
-	public void turn(Direction dir) {
+	public void pop(Direction dir) {
 		Entity player1 = game.getPlayer1();
 		Entity player2 = game.getPlayer2();
 		double p1 = game.modele.distance(this.x, this.y, player1.x, player1.y);

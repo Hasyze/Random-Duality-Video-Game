@@ -26,7 +26,7 @@ public class EnnemisProjectile extends Entity {
 		super.move(dir);
 	}
 
-	public void hit(Direction dir) {
+	public void pop(Direction dir) {
 		if (hitCD > 0)
 			return;
 		hitCD = 2000;
@@ -42,7 +42,7 @@ public class EnnemisProjectile extends Entity {
 			dir = targetDirection(player2.x, player2.y, 100);
 		}
 		try {
-			EM.EM_add(new Projectile(x, y, 2, dir, 3, 2, 4000, "Balle", 10, game));
+			EM.EM_add(new Projectile(x, y, 2, dir, 3, 2, 4000, "Balle","balleE", 10, game));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -55,6 +55,7 @@ public class Game {
 	BufferedImage heart = (loadSprite("resources/heart.png", 1, 1))[0];
 	BufferedImage heart2 = (loadSprite("resources/heart2.png", 1, 1))[0];
 	BufferedImage[] lifebar = loadSprite("resources/lifebar.png", 3, 1);
+	BufferedImage gameover = loadSprite("resources/Game_Over.png", 1, 1)[0];
 
 	public static BufferedImage[] loadSprite(String filename, int nrows, int ncols) throws IOException {
 		File imageFile = new File(filename);
@@ -87,10 +88,13 @@ public class Game {
 
 	Etage etage;
 	Salle salle_courante;
-	Porte changement_de_salle; // Prend la valeur d'une porte avec laquelle le joueur rentre en contact pour
+	Porte chgmt_salle; // Prend la valeur d'une porte avec laquelle le joueur rentre en contact pour
 								// faire le changement de salle
 	boolean chgmt_niveau;	//True s'il faut changer de niveau
 	int niveau;
+	
+	boolean GameOver;	// False par default, True dès que les deux joueur sont des fantômes 
+	int GameOverCD = 7000;		// Décompte pour afficher Game over à l'ecran puis restart le jeu.
 
 	public AutomateMap automatemap;
 
@@ -107,7 +111,9 @@ public class Game {
 	public Game(AutomateMap map) throws IOException {
 		this.automatemap = map;
 		niveau = 1;
-		changement_de_salle = null;
+		chgmt_niveau = false;
+		chgmt_salle = null;
+		GameOver = false;
 		EM = new EntityManager(this);
 		modele = new Modele(this);
 		
@@ -185,7 +191,7 @@ public class Game {
 			Player2.Teleporte_joueur(2 * 40, 25 * 40);
 			break;
 		}
-		changement_de_salle = null;
+		chgmt_salle = null;
 
 	}
 
@@ -265,6 +271,9 @@ public class Game {
 	void pitiFantome() {
 		if (!J1dead) {
 			if (Player1.getvie() <= 0) {
+				if (J2dead) {
+					this.GameOver = true;
+				}
 				System.out.println(Player1.getvie());
 				try {
 					dead = Player1;
@@ -285,6 +294,9 @@ public class Game {
 		}
 		if (!J2dead) {
 			if (Player2.getvie() <= 0) {
+				if (J1dead) {
+					this.GameOver = true;
+				}
 				try {
 					dead = Player2;
 
@@ -351,10 +363,10 @@ public class Game {
 		EM.tick(elapsed);
 		modele.collionsDynamic(EM.getDynamic());
 
-		if (changement_de_salle != null) { // à chaque tick on vérifie qu'il ne faut pas changer de salle
+		if (chgmt_salle != null) { // à chaque tick on vérifie qu'il ne faut pas changer de salle
 			System.out.print("On doit changer de salle");
 			try {
-				Chgmt_salle(changement_de_salle);
+				Chgmt_salle(chgmt_salle);
 
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -366,7 +378,10 @@ public class Game {
 			this.Init_niv();
 			chgmt_niveau = false;
 		}
-			
+		
+		if (GameOver == true) {
+			Game_Over();
+		}
 
 		// Update every second
 		// the text on top of the frame: tick and fps
@@ -387,6 +402,23 @@ public class Game {
 			txt = txt + fps + " fps   ";
 			m_text.setText(txt);
 		}
+	}
+	
+	public void Game_Over() throws IOException {
+		EM.vider_EM_except_players();
+		GameOverCD -= 1;
+		if (GameOverCD == 0) {
+			GameOver = false;
+			niveau = 1;
+			Init_niv();
+		}
+	}
+	
+	public void Game_Over_print(Graphics g) {
+		System.out.print("Affichage de gameover\n");
+		
+		g.drawImage(gameover, m_canvas.getWidth()/2-gameover.getWidth()/2, m_canvas.getHeight()/2-gameover.getHeight()/2, gameover.getWidth(), gameover.getHeight(), null);
+		
 	}
 
 	private void lifePrint(Graphics g) {
@@ -481,6 +513,9 @@ public class Game {
 				Player2.gety() - coinscamY);
 		dessine_salle(g, coinscamX, coinscamY);
 		lifePrint(g);
+		if (GameOver == true) {
+			Game_Over_print(g);
+		}
 
 		g.setColor(Color.cyan);
 		g.fillArc(width - 125, 30, 100, 100, 90, ((int) test * 360) / 25000);

@@ -218,7 +218,7 @@ public class Modele {
 				}
 				if((type == 7) && ((Porte)Obj2).etat) {
 					if ( ((Porte)Obj2).Name == "Porte" ) {
-						game.changement_de_salle = (Porte)Obj2;
+						game.chgmt_salle = (Porte)Obj2;
 					}
 					else {
 						System.out.print("COLLISION PORTAIL\n");

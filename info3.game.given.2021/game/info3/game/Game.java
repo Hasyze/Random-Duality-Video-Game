@@ -238,7 +238,6 @@ public class Game {
 	Entity dead;
 
 	void pitiFantome() {
-		if (!J1dead) {
 			if (Player1.getvie() <= 0) {
 				if (J2dead) {
 					this.GameOver = true;
@@ -260,8 +259,6 @@ public class Game {
 					e.printStackTrace();
 				}
 			}
-		}
-		if (!J2dead) {
 			if (Player2.getvie() <= 0) {
 				if (J1dead) {
 					this.GameOver = true;
@@ -281,7 +278,6 @@ public class Game {
 					e.printStackTrace();
 				}
 			}
-		}
 		if (J1dead && deathCD <= 0) {
 
 			int coordx = Player1.getx();
@@ -462,8 +458,8 @@ public class Game {
 				g.drawImage(bg, -coinscamX + i, -coinscamY + j, bg.getWidth(), bg.getHeight(), null);
 			}
 		}
-		g.drawOval(width / 2 - 5, height / 2 - 5, 10, 10);	//Cercle au milieu de l'écran
-		g.drawLine(Player1.getx() - coinscamX, Player1.gety() - coinscamY, Player2.getx() - coinscamX, Player2.gety() - coinscamY);	//Ligne entre les deux joueurs
+		//g.drawOval(width / 2 - 5, height / 2 - 5, 10, 10);	//Cercle au milieu de l'écran
+		//g.drawLine(Player1.getx() - coinscamX, Player1.gety() - coinscamY, Player2.getx() - coinscamX, Player2.gety() - coinscamY);	//Ligne entre les deux joueurs
 		dessine_salle(g, coinscamX, coinscamY);
 		hud(g);
 		if (GameOver == true) {

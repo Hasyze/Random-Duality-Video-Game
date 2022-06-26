@@ -10,6 +10,11 @@ import info3.game.Game;
 
 public class Tank extends Entity{
 	
+	public Tank() {
+		super();
+		this.direction = Direction.N;
+	}
+	
 	public Tank(int m_x, int m_y, String name, Game game) throws IOException {
 		super(game,name);
 		m_images = loadSprite("resources/Tank.png", 4, 6);

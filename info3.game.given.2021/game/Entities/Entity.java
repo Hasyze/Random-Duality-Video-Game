@@ -6,11 +6,13 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import automaton.Automate;
+
 import info3.game.*;
 
 public abstract class Entity extends Object {
 
+	
+	static final Direction[] boussole =  { Direction.N, Direction.NE, Direction.E, Direction.SE, Direction.S, Direction.SW,Direction.W, Direction.NW };
 	public Automate Aut; //
 	public String Name; //
 	protected Game game;
@@ -32,13 +34,15 @@ public abstract class Entity extends Object {
 	protected long hitCD = 0;
 	protected long damageCD = 0;
 	public long wait = 0;
-	
+
 	// Valeur
 	protected long moveCDR = 10;
 	protected long hitCDR = 200;
 	protected long damageCDR = 250;
 	protected long waitR = 5000;
 
+	
+	public Entity() {}
 	
 	public Entity(Game game) {
 		this.Name = "Undefined";
@@ -50,8 +54,9 @@ public abstract class Entity extends Object {
 		this.EM = game.EM;
 		vie = 1000;
 		speed = 0;
-		//game.automatemap.associate(this);
+		// game.automatemap.associate(this);
 	}
+
 	public Entity(Game game, String name) {
 		this.Name = name;
 		this.game = game;
@@ -81,15 +86,18 @@ public abstract class Entity extends Object {
 		if (moveCD > 0) {
 			return;
 		}
-		
-		switch(dir) {
-		case F:case R: case L: case B:
+
+		switch (dir) {
+		case F:
+		case R:
+		case L:
+		case B:
 			dir = boussole(dir);
 			break;
 		default:
 			break;
 		}
-		
+
 		switch (dir) {
 		case NW:
 			x -= speed;
@@ -146,8 +154,11 @@ public abstract class Entity extends Object {
 	}
 
 	public void turn(Direction dir) {
-		switch(dir) {
-		case F:case R: case L: case B:
+		switch (dir) {
+		case F:
+		case R:
+		case L:
+		case B:
 			dir = boussole(dir);
 			break;
 		default:
@@ -158,40 +169,48 @@ public abstract class Entity extends Object {
 	}
 
 	public void hit(Direction dir) {
-		if(hitCD>0) {
+		if (hitCD > 0) {
 			return;
 		}
 
 	}
+
 	public void protect(Direction dir) {
 
 	}
-	
+
 	public void pick(Direction dir) {
 
 	}
+
 	public void Throw(Direction dir) {
 
 	}
+
 	public void store() {
 
 	}
+
 	public void get() {
 
 	}
+
 	public void power() {
 
 	}
+
 	public void explode() {
 
 	}
+
 	public void egg(Direction dir) {
 	}
 
 	public void paint(Graphics g, int originex, int originey) {
 		BufferedImage img = m_images[m_imageIndex];
 		int scale = 2;
-		g.drawImage(img, x - originex - getWidth(), y - originey - getHeight(), scale * img.getWidth(),scale * img.getHeight(), null);
+		g.drawImage(img, x - originex - getWidth(), y - originey - getHeight(), scale * img.getWidth(),
+				scale * img.getHeight(), null);
 		g.drawOval(x - originex - hitbox.getRayon(), y - originey - hitbox.getRayon(), hitbox.getRayon() * 2,
 				hitbox.getRayon() * 2);
 	}
@@ -220,10 +239,10 @@ public abstract class Entity extends Object {
 		return speed;
 	}
 
-	public void setVie(int i) {	
+	public void setVie(int i) {
 		vie = i;
 	}
-	
+
 	public void Teleporte_joueur(int m_x, int m_y) {
 		x = m_x;
 		y = m_y;
@@ -236,7 +255,7 @@ public abstract class Entity extends Object {
 	}
 
 	public void tick(EntityManager em, long elapsed) throws IOException {
-		if(this.Aut.current().getName().equals(""))
+		if (this.Aut.current().getName().equals(""))
 			vie = 0;
 		if (moveCD > 0)
 			moveCD -= elapsed;
@@ -244,8 +263,8 @@ public abstract class Entity extends Object {
 			damageCD -= elapsed;
 		if (wait > 0)
 			wait -= elapsed;
-		if(hitCD > 0)
-			hitCD-= elapsed;
+		if (hitCD > 0)
+			hitCD -= elapsed;
 		hitbox.relocate(x, y);
 	}
 
@@ -302,15 +321,15 @@ public abstract class Entity extends Object {
 	}
 
 	public boolean cell(Direction dir, Type type) {
-		
-		return game.modele.collisions(this, game.EM.getStatic(), dir, type); //ICI J'AVAIS MIS BOUSSOLE
+
+		return game.modele.collisions(this, game.EM.getStatic(), boussole(dir), type); // ICI J'AVAIS MIS BOUSSOLE
 	}
+
 	public boolean closest(Direction dir, Type type) {
-		
-		
+
 		return false;
 	}
-	
+
 	public Direction targetDirection(int x, int y) {
 		String res = "";
 
@@ -321,22 +340,25 @@ public abstract class Entity extends Object {
 				res += "S";
 			}
 		}
-		if(this.x != x) {
+		if (this.x != x) {
 			if (this.x > x) {
 				res += "W";
 			} else {
 				res += "E";
 			}
 		}
-		if(res == "") {
+		if (res == "") {
 			return Direction.F;
 		}
 		return Direction.valueOf(res);
 	}
+
+	// Prend une direction relative, renvoie la direction absolue correspondante a
+	// cette entitée
 	
-	//Prend une direction relative, renvoie la direction absolue correspondante a cette entitée
+	
+	
 	public Direction boussole(Direction dir) {
-		Direction[] boussole = {Direction.N,Direction.NE,Direction.E,Direction.SE,Direction.S,Direction.SW,Direction.W,Direction.NW};
 		int index = 0;
 		switch(this.direction) {
 		case E:
@@ -364,25 +386,48 @@ public abstract class Entity extends Object {
 			index = 6;
 			break;
 		default:
-			break;	
-		}
-		switch(dir) {
-		case F:
 			break;
+		}
+		
+		switch (dir) {
+		case E:
+			index = 2;
+			break;
+		case N:
+			index = 0;
+			break;
+		case NE:
+			index = 1;
+			break;
+		case NW:
+			index = 7;
+			break;
+		case S:
+			index = 4;
+			break;
+		case SE:
+			index = 3;
+			break;
+		case SW:
+			index = 5;
+			break;
+		case W:
+			index = 6;
+			break;
+		case F:
+			return this.direction;
 		case L:
-			index = (index + 7)%8;
+			index = (index + 7) % 8;
 			break;
 		case R:
-			index = (index + 1)%8;
+			index = (index + 1) % 8;
 			break;
 		case B:
-			index = (index + 4)%8;
+			index = (index + 4) % 8;
 			break;
 		default:
 			break;
 		}
-		
 		return boussole[index];
 	}
-	
 }

@@ -14,9 +14,10 @@ public class Ennemis extends Entity {
 		y = m_y;
 		hitbox = new Hitbox(25, x, y, 0);
 		type = 1;
-		speed = 1;
+		speed = 3;
 		vie = 3;
-		moveCDR = 10;
+		moveCDR = 25;
+		waitR = 30;
 	}
 
 	public void tick(EntityManager EM, long elapsed) throws IOException {

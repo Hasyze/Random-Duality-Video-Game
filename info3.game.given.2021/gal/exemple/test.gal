@@ -34,14 +34,13 @@ Joueur2(Init){
 
 Ennemis(Init){
   * (Init)
-  | True ? Turn() :(Trois)
+  | True ? Turn() :(Deux)
   * (Deux)
   | !(Cell(F,O) / Cell(F,J)) ? Move() :(Init)
-  | !(Cell(B,O) / Cell(B,J)) ? Move(B) :(Trois)
+  | !(Cell(B,O) / Cell(B,J)) ? Move(B) / Wait() :(Trois)
   * (Trois)
-  | !(Cell(E,O) / Cell(E,J)) ? Move(E) :(Trois)
-  | !(Cell(W,O) / Cell(W,J)) ? Move(W) :(Trois)
-  | True ? :(Init)
+  | !(Cell(R,O) / Cell(R,J)) ? Move(R) / Wait() :(Init)
+  | True ? :(Trois)
 }
 
 EnnemisP(Init){

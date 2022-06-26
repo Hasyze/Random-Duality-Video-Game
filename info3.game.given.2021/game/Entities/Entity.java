@@ -31,7 +31,7 @@ public abstract class Entity extends Object {
 	protected long moveCD = 0;
 	protected long hitCD = 0;
 	protected long damageCD = 0;
-	protected long wait = 0;
+	public long wait = 0;
 	
 	// Valeur
 	protected long moveCDR = 10;

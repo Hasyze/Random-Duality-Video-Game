@@ -17,10 +17,10 @@ Joueur1(Init){
 
 Joueur2(Init){
   * (Init)
-  | Key(FU) & Key(FR) & !(Cell(NW,O) / Cell(NW,J)) ? Move(NE) :(Action)
-  | Key(FU) & Key(FL) & !(Cell(NE,O) / Cell(NE,J)) ? Move(NW) :(Action)
-  | Key(FD) & Key(FR) & !(Cell(SW,O) / Cell(SW,J)) ? Move(SE) :(Action)
-  | Key(FD) & Key(FL) & !(Cell(SE,O) / Cell(SE,J)) ? Move(SW) :(Action)
+  | Key(FU) & Key(FL) & !(Cell(NW,O) / Cell(NW,J)) ? Move(NW) :(Action)
+  | Key(FU) & Key(FR) & !(Cell(NE,O) / Cell(NE,J)) ? Move(NE) :(Action)
+  | Key(FD) & Key(FL) & !(Cell(SW,O) / Cell(SW,J)) ? Move(SW) :(Action)
+  | Key(FD) & Key(FR) & !(Cell(SE,O) / Cell(SE,J)) ? Move(SE) :(Action)
   | Key(FU) & !(Cell(N,J) / Cell(N,O)) ? Move(N) :(Action)
   | Key(FL) & !(Cell(W,J) / Cell(W,O)) ? Move(W) :(Action)
   | Key(FD) & !(Cell(S,J) / Cell(S,O)) ? Move(S) :(Action)
@@ -74,15 +74,15 @@ Fantome1(Init){
 
 Fantome2(Init){
   * (Init)
-  | Key(FU) & Key(FR) & !Cell(NW,O) ? Move(NE) :(Action)
-  | Key(FU) & Key(FL) & !Cell(NE,O) ? Move(NW) :(Action)
-  | Key(FD) & Key(FR) & !Cell(SW,O) ? Move(SE) :(Action)
-  | Key(FD) & Key(FL) & !Cell(SE,O) ? Move(SW) :(Action)
+  | Key(FU) & Key(FR) & !Cell(NE,O) ? Move(NE) :(Action)
+  | Key(FU) & Key(FL) & !Cell(NW,O) ? Move(NW) :(Action)
+  | Key(FD) & Key(FR) & !Cell(SE,O) ? Move(SE) :(Action)
+  | Key(FD) & Key(FL) & !Cell(SW,O) ? Move(SW) :(Action)
   | Key(FU) & !Cell(N,O) ? Move(N) :(Action)
   | Key(FL) & !Cell(W,O) ? Move(W) :(Action)
   | Key(FD) & !Cell(S,O) ? Move(S) :(Action)
   | Key(FR) & !Cell(E,O) ? Move(E) :(Action)
-   | Key(ENTER) ? Hit() :(Action)
+  | Key(ENTER) ? Hit() :(Action)
   
   * (Action)
   | Key(ENTER) ? Hit() :(Init)
@@ -92,12 +92,14 @@ Fantome2(Init){
 
 Balle(Init){
  * (Init)
-  | True ? Move() :(Init)
+  | !(Cell(F,O) / Cell(F,J)) ? Move() :(Init)
+  | True ? :()
+ * ()
 }
 
 Coup(Init){
  * (Init)
-  | !Cell(F,O) ? Move() :(Init)
+  | !(Cell(F,O) / Cell(F,J)) ? Move() :(Init)
   | True ? :()
  * ()
 }

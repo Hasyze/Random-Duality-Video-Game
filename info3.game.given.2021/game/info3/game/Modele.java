@@ -60,11 +60,11 @@ public class Modele {
 	public boolean collision(Entity Obj1, Entity Obj2, Direction Dir) {
 		if (Obj1.getType() == Obj2.getType())
 			return false;
-		int X1 = Obj1.getx();
-		int Y1 = Obj1.gety();
+		int X1 = Obj1.getHitbox().getAbscisse();
+		int Y1 = Obj1.getHitbox().getOrdonnee();
 
-		int X2 = Obj2.getx();
-		int Y2 = Obj2.gety();
+		int X2 = Obj2.getHitbox().getAbscisse();
+		int Y2 = Obj2.getHitbox().getOrdonnee();
 
 		int speed = Obj1.getSpeed() + 1;
 		switch (Dir) {
@@ -262,14 +262,13 @@ public class Modele {
 	}
 
 	public boolean collisions(Entity Obj, ArrayList<Entity> list, Direction dir, Type type) {
-		boolean ret = false;
 		for (int i = 0; i < list.size(); i++) {
 			Entity elem = list.get(i);
 			if (elem.getType() == convertType(type)) {
 				if (collision(Obj, elem, dir))
-					ret = true;
+					return true;
 			}
 		}
-		return ret;
+		return false;
 	}
 }

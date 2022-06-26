@@ -14,13 +14,12 @@ public class Boss extends Entity {
 		this.Name = "Boss";
 		x = m_x;
 		y = m_y;
-		int heigt_hb = (m_images[0].getHeight()) / 2;
-		int width_hb = (m_images[0].getWidth()) / 2;
-		hitbox = new Hitbox(40, x + width_hb, y + heigt_hb, 0);
+		hitbox = new Hitbox(40, x, y , 0);
 		type = 1;
 		speed = 4;
 		vie = 25;
 		moveCDR = 20;
+		waitR = 500;
 
 	}
 	
@@ -30,7 +29,6 @@ public class Boss extends Entity {
 
 	
 	public void egg(Direction dir) {
-		System.out.println("PULLULE");
 		Random r = new Random();
 		int j = r.nextInt(3) + 2;
 		for (int i = 0;  i < j; i++) {

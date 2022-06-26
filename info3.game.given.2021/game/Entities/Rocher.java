@@ -22,9 +22,8 @@ public class Rocher extends Entity {
 		
 		BufferedImage img = m_images[0];
 		
-		int heigt_hb = img.getHeight()/2;
-		int width_hb = img.getWidth()/2;
-		hitbox = new Hitbox(20,x+width_hb,y+heigt_hb,0);
+		
+		hitbox = new Hitbox(20,x,y,0);
 		type = 5;
 	}
 	

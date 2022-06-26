@@ -15,9 +15,8 @@ public class Tireur extends Entity{
 		this.Name = name;
 		x = m_x;
 		y = m_y;
-		int heigt_hb = (m_images[0].getHeight()) / 2;
-		int width_hb = (m_images[0].getWidth()) / 2;
-		hitbox = new Hitbox(r, x + width_hb, y + heigt_hb, 0);
+
+		hitbox = new Hitbox(r, x , y , 0);
 		type = 0;
 		speed = 6;
 		vie = 10;	
@@ -84,25 +83,4 @@ public class Tireur extends Entity{
 			e.printStackTrace();
 		}
 	}
-
-	public void paint(Graphics g, int originex, int originey) {
-
-		BufferedImage img = m_images[m_imageIndex];
-		if (vie <= 0) {
-	//		img = doublure.m_images[m_imageIndex];
-		}
-		int scale = 2;
-		g.drawImage(img, x - originex - getWidth(), y - originey - getHeight(), scale * img.getWidth(),
-				scale * img.getHeight(), null);
-		g.drawOval(x - originex - hitbox.getRayon(), y - originey - hitbox.getRayon(), hitbox.getRayon() * 2,
-				hitbox.getRayon() * 2);
-	}
-
-	public int getType() {
-		if (vie <= 0) {
-	//		return doublure.type;
-		}
-		return type;
-	}
-
 }

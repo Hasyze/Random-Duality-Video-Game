@@ -146,6 +146,13 @@ public abstract class Entity extends Object {
 	}
 
 	public void turn(Direction dir) {
+		switch(dir) {
+		case F:case R: case L: case B:
+			dir = boussole(dir);
+			break;
+		default:
+			break;
+		}
 		this.direction = dir;
 
 	}
@@ -295,7 +302,8 @@ public abstract class Entity extends Object {
 	}
 
 	public boolean cell(Direction dir, Type type) {
-		return game.modele.collisions(this, game.EM.getStatic(), dir, type);
+		
+		return game.modele.collisions(this, game.EM.getStatic(), dir, type); //ICI J'AVAIS MIS BOUSSOLE
 	}
 	public boolean closest(Direction dir, Type type) {
 		

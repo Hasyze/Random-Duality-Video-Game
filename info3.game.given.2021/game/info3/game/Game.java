@@ -363,6 +363,10 @@ public class Game {
 	public void Game_Over() throws IOException {
 		EM.vider_EM_except_players();
 		GameOverCD -= 1;
+		
+		
+		
+		
 		if (GameOverCD == 0) {
 			GameOver = false;
 			niveau = 1;
@@ -458,8 +462,8 @@ public class Game {
 				g.drawImage(bg, -coinscamX + i, -coinscamY + j, bg.getWidth(), bg.getHeight(), null);
 			}
 		}
-		//g.drawOval(width / 2 - 5, height / 2 - 5, 10, 10);	//Cercle au milieu de l'écran
-		//g.drawLine(Player1.getx() - coinscamX, Player1.gety() - coinscamY, Player2.getx() - coinscamX, Player2.gety() - coinscamY);	//Ligne entre les deux joueurs
+		g.drawOval(width / 2 - 5, height / 2 - 5, 10, 10);	//Cercle au milieu de l'écran
+		g.drawLine(Player1.getx() - coinscamX, Player1.gety() - coinscamY, Player2.getx() - coinscamX, Player2.gety() - coinscamY);	//Ligne entre les deux joueurs
 		dessine_salle(g, coinscamX, coinscamY);
 		hud(g);
 		if (GameOver == true) {

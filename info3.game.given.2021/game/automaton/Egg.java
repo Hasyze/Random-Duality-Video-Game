@@ -3,7 +3,7 @@ package automaton;
 import Entities.Direction;
 import Entities.Entity;
 
-public class Egg implements IAction{
+public class Egg implements IAction {
 
 	Direction dir;
 

@@ -33,9 +33,7 @@ public class Ennemis extends Entity {
 		} else {
 			dir = targetDirection(player2.x, player2.y, 200);
 		}
-		
-		
-		
+
 		this.direction = dir;
 	}
 }

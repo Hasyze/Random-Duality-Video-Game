@@ -3,7 +3,7 @@ package automaton;
 import Entities.Direction;
 import Entities.Entity;
 
-public class Throw implements IAction{
+public class Throw implements IAction {
 	Direction dir;
 
 	public Throw() {

@@ -1,6 +1,5 @@
 package Map;
 
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
@@ -10,12 +9,11 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
-import Entities.Porte;
-import Entities.Mur;
-import Entities.Rocher;
 import Entities.Boss;
 import Entities.Ennemis;
-import Entities.EnnemisProjectile;
+import Entities.Mur;
+import Entities.Porte;
+import Entities.Rocher;
 import info3.game.EntityManager;
 import info3.game.Game;
 import info3.game.Modele;
@@ -77,8 +75,9 @@ public class Salle {
 										// sautant plus ou moins de ligne
 				Random x = new Random();
 				int j = x.nextInt(2);
-				for (int i = 0; i < (largeur+1)*hauteur * j; i++) { // On saute 2550 caractères (nombre de caractère pour faire un
-														// pattern)si j=1
+				for (int i = 0; i < (largeur + 1) * hauteur * j; i++) { // On saute 2550 caractères (nombre de caractère
+																		// pour faire un
+					// pattern)si j=1
 					r = br.read();
 				}
 			}
@@ -252,9 +251,9 @@ public class Salle {
 				case 50:
 					if ((j == 0) && (portes[0] != null)) {
 						EM.EM_add(portes[0]);
-					} else if ((i == hauteur-1) && (portes[1] != null)) {
+					} else if ((i == hauteur - 1) && (portes[1] != null)) {
 						EM.EM_add(portes[1]);
-					} else if ((j == largeur-1) && (portes[2] != null)) {
+					} else if ((j == largeur - 1) && (portes[2] != null)) {
 						EM.EM_add(portes[2]);
 					} else if ((i == 0) && (portes[3] != null)) {
 						EM.EM_add(portes[3]);
@@ -272,10 +271,10 @@ public class Salle {
 						Random rand = new Random();
 						int r = rand.nextInt(2);
 						switch (r) {
-						case 0 :
-							//EM.EM_add(new EnnemisProjectile(i * 40, j * 40, game));
+						case 0:
+							// EM.EM_add(new EnnemisProjectile(i * 40, j * 40, game));
 							break;
-						default :
+						default:
 							EM.EM_add(new Ennemis(i * 40, j * 40, game));
 							break;
 						}
@@ -285,8 +284,8 @@ public class Salle {
 
 			}
 		}
-		if(this.type == "boss") {
-			EM.EM_add(new Boss(largeur*20, hauteur*20,game));
+		if (this.type == "boss") {
+			EM.EM_add(new Boss(largeur * 20, hauteur * 20, game));
 		}
 	}
 

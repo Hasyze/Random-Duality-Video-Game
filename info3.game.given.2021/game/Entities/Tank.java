@@ -5,11 +5,10 @@ import java.io.IOException;
 import info3.game.EntityManager;
 import info3.game.Game;
 
+public class Tank extends Entity {
 
-public class Tank extends Entity{
-	
 	public Tank(int m_x, int m_y, String name, Game game) throws IOException {
-		super(game,name);
+		super(game, name);
 		m_images = loadSprite("resources/Tank.png", 4, 6);
 		x = m_x;
 		y = m_y;
@@ -18,19 +17,18 @@ public class Tank extends Entity{
 		speed = 6;
 		vie = 20;
 		damageCDR = 1500;
-		//doublure = new FantomeTank(x,y,r,game);
 	}
 
 	public void Teleporte_joueur(int m_x, int m_y) {
 		x = m_x;
 		y = m_y;
 	}
-	
+
 	public void tick(EntityManager EM, long elapsed) throws IOException {
 		super.tick(EM, elapsed);
-		
+
 	}
-	
+
 	public void move(Direction dir) {
 		super.move(dir);
 		set_orientation();
@@ -65,14 +63,15 @@ public class Tank extends Entity{
 		default:
 			break;
 		}
-	}	
+	}
+
 	public void hit(Direction dir) {
-		if(hitCD > 0)
+		if (hitCD > 0)
 			return;
 		hitCD = 450;
 		int X = 0;
-		int Y = 0;		
-		switch(dir) {
+		int Y = 0;
+		switch (dir) {
 		case F:
 			dir = this.direction;
 			break;
@@ -111,11 +110,11 @@ public class Tank extends Entity{
 		default:
 			break;
 		}
-		
+
 		try {
-			Projectile balle1 = new Projectile(x+X, y+Y, 3, boussole(Direction.F),2,4,200, "Coup", 35, game);
-			Projectile balle2 = new Projectile(x+X, y+Y, 3, boussole(Direction.L),2,4,200, "Coup", 35, game);
-			Projectile balle3 = new Projectile(x+X, y+Y, 3, boussole(Direction.R),2,4,200, "Coup", 35, game);
+			Projectile balle1 = new Projectile(x + X, y + Y, 3, boussole(Direction.F), 2, 4, 200, "Coup", 35, game);
+			Projectile balle2 = new Projectile(x + X, y + Y, 3, boussole(Direction.L), 2, 4, 200, "Coup", 35, game);
+			Projectile balle3 = new Projectile(x + X, y + Y, 3, boussole(Direction.R), 2, 4, 200, "Coup", 35, game);
 			this.EM.EM_add(balle1);
 			this.EM.EM_add(balle2);
 			this.EM.EM_add(balle3);

@@ -3,7 +3,7 @@ package automaton;
 import Entities.Direction;
 import Entities.Entity;
 
-public class MyDir implements ICondition{
+public class MyDir implements ICondition {
 	Direction dir;
 
 	public MyDir(String s) {

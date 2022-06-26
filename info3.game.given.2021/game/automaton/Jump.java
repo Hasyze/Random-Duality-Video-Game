@@ -3,7 +3,7 @@ package automaton;
 import Entities.Direction;
 import Entities.Entity;
 
-public class Jump implements IAction{
+public class Jump implements IAction {
 	Direction dir;
 
 	public Jump() {

@@ -323,8 +323,8 @@ public abstract class Entity extends Object {
 	}
 
 	public boolean closest(Direction dir, Type type) {
-		
-		return false;//game.modele.collisions(this, game.EM.sort_affichage(), boussole(dir), type);
+
+		return false;// game.modele.collisions(this, game.EM.sort_affichage(), boussole(dir), type);
 	}
 
 	public Direction targetDirection(int x, int y, int tolerance) {
@@ -332,48 +332,46 @@ public abstract class Entity extends Object {
 
 		if ((this.y + tolerance >= y && this.y - tolerance <= y)) {
 			if ((this.x + tolerance >= x && this.x - tolerance <= x)) {
-				return targetDirectionSharp(x,y);
+				return targetDirectionSharp(x, y);
 			}
 		}
 
 		if (this.y + tolerance < y) {
 			res += "S";
-		} else if (this.y - tolerance > y){
+		} else if (this.y - tolerance > y) {
 			res += "N";
 		}
 
 		if (this.x + tolerance < x) {
 			res += "E";
-		} else if (this.x - tolerance > x){
+		} else if (this.x - tolerance > x) {
 			res += "W";
 		}
 
 		return Direction.valueOf(res);
 	}
-	
+
 	public Direction targetDirectionSharp(int x, int y) {
-        String res = "";
-        if (this.y != y) {
-            if (this.y > y) {
-                res += "N";
-            } else {
-                res += "S";
-            }
-        }
-        if (this.x != x) {
-            if (this.x > x) {
-                res += "W";
-            } else {
-                res += "E";
-            }
-        }
-        if (res == "") {
-            return Direction.F;
-        }
-        return Direction.valueOf(res);
-    }
-	
-	
+		String res = "";
+		if (this.y != y) {
+			if (this.y > y) {
+				res += "N";
+			} else {
+				res += "S";
+			}
+		}
+		if (this.x != x) {
+			if (this.x > x) {
+				res += "W";
+			} else {
+				res += "E";
+			}
+		}
+		if (res == "") {
+			return Direction.F;
+		}
+		return Direction.valueOf(res);
+	}
 
 	// Prend une direction relative, renvoie la direction absolue correspondante a
 	// cette entitée

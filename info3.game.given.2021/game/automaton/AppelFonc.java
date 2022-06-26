@@ -19,7 +19,7 @@ public class AppelFonc {
 		this.percent = percent;
 		this.arguments = chaine;
 	}
-	
+
 	public void addArgument(String arg) {
 		arguments.add(arg);
 	}

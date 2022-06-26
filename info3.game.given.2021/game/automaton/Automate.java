@@ -8,20 +8,21 @@ public class Automate {
 	public String name;
 	Etat current;
 	List<Etat> etats;
-	
+
 	public Automate() {
 	}
-	
+
 	public Automate(String name, Etat initial, List<Etat> etats, Type type) {
 		this.name = name;
 		this.current = initial;
 		this.etats = etats;
 	}
+
 	public Automate(String Name) {
 		name = Name;
-		current = new Etat("Init");	
+		current = new Etat("Init");
 	}
-	
+
 	public Automate copy() {
 		Automate a = new Automate();
 		a.name = this.name;
@@ -29,24 +30,25 @@ public class Automate {
 		a.etats = etats;
 		return a;
 	}
-	
+
 	public Etat current() {
 		return current;
 	}
-	
+
 	public void addEtat(Etat e) {
 		etats.add(e);
 	}
-		
+
 	public void step(Entity e) throws Exception {
 		Etat etat = null;
 		etat = current.doTransition(e);
-		if(etat != null) {
+		if (etat != null) {
 			current = etat;
 		}
 	}
+
 	public boolean autStatic() {
-        return (this.name.equals("Static"));
-    }
+		return (this.name.equals("Static"));
+	}
 
 }

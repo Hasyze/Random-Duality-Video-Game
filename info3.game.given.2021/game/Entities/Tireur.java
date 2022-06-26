@@ -5,17 +5,17 @@ import java.io.IOException;
 import info3.game.EntityManager;
 import info3.game.Game;
 
-public class Tireur extends Entity{
-	
+public class Tireur extends Entity {
+
 	public Tireur(int m_x, int m_y, String name, Game game) throws IOException {
-		super(game,name);
+		super(game, name);
 		m_images = loadSprite("resources/Tireur.png", 4, 6);
 		x = m_x;
 		y = m_y;
 		hitbox = new Hitbox(25, x, y);
 		type = 0;
 		speed = 6;
-		vie = 10;	
+		vie = 10;
 		damageCDR = 1500;
 	}
 
@@ -27,12 +27,12 @@ public class Tireur extends Entity{
 	public void tick(EntityManager EM, long elapsed) throws IOException {
 		super.tick(EM, elapsed);
 	}
-	
+
 	public void move(Direction dir) {
 		super.move(dir);
 		set_orientation();
 	}
-	
+
 	public void set_orientation() {
 		switch (this.direction) {
 		case NW:
@@ -63,15 +63,14 @@ public class Tireur extends Entity{
 			break;
 		}
 	}
-	
 
 	public void hit(Direction dir) {
-		if(hitCD > 0)
+		if (hitCD > 0)
 			return;
 		hitCD = 750;
 		Projectile balle;
 		try {
-			balle = new Projectile(x, y, 3, this.direction, 3,2,4000, "Balle", 10, game);
+			balle = new Projectile(x, y, 3, this.direction, 3, 2, 4000, "Balle", 10, game);
 			this.EM.EM_add(balle);
 
 		} catch (IOException e) {

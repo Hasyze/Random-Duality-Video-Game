@@ -1,11 +1,11 @@
 package Menu;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
 
-import automaton.*;
+import automaton.Automate;
+import automaton.BotBuilder;
 import info3.game.Game;
 
 public class Menu {
@@ -24,9 +24,7 @@ public class Menu {
 		List<Automate> ListAut = b.loadAutomata("gal/exemple/test.gal");
 		AutomateMap map = new AutomateMap();
 		String[] Entities = { "Joueur1", "Joueur2", "Ennemis", "EnnemisP", "Boss", "Fantome1", "Fantome2", "Balle", "Coup", "Porte", "Portail", "Mur", "Rocher"};
-		//Ressource res = AutomatonAssociator(ListAut);
 		AutomatonAssociator(map,ListAut, Entities);
-		//GameLauncher(res);
 		GameLauncher(map);
 		
 	}

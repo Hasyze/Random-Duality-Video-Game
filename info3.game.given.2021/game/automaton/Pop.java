@@ -4,8 +4,7 @@ import Entities.Direction;
 import Entities.Entity;
 
 public class Pop implements IAction {
-	
-	
+
 	Direction dir;
 
 	public Pop() {
